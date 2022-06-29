@@ -12,9 +12,8 @@ public class AccountInformationPage {
     Faker faker;
     String config = "config.properties";
 
-    public AccountInformationPage(WebDriver driver, TestUtility testUtility) {
+    public AccountInformationPage(WebDriver driver) {
         this.driver = driver;
-        this.testUtility = testUtility;
         PageFactory.initElements(driver,this);
     }
 
