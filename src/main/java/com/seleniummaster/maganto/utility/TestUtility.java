@@ -33,6 +33,10 @@ public class TestUtility {
         String lastName=faker.name().lastName();
         return lastName;
     }
+    public String generateMiddleName(){
+        String middleName=faker.name().nameWithMiddle();
+        return middleName;
+    }
 
     public void waitForAlertPresent(){
         WebDriverWait wai=new WebDriverWait(driver,timeout);
