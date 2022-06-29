@@ -19,11 +19,6 @@ public class MyDashboardPage {
     @FindBy(css = "li[class=\"current\"]>a strong")
     WebElement myOrdersLink;
 
-    @FindBy(css = "tr.first.odd > td.a-center.view.last > span > a:nth-child(1)")
-    WebElement viewOrderLink;
-
-    @FindBy(css = "div.page-title.title-buttons>h1")
-    WebElement orderNumber;
 
 
     public void clickOnMyOrdersLink() {
@@ -31,10 +26,6 @@ public class MyDashboardPage {
         myOrdersLink.click();
     }
 
-    public void clickOnViewOrderLink() {
-        testUtility.waitForElementPresent(viewOrderLink);
-        viewOrderLink.click();
-    }
 
 
 
