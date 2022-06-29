@@ -1,5 +1,4 @@
 package com.seleniummaster.maganto.frontendpages;
-import com.github.javafaker.Faker;
 import com.seleniummaster.maganto.utility.TestUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,11 +8,11 @@ import org.openqa.selenium.support.PageFactory;
 public class AccountInformationPage {
     WebDriver driver;
     TestUtility testUtility;
-    Faker faker;
     String config = "config.properties";
 
     public AccountInformationPage(WebDriver driver) {
         this.driver = driver;
+        testUtility=new TestUtility(driver);
         PageFactory.initElements(driver,this);
     }
 
@@ -29,7 +28,7 @@ public class AccountInformationPage {
 
     public void editAccountInformation() {
         testUtility.waitForElementPresent(middleNameField);
-        middleNameField.sendKeys(faker.name().nameWithMiddle());
+        middleNameField.sendKeys(testUtility.generateMiddleName());
         testUtility.waitForElementPresent(currentPasswordField);
         currentPasswordField.sendKeys(config, "password");
         testUtility.waitForElementPresent(saveButton);
