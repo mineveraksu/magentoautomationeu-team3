@@ -4,6 +4,7 @@ import com.seleniummaster.maganto.utility.TestUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class AccountInformationPage {
     WebDriver driver;
@@ -14,6 +15,7 @@ public class AccountInformationPage {
     public AccountInformationPage(WebDriver driver, TestUtility testUtility) {
         this.driver = driver;
         this.testUtility = testUtility;
+        PageFactory.initElements(driver,this);
     }
 
     @FindBy(id = "middlename")
