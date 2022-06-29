@@ -18,7 +18,9 @@ public class MyDashboardPage {
 
     @FindBy(css = "li[class=\"current\"]>a strong")
     WebElement myOrdersLink;
-
+    // for click account information
+    @FindBy(linkText = "Account Information")
+    WebElement accountInformationLink;
 
 
     public void clickOnMyOrdersLink() {
@@ -26,7 +28,10 @@ public class MyDashboardPage {
         myOrdersLink.click();
     }
 
-
+    public void clickOnAccountInformationLink(){
+        testUtility.waitForElementPresent(accountInformationLink);
+        accountInformationLink.click();
+    }
 
 
 }
