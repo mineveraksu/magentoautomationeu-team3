@@ -25,9 +25,9 @@ public class LoginPage {
     @FindBy(css = "p.welcome-msg")
     WebElement loginVerifyMessage;
 
-    public LoginPage(WebDriver driver, TestUtility utility) {
+    public LoginPage(WebDriver driver) {
         this.driver = driver;
-        this.utility = utility;
+        utility=new TestUtility(driver);
         PageFactory.initElements(driver, this);
     }
 
