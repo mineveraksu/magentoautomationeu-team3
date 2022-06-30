@@ -8,11 +8,12 @@ import org.openqa.selenium.chrome.ChromeOptions;
 public class BasePage {
     WebDriver driver;
 
-    public void driverSetup(){
+    public void driverSetup(String url){
         WebDriverManager.chromedriver().setup();
         ChromeOptions chromeOptions=new ChromeOptions();
         driver=new ChromeDriver(chromeOptions);
         driver.manage().window().maximize();
+        driver.get(url);
     }
 
     public void closeDriver(){
