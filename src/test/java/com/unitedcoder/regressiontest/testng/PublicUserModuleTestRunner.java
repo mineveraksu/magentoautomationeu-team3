@@ -3,6 +3,7 @@ package com.unitedcoder.regressiontest.testng;
 import com.seleniummaster.maganto.frontendpages.AccountInformationPage;
 import com.seleniummaster.maganto.frontendpages.LoginPage;
 import com.seleniummaster.maganto.frontendpages.MyDashboardPage;
+import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.BasePage;
 import com.seleniummaster.maganto.utility.TestResultListener;
 import org.openqa.selenium.WebDriver;
@@ -16,13 +17,15 @@ import org.testng.annotations.Test;
 public class PublicUserModuleTestRunner extends BasePage {
     WebDriver driver;
     LoginPage loginPage;
+    String config = "config.properties";
     MyDashboardPage dashboardPage;
     AccountInformationPage accountInformationPage;
 
     @BeforeClass
     public void setup(ITestContext context){
-        driverSetup();
+        driverSetup(ApplicationConfig.readFromConfigProperties(config,"puburl"));
         context.setAttribute("driver",driver);
+        loginPage=new LoginPage(driver);
         loginPage.login();
         dashboardPage=new MyDashboardPage(driver);
         accountInformationPage=new AccountInformationPage(driver);
@@ -30,7 +33,6 @@ public class PublicUserModuleTestRunner extends BasePage {
 
     @Test(description ="EditAccountInformation")
     public void EditAccountInformation(){
-        loginPage.login();
         dashboardPage.verifyLogin();
         dashboardPage.clickOnAccountInformationLink();
         accountInformationPage.editAccountInformation();
