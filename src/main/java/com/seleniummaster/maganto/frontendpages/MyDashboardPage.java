@@ -22,7 +22,15 @@ public class MyDashboardPage {
     @FindBy(linkText = "Account Information")
     WebElement accountInformationLink;
 
+    @FindBy(css = "p.welcome-msg")
+    WebElement loginVerifyMessage;
 
+    public boolean verifyLogin() {
+        testUtility.waitForElementPresent(loginVerifyMessage);
+        if (driver.getPageSource().contains(loginVerifyMessage.getText()))
+            System.out.println("login successfully");
+        return true;
+    }
     public void clickOnMyOrdersLink() {
         testUtility.waitForElementPresent(myOrdersLink);
         myOrdersLink.click();
