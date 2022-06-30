@@ -16,9 +16,10 @@ public class MyDashboardPage {
         testUtility = new TestUtility(driver);
     }
 
-    @FindBy(css = "li[class=\"current\"]>a strong")
+    @FindBy(css = ".block-content>ul>li:nth-child(4)")
     WebElement myOrdersLink;
-    // for click account information
+    @FindBy(css = ".nav-primary>li.level0.nav-3.parent")
+    WebElement saleLink;
     @FindBy(linkText = "Account Information")
     WebElement accountInformationLink;
 
@@ -39,6 +40,11 @@ public class MyDashboardPage {
     public void clickOnAccountInformationLink(){
         testUtility.waitForElementPresent(accountInformationLink);
         accountInformationLink.click();
+    }
+
+    public void clickOnSaleLink(){
+        testUtility.waitForElementPresent(saleLink);
+        saleLink.click();
     }
 
 

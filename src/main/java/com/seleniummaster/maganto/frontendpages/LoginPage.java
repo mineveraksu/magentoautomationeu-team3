@@ -22,7 +22,8 @@ public class LoginPage {
     WebElement passWordField;
     @FindBy(id = "send2")
     WebElement loginButton;
-
+    @FindBy(css = "p.welcome-msg")
+    WebElement loginVerifyMessage;
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
@@ -44,5 +45,10 @@ public class LoginPage {
         loginButton.click();
     }
 
-
+    public boolean verifyLogin() {
+        utility.waitForElementPresent(loginVerifyMessage);
+        if (driver.getPageSource().contains(loginVerifyMessage.getText()))
+            System.out.println("login successfully");
+        return true;
+    }
 }
