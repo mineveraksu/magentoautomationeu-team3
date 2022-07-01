@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
 public class ShoppingCartPage {
 
@@ -17,8 +18,8 @@ public class ShoppingCartPage {
     @FindBy(xpath ="//a[@class=\"cart-link\"]")
     WebElement ViewShoppingCartLink;
 
-    @FindBy(css = ".empty")  //xpath="//p[@class="empty"]"
-    WebElement emptyMessageDisplayed;
+    //@FindBy(css = ".empty")  //xpath="//p[@class="empty"]"
+   // WebElement emptyMessageDisplayed;
 
     @FindBy(xpath ="td[@class = 'product-cart-actions']//a[text() = 'Edit']" )
     WebElement EditIcon;
@@ -29,8 +30,12 @@ public class ShoppingCartPage {
     @FindBy(linkText = "Body Wash with Lemon Flower Extract and Aloe Vera was updated in your shopping cart.")
     WebElement SuccessMessageDisplayed;
 
+    @FindBy(xpath = "//label[text() = 'Size']/parent::dt//following-sibling::dd//select")
+    WebElement sizeSelector;
+
     //create constructor
     public ShoppingCartPage(WebDriver driver) {
+
         this.driver = driver;
         PageFactory.initElements(driver, this);
         testUtility = new TestUtility(driver);
@@ -48,11 +53,13 @@ public class ShoppingCartPage {
        testUtility.waitForElementPresent(EditIcon);
         EditIcon.click();
     }
-    // public void inputQTYBox(int QTY_Number){
-    // functionPage.waitUntilElementIsPresent(QTY_input,30);
-    //  QTY_input.sendKeys("3");
 
-    // }
+    public void selectSize(){
+        testUtility.waitForElementPresent(sizeSelector);
+        Select select = new Select(sizeSelector);
+        select.selectByIndex(3);
+    }
+
     public void clickUpdateCartLink(){
         testUtility.waitForElementPresent(UpdateCARTLink);
         UpdateCARTLink.click();
@@ -63,7 +70,7 @@ public class ShoppingCartPage {
         clickCartLink();
         clickViewShoppingCartLink();
         clickEditIcon();
-        //inputQTYBox(3);
+       selectSize();
         clickUpdateCartLink();
 
     }
@@ -74,6 +81,8 @@ public class ShoppingCartPage {
             System.out.println("Update shopping cart successfully");
         return true;
     }
+
+
 
 
 }
