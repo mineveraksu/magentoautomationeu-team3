@@ -1,4 +1,5 @@
 package com.seleniummaster.maganto.frontendpages;
+import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.TestUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -30,7 +31,7 @@ public class AccountInformationPage {
         testUtility.waitForElementPresent(middleNameField);
         middleNameField.sendKeys(testUtility.generateMiddleName());
         testUtility.waitForElementPresent(currentPasswordField);
-        currentPasswordField.sendKeys(config, "password");
+        currentPasswordField.sendKeys(ApplicationConfig.readFromConfigProperties(config,"password"));
         testUtility.waitForElementPresent(saveButton);
         saveButton.click();
     }

@@ -20,30 +20,25 @@ public class MyOrdersPage {
         testUtility = new TestUtility(driver);
     }
 
-    @FindBy(css = "tr.first.odd > td.a-center.view.last > span > a:nth-child(1)")
-    WebElement viewOrderLink;
-
     @FindAll(
 
-            @FindBy(css = "div.page-title.title-buttons>h1")
+            @FindBy(css = "tr.first.odd")
     )
-    List<WebElement> orderNumber;
+    List<WebElement> myOrders;
 
     @FindBy(css = "div.my-account")
     WebElement allOrderTable;
 
-    public void clickOnViewOrderLink() {
-        testUtility.waitForElementPresent(viewOrderLink);
-        viewOrderLink.click();
-    }
-
     public boolean viewOrders() {
         testUtility.waitForElementPresent(allOrderTable);
-        if (orderNumber.size() > 0)
-            System.out.println("A User Should be Able to View his/her Orders test passed");
-        return true;
+        if (myOrders.size() > 0) {
+            System.out.println("A User Should be Able to View his/her Orders Test is Passed!");
+            return true;
+        }else{
+            System.out.println("A User Should be Able to View his/her Orders Test is Failed!");
+            return false;
+        }
+
     }
-
-
 
 }
