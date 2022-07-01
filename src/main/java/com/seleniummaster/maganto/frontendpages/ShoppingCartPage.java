@@ -21,13 +21,14 @@ public class ShoppingCartPage {
     //@FindBy(css = ".empty")  //xpath="//p[@class="empty"]"
    // WebElement emptyMessageDisplayed;
 
-    @FindBy(xpath ="td[@class = 'product-cart-actions']//a[text() = 'Edit']" )
+   // @FindBy(xpath ="td[@class = 'product-cart-actions']//a[text() = 'Edit']" )
+    @FindBy(css =".product-cart-actions>ul li a[title]")
     WebElement EditIcon;
 
     @FindBy(xpath = "//span[text()=\"Update Cart\"]")
     WebElement UpdateCARTLink;
 
-    @FindBy(linkText = "Body Wash with Lemon Flower Extract and Aloe Vera was updated in your shopping cart.")
+    @FindBy(css= ".success-msg>ul>li>span")
     WebElement SuccessMessageDisplayed;
 
     @FindBy(xpath = "//label[text() = 'Size']/parent::dt//following-sibling::dd//select")
@@ -66,11 +67,11 @@ public class ShoppingCartPage {
 
     }
 
-    public void updateShoppingCart(){
+    public void updateShoppingCart() {
         clickCartLink();
         clickViewShoppingCartLink();
         clickEditIcon();
-       selectSize();
+        selectSize();
         clickUpdateCartLink();
 
     }

@@ -50,6 +50,13 @@ public class PublicUserModuleTestRunner extends BasePage {
         salePage.addProductsToCart();
         Assert.assertTrue(salePage.verifyProductsAddedToCart());
     }
+    @Test(priority = 4,description = "A User Should be Able to add products to shopping cart")
+    public void updateShoppingCart(){
+        ShoppingCartPage shoppingCartPage=new ShoppingCartPage(driver);
+        shoppingCartPage.updateShoppingCart();
+        Assert.assertTrue(shoppingCartPage.verifyUpdateShoppingCart());
+
+    }
 
     @Test
     public void testMyDownloadableProducts() {
@@ -65,6 +72,7 @@ public class PublicUserModuleTestRunner extends BasePage {
 
     @AfterClass
     public void tearDown(){
+
         closeBrowser();
     }
 
