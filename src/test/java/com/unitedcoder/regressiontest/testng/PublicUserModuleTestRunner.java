@@ -1,9 +1,6 @@
 package com.unitedcoder.regressiontest.testng;
 
-import com.seleniummaster.maganto.frontendpages.AccountInformationPage;
-import com.seleniummaster.maganto.frontendpages.LoginPage;
-import com.seleniummaster.maganto.frontendpages.MyDashboardPage;
-import com.seleniummaster.maganto.frontendpages.MyOrdersPage;
+import com.seleniummaster.maganto.frontendpages.*;
 import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.BasePage;
 import com.seleniummaster.maganto.utility.TestResultListener;
@@ -18,6 +15,7 @@ public class PublicUserModuleTestRunner extends BasePage {
     MyDashboardPage dashboardPage;
     AccountInformationPage accountInformationPage;
     MyOrdersPage myOrdersPage;
+    SalePage salePage;
 
     @BeforeClass
     public void setup(ITestContext context){
@@ -29,6 +27,7 @@ public class PublicUserModuleTestRunner extends BasePage {
         dashboardPage=new MyDashboardPage(driver);
         accountInformationPage=new AccountInformationPage(driver);
         myOrdersPage=new MyOrdersPage(driver);
+        salePage=new SalePage(driver);
     }
 
     @Test(description ="EditAccountInformation")
@@ -41,9 +40,20 @@ public class PublicUserModuleTestRunner extends BasePage {
 
     @Test(description = "A User Should be Able to View his/her Orders")
     public void viewOrders(){
-        dashboardPage.clickOnMyOrdersLink();
-        Assert.assertTrue(myOrdersPage.viewOrders());
+//        dashboardPage.clickOnMyOrdersLink();
+//        Assert.assertTrue(myOrdersPage.viewOrders());
+    }
 
+    @Test(description = "A User Should be Able to add products to shopping cart")
+    public void addProductsToCart(){
+        dashboardPage.clickOnSaleLink();
+        salePage.addProductsToCart();
+        Assert.assertTrue(salePage.verifyProductsAddedToCart());
+    }
+
+    @AfterClass
+    public void tearDown(){
+        closeBrowser();
     }
 
 

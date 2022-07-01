@@ -18,7 +18,7 @@ public class BasePage {
         driver.get(url);
     }
 
-    public void closeDriver(){
+    public void closeBrowser(){
         driver.quit();
     }
 }
