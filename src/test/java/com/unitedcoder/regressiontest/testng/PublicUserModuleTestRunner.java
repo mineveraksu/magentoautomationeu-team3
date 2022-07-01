@@ -1,17 +1,12 @@
 package com.unitedcoder.regressiontest.testng;
 
-import com.seleniummaster.maganto.frontendpages.AccountInformationPage;
-import com.seleniummaster.maganto.frontendpages.LoginPage;
-import com.seleniummaster.maganto.frontendpages.MyDashboardPage;
+import com.seleniummaster.maganto.frontendpages.*;
 import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.BasePage;
 import com.seleniummaster.maganto.utility.TestResultListener;
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.ITestContext;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Listeners;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 @Listeners(TestResultListener.class)
 public class PublicUserModuleTestRunner extends BasePage {
@@ -19,6 +14,8 @@ public class PublicUserModuleTestRunner extends BasePage {
     LoginPage loginPage;
     MyDashboardPage dashboardPage;
     AccountInformationPage accountInformationPage;
+    MyOrdersPage myOrdersPage;
+    SalePage salePage;
 
     @BeforeClass
     public void setup(ITestContext context){
@@ -29,14 +26,54 @@ public class PublicUserModuleTestRunner extends BasePage {
         loginPage.login();
         dashboardPage=new MyDashboardPage(driver);
         accountInformationPage=new AccountInformationPage(driver);
+        myOrdersPage=new MyOrdersPage(driver);
+        salePage=new SalePage(driver);
     }
 
-    @Test(description ="EditAccountInformation")
+    @Test(priority = 1, description ="EditAccountInformation")
     public void EditAccountInformation(){
         dashboardPage.verifyLogin();
         dashboardPage.clickOnAccountInformationLink();
         accountInformationPage.editAccountInformation();
         Assert.assertTrue(accountInformationPage.verifyEditAccountInformation());
+    }
+
+    @Test(priority = 2, description = "A User Should be Able to View his/her Orders")
+    public void viewOrders(){
+        dashboardPage.clickOnMyOrdersLink();
+        Assert.assertTrue(myOrdersPage.viewOrders());
+    }
+
+    @Test(priority = 3, description = "A User Should be Able to add products to shopping cart")
+    public void addProductsToCart(){
+        dashboardPage.clickOnSaleLink();
+        salePage.addProductsToCart();
+        Assert.assertTrue(salePage.verifyProductsAddedToCart());
+    }
+    @Test(priority = 4,description = "A User Should be Able to add products to shopping cart")
+    public void updateShoppingCart(){
+        ShoppingCartPage shoppingCartPage=new ShoppingCartPage(driver);
+        shoppingCartPage.updateShoppingCart();
+        Assert.assertTrue(shoppingCartPage.verifyUpdateShoppingCart());
+
+    }
+
+    @Test
+    public void testMyDownloadableProducts() {
+
+        MyDashboardPage dashboardPage = new MyDashboardPage(driver);
+        dashboardPage.clickOnMyDownloadableProductsLink();
+
+        MyDownloadableProductsPage downloadableProductsPage = new MyDownloadableProductsPage(driver);
+
+        Assert.assertTrue(downloadableProductsPage.isDownloadableProductsExist());
+
+    }
+
+    @AfterClass
+    public void tearDown(){
+
+        closeBrowser();
     }
 
 
