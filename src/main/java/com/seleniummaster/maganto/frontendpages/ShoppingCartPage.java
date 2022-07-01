@@ -21,7 +21,8 @@ public class ShoppingCartPage {
     //@FindBy(css = ".empty")  //xpath="//p[@class="empty"]"
    // WebElement emptyMessageDisplayed;
 
-    @FindBy(xpath ="td[@class = 'product-cart-actions']//a[text() = 'Edit']" )
+   // @FindBy(xpath ="td[@class = 'product-cart-actions']//a[text() = 'Edit']" )
+    @FindBy(css =".product-cart-actions>ul li a[title]")
     WebElement EditIcon;
 
     @FindBy(xpath = "//span[text()=\"Update Cart\"]")
@@ -66,11 +67,11 @@ public class ShoppingCartPage {
 
     }
 
-    public void updateShoppingCart(){
+    public void updateShoppingCart() {
         clickCartLink();
         clickViewShoppingCartLink();
         clickEditIcon();
-       selectSize();
+        selectSize();
         clickUpdateCartLink();
 
     }

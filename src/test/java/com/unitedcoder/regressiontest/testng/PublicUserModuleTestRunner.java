@@ -50,9 +50,17 @@ public class PublicUserModuleTestRunner extends BasePage {
         salePage.addProductsToCart();
         Assert.assertTrue(salePage.verifyProductsAddedToCart());
     }
+    @Test(description = "A User Should be Able to add products to shopping cart")
+    public void updateShoppingCart(){
+        ShoppingCartPage shoppingCartPage=new ShoppingCartPage(driver);
+        shoppingCartPage.updateShoppingCart();
+        Assert.assertTrue(shoppingCartPage.verifyUpdateShoppingCart());
+
+    }
 
     @AfterClass
     public void tearDown(){
+
         closeBrowser();
     }
 
