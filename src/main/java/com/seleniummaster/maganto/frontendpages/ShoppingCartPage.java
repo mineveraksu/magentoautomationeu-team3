@@ -28,7 +28,7 @@ public class ShoppingCartPage {
     @FindBy(xpath = "//span[text()=\"Update Cart\"]")
     WebElement UpdateCARTLink;
 
-    @FindBy(linkText = "Body Wash with Lemon Flower Extract and Aloe Vera was updated in your shopping cart.")
+    @FindBy(css= ".success-msg>ul>li>span")
     WebElement SuccessMessageDisplayed;
 
     @FindBy(xpath = "//label[text() = 'Size']/parent::dt//following-sibling::dd//select")
