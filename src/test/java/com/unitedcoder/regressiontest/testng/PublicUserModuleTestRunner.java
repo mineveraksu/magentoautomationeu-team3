@@ -15,7 +15,6 @@ import org.testng.annotations.Test;
 
 @Listeners(TestResultListener.class)
 public class PublicUserModuleTestRunner extends BasePage {
-    WebDriver driver;
     LoginPage loginPage;
     String config = "config.properties";
     MyDashboardPage dashboardPage;
