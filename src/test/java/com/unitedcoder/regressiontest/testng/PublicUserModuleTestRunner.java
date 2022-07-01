@@ -51,6 +51,18 @@ public class PublicUserModuleTestRunner extends BasePage {
         Assert.assertTrue(salePage.verifyProductsAddedToCart());
     }
 
+    @Test
+    public void testMyDownloadableProducts() {
+
+        MyDashboardPage dashboardPage = new MyDashboardPage(driver);
+        dashboardPage.clickOnMyDownloadableProductsLink();
+
+        MyDownloadableProductsPage downloadableProductsPage = new MyDownloadableProductsPage(driver);
+
+        Assert.assertTrue(downloadableProductsPage.isDownloadableProductsExist());
+
+    }
+
     @AfterClass
     public void tearDown(){
         closeBrowser();
