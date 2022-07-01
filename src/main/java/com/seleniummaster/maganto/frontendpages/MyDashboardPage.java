@@ -10,13 +10,18 @@ public class MyDashboardPage {
     WebDriver driver;
     TestUtility testUtility;
 
-    @FindBy(css = "li[class=\"current\"]>a strong")
+    @FindBy(css = ".block-content>ul>li:nth-child(4)")
     WebElement myOrdersLink;
-    // for click account information
-    @FindBy(linkText = "Account Information")
+    @FindBy(css = ".nav-primary>li.level0.nav-3.parent")
+    WebElement saleLink;
+    @FindBy(xpath = "//div[@class=\"block-content\"]//ul//li[2]/a")
     WebElement accountInformationLink;
+
     @FindBy(css = "p.welcome-msg")
     WebElement loginVerifyMessage;
+
+    @FindBy(xpath = "//a[text() = 'My Downloadable Products']")
+    WebElement myDownloadableProductsLink;
 
 
 
@@ -40,6 +45,25 @@ public class MyDashboardPage {
         testUtility.waitForElementPresent(accountInformationLink);
         accountInformationLink.click();
     }
+
+    public void clickOnSaleLink(){
+        testUtility.waitForElementPresent(saleLink);
+        saleLink.click();
+    }
+
+    public void clickOnMyDownloadableProductsLink() {
+        testUtility.waitForElementPresent(myDownloadableProductsLink);
+        myDownloadableProductsLink.click();
+    }
+
+    public MyDownloadableProductsPage clickMyDownloadableProductsLink() {
+        testUtility.waitForElementPresent(myDownloadableProductsLink);
+        myDownloadableProductsLink.click();
+        return new MyDownloadableProductsPage(driver);
+    }
+
+
+
 
 
 }
