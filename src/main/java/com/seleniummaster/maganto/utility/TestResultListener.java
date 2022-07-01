@@ -17,6 +17,10 @@ public class TestResultListener implements ITestListener {
         screenShotUtility.takeScreenshot("image",result.getMethod().getMethodName(),
                 (WebDriver) result.getTestContext().getAttribute("driver"));
     }
+    public void onTestSkipped(ITestResult result) {
+        screenShotUtility.takeScreenshot("image",result.getMethod().getMethodName(),
+                (WebDriver) result.getTestContext().getAttribute("driver"));
+    }
 
 
 

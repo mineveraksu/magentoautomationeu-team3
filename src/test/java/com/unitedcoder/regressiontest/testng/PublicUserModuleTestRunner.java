@@ -16,6 +16,7 @@ public class PublicUserModuleTestRunner extends BasePage {
     AccountInformationPage accountInformationPage;
     MyOrdersPage myOrdersPage;
     SalePage salePage;
+    AddressBookPage addressBookPage;
 
     @BeforeClass
     public void setup(ITestContext context){
@@ -28,6 +29,8 @@ public class PublicUserModuleTestRunner extends BasePage {
         accountInformationPage=new AccountInformationPage(driver);
         myOrdersPage=new MyOrdersPage(driver);
         salePage=new SalePage(driver);
+        addressBookPage=new AddressBookPage(driver);
+
     }
 
     @Test(priority = 1, description ="EditAccountInformation")
@@ -37,6 +40,7 @@ public class PublicUserModuleTestRunner extends BasePage {
         accountInformationPage.editAccountInformation();
         Assert.assertTrue(accountInformationPage.verifyEditAccountInformation());
     }
+
 
     @Test(priority = 2, description = "A User Should be Able to View his/her Orders")
     public void viewOrders(){
@@ -55,6 +59,24 @@ public class PublicUserModuleTestRunner extends BasePage {
         ShoppingCartPage shoppingCartPage=new ShoppingCartPage(driver);
         shoppingCartPage.updateShoppingCart();
         Assert.assertTrue(shoppingCartPage.verifyUpdateShoppingCart());
+
+    }
+    @Test(description = "user should be able to update and view address book")
+    public void updateAndViewAddressBook(){
+        dashboardPage.verifyLogin();
+        dashboardPage.clickOnAddressBookLink();
+        addressBookPage.clickONEditNewAddressButton();
+        addressBookPage.enterFirstName();
+        addressBookPage.enterLastName();
+        addressBookPage.enterPhoneNumber();
+        addressBookPage.enterStreetAddress();
+        addressBookPage.enterCity();
+        addressBookPage.enterZipCode();
+        addressBookPage.selectCountry();
+        addressBookPage.clickONSaveAddressButton();
+        Assert.assertTrue(dashboardPage.verifyUpdatedAddressBookSuccessful());
+        dashboardPage.clickOnAddressBookLink();
+        Assert.assertTrue(dashboardPage.verifyViewUpdatedAddressBook());
 
     }
 
