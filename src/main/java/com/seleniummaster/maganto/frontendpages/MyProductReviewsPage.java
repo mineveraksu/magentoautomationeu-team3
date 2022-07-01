@@ -8,6 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class MyProductReviewsPage {
+
     WebDriver driver;
     TestUtility testUtility;
     String config = "config.properties";
