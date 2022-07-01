@@ -4,16 +4,16 @@ import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.TestUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
 
 public class LoginPage {
     WebDriver driver;
     TestUtility utility;
     String config = "config.properties";
 
-    @FindBy(css = ".account-cart-wrapper>a>span.label")
+    @FindBy(css = "a.skip-link.skip-account")
     WebElement accountLink;
     @FindBy(xpath = "//a[text()='Log In']")
     WebElement loginLink;
@@ -33,7 +33,7 @@ public class LoginPage {
     }
 
     public void login() {
-        utility.waitForElementPresent(accountLink);
+       // utility.waitForElementPresent(accountLink);
         accountLink.click();
         utility.waitForElementPresent(loginLink);
         loginLink.click();
