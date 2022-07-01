@@ -10,22 +10,21 @@ public class MyDashboardPage {
     WebDriver driver;
     TestUtility testUtility;
 
-    public MyDashboardPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-        testUtility = new TestUtility(driver);
-    }
-
     @FindBy(css = ".block-content>ul>li:nth-child(4)")
     WebElement myOrdersLink;
     @FindBy(css = ".nav-primary>li.level0.nav-3.parent")
     WebElement saleLink;
-    @FindBy(linkText = "Account Information")
+    @FindBy(xpath = "//div[@class=\"block-content\"]//ul//li[2]/a")
     WebElement accountInformationLink;
 
     @FindBy(css = "p.welcome-msg")
     WebElement loginVerifyMessage;
 
+    public MyDashboardPage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+        testUtility = new TestUtility(driver);
+    }
     public boolean verifyLogin() {
         testUtility.waitForElementPresent(loginVerifyMessage);
         if (driver.getPageSource().contains(loginVerifyMessage.getText()))

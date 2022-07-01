@@ -14,16 +14,16 @@ import org.testng.annotations.*;
 
 @Listeners(TestResultListener.class)
 public class PublicUserModuleTestRunner extends BasePage {
-    WebDriver driver;
+    final String configFile = "config.properties";
     LoginPage loginPage;
-    String config = "config.properties";
     MyDashboardPage dashboardPage;
     AccountInformationPage accountInformationPage;
     MyOrdersPage myOrdersPage;
 
     @BeforeClass
     public void setup(ITestContext context){
-        driverSetup(ApplicationConfig.readFromConfigProperties(config,"puburl"));
+        String url=ApplicationConfig.readFromConfigProperties(configFile,"puburl");
+        browserSetUp(url);
         context.setAttribute("driver",driver);
         loginPage=new LoginPage(driver);
         loginPage.login();
