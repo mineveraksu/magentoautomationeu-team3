@@ -32,18 +32,25 @@ public class SalePage {
         testUtility.waitForElementPresent(viewDetailsButton);
         viewDetailsButton.click();
         testUtility.waitForElementPresent(colorDropDownList);
+        colorDropDownList.click();
         Select select=new Select(colorDropDownList);
-        select.selectByIndex(2);
+        select.selectByIndex(1);
         testUtility.waitForElementPresent(sizeDropDownList);
-        select.selectByIndex(4);
+        Select select1=new Select(sizeDropDownList);
+        sizeDropDownList.click();
+        select1.selectByIndex(3);
         addToCartButton.click();
     }
 
     public boolean verifyProductsAddedToCart(){
         testUtility.waitForElementPresent(addedToCardSuccessMessage);
         if(addedToCardSuccessMessage.getText().contains("was added to your shopping cart.")){
-            System.out.println("Add products to shopping cart Test Passed");
+            System.out.println("Add products to shopping cart Test Passed !!");
+            return true;
+        }else{
+            System.out.println("Add products to shopping cart Test Failed !!");
+            return false;
         }
-        return true;
+
     }
 }

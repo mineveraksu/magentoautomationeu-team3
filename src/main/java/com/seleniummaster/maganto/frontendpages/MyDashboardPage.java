@@ -20,6 +20,11 @@ public class MyDashboardPage {
     @FindBy(css = "p.welcome-msg")
     WebElement loginVerifyMessage;
 
+    @FindBy(xpath = "//a[text() = 'My Downloadable Products']")
+    WebElement myDownloadableProductsLink;
+
+
+
     public MyDashboardPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -45,6 +50,20 @@ public class MyDashboardPage {
         testUtility.waitForElementPresent(saleLink);
         saleLink.click();
     }
+
+    public void clickOnMyDownloadableProductsLink() {
+        testUtility.waitForElementPresent(myDownloadableProductsLink);
+        myDownloadableProductsLink.click();
+    }
+
+    public MyDownloadableProductsPage clickMyDownloadableProductsLink() {
+        testUtility.waitForElementPresent(myDownloadableProductsLink);
+        myDownloadableProductsLink.click();
+        return new MyDownloadableProductsPage(driver);
+    }
+
+
+
 
 
 }
