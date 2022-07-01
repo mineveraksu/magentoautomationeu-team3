@@ -24,7 +24,7 @@ public class FilterCustomerPage {
     WebElement searchButton;
 
     @FindBy(css = "tr>td:nth-child(4)")
-    WebElement customerID;
+    WebElement customerEmail;
 
     public void clickEmailField() {
         testUtility.waitForElementPresent(emailField);
@@ -34,8 +34,8 @@ public class FilterCustomerPage {
     }
 
     public boolean verifyFilterCustomerByEmail() {
-        testUtility.waitForElementPresent(customerID);
-        if (driver.getPageSource().contains(customerID.getText())) {
+        testUtility.waitForElementPresent(customerEmail);
+        if (driver.getPageSource().contains(customerEmail.getText())) {
             System.out.println("Customer Manager can filter customers by Email Test is Passed!");
             return true;
         } else {
