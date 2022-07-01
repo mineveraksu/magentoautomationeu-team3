@@ -59,6 +59,7 @@ public class AddressBookPage {
     }
 
     public void enterPhoneNumber() {
+
         testUtility.waitForElementPresent(telephoneField);
         telephoneField.clear();
         telephoneField.sendKeys(excelUtility.readFromExcelCell(excelFile, "Address-Book", 3, 1));
