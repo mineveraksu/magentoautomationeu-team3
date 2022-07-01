@@ -6,12 +6,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class TestUtility {
+public class TestUtility{
     private int timeout=Integer.parseInt(ApplicationConfig.readFromConfigProperties(
             "config.properties","timeout"
     ));
 
-    private WebDriver driver;
+    WebDriver driver;
 
     Faker faker=new Faker();
 
@@ -32,6 +32,10 @@ public class TestUtility {
     public String generateLastName(){
         String lastName=faker.name().lastName();
         return lastName;
+    }
+    public String generateMiddleName(){
+        String middleName=faker.name().nameWithMiddle();
+        return middleName;
     }
 
     public void waitForAlertPresent(){
