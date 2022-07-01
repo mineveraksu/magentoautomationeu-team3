@@ -26,8 +26,6 @@ public class AddressBookPage {
     WebElement street_1Field;
     @FindBy(id = "city")
     WebElement cityField;
-    @FindBy(id = "region_id")
-    WebElement regionStateSelectField;
     @FindBy(id = "zip")
     WebElement zipField;
     @FindBy(id = "country")
@@ -43,44 +41,44 @@ public class AddressBookPage {
         excelUtility = new ExcelUtility();
     }
 
-    public void clickONAddNewAddressButton() {
+    public void clickONEditNewAddressButton() {
         testUtility.waitForElementPresent(editAddressLink);
         editAddressLink.click();
     }
 
     public void enterFirstName() {
         testUtility.waitForElementPresent(firstNameField);
+        firstNameField.clear();
         firstNameField.sendKeys(testUtility.generateFirstName());
     }
 
     public void enterLastName() {
         testUtility.waitForElementPresent(lastNameField);
+        lastNameField.clear();
         lastNameField.sendKeys(testUtility.generateLastName());
     }
 
     public void enterPhoneNumber() {
         testUtility.waitForElementPresent(telephoneField);
+        telephoneField.clear();
         telephoneField.sendKeys(excelUtility.readFromExcelCell(excelFile, "Address-Book", 3, 1));
     }
 
     public void enterStreetAddress() {
         testUtility.waitForElementPresent(street_1Field);
+        street_1Field.clear();
         street_1Field.sendKeys(excelUtility.readFromExcelCell(excelFile, "Address-Book", 0, 1));
     }
 
     public void enterCity() {
         testUtility.waitForElementPresent(cityField);
+        cityField.clear();
         cityField.sendKeys(excelUtility.readFromExcelCell(excelFile, "Address-Book", 1, 1));
-    }
-
-    public void selectState() {
-        testUtility.waitForElementPresent(regionStateSelectField);
-        Select select = new Select(regionStateSelectField);
-        select.selectByValue("2");
     }
 
     public void enterZipCode() {
         testUtility.waitForElementPresent(zipField);
+        zipField.clear();
         zipField.sendKeys(excelUtility.readFromExcelCell(excelFile, "Address-Book", 2, 1));
     }
     public void selectCountry() {

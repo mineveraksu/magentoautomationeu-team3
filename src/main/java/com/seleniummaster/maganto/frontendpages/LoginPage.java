@@ -9,7 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage {
     WebDriver driver;
-    TestUtility utility;
+    TestUtility testUtility;
     String config = "config.properties";
 
     @FindBy(xpath = "(//span[text()='Account'])[1]")
@@ -22,33 +22,28 @@ public class LoginPage {
     WebElement passWordField;
     @FindBy(id = "send2")
     WebElement loginButton;
-    @FindBy(css = "p.welcome-msg")
-    WebElement loginVerifyMessage;
+
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
-        PageFactory.initElements(driver,this);
-        utility=new TestUtility(driver);
+        PageFactory.initElements(driver, this);
+        testUtility=new TestUtility(driver);
+
     }
 
     public void login() {
         driver.get(ApplicationConfig.readFromConfigProperties(config, "puburl"));
-        utility.waitForElementPresent(accountLink);
+        testUtility.waitForElementPresent(accountLink);
         accountLink.click();
-        utility.waitForElementPresent(loginLink);
+        testUtility.waitForElementPresent(loginLink);
         loginLink.click();
-        utility.waitForElementPresent(emailField);
+        testUtility.waitForElementPresent(emailField);
         emailField.sendKeys(ApplicationConfig.readFromConfigProperties(config, "email"));
-        utility.waitForElementPresent(passWordField);
+        testUtility.waitForElementPresent(passWordField);
         passWordField.sendKeys(ApplicationConfig.readFromConfigProperties(config, "password"));
-        utility.waitForElementPresent(loginButton);
+        testUtility.waitForElementPresent(loginButton);
         loginButton.click();
     }
 
-    public boolean verifyLogin() {
-        utility.waitForElementPresent(loginVerifyMessage);
-        if (driver.getPageSource().contains(loginVerifyMessage.getText()))
-            System.out.println("login successfully");
-        return true;
-    }
+
 }

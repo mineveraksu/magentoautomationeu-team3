@@ -16,6 +16,7 @@ public class PublicUserModuleTestRunner extends BasePage {
     AccountInformationPage accountInformationPage;
     MyOrdersPage myOrdersPage;
     SalePage salePage;
+    AddressBookPage addressBookPage;
 
     @BeforeClass
     public void setup(ITestContext context){
@@ -28,6 +29,7 @@ public class PublicUserModuleTestRunner extends BasePage {
         accountInformationPage=new AccountInformationPage(driver);
         myOrdersPage=new MyOrdersPage(driver);
         salePage=new SalePage(driver);
+        addressBookPage=new AddressBookPage(driver);
     }
 
     @Test(description ="EditAccountInformation")
@@ -46,9 +48,28 @@ public class PublicUserModuleTestRunner extends BasePage {
 
     @Test(description = "A User Should be Able to add products to shopping cart")
     public void addProductsToCart(){
-        dashboardPage.clickOnSaleLink();
+       // dashboardPage.clickOnSaleLink();
         salePage.addProductsToCart();
         Assert.assertTrue(salePage.verifyProductsAddedToCart());
+    }
+    @Test(description = "user should be able to update and view address book")
+    public void updateAndViewAddressBook()
+    {
+        dashboardPage.verifyLogin();
+       // dashboardPage.clickOnAddressBookLink();
+        addressBookPage.clickONEditNewAddressButton();
+        addressBookPage.enterFirstName();
+        addressBookPage.enterLastName();
+        addressBookPage.enterPhoneNumber();
+        addressBookPage.enterStreetAddress();
+        addressBookPage.enterCity();
+        addressBookPage.enterZipCode();
+        addressBookPage.selectCountry();
+        addressBookPage.clickONSaveAddressButton();
+        //dashboardPage.isAddressBookUpdatedSuccessful();
+       // Assert.assertTrue(dashboardPage.isAddressBookUpdatedSuccessful());
+      // dashboardPage.clickOnAddressBookLink();
+       // Assert.assertTrue(dashboardPage.isAddressBookUpdatedViewable());
     }
 
     @AfterClass

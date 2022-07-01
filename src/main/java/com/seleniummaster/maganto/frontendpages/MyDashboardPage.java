@@ -10,19 +10,27 @@ public class MyDashboardPage {
     WebDriver driver;
     TestUtility testUtility;
 
-    public MyDashboardPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-        testUtility = new TestUtility(driver);
-    }
-
     @FindBy(css = "li[class=\"current\"]>a strong")
     WebElement myOrdersLink;
     // for click account information
     @FindBy(linkText = "Account Information")
     WebElement accountInformationLink;
+    @FindBy(css = "p.welcome-msg")
+    WebElement loginVerifyMessage;
 
 
+
+    public MyDashboardPage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+        testUtility = new TestUtility(driver);
+    }
+    public boolean verifyLogin() {
+        testUtility.waitForElementPresent(loginVerifyMessage);
+        if (driver.getPageSource().contains(loginVerifyMessage.getText()))
+            System.out.println("login successfully");
+        return true;
+    }
     public void clickOnMyOrdersLink() {
         testUtility.waitForElementPresent(myOrdersLink);
         myOrdersLink.click();
