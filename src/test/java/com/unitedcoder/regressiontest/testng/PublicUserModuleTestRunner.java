@@ -60,14 +60,9 @@ public class PublicUserModuleTestRunner extends BasePage {
 
     @Test
     public void testMyDownloadableProducts() {
-
-        MyDashboardPage dashboardPage = new MyDashboardPage(driver);
         dashboardPage.clickOnMyDownloadableProductsLink();
-
         MyDownloadableProductsPage downloadableProductsPage = new MyDownloadableProductsPage(driver);
-
         Assert.assertTrue(downloadableProductsPage.isDownloadableProductsExist());
-
     }
 
     @AfterClass
