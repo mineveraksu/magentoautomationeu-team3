@@ -23,6 +23,9 @@ public class MyDashboardPage {
     @FindBy(xpath = "//a[text() = 'My Downloadable Products']")
     WebElement myDownloadableProductsLink;
 
+//    @FindBy(css = ".block-content>ul>li:nth-child(7)")
+//    WebElement myProductReviewsLink;
+
 
 
     public MyDashboardPage(WebDriver driver) {
@@ -56,11 +59,17 @@ public class MyDashboardPage {
         myDownloadableProductsLink.click();
     }
 
+    //public void clickOnMyProductReviewsLink(){
+       // testUtility.waitForElementPresent(myProductReviewsLink);
+      //  myProductReviewsLink.click();
+  //  }
+
     public MyDownloadableProductsPage clickMyDownloadableProductsLink() {
         testUtility.waitForElementPresent(myDownloadableProductsLink);
         myDownloadableProductsLink.click();
         return new MyDownloadableProductsPage(driver);
     }
+
 
 
 

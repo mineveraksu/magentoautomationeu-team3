@@ -16,6 +16,7 @@ public class PublicUserModuleTestRunner extends BasePage {
     AccountInformationPage accountInformationPage;
     MyOrdersPage myOrdersPage;
     SalePage salePage;
+    MyProductReviewsPage myProductReviewsPage;
 
     @BeforeClass
     public void setup(ITestContext context){
@@ -67,6 +68,16 @@ public class PublicUserModuleTestRunner extends BasePage {
         MyDownloadableProductsPage downloadableProductsPage = new MyDownloadableProductsPage(driver);
 
         Assert.assertTrue(downloadableProductsPage.isDownloadableProductsExist());
+
+    }
+    @Test(priority = 5,description = "A user should see \"My Product Reviews\" link and contents")
+    public void testUserCanSeeProductReviews(){
+        myProductReviewsPage = new MyProductReviewsPage(driver);
+        myProductReviewsPage.openAddReviewsPage();
+        myProductReviewsPage.addReview();
+        myProductReviewsPage.clickOnMyProductLink();
+        myProductReviewsPage.verifyMyProductReviewsLinkDisplay();
+        myProductReviewsPage.verifyMyProductReviewsContentsDisplayed();
 
     }
 
