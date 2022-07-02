@@ -22,7 +22,7 @@ public class PublicUserModuleTestRunner extends BasePage {
     @BeforeClass
     public void setup(ITestContext context){
         String url=ApplicationConfig.readFromConfigProperties(configFile,"puburl");
-        browserSetUp(url,BrowserType.CHROME);
+        browserSetUp(url);
         context.setAttribute("driver",driver);
         loginPage=new LoginPage(driver);
         loginPage.login();
@@ -64,14 +64,7 @@ public class PublicUserModuleTestRunner extends BasePage {
     public void updateAndViewAddressBook(){
         dashboardPage.verifyLogin();
         dashboardPage.clickOnAddressBookLink();
-        addressBookPage.clickONEditNewAddressButton();
-        addressBookPage.enterFirstName();
-        addressBookPage.enterLastName();
-        addressBookPage.enterPhoneNumber();
-        addressBookPage.enterStreetAddress();
-        addressBookPage.enterCity();
-        addressBookPage.enterZipCode();
-        addressBookPage.selectCountry();
+        addressBookPage.updateAddressBookMethod();
         addressBookPage.clickONSaveAddressButton();
         Assert.assertTrue(dashboardPage.verifyUpdatedAddressBookSuccessful());
         dashboardPage.clickOnAddressBookLink();
