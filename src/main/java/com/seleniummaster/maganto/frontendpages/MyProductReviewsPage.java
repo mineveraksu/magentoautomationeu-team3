@@ -12,6 +12,7 @@ public class MyProductReviewsPage {
     WebDriver driver;
     TestUtility testUtility;
     String config = "config.properties";
+    MyDashboardPage myDashboardPage;
 
     public MyProductReviewsPage(WebDriver driver) {
         this.driver = driver;
@@ -19,10 +20,10 @@ public class MyProductReviewsPage {
         testUtility = new TestUtility(driver);
     }
 
-    @FindBy(linkText = "Cart")
+    @FindBy(xpath = "//*[@id=\"header\"]/div/div[2]/div/div/a/span[2]")
     WebElement cartLink;
 
-    @FindBy(linkText = "Edit item")
+    @FindBy(xpath = "//*[@id=\"cart-sidebar\"]/li[2]/div/a[1]")
     WebElement editItemLink;
 
     @FindBy(linkText = "Add Your Review")
@@ -43,17 +44,18 @@ public class MyProductReviewsPage {
     @FindBy(id = "summary_field")
     WebElement summaryField;
 
-    @FindBy(linkText = "Submit Review")
+    @FindBy(xpath = "//*[@id=\"review-form\"]/div[2]/button/span/span")
     WebElement submitReviewLink;
 
-    @FindBy(linkText = "My Product Reviews")
-    WebElement myProductReviewsLink;
+    @FindBy(xpath = "//*[@id=\"header-account\"]/div/ul/li[1]/a")
+    WebElement myAccountLink;
 
-    @FindBy(linkText = "Account")
+
+    @FindBy(xpath = "//*[@id=\"header\"]/div/div[2]/div/a/span[2]")
     WebElement accountLink;
 
-    @FindBy(linkText = "My Account")
-    WebElement myAccountLink;
+    @FindBy(css = ".block-content>ul>li:nth-child(7)")
+    WebElement myProductReviewsLink;
 
 
     public void openAddReviewsPage() {
@@ -84,6 +86,8 @@ public class MyProductReviewsPage {
         myAccountLink.click();
         testUtility.waitForElementPresent(myProductReviewsLink);
         myProductReviewsLink.click();
+
+
     }
 
     public void verifyMyProductReviewsLinkDisplay() {
