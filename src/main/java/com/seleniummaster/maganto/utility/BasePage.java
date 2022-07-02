@@ -1,7 +1,6 @@
 package com.seleniummaster.maganto.utility;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -12,11 +11,14 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 
+import static org.openqa.selenium.remote.BrowserType.*;
+
 public class BasePage {
     public WebDriver driver;
-
-    public void browserSetUp(String url, BrowserType browserType) {
-        switch (browserType) {
+    BrowserType browserType ;
+    public void browserSetUp(String url) {
+        String browserName= String.valueOf(browserType);
+        switch (browserName) {
             case CHROME:
                 ChromeOptions chromeOptions = new ChromeOptions();
                 WebDriverManager.chromedriver().setup();
@@ -37,6 +39,12 @@ public class BasePage {
                 EdgeOptions edgeOptions = new EdgeOptions();
                 driver = new EdgeDriver(edgeOptions);
                 break;
+            default:CHROME:
+            WebDriverManager.chromedriver().setup();
+                ChromeOptions chromeOptions1=new ChromeOptions();
+                driver = new ChromeDriver(chromeOptions1);
+                break;
+
         }
         driver.manage().window().maximize();
         driver.get(url);
