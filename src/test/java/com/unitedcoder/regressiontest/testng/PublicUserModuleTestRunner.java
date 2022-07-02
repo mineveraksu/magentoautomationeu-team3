@@ -16,6 +16,8 @@ public class PublicUserModuleTestRunner extends BasePage {
     AccountInformationPage accountInformationPage;
     MyOrdersPage myOrdersPage;
     SalePage salePage;
+    CheckOutOrderPage checkOutOrderPage;
+
 
     @BeforeClass
     public void setup(ITestContext context){
@@ -69,18 +71,18 @@ public class PublicUserModuleTestRunner extends BasePage {
         Assert.assertTrue(downloadableProductsPage.isDownloadableProductsExist());
 
     }
-    @Test
-            (description = "A user should be able to check out the order")
+    @Test(description = "A user should be able to check out the order")
     public void checkoutProduct() {
-        checkOutPage = new CheckOutPage();
-        checkOutPage.checkOut();
-
+        checkOutOrderPage=new CheckOutOrderPage(driver);
+        checkOutOrderPage.
+    }
 
     @AfterClass
     public void tearDown(){
 
         closeBrowser();
     }
+
 
 
 }

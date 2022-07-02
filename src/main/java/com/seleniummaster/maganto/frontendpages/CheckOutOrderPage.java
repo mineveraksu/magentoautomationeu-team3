@@ -7,16 +7,13 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class CheckOutOrderPage {
-
-    private final TestUtility utility;
     WebDriver driver;
-    TestUtility testUtility;
+    TestUtility utility;
 
-    public CheckOutOrderPage(TestUtility utility, WebDriver driver) {
-        this.utility = utility;
+    public CheckOutOrderPage( WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
-        testUtility = new TestUtility(driver);
+        utility = new TestUtility(driver);
     }
     @FindBy(css = "div.account-cart-wrapper span.label")
     WebElement accountLink;
@@ -69,9 +66,6 @@ public class CheckOutOrderPage {
     @FindBy(css = "div.page-title>h1")
     WebElement checkOutPage;
 
-    public void CheckOutPage() {
-        PageFactory.initElements(driver,this);
-    }
     public void clickCheckOutLink() {
         utility.waitForElementPresent(accountLink);
         accountLink.click();
