@@ -16,7 +16,7 @@ public class PublicUserModuleTestRunner extends BasePage {
     AccountInformationPage accountInformationPage;
     MyOrdersPage myOrdersPage;
     SalePage salePage;
-    MyProductReviewsPage myProductReviewsPage;
+    AddressBookPage addressBookPage;
 
     @BeforeClass
     public void setup(ITestContext context){
@@ -29,6 +29,8 @@ public class PublicUserModuleTestRunner extends BasePage {
         accountInformationPage=new AccountInformationPage(driver);
         myOrdersPage=new MyOrdersPage(driver);
         salePage=new SalePage(driver);
+        addressBookPage=new AddressBookPage(driver);
+
     }
 
     @Test(priority = 1, description ="EditAccountInformation")
@@ -38,6 +40,7 @@ public class PublicUserModuleTestRunner extends BasePage {
         accountInformationPage.editAccountInformation();
         Assert.assertTrue(accountInformationPage.verifyEditAccountInformation());
     }
+
 
     @Test(priority = 2, description = "A User Should be Able to View his/her Orders")
     public void viewOrders(){
@@ -58,6 +61,24 @@ public class PublicUserModuleTestRunner extends BasePage {
         Assert.assertTrue(shoppingCartPage.verifyUpdateShoppingCart());
 
     }
+    @Test(description = "user should be able to update and view address book")
+    public void updateAndViewAddressBook(){
+        dashboardPage.verifyLogin();
+        dashboardPage.clickOnAddressBookLink();
+        addressBookPage.clickONEditNewAddressButton();
+        addressBookPage.enterFirstName();
+        addressBookPage.enterLastName();
+        addressBookPage.enterPhoneNumber();
+        addressBookPage.enterStreetAddress();
+        addressBookPage.enterCity();
+        addressBookPage.enterZipCode();
+        addressBookPage.selectCountry();
+        addressBookPage.clickONSaveAddressButton();
+        Assert.assertTrue(dashboardPage.verifyUpdatedAddressBookSuccessful());
+        dashboardPage.clickOnAddressBookLink();
+        Assert.assertTrue(dashboardPage.verifyViewUpdatedAddressBook());
+
+    }
 
     @Test
     public void testMyDownloadableProducts() {
@@ -68,16 +89,6 @@ public class PublicUserModuleTestRunner extends BasePage {
         MyDownloadableProductsPage downloadableProductsPage = new MyDownloadableProductsPage(driver);
 
         Assert.assertTrue(downloadableProductsPage.isDownloadableProductsExist());
-
-    }
-    @Test(priority = 5,description = "A user should see \"My Product Reviews\" link and contents")
-    public void testUserCanSeeProductReviews(){
-        myProductReviewsPage = new MyProductReviewsPage(driver);
-        myProductReviewsPage.openAddReviewsPage();
-        myProductReviewsPage.addReview();
-        myProductReviewsPage.clickOnMyProductLink();
-        myProductReviewsPage.verifyMyProductReviewsLinkDisplay();
-        myProductReviewsPage.verifyMyProductReviewsContentsDisplayed();
 
     }
 
