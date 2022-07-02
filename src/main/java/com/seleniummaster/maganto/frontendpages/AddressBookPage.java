@@ -92,4 +92,14 @@ public class AddressBookPage {
         saveAddressButton.click();
         return new MyDashboardPage(driver);
     }
+    public void updateAddressBookMethod(){
+        clickONEditNewAddressButton();
+        enterFirstName();
+        enterLastName();
+        enterPhoneNumber();
+        enterStreetAddress();
+        enterCity();
+        enterZipCode();
+        selectCountry();
+    }
 }
