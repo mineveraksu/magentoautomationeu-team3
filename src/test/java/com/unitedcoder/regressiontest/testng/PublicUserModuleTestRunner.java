@@ -3,6 +3,7 @@ package com.unitedcoder.regressiontest.testng;
 import com.seleniummaster.maganto.frontendpages.*;
 import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.BasePage;
+import com.seleniummaster.maganto.utility.BrowserType;
 import com.seleniummaster.maganto.utility.TestResultListener;
 import org.testng.Assert;
 import org.testng.ITestContext;
@@ -21,7 +22,7 @@ public class PublicUserModuleTestRunner extends BasePage {
     @BeforeClass
     public void setup(ITestContext context){
         String url=ApplicationConfig.readFromConfigProperties(configFile,"puburl");
-        browserSetUp(url);
+        browserSetUp(url,BrowserType.CHROME);
         context.setAttribute("driver",driver);
         loginPage=new LoginPage(driver);
         loginPage.login();
@@ -30,7 +31,6 @@ public class PublicUserModuleTestRunner extends BasePage {
         myOrdersPage=new MyOrdersPage(driver);
         salePage=new SalePage(driver);
         addressBookPage=new AddressBookPage(driver);
-
     }
 
     @Test(priority = 1, description ="EditAccountInformation")
@@ -40,7 +40,6 @@ public class PublicUserModuleTestRunner extends BasePage {
         accountInformationPage.editAccountInformation();
         Assert.assertTrue(accountInformationPage.verifyEditAccountInformation());
     }
-
 
     @Test(priority = 2, description = "A User Should be Able to View his/her Orders")
     public void viewOrders(){
@@ -54,7 +53,7 @@ public class PublicUserModuleTestRunner extends BasePage {
         salePage.addProductsToCart();
         Assert.assertTrue(salePage.verifyProductsAddedToCart());
     }
-    @Test(priority = 4,description = "A User Should be Able to add products to shopping cart")
+    @Test(priority = 4,description = "A User Should be Able to update products to shopping cart", dependsOnMethods = "addProductsToCart")
     public void updateShoppingCart(){
         ShoppingCartPage shoppingCartPage=new ShoppingCartPage(driver);
         shoppingCartPage.updateShoppingCart();
@@ -80,21 +79,15 @@ public class PublicUserModuleTestRunner extends BasePage {
 
     }
 
-    @Test
+    @Test()
     public void testMyDownloadableProducts() {
-
-        MyDashboardPage dashboardPage = new MyDashboardPage(driver);
         dashboardPage.clickOnMyDownloadableProductsLink();
-
         MyDownloadableProductsPage downloadableProductsPage = new MyDownloadableProductsPage(driver);
-
         Assert.assertTrue(downloadableProductsPage.isDownloadableProductsExist());
-
     }
 
     @AfterClass
     public void tearDown(){
-
         closeBrowser();
     }
 
