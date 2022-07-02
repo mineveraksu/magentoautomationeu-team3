@@ -2,6 +2,8 @@ package com.seleniummaster.maganto.backendpages.customerpages;
 
 import com.seleniummaster.maganto.utility.TestUtility;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class CustomerPage {
@@ -18,6 +20,9 @@ public class CustomerPage {
     //Update Customer
     //Delete Customer
     //Export Customer
+    @FindBy(css="button[title='Export']")
+    WebElement exportButton;
+
     //Assign Customer to Group
 
     //WebElements needed in Add Customer Method
@@ -30,6 +35,7 @@ public class CustomerPage {
 
 
     //WebElements needed in Export Customer Method
+
 
 
     //WebElements needed in Assign Customer to Group Method
