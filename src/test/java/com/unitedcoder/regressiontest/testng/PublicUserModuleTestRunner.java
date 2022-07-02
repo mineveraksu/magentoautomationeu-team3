@@ -33,7 +33,7 @@ public class PublicUserModuleTestRunner extends BasePage {
         addressBookPage=new AddressBookPage(driver);
     }
 
-    @Test(priority = 1, description ="EditAccountInformation")
+    @Test(description ="EditAccountInformation")
     public void EditAccountInformation(){
         dashboardPage.verifyLogin();
         dashboardPage.clickOnAccountInformationLink();
@@ -41,19 +41,19 @@ public class PublicUserModuleTestRunner extends BasePage {
         Assert.assertTrue(accountInformationPage.verifyEditAccountInformation());
     }
 
-    @Test(priority = 2, description = "A User Should be Able to View his/her Orders")
+    @Test(description = "A User Should be Able to View his/her Orders")
     public void viewOrders(){
         dashboardPage.clickOnMyOrdersLink();
         Assert.assertTrue(myOrdersPage.viewOrders());
     }
 
-    @Test(priority = 3, description = "A User Should be Able to add products to shopping cart")
+    @Test(description = "A User Should be Able to add products to shopping cart")
     public void addProductsToCart(){
         dashboardPage.clickOnSaleLink();
         salePage.addProductsToCart();
         Assert.assertTrue(salePage.verifyProductsAddedToCart());
     }
-    @Test(priority = 4,description = "A User Should be Able to update products to shopping cart", dependsOnMethods = "addProductsToCart")
+    @Test(description = "A User Should be Able to update products to shopping cart", dependsOnMethods = "addProductsToCart")
     public void updateShoppingCart(){
         ShoppingCartPage shoppingCartPage=new ShoppingCartPage(driver);
         shoppingCartPage.updateShoppingCart();
@@ -86,6 +86,10 @@ public class PublicUserModuleTestRunner extends BasePage {
         Assert.assertTrue(downloadableProductsPage.isDownloadableProductsExist());
     }
 
+    @AfterMethod
+    public void backToDashboardPage(){
+        dashboardPage.backToDashboardPage();
+    }
     @AfterClass
     public void tearDown(){
         closeBrowser();
