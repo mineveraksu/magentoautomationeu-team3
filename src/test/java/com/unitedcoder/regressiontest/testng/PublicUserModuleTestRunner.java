@@ -69,6 +69,12 @@ public class PublicUserModuleTestRunner extends BasePage {
         Assert.assertTrue(downloadableProductsPage.isDownloadableProductsExist());
 
     }
+    @Test
+            (description = "A user should be able to check out the order")
+    public void checkoutProduct() {
+        checkOutPage = new CheckOutPage();
+        checkOutPage.checkOut();
+
 
     @AfterClass
     public void tearDown(){
