@@ -16,6 +16,7 @@ public class PublicUserModuleTestRunner extends BasePage {
     MyDashboardPage dashboardPage;
     AccountInformationPage accountInformationPage;
     MyOrdersPage myOrdersPage;
+    MyWishListPage myWishListPage;
     SalePage salePage;
     AddressBookPage addressBookPage;
 
@@ -29,6 +30,7 @@ public class PublicUserModuleTestRunner extends BasePage {
         dashboardPage=new MyDashboardPage(driver);
         accountInformationPage=new AccountInformationPage(driver);
         myOrdersPage=new MyOrdersPage(driver);
+        myWishListPage= new MyWishListPage(driver);
         salePage=new SalePage(driver);
         addressBookPage=new AddressBookPage(driver);
     }
@@ -45,6 +47,12 @@ public class PublicUserModuleTestRunner extends BasePage {
     public void viewOrders(){
         dashboardPage.clickOnMyOrdersLink();
         Assert.assertTrue(myOrdersPage.viewOrders());
+    }
+
+    @Test(description = "A user should be able to view my wish list")
+    public void viewMyWshList(){
+        dashboardPage.clickOnMyWishListLink();
+        Assert.assertTrue(myWishListPage.viewMyWshList());
     }
 
     @Test(description = "A User Should be Able to add products to shopping cart")
