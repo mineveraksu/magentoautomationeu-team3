@@ -128,7 +128,4 @@ public class CheckOutOrderPage {
         return ordreReceivedMessage.isDisplayed();
     }
 
-
-    public void CheckOutOrderPage() {
-    }
 }
