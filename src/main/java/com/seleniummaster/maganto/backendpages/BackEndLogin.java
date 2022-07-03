@@ -46,16 +46,14 @@ public class BackEndLogin {
         loginButton.click();
     }
 
-    public boolean VerifyBackendLogin() {
+    public boolean VerifyLoginSuccessfully() {
         testUtility.waitForElementPresent(logoutButton);
-        if (loginButton.isDisplayed()) {
-            System.out.println("Backend Login Successfully");
+        if (logoutButton.isDisplayed()) {
+            System.out.println("Backend Login Successfully!!");
             return true;
         } else {
-            System.out.println("Backend Login failed");
+            System.out.println("Backend Login failed!!!");
             return false;
         }
     }
-
-
 }
