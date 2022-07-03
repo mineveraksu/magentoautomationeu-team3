@@ -33,7 +33,7 @@ public class PublicUserModuleTestRunner extends BasePage {
         addressBookPage=new AddressBookPage(driver);
     }
 
-    @Test(description ="EditAccountInformation")
+    @Test(groups = "regression test",description ="EditAccountInformation")
     public void EditAccountInformation(){
         dashboardPage.verifyLogin();
         dashboardPage.clickOnAccountInformationLink();
@@ -41,26 +41,26 @@ public class PublicUserModuleTestRunner extends BasePage {
         Assert.assertTrue(accountInformationPage.verifyEditAccountInformation());
     }
 
-    @Test(description = "A User Should be Able to View his/her Orders")
+    @Test(groups = "regression test",description = "A User Should be Able to View his/her Orders")
     public void viewOrders(){
         dashboardPage.clickOnMyOrdersLink();
         Assert.assertTrue(myOrdersPage.viewOrders());
     }
 
-    @Test(description = "A User Should be Able to add products to shopping cart")
+    @Test(groups = "regression test",description = "A User Should be Able to add products to shopping cart")
     public void addProductsToCart(){
         dashboardPage.clickOnSaleLink();
         salePage.addProductsToCart();
         Assert.assertTrue(salePage.verifyProductsAddedToCart());
     }
-    @Test(description = "A User Should be Able to update products to shopping cart", dependsOnMethods = "addProductsToCart")
+    @Test(groups = "regression test",description = "A User Should be Able to update products to shopping cart", dependsOnMethods = "addProductsToCart")
     public void updateShoppingCart(){
         ShoppingCartPage shoppingCartPage=new ShoppingCartPage(driver);
         shoppingCartPage.updateShoppingCart();
         Assert.assertTrue(shoppingCartPage.verifyUpdateShoppingCart());
 
     }
-    @Test(description = "user should be able to update and view address book")
+    @Test(groups = "regression test",description = "user should be able to update and view address book")
     public void updateAndViewAddressBook(){
         dashboardPage.verifyLogin();
         dashboardPage.clickOnAddressBookLink();
@@ -72,7 +72,7 @@ public class PublicUserModuleTestRunner extends BasePage {
 
     }
 
-    @Test()
+    @Test(groups = "regression test",description = "A user should be able to view his/her downloadable orders")
     public void testMyDownloadableProducts() {
         dashboardPage.clickOnMyDownloadableProductsLink();
         MyDownloadableProductsPage downloadableProductsPage = new MyDownloadableProductsPage(driver);
