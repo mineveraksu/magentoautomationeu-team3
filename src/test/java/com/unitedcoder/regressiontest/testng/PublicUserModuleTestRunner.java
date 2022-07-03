@@ -17,7 +17,11 @@ public class PublicUserModuleTestRunner extends BasePage {
     AccountInformationPage accountInformationPage;
     MyOrdersPage myOrdersPage;
     SalePage salePage;
+
+    CheckOutOrderPage checkOutOrderPage;
+
     AddressBookPage addressBookPage;
+
 
     @BeforeClass
     public void setup(ITestContext context){
@@ -71,6 +75,11 @@ public class PublicUserModuleTestRunner extends BasePage {
         Assert.assertTrue(dashboardPage.verifyViewUpdatedAddressBook());
 
     }
+    @Test(description = "A user should be able to check out the order")
+    public void checkoutProduct() {
+        CheckOutOrderPage checkOutOrderPage = new CheckOutOrderPage(driver);
+        //checkOutOrderPage.clickPlaceOrderButton();
+    }
 
     @Test(groups = "regression test",description = "A user should be able to view his/her downloadable orders")
     public void testMyDownloadableProducts() {
@@ -87,6 +96,7 @@ public class PublicUserModuleTestRunner extends BasePage {
     public void tearDown(){
         closeBrowser();
     }
+
 
 
 }
