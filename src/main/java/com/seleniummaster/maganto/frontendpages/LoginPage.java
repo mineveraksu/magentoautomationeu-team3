@@ -7,13 +7,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-
 public class LoginPage {
     WebDriver driver;
-    TestUtility utility;
+    TestUtility testUtility;
     String config = "config.properties";
 
-    @FindBy(css = "a.skip-link.skip-account")
+    @FindBy(xpath = "(//span[text()='Account'])[1]")
     WebElement accountLink;
     @FindBy(xpath = "//a[text()='Log In']")
     WebElement loginLink;
@@ -23,32 +22,28 @@ public class LoginPage {
     WebElement passWordField;
     @FindBy(id = "send2")
     WebElement loginButton;
-    @FindBy(css = "p.welcome-msg")
-    WebElement loginVerifyMessage;
+
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
-        utility=new TestUtility(driver);
         PageFactory.initElements(driver, this);
+        testUtility=new TestUtility(driver);
+
     }
 
     public void login() {
-       // utility.waitForElementPresent(accountLink);
+        driver.get(ApplicationConfig.readFromConfigProperties(config, "puburl"));
+        testUtility.waitForElementPresent(accountLink);
         accountLink.click();
-        utility.waitForElementPresent(loginLink);
+        testUtility.waitForElementPresent(loginLink);
         loginLink.click();
-        utility.waitForElementPresent(emailField);
+        testUtility.waitForElementPresent(emailField);
         emailField.sendKeys(ApplicationConfig.readFromConfigProperties(config, "email"));
-        utility.waitForElementPresent(passWordField);
+        testUtility.waitForElementPresent(passWordField);
         passWordField.sendKeys(ApplicationConfig.readFromConfigProperties(config, "password"));
-        utility.waitForElementPresent(loginButton);
+        testUtility.waitForElementPresent(loginButton);
         loginButton.click();
     }
 
-    public boolean verifyLogin() {
-        utility.waitForElementPresent(loginVerifyMessage);
-        if (driver.getPageSource().contains(loginVerifyMessage.getText()))
-            System.out.println("login successfully");
-        return true;
-    }
+
 }

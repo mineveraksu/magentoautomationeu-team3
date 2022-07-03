@@ -1,5 +1,6 @@
 package com.seleniummaster.maganto.frontendpages;
 
+import com.seleniummaster.maganto.utility.ExcelUtility;
 import com.seleniummaster.maganto.utility.TestUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,6 +10,8 @@ import org.openqa.selenium.support.PageFactory;
 public class MyDashboardPage {
     WebDriver driver;
     TestUtility testUtility;
+    ExcelUtility excelUtility=new ExcelUtility();
+    String excelFile = "Test-Data/addressBookData.xlsx";
 
     @FindBy(css = ".block-content>ul>li:nth-child(4)")
     WebElement myOrdersLink;
@@ -16,13 +19,22 @@ public class MyDashboardPage {
     WebElement saleLink;
     @FindBy(xpath = "//div[@class=\"block-content\"]//ul//li[2]/a")
     WebElement accountInformationLink;
+    @FindBy(xpath = "//div[@class=\"block-content\"]//ul//li[3]/a")
+    WebElement addressBookLink;
+    @FindBy(css = ".col-2.addresses-additional>ol")
+    WebElement updatedAddressTable;
+    @FindBy(css = "li.success-msg")
+    WebElement updatedAddressBookSuccessfulMessage;
 
     @FindBy(css = "p.welcome-msg")
     WebElement loginVerifyMessage;
 
     @FindBy(xpath = "//a[text() = 'My Downloadable Products']")
     WebElement myDownloadableProductsLink;
-
+    @FindBy(xpath = "(//span[text()='Account'])[1]")
+    WebElement accountLink;
+    @FindBy(xpath = "//div[@id='header-account']/div/ul/li[@class='first']/a")
+    WebElement myAccountLink;
 
 
     public MyDashboardPage(WebDriver driver) {
@@ -45,7 +57,22 @@ public class MyDashboardPage {
         testUtility.waitForElementPresent(accountInformationLink);
         accountInformationLink.click();
     }
+    public void clickOnAddressBookLink(){
+        testUtility.waitForElementPresent(addressBookLink);
+        addressBookLink.click();
+    }
 
+    public boolean verifyUpdatedAddressBookSuccessful(){
+        testUtility.waitForElementPresent(updatedAddressBookSuccessfulMessage);
+        System.out.println("The address has been saved." + "successful message displayed");
+        return updatedAddressBookSuccessfulMessage.getText().contains("The address has been saved.");
+
+    }
+    public boolean verifyViewUpdatedAddressBook(){
+        testUtility.waitForElementPresent(updatedAddressTable);
+        return updatedAddressTable.getText().contains(excelUtility.readFromExcelCell(
+                excelFile, "Address-Book", 0, 1));
+    }
     public void clickOnSaleLink(){
         testUtility.waitForElementPresent(saleLink);
         saleLink.click();
@@ -56,12 +83,23 @@ public class MyDashboardPage {
         myDownloadableProductsLink.click();
     }
 
+    //public void clickOnMyProductReviewsLink(){
+       // testUtility.waitForElementPresent(myProductReviewsLink);
+      //  myProductReviewsLink.click();
+  //  }
+
     public MyDownloadableProductsPage clickMyDownloadableProductsLink() {
         testUtility.waitForElementPresent(myDownloadableProductsLink);
         myDownloadableProductsLink.click();
         return new MyDownloadableProductsPage(driver);
     }
 
+    public void backToDashboardPage() {
+        testUtility.waitForElementPresent(accountLink);
+        accountLink.click();
+        testUtility.waitForElementPresent(myAccountLink);
+        myAccountLink.click();
+    }
 
 
 }
