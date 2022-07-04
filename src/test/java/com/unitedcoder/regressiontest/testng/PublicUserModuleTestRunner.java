@@ -1,5 +1,4 @@
 package com.unitedcoder.regressiontest.testng;
-
 import com.seleniummaster.maganto.frontendpages.*;
 import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.BasePage;
@@ -76,7 +75,6 @@ public class PublicUserModuleTestRunner extends BasePage {
         Assert.assertTrue(dashboardPage.verifyUpdatedAddressBookSuccessful());
         dashboardPage.clickOnAddressBookLink();
         Assert.assertTrue(dashboardPage.verifyViewUpdatedAddressBook());
-
     }
 
     @Test()
@@ -90,6 +88,4 @@ public class PublicUserModuleTestRunner extends BasePage {
     public void tearDown(){
         closeBrowser();
     }
-
-
 }
