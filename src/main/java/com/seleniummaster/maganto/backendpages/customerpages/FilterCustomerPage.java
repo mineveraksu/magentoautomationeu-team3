@@ -1,5 +1,6 @@
 package com.seleniummaster.maganto.backendpages.customerpages;
 
+import com.seleniummaster.maganto.utility.TestDataHolder;
 import com.seleniummaster.maganto.utility.TestUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -26,9 +27,9 @@ public class FilterCustomerPage {
     @FindBy(css = "tr>td:nth-child(4)")
     WebElement customerEmail;
 
-    public void clickEmailField() {
+    public void clickEmailField(String email) {
         testUtility.waitForElementPresent(emailField);
-        emailField.sendKeys(config, "customerEmail");
+        emailField.sendKeys(email);
         testUtility.waitForElementPresent(searchButton);
         searchButton.click();
     }
