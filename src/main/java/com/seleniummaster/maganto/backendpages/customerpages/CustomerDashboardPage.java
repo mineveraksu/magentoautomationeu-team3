@@ -34,4 +34,11 @@ public class CustomerDashboardPage {
         testUtility.waitForElementPresent(customerGroupsLink);
         customerGroupsLink.click();
     }
+
+    public void clickOnManageCustomers(){
+        testUtility.waitForElementPresent(customersLink);
+        actions.moveToElement(customersLink).perform();
+        testUtility.waitForElementPresent(manageCustomersLink);
+        manageCustomersLink.click();
+    }
 }
