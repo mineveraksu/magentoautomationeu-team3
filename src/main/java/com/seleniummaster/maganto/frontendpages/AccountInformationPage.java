@@ -53,7 +53,7 @@ public class AccountInformationPage {
             return true;
         }
         else{
-            System.out.println("Please check Account Information Page !");
+            System.out.println("Please check Account Information Page!");
             return false;
         }
     }

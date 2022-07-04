@@ -44,6 +44,13 @@ public class PublicUserModuleTestRunner extends BasePage {
         Assert.assertTrue(accountInformationPage.verifyEditAccountInformation());
     }
 
+    @Test(description = "ViewAccountInformation")
+    public void viewAccountInformation(){
+        dashboardPage.clickOnAccountInformationLink();
+        accountInformationPage.verifyAccountInformationViewed();
+        Assert.assertTrue(accountInformationPage.verifyAccountInformationViewed());
+    }
+
     @Test(groups = "regression test", description = "A User Should be Able to View his/her Orders")
     public void viewOrders() {
         dashboardPage.clickOnMyOrdersLink();
