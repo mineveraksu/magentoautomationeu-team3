@@ -49,7 +49,7 @@ public class AccountInformationPage {
     }
     public boolean verifyAccountInformationViewed(){
         if(getEmailAddress().length()>=1){
-            System.out.println("Account Information Viewed!");
+            System.out.println("Account information Viewed!");
             return true;
         }
         else{

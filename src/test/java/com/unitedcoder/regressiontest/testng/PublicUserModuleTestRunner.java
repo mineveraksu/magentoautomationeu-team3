@@ -44,7 +44,7 @@ public class PublicUserModuleTestRunner extends BasePage {
         Assert.assertTrue(accountInformationPage.verifyEditAccountInformation());
     }
 
-    @Test(description = "ViewAccountInformation")
+    @Test(description = "A user should be able to view Account Information")
     public void viewAccountInformation(){
         dashboardPage.clickOnAccountInformationLink();
         accountInformationPage.verifyAccountInformationViewed();
