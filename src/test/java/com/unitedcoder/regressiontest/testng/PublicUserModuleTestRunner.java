@@ -9,8 +9,6 @@ import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
 
-import java.io.FileNotFoundException;
-
 @Listeners(TestResultListener.class)
 public class PublicUserModuleTestRunner extends BasePage {
     final String configFile = "config.properties";
@@ -19,12 +17,9 @@ public class PublicUserModuleTestRunner extends BasePage {
     AccountInformationPage accountInformationPage;
     MyOrdersPage myOrdersPage;
     SalePage salePage;
-    MyProductReviewsPage myProductReviewsPage;
-
     CheckOutOrderPage checkOutOrderPage;
-
     AddressBookPage addressBookPage;
-
+    MyWishListPage myWishListPage;
 
     @BeforeClass
     public void setup(ITestContext context) {
@@ -38,6 +33,7 @@ public class PublicUserModuleTestRunner extends BasePage {
         myOrdersPage = new MyOrdersPage(driver);
         salePage = new SalePage(driver);
         addressBookPage = new AddressBookPage(driver);
+        myWishListPage = new MyWishListPage(driver);
     }
 
     @Test(groups = "regression test", description = "EditAccountInformation")
@@ -46,6 +42,13 @@ public class PublicUserModuleTestRunner extends BasePage {
         dashboardPage.clickOnAccountInformationLink();
         accountInformationPage.editAccountInformation();
         Assert.assertTrue(accountInformationPage.verifyEditAccountInformation());
+    }
+
+    @Test(description = "A user should be able to view Account Information")
+    public void viewAccountInformation(){
+        dashboardPage.clickOnAccountInformationLink();
+        accountInformationPage.verifyAccountInformationViewed();
+        Assert.assertTrue(accountInformationPage.verifyAccountInformationViewed());
     }
 
     @Test(groups = "regression test", description = "A User Should be Able to View his/her Orders")
@@ -94,21 +97,12 @@ public class PublicUserModuleTestRunner extends BasePage {
         Assert.assertTrue(downloadableProductsPage.isDownloadableProductsExist());
     }
 
-    @Test(groups = "regression test", description = "A user should see \"My Product Reviews\" link and contents")
-    public void testUserCanSeeProductReviews() {
-        try {
-            myProductReviewsPage = new MyProductReviewsPage(driver);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        myProductReviewsPage.openAddReviewsPage();
-        myProductReviewsPage.addReview();
-        dashboardPage.backToDashboardPage();
-        dashboardPage.clickOnMyProductReviewsLink();
-        myProductReviewsPage.verifyMyProductReviewsLinkDisplay();
-        myProductReviewsPage.verifyMyProductReviewsContentsDisplayed();
+    @Test
+    public void verifyMyWishList() {
+        dashboardPage.clickOnMyWishListLink();
+        myWishListPage.viewMyWshList();
+        Assert.assertTrue(myWishListPage.viewMyWshList());
     }
-
 
     @AfterMethod
     public void backToDashboardPage() {
@@ -119,4 +113,7 @@ public class PublicUserModuleTestRunner extends BasePage {
     public void tearDown() {
         closeBrowser();
     }
+
+
+
 }

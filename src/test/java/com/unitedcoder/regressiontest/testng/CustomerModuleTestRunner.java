@@ -3,21 +3,20 @@ package com.unitedcoder.regressiontest.testng;
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
 import com.seleniummaster.maganto.backendpages.customerpages.CustomerDashboardPage;
 import com.seleniummaster.maganto.backendpages.customerpages.CustomerGroupsPage;
+import com.seleniummaster.maganto.backendpages.customerpages.FilterCustomerPage;
 import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.BasePage;
 import com.seleniummaster.maganto.utility.TestDataHolder;
 import org.testng.Assert;
 import org.testng.ITestContext;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 public class CustomerModuleTestRunner extends BasePage {
     final String configFile = "config.properties";
     BackEndLogin login;
     CustomerDashboardPage customerDashboardPage;
     CustomerGroupsPage customerGroupsPage;
+    FilterCustomerPage filterCustomerPage;
 
     @BeforeClass
     public void setup(ITestContext context){
@@ -28,6 +27,7 @@ public class CustomerModuleTestRunner extends BasePage {
         login.customerPageLogin();
         customerDashboardPage=new CustomerDashboardPage(driver);
         customerGroupsPage=new CustomerGroupsPage(driver);
+        filterCustomerPage=new FilterCustomerPage(driver);
     }
 
     @Test(dataProvider = "customerGroupInfo",groups = "regression test",description = "Customer Manager can add new customer groups.")
@@ -40,6 +40,7 @@ public class CustomerModuleTestRunner extends BasePage {
 
     @Test(dataProvider = "customerGroupInfo",groups = "regression test",description = "Customer Manager can  update existing customer groups.",dependsOnMethods = "addNewCustomerGroups")
     public void updateExistingCustomerGroups(TestDataHolder testDataHolder){
+        customerDashboardPage.clickOnCustomerGroups();
         customerGroupsPage.updateExistingCustomerGroups(testDataHolder);
         Assert.assertTrue(customerGroupsPage.verifyUpdateExistingCustomerGroups());
     }
@@ -50,11 +51,28 @@ public class CustomerModuleTestRunner extends BasePage {
         Assert.assertTrue(customerGroupsPage.verifyDeleteExistingCustomerGroups());
     }
 
+    @Test(dataProvider = "filterCustomerInfo",groups = "regression test",description = "Customer Manager Can Filter Customers by Email")
+    public void filterCustomerByEmail(String email){
+        customerDashboardPage.clickOnManageCustomers();
+        filterCustomerPage.clickEmailField(email);
+        Assert.assertTrue(filterCustomerPage.verifyFilterCustomerByEmail());
+    }
+
+
     @DataProvider
     public Object[] customerGroupInfo(){
         Object[] data=new Object[]{new TestDataHolder("Europe Customer")};
         return data;
     }
+    @DataProvider
+    public Object[][]filterCustomerInfo() {
+        Object[][] data = new Object[][]{
+                {"gunes8811@hotmail.com"}
+        };
+
+        return data;
+    }
+
 
 
 

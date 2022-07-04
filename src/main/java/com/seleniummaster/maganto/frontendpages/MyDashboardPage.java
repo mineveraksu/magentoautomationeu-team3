@@ -38,6 +38,9 @@ public class MyDashboardPage {
     @FindBy(css = ".block-content>ul>li:nth-child(7)")
     WebElement myProductReviewsLink;
 
+    @FindBy(xpath = "//div[@class=\"block-content\"]//ul//li[9]/a")
+    WebElement myWishListLink;
+
 
     public MyDashboardPage(WebDriver driver) {
         this.driver = driver;
@@ -53,6 +56,11 @@ public class MyDashboardPage {
     public void clickOnMyOrdersLink() {
         testUtility.waitForElementPresent(myOrdersLink);
         myOrdersLink.click();
+    }
+
+    public void clickOnMyWishListLink(){
+        testUtility.waitForElementPresent(myWishListLink);
+        myWishListLink.click();
     }
 
     public void clickOnAccountInformationLink(){
