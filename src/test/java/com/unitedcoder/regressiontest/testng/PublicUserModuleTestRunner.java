@@ -1,4 +1,5 @@
 package com.unitedcoder.regressiontest.testng;
+
 import com.seleniummaster.maganto.frontendpages.*;
 import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.BasePage;
@@ -16,12 +17,16 @@ public class PublicUserModuleTestRunner extends BasePage {
     AccountInformationPage accountInformationPage;
     MyOrdersPage myOrdersPage;
     SalePage salePage;
+
+    CheckOutOrderPage checkOutOrderPage;
+
     AddressBookPage addressBookPage;
+
 
     @BeforeClass
     public void setup(ITestContext context){
         String url=ApplicationConfig.readFromConfigProperties(configFile,"puburl");
-        browserSetUp(url,BrowserType.CHROME);
+        browserSetUp(url);
         context.setAttribute("driver",driver);
         loginPage=new LoginPage(driver);
         loginPage.login();
@@ -32,7 +37,7 @@ public class PublicUserModuleTestRunner extends BasePage {
         addressBookPage=new AddressBookPage(driver);
     }
 
-    @Test(priority = 1, description ="EditAccountInformation")
+    @Test(groups = "regression test",description ="EditAccountInformation")
     public void EditAccountInformation(){
         dashboardPage.verifyLogin();
         dashboardPage.clickOnAccountInformationLink();
@@ -40,52 +45,58 @@ public class PublicUserModuleTestRunner extends BasePage {
         Assert.assertTrue(accountInformationPage.verifyEditAccountInformation());
     }
 
-    @Test(priority = 2, description = "A User Should be Able to View his/her Orders")
+    @Test(groups = "regression test",description = "A User Should be Able to View his/her Orders")
     public void viewOrders(){
         dashboardPage.clickOnMyOrdersLink();
         Assert.assertTrue(myOrdersPage.viewOrders());
     }
 
-    @Test(priority = 3, description = "A User Should be Able to add products to shopping cart")
+    @Test(groups = "regression test",description = "A User Should be Able to add products to shopping cart")
     public void addProductsToCart(){
         dashboardPage.clickOnSaleLink();
         salePage.addProductsToCart();
         Assert.assertTrue(salePage.verifyProductsAddedToCart());
     }
-    @Test(priority = 4,description = "A User Should be Able to update products to shopping cart", dependsOnMethods = "addProductsToCart")
+    @Test(groups = "regression test",description = "A User Should be Able to update products to shopping cart", dependsOnMethods = "addProductsToCart")
     public void updateShoppingCart(){
         ShoppingCartPage shoppingCartPage=new ShoppingCartPage(driver);
         shoppingCartPage.updateShoppingCart();
         Assert.assertTrue(shoppingCartPage.verifyUpdateShoppingCart());
 
     }
-    @Test(description = "user should be able to update and view address book")
+    @Test(groups = "regression test",description = "user should be able to update and view address book")
     public void updateAndViewAddressBook(){
         dashboardPage.verifyLogin();
         dashboardPage.clickOnAddressBookLink();
-        addressBookPage.clickONEditNewAddressButton();
-        addressBookPage.enterFirstName();
-        addressBookPage.enterLastName();
-        addressBookPage.enterPhoneNumber();
-        addressBookPage.enterStreetAddress();
-        addressBookPage.enterCity();
-        addressBookPage.enterZipCode();
-        addressBookPage.selectCountry();
+        addressBookPage.updateAddressBookMethod();
         addressBookPage.clickONSaveAddressButton();
         Assert.assertTrue(dashboardPage.verifyUpdatedAddressBookSuccessful());
         dashboardPage.clickOnAddressBookLink();
         Assert.assertTrue(dashboardPage.verifyViewUpdatedAddressBook());
+
+    }
+    @Test(description = "A user should be able to check out the order")
+    public void checkoutProduct() {
+        CheckOutOrderPage checkOutOrderPage = new CheckOutOrderPage(driver);
+        //checkOutOrderPage.clickPlaceOrderButton();
     }
 
-    @Test()
+    @Test(groups = "regression test",description = "A user should be able to view his/her downloadable orders")
     public void testMyDownloadableProducts() {
         dashboardPage.clickOnMyDownloadableProductsLink();
         MyDownloadableProductsPage downloadableProductsPage = new MyDownloadableProductsPage(driver);
         Assert.assertTrue(downloadableProductsPage.isDownloadableProductsExist());
     }
 
+    @AfterMethod
+    public void backToDashboardPage(){
+        dashboardPage.backToDashboardPage();
+    }
     @AfterClass
     public void tearDown(){
         closeBrowser();
     }
+
+
+
 }

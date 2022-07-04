@@ -31,9 +31,11 @@ public class MyDashboardPage {
 
     @FindBy(xpath = "//a[text() = 'My Downloadable Products']")
     WebElement myDownloadableProductsLink;
+    @FindBy(xpath = "(//span[text()='Account'])[1]")
+    WebElement accountLink;
+    @FindBy(xpath = "//div[@id='header-account']/div/ul/li[@class='first']/a")
+    WebElement myAccountLink;
 
-//    @FindBy(css = ".block-content>ul>li:nth-child(7)")
-//    WebElement myProductReviewsLink;
 
     public MyDashboardPage(WebDriver driver) {
         this.driver = driver;
@@ -92,9 +94,12 @@ public class MyDashboardPage {
         return new MyDownloadableProductsPage(driver);
     }
 
-
-
-
+    public void backToDashboardPage() {
+        testUtility.waitForElementPresent(accountLink);
+        accountLink.click();
+        testUtility.waitForElementPresent(myAccountLink);
+        myAccountLink.click();
+    }
 
 
 }
