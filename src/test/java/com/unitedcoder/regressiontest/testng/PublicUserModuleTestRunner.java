@@ -17,62 +17,56 @@ public class PublicUserModuleTestRunner extends BasePage {
     AccountInformationPage accountInformationPage;
     MyOrdersPage myOrdersPage;
     SalePage salePage;
-
     CheckOutOrderPage checkOutOrderPage;
-
     AddressBookPage addressBookPage;
-
+    MyWishListPage myWishListPage;
 
     @BeforeClass
-    public void setup(ITestContext context){
-        String url=ApplicationConfig.readFromConfigProperties(configFile,"puburl");
+    public void setup(ITestContext context) {
+        String url = ApplicationConfig.readFromConfigProperties(configFile, "puburl");
         browserSetUp(url);
-        context.setAttribute("driver",driver);
-        loginPage=new LoginPage(driver);
+        context.setAttribute("driver", driver);
+        loginPage = new LoginPage(driver);
         loginPage.login();
-        dashboardPage=new MyDashboardPage(driver);
-        accountInformationPage=new AccountInformationPage(driver);
-        myOrdersPage=new MyOrdersPage(driver);
-        salePage=new SalePage(driver);
-        addressBookPage=new AddressBookPage(driver);
+        dashboardPage = new MyDashboardPage(driver);
+        accountInformationPage = new AccountInformationPage(driver);
+        myOrdersPage = new MyOrdersPage(driver);
+        salePage = new SalePage(driver);
+        addressBookPage = new AddressBookPage(driver);
+        myWishListPage = new MyWishListPage(driver);
     }
 
-    @Test(groups = "regression test",description ="EditAccountInformation")
-    public void EditAccountInformation(){
+    @Test(groups = "regression test", description = "EditAccountInformation")
+    public void EditAccountInformation() {
         dashboardPage.verifyLogin();
         dashboardPage.clickOnAccountInformationLink();
         accountInformationPage.editAccountInformation();
         Assert.assertTrue(accountInformationPage.verifyEditAccountInformation());
     }
 
-    @Test(groups = "regression test",description = "A user should be able to view account information")
-    public void viewAccountInformation(){
-        dashboardPage.clickOnAccountInformationLink();
-        accountInformationPage.verifyAccountInformationViewed();
-        Assert.assertTrue(accountInformationPage.verifyAccountInformationViewed());
-    }
-
-    @Test(groups = "regression test",description = "A User Should be Able to View his/her Orders")
-    public void viewOrders(){
+    @Test(groups = "regression test", description = "A User Should be Able to View his/her Orders")
+    public void viewOrders() {
         dashboardPage.clickOnMyOrdersLink();
         Assert.assertTrue(myOrdersPage.viewOrders());
     }
 
-    @Test(groups = "regression test",description = "A User Should be Able to add products to shopping cart")
-    public void addProductsToCart(){
+    @Test(groups = "regression test", description = "A User Should be Able to add products to shopping cart")
+    public void addProductsToCart() {
         dashboardPage.clickOnSaleLink();
         salePage.addProductsToCart();
         Assert.assertTrue(salePage.verifyProductsAddedToCart());
     }
-    @Test(groups = "regression test",description = "A User Should be Able to update products to shopping cart", dependsOnMethods = "addProductsToCart")
-    public void updateShoppingCart(){
-        ShoppingCartPage shoppingCartPage=new ShoppingCartPage(driver);
+
+    @Test(groups = "regression test", description = "A User Should be Able to update products to shopping cart", dependsOnMethods = "addProductsToCart")
+    public void updateShoppingCart() {
+        ShoppingCartPage shoppingCartPage = new ShoppingCartPage(driver);
         shoppingCartPage.updateShoppingCart();
         Assert.assertTrue(shoppingCartPage.verifyUpdateShoppingCart());
 
     }
-    @Test(groups = "regression test",description = "user should be able to update and view address book")
-    public void updateAndViewAddressBook(){
+
+    @Test(groups = "regression test", description = "user should be able to update and view address book")
+    public void updateAndViewAddressBook() {
         dashboardPage.verifyLogin();
         dashboardPage.clickOnAddressBookLink();
         addressBookPage.updateAddressBookMethod();
@@ -82,25 +76,34 @@ public class PublicUserModuleTestRunner extends BasePage {
         Assert.assertTrue(dashboardPage.verifyViewUpdatedAddressBook());
 
     }
+
     @Test(description = "A user should be able to check out the order")
     public void checkoutProduct() {
         CheckOutOrderPage checkOutOrderPage = new CheckOutOrderPage(driver);
         //checkOutOrderPage.clickPlaceOrderButton();
     }
 
-    @Test(groups = "regression test",description = "A user should be able to view his/her downloadable orders")
+    @Test(groups = "regression test", description = "A user should be able to view his/her downloadable orders")
     public void testMyDownloadableProducts() {
         dashboardPage.clickOnMyDownloadableProductsLink();
         MyDownloadableProductsPage downloadableProductsPage = new MyDownloadableProductsPage(driver);
         Assert.assertTrue(downloadableProductsPage.isDownloadableProductsExist());
     }
 
+    @Test
+    public void verifyMyWishList() {
+        dashboardPage.clickOnMyWishListLink();
+        myWishListPage.viewMyWshList();
+        Assert.assertTrue(myWishListPage.viewMyWshList());
+    }
+
     @AfterMethod
-    public void backToDashboardPage(){
+    public void backToDashboardPage() {
         dashboardPage.backToDashboardPage();
     }
+
     @AfterClass
-    public void tearDown(){
+    public void tearDown() {
         closeBrowser();
     }
 
