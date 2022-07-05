@@ -13,19 +13,19 @@ public class CatalogPage {
     WebDriver driver;
     TestUtility testUtility;
 
-    @FindBy(xpath = "//span[text()='Manage Categories']")
-    WebElement manageCategoriesLink;
     @FindBy(xpath = "//span[text()='Add Root Category']")
     WebElement addRootCategoryLink;
-    @FindBy (css = "input[name='general[name]']")
+    @FindBy(css = "input[name='general[name]']")
     WebElement categoryNameField;
-    @FindBy(css="#group_4is_active")
+    @FindBy(id = "group_4is_active")
     WebElement isActive;
     @FindBy(xpath = "//span[text()='Save Category']")
     WebElement saveCategoryButton;
     @FindBy(css = ("textarea#group_4description"))
     WebElement descriptionField;
-    @FindBy (xpath = "//span[text()='The category has been saved.']")
+    @FindBy(name = "general[meta_keywords]")
+    WebElement metaKeyWords;
+    @FindBy(xpath = "//span[text()='The category has been saved.']")
     WebElement successMessage;
 
     public CatalogPage(WebDriver driver) {
@@ -34,35 +34,29 @@ public class CatalogPage {
         testUtility = new TestUtility(driver);
     }
 
-    public void clickOnManageCategoriesLink() {
-        testUtility.waitForElementPresent(manageCategoriesLink);
-        manageCategoriesLink.click();
-    }
-
-    public void clickOnCategoryNameField(TestDataHolder testDataHolder) {
+    public void addRootCategory(TestDataHolder testDataHolder) {
         testUtility.waitForElementPresent(categoryNameField);
-        categoryNameField.click();
+        testUtility.sleep(3);
         categoryNameField.sendKeys(testDataHolder.getRootCategoryName());
-    }
-
-    public void clickOnIsActive() {
         testUtility.waitForElementPresent(isActive);
-        isActive.click();
-    }
-
-    public void selectIsActiveDropDown () {
         Select select = new Select(isActive);
         select.selectByValue("1");
-    }
-
-    public void clickOnDescriptionFiled(TestDataHolder testDataHolder){
         testUtility.waitForElementPresent(descriptionField);
-        descriptionField.click();
-        descriptionField.sendKeys(testDataHolder.getGetRootCategoryDescription());
-    }
-    public void clickOnSaveButton(){
+        descriptionField.sendKeys(testDataHolder.getRootCategoryDescription());
+        testUtility.waitForElementPresent(metaKeyWords);
+        metaKeyWords.sendKeys(testDataHolder.getMetaKeyWords());
         testUtility.waitForElementPresent(saveCategoryButton);
         saveCategoryButton.click();
     }
 
+    public Boolean verifyAddRootCategories(TestDataHolder testDataHolder) {
+        testUtility.waitForElementPresent(successMessage);
+        if (successMessage.getText().contains("The category has been saved.")) {
+            System.out.println("Catalog manager able to add root categories Test Passed!! ");
+            return true;
+        } else {
+            System.out.println("Catalog manager able to add root categories Test Failed!! ");
+            return false;
+        }
+    }
 }
