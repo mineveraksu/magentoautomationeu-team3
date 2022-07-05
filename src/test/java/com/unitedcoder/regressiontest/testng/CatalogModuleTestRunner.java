@@ -30,47 +30,40 @@ public class CatalogModuleTestRunner extends BasePage {
         catalogPage = new CatalogPage(driver);
     }
 
-    @Test(dataProvider = "subCategoriesInfo",description = "Catalog Manager Can Add Sub Categories.",enabled = false)
-    public void addSubCategories(TestDataHolder testDataHolder){
+    @Test(priority = 1,dataProvider = "addRootCategoryInfo", description = "Catalog manager can add root categories.")
+    public void addRootCategory(TestDataHolder testDataHolder) {
         login.VerifyLoginSuccessfully();
-        catalogDashboardPage.clickOnManageCategories();
-        subCategoriesPage.addSubCategories(testDataHolder);
-        Assert.assertTrue(subCategoriesPage.verifyAddSubCategories(testDataHolder));
-    }
-
-    @Test(dataProvider = "updateSubCategoriesInfo",description = "Catalog Manager Can Update Sub Categories.",enabled = false
-    )
-    public void updateExistingSubCategories(TestDataHolder testDataHolder){
-        subCategoriesPage.updateExistingSubCategories(testDataHolder);
-        Assert.assertTrue(subCategoriesPage.verifyUpdateExistingSubCategories(testDataHolder));
-    }
-
-    @Test(dataProvider = "addRootCategoryInfo", description = "Catalog manager can add root categories.")
-    public void addRootCategory(TestDataHolder testDataHolder){
         catalogDashboardPage.clickOnManageCategories();
         catalogPage.addRootCategory(testDataHolder);
         Assert.assertTrue(catalogPage.verifyAddRootCategories(testDataHolder));
     }
 
+    @Test(priority = 2,dataProvider = "subCategoriesInfo",groups = "regression test",description = "Catalog Manager Can Add Sub Categories.")
+    public void addSubCategories(TestDataHolder testDataHolder){
+        subCategoriesPage.addSubCategories(testDataHolder);
+        Assert.assertTrue(subCategoriesPage.verifyAddSubCategories(testDataHolder));
+    }
+
+    @Test(priority = 3,dataProvider = "subCategoriesInfo",description = "Catalog Manager Can Update Sub Categories.",groups = "regression test",dependsOnMethods ="addSubCategories")
+    public void updateExistingSubCategories(TestDataHolder testDataHolder) {
+        subCategoriesPage.updateExistingSubCategories(testDataHolder);
+        Assert.assertTrue(subCategoriesPage.verifyUpdateExistingSubCategories(testDataHolder));
+    }
+
+
     @DataProvider
     public Object[] subCategoriesInfo(){
         Object[] data=new Object[]
-                {new TestDataHolder("Clothes","Clothes for every season")};
+                {new TestDataHolder("Timberland","For every season","shoes")};
 
         return data;
     }
 
-    @DataProvider
-    public Object[] updateSubCategoriesInfo(){
-        Object[][] data= new Object[][]{
-                {"Clothes for men"}
-        };
-        return data;
-    }
+
     @DataProvider
     public Object[] addRootCategoryInfo(){
         Object [] data = new Object[]
-                {new TestDataHolder("shoes","IMPORTANT","SHIRALI")
+                {new TestDataHolder("shoes","IMPORTANT")
         };
 
         return data;
@@ -82,10 +75,6 @@ public class CatalogModuleTestRunner extends BasePage {
     }
 
 }
-
-
-
-
 
 
 
