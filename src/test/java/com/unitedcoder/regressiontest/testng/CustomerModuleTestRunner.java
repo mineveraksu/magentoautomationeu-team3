@@ -3,6 +3,7 @@ package com.unitedcoder.regressiontest.testng;
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
 import com.seleniummaster.maganto.backendpages.customerpages.CustomerDashboardPage;
 import com.seleniummaster.maganto.backendpages.customerpages.CustomerGroupsPage;
+import com.seleniummaster.maganto.backendpages.customerpages.CustomerPage;
 import com.seleniummaster.maganto.backendpages.customerpages.FilterCustomerPage;
 import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.BasePage;
@@ -17,6 +18,7 @@ public class CustomerModuleTestRunner extends BasePage {
     CustomerDashboardPage customerDashboardPage;
     CustomerGroupsPage customerGroupsPage;
     FilterCustomerPage filterCustomerPage;
+    CustomerPage customerPage;
 
     @BeforeClass
     public void setup(ITestContext context){
@@ -28,6 +30,8 @@ public class CustomerModuleTestRunner extends BasePage {
         customerDashboardPage=new CustomerDashboardPage(driver);
         customerGroupsPage=new CustomerGroupsPage(driver);
         filterCustomerPage=new FilterCustomerPage(driver);
+        customerPage=new CustomerPage(driver);
+
     }
 
     @Test(dataProvider = "customerGroupInfo",groups = "regression test",description = "Customer Manager can add new customer groups.")
@@ -72,12 +76,11 @@ public class CustomerModuleTestRunner extends BasePage {
 
         return data;
     }
-
-
-
-
-
-
+    @Test(description = "Customer Manager can reset customer's password")
+    public void addNewCustomer(){
+       customerPage.addNewCustomer();
+       Assert.assertTrue(customerPage.verifyNewCustomerAdded());
+    }
 
     @AfterClass
     public void tearDown(){
