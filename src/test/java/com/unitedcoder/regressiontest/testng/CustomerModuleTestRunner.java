@@ -82,15 +82,8 @@ public class CustomerModuleTestRunner extends BasePage {
        Assert.assertTrue(customerPage.verifyNewCustomerAdded());
     }
 
-
-
-
-
-
-
-//
-//    @AfterClass
-//    public void tearDown(){
-//        closeBrowser();
-//    }
+    @AfterClass
+    public void tearDown(){
+        closeBrowser();
+    }
 }
