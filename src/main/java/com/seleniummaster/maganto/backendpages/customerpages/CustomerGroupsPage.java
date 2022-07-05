@@ -124,9 +124,4 @@ public class CustomerGroupsPage {
             return false;
         }
     }
-
-
-
-
-
 }
