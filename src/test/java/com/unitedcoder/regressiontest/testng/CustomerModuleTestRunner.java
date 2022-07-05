@@ -64,17 +64,15 @@ public class CustomerModuleTestRunner extends BasePage {
         Object[] data=new Object[]{new TestDataHolder("Europe Customer")};
         return data;
     }
+
     @DataProvider
-    public Object[][]filterCustomerInfo() {
+    public Object[]filterCustomerInfo() {
         Object[][] data = new Object[][]{
                 {"gunes8811@hotmail.com"}
         };
 
         return data;
     }
-
-
-
 
 
 
