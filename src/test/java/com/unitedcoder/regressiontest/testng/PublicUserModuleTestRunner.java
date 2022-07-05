@@ -36,7 +36,7 @@ public class PublicUserModuleTestRunner extends BasePage {
         myWishListPage = new MyWishListPage(driver);
     }
 
-    @Test(groups = "regression test", description = "EditAccountInformation")
+    @Test(groups = "regression test", description = "A user should be able to edit account information")
     public void EditAccountInformation() {
         dashboardPage.verifyLogin();
         dashboardPage.clickOnAccountInformationLink();
