@@ -2,7 +2,6 @@ package com.seleniummaster.maganto.backendpages.catalogpages;
 
 import com.seleniummaster.maganto.utility.TestDataHolder;
 import com.seleniummaster.maganto.utility.TestUtility;
-import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -43,8 +42,6 @@ public class CatalogPage {
         select.selectByValue("1");
         testUtility.waitForElementPresent(descriptionField);
         descriptionField.sendKeys(testDataHolder.getRootCategoryDescription());
-        testUtility.waitForElementPresent(metaKeyWords);
-        metaKeyWords.sendKeys(testDataHolder.getMetaKeyWords());
         testUtility.waitForElementPresent(saveCategoryButton);
         saveCategoryButton.click();
     }

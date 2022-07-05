@@ -6,7 +6,6 @@ public class TestDataHolder {
     private String subCategoriesDescription;
     private String rootCategoryName;
     private String rootCategoryDescription;
-    private  String metaKeyWords;
 
 
     public TestDataHolder(String customerGroupName) {
@@ -16,9 +15,10 @@ public class TestDataHolder {
         return customerGroupName;
     }
 
-    public TestDataHolder(String subCategoriesName, String subCategoriesDescription) {
+    public TestDataHolder(String subCategoriesName, String subCategoriesDescription,String rootCategoryName) {
         this.subCategoriesName = subCategoriesName;
         this.subCategoriesDescription = subCategoriesDescription;
+        this.rootCategoryName=rootCategoryName;
     }
 
     public String getSubCategoriesName() {
@@ -28,10 +28,10 @@ public class TestDataHolder {
         return subCategoriesDescription;
     }
 
-    public TestDataHolder(String rootCategoryName, String rootCategoryDescription, String metaKeyWords) {
+    public TestDataHolder(String rootCategoryName, String rootCategoryDescription){
         this.rootCategoryName = rootCategoryName;
         this.rootCategoryDescription = rootCategoryDescription;
-        this.metaKeyWords = metaKeyWords;
+
     }
 
     public String getRootCategoryName() {
@@ -42,7 +42,5 @@ public class TestDataHolder {
         return rootCategoryDescription;
     }
 
-    public String getMetaKeyWords() {
-        return metaKeyWords;
-    }
+
 }
