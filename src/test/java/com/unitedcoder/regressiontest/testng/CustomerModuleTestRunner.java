@@ -76,7 +76,7 @@ public class CustomerModuleTestRunner extends BasePage {
 
         return data;
     }
-    @Test(description = "A user should be able to edit account information")
+    @Test(description = "Customer Manager can add a new customer ")
     public void addNewCustomer(){
        customerPage.addNewCustomer();
        Assert.assertTrue(customerPage.verifyNewCustomerAdded());
