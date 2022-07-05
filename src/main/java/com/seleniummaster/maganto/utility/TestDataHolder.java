@@ -2,8 +2,8 @@ package com.seleniummaster.maganto.utility;
 
 public class TestDataHolder {
     private String customerGroupName;
-    private String rootCategoryName;
-    private String getRootCategoryDescription;
+    private String subCategoriesName;
+    private String subCategoriesDescription;
 
     public TestDataHolder(String customerGroupName) {
         this.customerGroupName = customerGroupName;
@@ -12,16 +12,16 @@ public class TestDataHolder {
         return customerGroupName;
     }
 
-    public TestDataHolder(String rootCategoryName, String getRootCategoryDescription) {
-        this.rootCategoryName = rootCategoryName;
-        this.getRootCategoryDescription = getRootCategoryDescription;
+    public TestDataHolder(String subCategoriesName, String subCategoriesDescription) {
+        this.subCategoriesName = subCategoriesName;
+        this.subCategoriesDescription = subCategoriesDescription;
     }
 
-    public String getRootCategoryName() {
-        return rootCategoryName;
+    public String getSubCategoriesName() {
+        return subCategoriesName;
     }
 
-    public String getGetRootCategoryDescription() {
-        return getRootCategoryDescription;
+    public String getSubCategoriesDescription() {
+        return subCategoriesDescription;
     }
 }
