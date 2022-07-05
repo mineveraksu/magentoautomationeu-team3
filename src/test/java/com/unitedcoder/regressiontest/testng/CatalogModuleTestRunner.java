@@ -2,6 +2,7 @@ package com.unitedcoder.regressiontest.testng;
 
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
 import com.seleniummaster.maganto.backendpages.catalogpages.CatalogDashboardPage;
+import com.seleniummaster.maganto.backendpages.catalogpages.CatalogPage;
 import com.seleniummaster.maganto.backendpages.catalogpages.SubCategoriesPage;
 import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.BasePage;
@@ -15,6 +16,7 @@ public class CatalogModuleTestRunner extends BasePage {
     BackEndLogin login;
     CatalogDashboardPage catalogDashboardPage;
     SubCategoriesPage subCategoriesPage;
+    CatalogPage catalogPage;
 
     @BeforeClass
     public void setup(ITestContext context){
@@ -25,9 +27,10 @@ public class CatalogModuleTestRunner extends BasePage {
         login.catalogPageLogin();
         catalogDashboardPage=new CatalogDashboardPage(driver);
         subCategoriesPage=new SubCategoriesPage(driver);
+        catalogPage = new CatalogPage(driver);
     }
 
-    @Test(dataProvider = "subCategoriesInfo",description = "Catalog Manager Can Add Sub Categories.")
+    @Test(dataProvider = "subCategoriesInfo",description = "Catalog Manager Can Add Sub Categories.",enabled = false)
     public void addSubCategories(TestDataHolder testDataHolder){
         login.VerifyLoginSuccessfully();
         catalogDashboardPage.clickOnManageCategories();
@@ -40,6 +43,13 @@ public class CatalogModuleTestRunner extends BasePage {
     public void updateExistingSubCategories(TestDataHolder testDataHolder){
         subCategoriesPage.updateExistingSubCategories(testDataHolder);
         Assert.assertTrue(subCategoriesPage.verifyUpdateExistingSubCategories(testDataHolder));
+    }
+
+    @Test(dataProvider = "addRootCategoryInfo", description = "Catalog manager can add root categories.")
+    public void addRootCategory(TestDataHolder testDataHolder){
+        catalogDashboardPage.clickOnManageCategories();
+        catalogPage.addRootCategory(testDataHolder);
+        Assert.assertTrue(catalogPage.verifyAddRootCategories(testDataHolder));
     }
 
     @DataProvider
@@ -55,6 +65,14 @@ public class CatalogModuleTestRunner extends BasePage {
         Object[][] data= new Object[][]{
                 {"Clothes for men"}
         };
+        return data;
+    }
+    @DataProvider
+    public Object[] addRootCategoryInfo(){
+        Object [] data = new Object[]
+                {new TestDataHolder("shoes","IMPORTANT","SHIRALI")
+        };
+
         return data;
     }
 

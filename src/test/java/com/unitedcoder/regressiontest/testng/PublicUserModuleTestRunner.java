@@ -97,7 +97,7 @@ public class PublicUserModuleTestRunner extends BasePage {
         Assert.assertTrue(downloadableProductsPage.isDownloadableProductsExist());
     }
 
-    @Test
+    @Test(description = "A user should be able to view my wish list")
     public void verifyMyWishList() {
         dashboardPage.clickOnMyWishListLink();
         myWishListPage.viewMyWshList();
