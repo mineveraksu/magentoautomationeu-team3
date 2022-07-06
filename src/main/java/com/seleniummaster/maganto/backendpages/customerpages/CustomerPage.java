@@ -6,6 +6,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
+
+import java.io.File;
 
 public class CustomerPage {
     WebDriver driver;
@@ -57,37 +60,47 @@ public class CustomerPage {
         return true;
     }
 
-    //Update Customer
-    //Delete Customer
+
+
     //Export Customer
-    @FindBy(css="button[title='Export']")
+
+   @FindBy(id = "customerGrid_export")
+    WebElement fileFormatOption;
+   @FindBy(xpath = "//span[text()='Export']")
     WebElement exportButton;
 
-    //Assign Customer to Group
-
-    //WebElements needed in Add Customer Method
 
 
-    //WebElements needed in Update Customer Method
+//Export Customer
+
+    public void selectFileType(String type){
+               testUtility.waitForElementPresent(fileFormatOption);
+                Select option = new Select(fileFormatOption);
+                option.selectByVisibleText(type);
+
+            }
+            public void clickOnExportButton(){
+                testUtility.waitForElementPresent(exportButton);
+                exportButton.click();
+            }
 
 
-    //WebElements needed in Delete Customer Method
+            public boolean isCustomerFileExported () {
+                String systemUserName= System.getProperty("user.name");
+                String exportedFilePath="C:\\Users\\"+systemUserName+"\\Downloads\\customers.xml";
+                File exportedFileName=new File(exportedFilePath);
+                Boolean isFileExported;
+                isFileExported = exportedFileName.exists();
+                Boolean isExported;
+                if(isFileExported)
+                {
+                    isExported=true;
+                }
+                else
+                    isExported=false;
+                return isExported;
+            }
 
 
-    //WebElements needed in Export Customer Method
 
-
-
-    //WebElements needed in Assign Customer to Group Method
-
-
-    //Add Customer Method
-
-    //Update Customer Method
-
-    //Delete Customer Method
-
-    //Export Customer Method
-
-    //Assign Customer to Group Method
 }
