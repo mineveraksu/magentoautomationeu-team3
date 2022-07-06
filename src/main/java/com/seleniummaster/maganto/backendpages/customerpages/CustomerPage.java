@@ -71,7 +71,7 @@ public class CustomerPage {
 
 
 
-//Export Customer
+
 
     public void selectFileType(String type){
                testUtility.waitForElementPresent(fileFormatOption);
