@@ -2,19 +2,26 @@ package com.seleniummaster.maganto.frontendpages;
 
 import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.TestUtility;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Properties;
+
 public class MyProductReviewsPage {
 
     WebDriver driver;
     TestUtility testUtility;
-    String config = "config.properties";
-    MyDashboardPage myDashboardPage;
+    String config = "productReviewsData.properties";
 
-    public MyProductReviewsPage(WebDriver driver) {
+
+    public MyProductReviewsPage(WebDriver driver) throws FileNotFoundException {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         testUtility = new TestUtility(driver);
@@ -23,7 +30,7 @@ public class MyProductReviewsPage {
     @FindBy(xpath = "//*[@id=\"header\"]/div/div[2]/div/div/a/span[2]")
     WebElement cartLink;
 
-    @FindBy(xpath = "//*[@id=\"cart-sidebar\"]/li[2]/div/a[1]")
+    @FindBy(xpath = "//*[@id=\"cart-sidebar\"]/li/div/a[1]")
     WebElement editItemLink;
 
     @FindBy(linkText = "Add Your Review")
@@ -47,15 +54,20 @@ public class MyProductReviewsPage {
     @FindBy(xpath = "//*[@id=\"review-form\"]/div[2]/button/span/span")
     WebElement submitReviewLink;
 
-    @FindBy(xpath = "//*[@id=\"header-account\"]/div/ul/li[1]/a")
-    WebElement myAccountLink;
-
-
-    @FindBy(xpath = "//*[@id=\"header\"]/div/div[2]/div/a/span[2]")
-    WebElement accountLink;
 
     @FindBy(css = ".block-content>ul>li:nth-child(7)")
     WebElement myProductReviewsLink;
+
+    File file = new File("Test-Data" + File.separator + "productReviewContent.txt");
+    String fileContent;
+
+    {
+        try {
+            fileContent = FileUtils.readFileToString(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     public void openAddReviewsPage() {
@@ -72,23 +84,11 @@ public class MyProductReviewsPage {
         qualityRadio.click();
         priceRadio.click();
         valueRadio.click();
-        reviewField.sendKeys(ApplicationConfig
-                .readFromConfigProperties(config, "myreviewcontent"));
-        summaryField.sendKeys(ApplicationConfig.
-                readFromConfigProperties(config, "myreviewcontent"));
+        reviewField.sendKeys(fileContent);
+        summaryField.sendKeys(fileContent);
         submitReviewLink.click();
     }
 
-    public void clickOnMyProductLink() {
-        testUtility.waitForElementPresent(accountLink);
-        accountLink.click();
-        testUtility.waitForElementPresent(myAccountLink);
-        myAccountLink.click();
-        testUtility.waitForElementPresent(myProductReviewsLink);
-        myProductReviewsLink.click();
-
-
-    }
 
     public void verifyMyProductReviewsLinkDisplay() {
         if (myProductReviewsLink.isDisplayed()) {
@@ -99,12 +99,14 @@ public class MyProductReviewsPage {
     }
 
     public void verifyMyProductReviewsContentsDisplayed() {
-        if (driver.getPageSource().contains
-                (ApplicationConfig.readFromConfigProperties
-                        (config, "myreviewcontent"))) {
+        if (driver.getPageSource().contains(fileContent)) {
+
             System.out.println("Product reviews contents displayed.");
         } else {
             System.out.println("Product reviews contents can not be displayed.");
         }
     }
+
 }
+
+

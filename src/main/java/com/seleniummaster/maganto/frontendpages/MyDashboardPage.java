@@ -35,6 +35,11 @@ public class MyDashboardPage {
     WebElement accountLink;
     @FindBy(xpath = "//div[@id='header-account']/div/ul/li[@class='first']/a")
     WebElement myAccountLink;
+    @FindBy(css = ".block-content>ul>li:nth-child(7)")
+    WebElement myProductReviewsLink;
+
+    @FindBy(xpath = "//div[@class=\"block-content\"]//ul//li[9]/a")
+    WebElement myWishListLink;
 
 
     public MyDashboardPage(WebDriver driver) {
@@ -51,6 +56,11 @@ public class MyDashboardPage {
     public void clickOnMyOrdersLink() {
         testUtility.waitForElementPresent(myOrdersLink);
         myOrdersLink.click();
+    }
+
+    public void clickOnMyWishListLink(){
+        testUtility.waitForElementPresent(myWishListLink);
+        myWishListLink.click();
     }
 
     public void clickOnAccountInformationLink(){
@@ -83,15 +93,16 @@ public class MyDashboardPage {
         myDownloadableProductsLink.click();
     }
 
-    //public void clickOnMyProductReviewsLink(){
-       // testUtility.waitForElementPresent(myProductReviewsLink);
-      //  myProductReviewsLink.click();
-  //  }
 
     public MyDownloadableProductsPage clickMyDownloadableProductsLink() {
         testUtility.waitForElementPresent(myDownloadableProductsLink);
         myDownloadableProductsLink.click();
         return new MyDownloadableProductsPage(driver);
+    }
+    public void clickOnMyProductReviewsLink(){
+        testUtility.waitForElementPresent(myProductReviewsLink);
+        myProductReviewsLink.click();
+
     }
 
     public void backToDashboardPage() {
@@ -100,8 +111,6 @@ public class MyDashboardPage {
         testUtility.waitForElementPresent(myAccountLink);
         myAccountLink.click();
     }
-
-
 
 
 }
