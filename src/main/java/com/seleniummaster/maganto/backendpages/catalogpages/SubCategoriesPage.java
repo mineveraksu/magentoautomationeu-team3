@@ -46,10 +46,10 @@ public class SubCategoriesPage {
         WebElement existingRootCategories=driver.findElement(By.xpath(String.format("//span[contains(text(),'%s (0)')]",testDataHolder.getRootCategoryName())));
         testUtility.waitForElementPresent(existingRootCategories);
         existingRootCategories.click();
-        testUtility.sleep(2);
+        testUtility.sleep(3);
         testUtility.waitForElementPresent(addSubcategoryButton);
         actions.moveToElement(addSubcategoryButton).click().perform();
-        testUtility.sleep(2);
+        testUtility.sleep(3);
         testUtility.waitForElementPresent(nameField);
         nameField.sendKeys(testDataHolder.getSubCategoriesName());
         testUtility.waitForElementPresent(isActiveDropDown);
@@ -73,6 +73,7 @@ public class SubCategoriesPage {
     }
 
     public void clickOnExistingSubCategories(TestDataHolder testDataHolder){
+        testUtility.sleep(3);
         WebElement existingSubCategories=driver.findElement(By.xpath(String.format("//span[contains(text(),'%s')]",testDataHolder.getSubCategoriesName())));
         testUtility.waitForElementPresent(existingSubCategories);
         existingSubCategories.click();

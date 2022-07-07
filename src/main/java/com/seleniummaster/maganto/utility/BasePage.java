@@ -11,6 +11,8 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 
+import java.util.concurrent.TimeUnit;
+
 import static org.openqa.selenium.remote.BrowserType.*;
 
 public class BasePage {
