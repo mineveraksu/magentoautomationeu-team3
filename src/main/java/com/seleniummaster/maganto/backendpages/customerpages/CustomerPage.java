@@ -12,12 +12,12 @@ public class CustomerPage {
     WebDriver driver;
     TestUtility testUtility;
     String config="config.properties";
+    String email= testUtility.generateEmailAddress();
 
     public CustomerPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         testUtility = new TestUtility(driver);
-
     }
 
     //Add Customer
@@ -44,7 +44,7 @@ public class CustomerPage {
         testUtility.waitForElementPresent(lastNameField);
         lastNameField.sendKeys(testUtility.generateLastName());
         testUtility.waitForElementPresent(emailField);
-        emailField.sendKeys(ApplicationConfig.readFromConfigProperties(config,"email"));
+        emailField.sendKeys(email);
         testUtility.waitForElementPresent(passwordField);
         passwordField.sendKeys(ApplicationConfig.readFromConfigProperties(config,"password"));
         testUtility.waitForElementPresent(saveCustomerButton);

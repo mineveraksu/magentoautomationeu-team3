@@ -34,6 +34,12 @@ public class CustomerModuleTestRunner extends BasePage {
 
     }
 
+    @Test(groups = "regression test", description = "Customer Manager can add a new customer ")
+    public void addNewCustomer(){
+        customerPage.addNewCustomer();
+        Assert.assertTrue(customerPage.verifyNewCustomerAdded());
+    }
+
     @Test(dataProvider = "customerGroupInfo",groups = "regression test",description = "Customer Manager can add new customer groups.")
     public void addNewCustomerGroups(TestDataHolder testDataHolder){
         login.VerifyLoginSuccessfully();
@@ -76,11 +82,7 @@ public class CustomerModuleTestRunner extends BasePage {
 
         return data;
     }
-    @Test(description = "Customer Manager can add a new customer ")
-    public void addNewCustomer(){
-       customerPage.addNewCustomer();
-       Assert.assertTrue(customerPage.verifyNewCustomerAdded());
-    }
+
 
     @AfterClass
     public void tearDown(){

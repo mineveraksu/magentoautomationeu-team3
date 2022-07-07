@@ -12,31 +12,28 @@ public class ShoppingCartPage {
     WebDriver driver;
     TestUtility testUtility;
 
+    @FindBy(xpath = "(//a[@title='View Details'])[1]")
+    WebElement viewDetailsButton;
+    @FindBy(id = "attribute92")
+    WebElement colorDropDownList;
+    @FindBy(id = "attribute180")
+    WebElement sizeDropDownList;
+    @FindBy(css = ".add-to-cart-buttons>button.button.btn-cart")
+    WebElement addToCartButton;
+    @FindBy(css = ".success-msg>ul li span")
+    WebElement successMessage;
     @FindBy(xpath ="//span[text()='Cart' ]" )
     WebElement cartLink;
-
     @FindBy(xpath ="//a[@class=\"cart-link\"]")
     WebElement ViewShoppingCartLink;
-
-    //@FindBy(css = ".empty")  //xpath="//p[@class="empty"]"
-   // WebElement emptyMessageDisplayed;
-
-   // @FindBy(xpath ="td[@class = 'product-cart-actions']//a[text() = 'Edit']" )
     @FindBy(css =".product-cart-actions>ul li a[title]")
     WebElement EditIcon;
-
     @FindBy(xpath = "//span[text()=\"Update Cart\"]")
     WebElement UpdateCARTLink;
+    @FindBy(css = ".a-center.product-cart-remove.last>.btn-remove.btn-remove2")
+    WebElement deleteCartButton;
 
-    @FindBy(css= ".success-msg>ul>li>span")
-    WebElement SuccessMessageDisplayed;
-
-    @FindBy(xpath = "//label[text() = 'Size']/parent::dt//following-sibling::dd//select")
-    WebElement sizeSelector;
-
-    //create constructor
     public ShoppingCartPage(WebDriver driver) {
-
         this.driver = driver;
         PageFactory.initElements(driver, this);
         testUtility = new TestUtility(driver);
@@ -55,35 +52,72 @@ public class ShoppingCartPage {
         EditIcon.click();
     }
 
-    public void selectSize(){
-        testUtility.waitForElementPresent(sizeSelector);
-        Select select = new Select(sizeSelector);
-        select.selectByIndex(3);
-    }
 
     public void clickUpdateCartLink(){
         testUtility.waitForElementPresent(UpdateCARTLink);
         UpdateCARTLink.click();
+    }
 
+    public void clickOnDeleteCartButton(){
+        testUtility.waitForElementPresent(deleteCartButton);
+        deleteCartButton.click();
+    }
+
+    public void clickOnViewDetailsButton(){
+        testUtility.waitForElementPresent(viewDetailsButton);
+        viewDetailsButton.click();
+    }
+
+    public void selectColor() {
+        testUtility.waitForElementPresent(colorDropDownList);
+        colorDropDownList.click();
+        Select select = new Select(colorDropDownList);
+        select.selectByIndex(1);
+    }
+
+
+    public void selectSize(int index){
+        testUtility.waitForElementPresent(sizeDropDownList);
+        Select select = new Select(sizeDropDownList);
+        select.selectByIndex(index);
+    }
+
+    public void clickOnAddToCartButton(){
+        testUtility.waitForElementPresent(addToCartButton);
+        addToCartButton.click();
+    }
+
+    public void addProductsToCart(){
+        clickOnViewDetailsButton();
+        selectColor();
+        selectSize(2);
+        clickOnAddToCartButton();
+    }
+
+    public boolean verifyProductsAddedToCart(){
+        testUtility.waitForElementPresent(successMessage);
+        if(successMessage.getText().contains("was added to your shopping cart.")){
+            System.out.println("Add products to shopping cart Test Passed !!");
+            return true;
+        }else{
+            System.out.println("Add products to shopping cart Test Failed !!");
+            return false;
+        }
     }
 
     public void updateShoppingCart() {
         clickCartLink();
         clickViewShoppingCartLink();
         clickEditIcon();
-        selectSize();
+        selectSize(3);
         clickUpdateCartLink();
-
     }
 
     public boolean verifyUpdateShoppingCart() {
-        testUtility.waitForElementPresent(SuccessMessageDisplayed);
-        if (driver.getPageSource().contains(SuccessMessageDisplayed.getText()))
+        testUtility.waitForElementPresent(successMessage);
+        if (driver.getPageSource().contains(successMessage.getText()))
             System.out.println("Update shopping cart successfully");
         return true;
     }
-
-
-
 
 }
