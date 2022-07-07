@@ -25,10 +25,12 @@ public class AccountInformationPage {
     WebElement saveButton;
     @FindBy(css = ".success-msg>ul>li>span")
     WebElement accountInformationSavedSMS;
-
+    @FindBy(xpath = "//input[@id=\"email\"]")
+    WebElement accountEmailBox;
 
     public void editAccountInformation() {
         testUtility.waitForElementPresent(middleNameField);
+        middleNameField.clear();
         middleNameField.sendKeys(testUtility.generateMiddleName());
         testUtility.waitForElementPresent(currentPasswordField);
         currentPasswordField.sendKeys(ApplicationConfig.readFromConfigProperties(config,"password"));
@@ -43,4 +45,17 @@ public class AccountInformationPage {
         return true;
     }
 
+    public String getEmailAddress(){
+        return accountEmailBox.getAttribute("value");
+    }
+    public boolean verifyAccountInformationViewed(){
+        if(getEmailAddress().length()>=1){
+            System.out.println("Account information Viewed!");
+            return true;
+        }
+        else{
+            System.out.println("Please check Account Information Page!");
+            return false;
+        }
+    }
 }
