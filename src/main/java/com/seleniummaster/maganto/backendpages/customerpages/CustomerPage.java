@@ -4,9 +4,11 @@ import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.TestUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
+
+import java.io.File;
 
 public class CustomerPage {
     WebDriver driver;
@@ -58,33 +60,47 @@ public class CustomerPage {
         return true;
     }
 
-    //Update Customer
-    //Delete Customer
+
+
     //Export Customer
-    //Assign Customer to Group
 
-    //WebElements needed in Add Customer Method
-
-
-    //WebElements needed in Update Customer Method
-
-
-    //WebElements needed in Delete Customer Method
+   @FindBy(id = "customerGrid_export")
+    WebElement fileFormatOption;
+   @FindBy(xpath = "//span[text()='Export']")
+    WebElement exportButton;
 
 
-    //WebElements needed in Export Customer Method
 
 
-    //WebElements needed in Assign Customer to Group Method
+
+    public void selectFileType(String type){
+               testUtility.waitForElementPresent(fileFormatOption);
+                Select option = new Select(fileFormatOption);
+                option.selectByVisibleText(type);
+
+            }
+            public void clickOnExportButton(){
+                testUtility.waitForElementPresent(exportButton);
+                exportButton.click();
+            }
 
 
-    //Add Customer Method
+            public boolean isCustomerFileExported () {
+                String systemUserName= System.getProperty("user.name");
+                String exportedFilePath="C:\\Users\\"+systemUserName+"\\Downloads\\customers.xml";
+                File exportedFileName=new File(exportedFilePath);
+                Boolean isFileExported;
+                isFileExported = exportedFileName.exists();
+                Boolean isExported;
+                if(isFileExported)
+                {
+                    isExported=true;
+                }
+                else
+                    isExported=false;
+                return isExported;
+            }
 
-    //Update Customer Method
 
-    //Delete Customer Method
 
-    //Export Customer Method
-
-    //Assign Customer to Group Method
 }

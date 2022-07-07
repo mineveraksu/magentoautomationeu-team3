@@ -55,6 +55,14 @@ public class CustomerModuleTestRunner extends BasePage {
         Assert.assertTrue(customerGroupsPage.verifyUpdateExistingCustomerGroups());
     }
 
+    @Test(description = "exportCustomer")
+    public void exportCustomer(){
+        String fileType="Excel XML";
+        customerPage.selectFileType(fileType);
+        customerPage.clickOnExportButton();
+        customerPage.isCustomerFileExported();
+    }
+
     @Test(dataProvider = "customerGroupInfo",groups = "regression test",description = "Customer Manager can delete existing customer groups",dependsOnMethods = "updateExistingCustomerGroups")
     public void deleteExistingCustomerGroups(TestDataHolder testDataHolder){
         customerGroupsPage.deleteExistingCustomerGroups(testDataHolder);
