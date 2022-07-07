@@ -38,6 +38,11 @@ public class TestUtility{
         return middleName;
     }
 
+    public String generateEmailAddress(){
+        String emailAddress=faker.internet().emailAddress();
+        return emailAddress;
+    }
+
     public void waitForAlertPresent(){
         WebDriverWait wai=new WebDriverWait(driver,timeout);
         wai.until(ExpectedConditions.alertIsPresent());

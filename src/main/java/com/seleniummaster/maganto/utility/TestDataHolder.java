@@ -6,13 +6,27 @@ public class TestDataHolder {
     private String subCategoriesDescription;
     private String rootCategoryName;
     private String rootCategoryDescription;
+    private String attributeCode;
+    private String adminName;
 
+    public TestDataHolder() {
+    }
+
+    public void setAttributeCode(String attributeCode) {
+        this.attributeCode = attributeCode;
+    }
+
+    public void setAdminName(String adminName) {
+        this.adminName = adminName;
+    }
 
     public TestDataHolder(String customerGroupName) {
         this.customerGroupName = customerGroupName;
     }
-    public String getCustomerGroupName() {
-        return customerGroupName;
+
+    public TestDataHolder(String rootCategoryName, String rootCategoryDescription){
+        this.rootCategoryName = rootCategoryName;
+        this.rootCategoryDescription = rootCategoryDescription;
     }
 
     public TestDataHolder(String subCategoriesName, String subCategoriesDescription,String rootCategoryName) {
@@ -21,26 +35,23 @@ public class TestDataHolder {
         this.rootCategoryName=rootCategoryName;
     }
 
+    public String getCustomerGroupName() {
+        return customerGroupName;
+    }
     public String getSubCategoriesName() {
         return subCategoriesName;
     }
     public String getSubCategoriesDescription() {
         return subCategoriesDescription;
     }
-
-    public TestDataHolder(String rootCategoryName, String rootCategoryDescription){
-        this.rootCategoryName = rootCategoryName;
-        this.rootCategoryDescription = rootCategoryDescription;
-
-    }
-
     public String getRootCategoryName() {
         return rootCategoryName;
     }
-
     public String getRootCategoryDescription() {
         return rootCategoryDescription;
     }
+    public String getattributeCode() {return attributeCode;}
+    public String getadminName() {return adminName;}
 
 
 }

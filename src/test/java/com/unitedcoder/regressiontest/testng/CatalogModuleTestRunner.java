@@ -1,36 +1,40 @@
 package com.unitedcoder.regressiontest.testng;
 
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
+import com.seleniummaster.maganto.backendpages.catalogpages.AttributesPage;
 import com.seleniummaster.maganto.backendpages.catalogpages.CatalogDashboardPage;
 import com.seleniummaster.maganto.backendpages.catalogpages.CatalogPage;
 import com.seleniummaster.maganto.backendpages.catalogpages.SubCategoriesPage;
-import com.seleniummaster.maganto.utility.ApplicationConfig;
-import com.seleniummaster.maganto.utility.BasePage;
-import com.seleniummaster.maganto.utility.TestDataHolder;
+import com.seleniummaster.maganto.utility.*;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
 
+@Listeners(TestResultListener.class)
 public class CatalogModuleTestRunner extends BasePage {
-    final String configFile="config.properties";
+    final String configFile = "config.properties";
     BackEndLogin login;
     CatalogDashboardPage catalogDashboardPage;
     SubCategoriesPage subCategoriesPage;
     CatalogPage catalogPage;
+    AttributesPage attributesPage;
+    ExcelUtility excelUtility;
 
     @BeforeClass
-    public void setup(ITestContext context){
-        String url= ApplicationConfig.readFromConfigProperties(configFile,"url");
+    public void setup(ITestContext context) {
+        String url = ApplicationConfig.readFromConfigProperties(configFile, "url");
         browserSetUp(url);
-        context.setAttribute("driver",driver);
-        login=new BackEndLogin(driver);
+        context.setAttribute("driver", driver);
+        login = new BackEndLogin(driver);
         login.catalogPageLogin();
-        catalogDashboardPage=new CatalogDashboardPage(driver);
-        subCategoriesPage=new SubCategoriesPage(driver);
+        catalogDashboardPage = new CatalogDashboardPage(driver);
+        subCategoriesPage = new SubCategoriesPage(driver);
         catalogPage = new CatalogPage(driver);
+        attributesPage = new AttributesPage(driver);
+        excelUtility=new ExcelUtility();
     }
 
-    @Test(priority = 1,dataProvider = "addRootCategoryInfo", description = "Catalog manager can add root categories.")
+    @Test(priority = 1, dataProvider = "addRootCategoryInfo", description = "Catalog manager can add root categories.")
     public void addRootCategory(TestDataHolder testDataHolder) {
         login.VerifyLoginSuccessfully();
         catalogDashboardPage.clickOnManageCategories();
@@ -38,42 +42,51 @@ public class CatalogModuleTestRunner extends BasePage {
         Assert.assertTrue(catalogPage.verifyAddRootCategories(testDataHolder));
     }
 
-    @Test(priority = 2,dataProvider = "subCategoriesInfo",groups = "regression test",description = "Catalog Manager Can Add Sub Categories.")
-    public void addSubCategories(TestDataHolder testDataHolder){
+    @Test(priority = 2, dataProvider = "subCategoriesInfo", groups = "regression test", description = "Catalog Manager Can Add Sub Categories.")
+    public void addSubCategories(TestDataHolder testDataHolder) {
         subCategoriesPage.addSubCategories(testDataHolder);
         Assert.assertTrue(subCategoriesPage.verifyAddSubCategories(testDataHolder));
     }
 
-    @Test(priority = 3,dataProvider = "subCategoriesInfo",description = "Catalog Manager Can Update Sub Categories.",groups = "regression test",dependsOnMethods ="addSubCategories")
+    @Test(priority = 3, dataProvider = "subCategoriesInfo", description = "Catalog Manager Can Update Sub Categories.", groups = "regression test", dependsOnMethods = "addSubCategories")
     public void updateExistingSubCategories(TestDataHolder testDataHolder) {
         subCategoriesPage.updateExistingSubCategories(testDataHolder);
         Assert.assertTrue(subCategoriesPage.verifyUpdateExistingSubCategories(testDataHolder));
     }
 
+    @Test(dataProvider = "AttributeInfo", description = "Category Manager can add a new Attributes under a Catalog. ")
+    public void addNewAttributes(TestDataHolder testDataHolder) {
+        catalogDashboardPage.clickOnManageAttributes();
+        attributesPage.addNewAttributes(testDataHolder);
+        Assert.assertTrue(attributesPage.verifyNewAttributesAddedSuccessfully());
+    }
 
     @DataProvider
-    public Object[] subCategoriesInfo(){
-        Object[] data=new Object[]
-                {new TestDataHolder("Timberland","For every season","shoes")};
-
+    public Object[] subCategoriesInfo() {
+        Object[] data = new Object[]
+                {new TestDataHolder("Timberland", "For every season", "shoes")};
         return data;
     }
 
-
     @DataProvider
-    public Object[] addRootCategoryInfo(){
-        Object [] data = new Object[]
-                {new TestDataHolder("shoes","IMPORTANT")
-        };
-
+    public Object[] addRootCategoryInfo() {
+        Object[] data = new Object[]
+                {new TestDataHolder("shoes", "IMPORTANT")
+                };
         return data;
     }
 
-    @AfterClass(enabled = false)
-    public void tearDown(){
+    @DataProvider
+    public Object[] AttributeInfo() {
+        Object[] data = new Object[]
+                {excelUtility.readAttributeInfoFromExcel("Test-Data/attributeData.xlsx", "Attribute_Info")};
+        return data;
+    }
+
+    @AfterClass()
+    public void tearDown() {
         closeBrowser();
     }
-
 }
 
 

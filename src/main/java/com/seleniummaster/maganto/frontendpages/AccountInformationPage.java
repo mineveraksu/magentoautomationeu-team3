@@ -30,6 +30,7 @@ public class AccountInformationPage {
 
     public void editAccountInformation() {
         testUtility.waitForElementPresent(middleNameField);
+        middleNameField.clear();
         middleNameField.sendKeys(testUtility.generateMiddleName());
         testUtility.waitForElementPresent(currentPasswordField);
         currentPasswordField.sendKeys(ApplicationConfig.readFromConfigProperties(config,"password"));

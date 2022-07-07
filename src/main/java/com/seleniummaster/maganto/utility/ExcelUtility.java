@@ -9,6 +9,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExcelUtility {
@@ -49,4 +50,19 @@ public class ExcelUtility {
         }
         return cellValue;
     }
+
+    public TestDataHolder readAttributeInfoFromExcel(String fileName, String sheetName){
+        ExcelUtility excelUtility=new ExcelUtility();
+        XSSFWorkbook workbook= null;
+        try {
+            workbook = new XSSFWorkbook(fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        TestDataHolder testDataHolder=new TestDataHolder();
+        testDataHolder.setAttributeCode(excelUtility.readFromExcelCell(fileName,sheetName,0,0));
+        testDataHolder.setAdminName(excelUtility.readFromExcelCell(fileName,sheetName,0,1));
+        return testDataHolder;
+    }
+
 }
