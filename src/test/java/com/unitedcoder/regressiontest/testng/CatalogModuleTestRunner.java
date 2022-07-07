@@ -49,12 +49,13 @@ public class CatalogModuleTestRunner extends BasePage {
         Assert.assertTrue(subCategoriesPage.verifyAddSubCategories(testDataHolder));
     }
 
-//    @Test(dataProvider = "subCategoriesInfo", dependsOnMethods = "addSubCategories",
-//            description = "Catalog Manager Can Update Sub Categories.", groups = "regression test")
-//    public void updateExistingSubCategories(TestDataHolder testDataHolder) {
-//        subCategoriesPage.updateExistingSubCategories(testDataHolder);
-//        Assert.assertTrue(subCategoriesPage.verifyUpdateExistingSubCategories(testDataHolder));
-//    }
+    @Test(dataProvider = "subCategoriesInfo", dependsOnMethods = "addSubCategories",
+            description = "Catalog Manager Can Update Sub Categories.", groups = "regression test")
+    public void updateExistingSubCategories(TestDataHolder testDataHolder) {
+        subCategoriesPage.updateExistingSubCategories(testDataHolder);
+        Assert.assertTrue(subCategoriesPage.verifyUpdateExistingSubCategories(testDataHolder));
+    }
+
     @Test(dataProvider = "AttributeInfo", description = "Category Manager can add a new Attributes under a Catalog. ")
     public void addNewAttributes(TestDataHolder testDataHolder) {
         catalogDashboardPage.clickOnManageAttributes();
