@@ -34,7 +34,7 @@ public class CatalogModuleTestRunner extends BasePage {
         excelUtility=new ExcelUtility();
     }
 
-    @Test(priority = 1, dataProvider = "addRootCategoryInfo", description = "Catalog manager can add root categories.")
+    @Test(dataProvider = "addRootCategoryInfo", description = "Catalog manager can add root categories.")
     public void addRootCategory(TestDataHolder testDataHolder) {
         login.VerifyLoginSuccessfully();
         catalogDashboardPage.clickOnManageCategories();
@@ -42,18 +42,19 @@ public class CatalogModuleTestRunner extends BasePage {
         Assert.assertTrue(catalogPage.verifyAddRootCategories(testDataHolder));
     }
 
-    @Test(priority = 2, dataProvider = "subCategoriesInfo", groups = "regression test", description = "Catalog Manager Can Add Sub Categories.")
+    @Test(dataProvider = "subCategoriesInfo", dependsOnMethods = "addRootCategory",
+            groups = "regression test", description = "Catalog Manager Can Add Sub Categories.")
     public void addSubCategories(TestDataHolder testDataHolder) {
         subCategoriesPage.addSubCategories(testDataHolder);
         Assert.assertTrue(subCategoriesPage.verifyAddSubCategories(testDataHolder));
     }
 
-    @Test(priority = 3, dataProvider = "subCategoriesInfo", description = "Catalog Manager Can Update Sub Categories.", groups = "regression test", dependsOnMethods = "addSubCategories")
-    public void updateExistingSubCategories(TestDataHolder testDataHolder) {
-        subCategoriesPage.updateExistingSubCategories(testDataHolder);
-        Assert.assertTrue(subCategoriesPage.verifyUpdateExistingSubCategories(testDataHolder));
-    }
-
+//    @Test(dataProvider = "subCategoriesInfo", dependsOnMethods = "addSubCategories",
+//            description = "Catalog Manager Can Update Sub Categories.", groups = "regression test")
+//    public void updateExistingSubCategories(TestDataHolder testDataHolder) {
+//        subCategoriesPage.updateExistingSubCategories(testDataHolder);
+//        Assert.assertTrue(subCategoriesPage.verifyUpdateExistingSubCategories(testDataHolder));
+//    }
     @Test(dataProvider = "AttributeInfo", description = "Category Manager can add a new Attributes under a Catalog. ")
     public void addNewAttributes(TestDataHolder testDataHolder) {
         catalogDashboardPage.clickOnManageAttributes();
@@ -83,10 +84,10 @@ public class CatalogModuleTestRunner extends BasePage {
         return data;
     }
 
-    @AfterClass()
-    public void tearDown() {
-        closeBrowser();
-    }
+//    @AfterClass()
+//    public void tearDown() {
+//        closeBrowser();
+//    }
 }
 
 
