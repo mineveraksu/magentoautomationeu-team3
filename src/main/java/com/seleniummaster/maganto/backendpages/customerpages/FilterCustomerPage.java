@@ -27,6 +27,18 @@ public class FilterCustomerPage {
     @FindBy(css = "tr>td:nth-child(4)")
     WebElement customerEmail;
 
+    @FindBy(id = "customerGrid_filter_billing_country_id")
+    WebElement countryField;
+
+    @FindBy(id = "customerGrid_filter_billing_region")
+    WebElement stateField;
+
+    @FindBy(id = "customerGrid_filter_website_id")
+    WebElement websiteField;
+
+
+
+
     public void clickEmailField(String email) {
         testUtility.waitForElementPresent(emailField);
         emailField.sendKeys(email);
@@ -45,4 +57,12 @@ public class FilterCustomerPage {
 
         }
     }
+
+    public void filterByState(){
+        testUtility.waitForElementPresent(stateField);
+        stateField.sendKeys();
+        searchButton.click();
+    }
+
+
 }
