@@ -81,7 +81,7 @@ public class CustomerGroupsPage {
     }
 
     public boolean verifyAddNewCustomerGroups() {
-        testUtility.waitForElementPresent(SuccessMessage);
+        //testUtility.waitForElementPresent(SuccessMessage);
         if (SuccessMessage.getText().contains("saved")) {
             System.out.println("Customer Manager add new customer groups Test Passed!! ");
             return true;
