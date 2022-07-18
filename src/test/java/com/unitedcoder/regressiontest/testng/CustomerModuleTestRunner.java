@@ -85,7 +85,6 @@ public class CustomerModuleTestRunner extends BasePage {
         Assert.assertTrue(filterCustomerPage.verifyFilterCustomerByEmail());
     }
 
-
     @DataProvider
     public Object[] customerGroupInfo(){
         Object[] data=new Object[]{new TestDataHolder("Europe Customer")};
@@ -108,8 +107,16 @@ public class CustomerModuleTestRunner extends BasePage {
         Assert.assertTrue(addAddressesPage.verifyNewAddressAdded());
     }
 
-    @AfterClass
+    @Test(description = "Customer Manager can update an existing customer ")
+    public void updateCustomer(){
+        customerPage.updateCustomer();
+        Assert.assertTrue(customerPage.verifyUpdateCustomer());
+    }
+
+
+        @AfterClass
     public void tearDown(){
         closeBrowser();
     }
+
 }

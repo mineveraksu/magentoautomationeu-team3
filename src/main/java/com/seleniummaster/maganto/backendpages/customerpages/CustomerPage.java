@@ -167,11 +167,20 @@ public class CustomerPage {
         emailAddressAfterSearched.click();
         testUtility.waitForElementPresent(accountInformationLink);
         accountInformationLink.click();
+        testUtility.sleep(3);
         testUtility.waitForElementPresent(lastNameField);
         lastNameField.clear();
+        testUtility.sleep(3);
         lastNameField.sendKeys(testUtility.generateLastName());
+        testUtility.sleep(3);
         testUtility.waitForElementPresent(saveCustomerButton);
         saveCustomerButton.click();
+        testUtility.sleep(3);
+        Alert alert = driver.switchTo().alert();
+        alert.accept();
+
+
+        System.out.println("test passed");
     }
     public boolean verifyUpdateCustomer(){
         testUtility.waitForElementPresent(customerSavedSMS);
