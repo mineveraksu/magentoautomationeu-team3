@@ -6,8 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.concurrent.TimeUnit;
-
 public class TestUtility{
     private int timeout=Integer.parseInt(ApplicationConfig.readFromConfigProperties(
             "config.properties","timeout"
@@ -21,9 +19,6 @@ public class TestUtility{
         this.driver = driver;
     }
 
-    public void implicitWait(int second){
-        driver.manage().timeouts().implicitlyWait(second, TimeUnit.SECONDS);
-    }
     public void waitForElementPresent(WebElement element){
         WebDriverWait wait=new WebDriverWait(driver,timeout);
         wait.until(ExpectedConditions.visibilityOf(element));
@@ -42,10 +37,39 @@ public class TestUtility{
         String middleName=faker.name().nameWithMiddle();
         return middleName;
     }
-
     public String generateEmailAddress(){
         String emailAddress=faker.internet().emailAddress();
         return emailAddress;
+    }
+
+    public String generateStreetAddress(){
+        String streetAddress=faker.address().streetAddress();
+        return streetAddress;
+    }
+
+    public String generateCityName(){
+        String cityName=faker.address().cityName();
+        return cityName;
+    }
+
+    public  String generateCountryName(){
+        String countryName=faker.address().country();
+        return countryName;
+    }
+
+    public String generateStateName(){
+        String stateName=faker.address().state();
+        return stateName;
+    }
+
+    public String generateZipCode(){
+        String zinCode=faker.address().zipCode();
+        return zinCode;
+    }
+
+    public String generateTelephoneNumber(){
+        String telephoneNumber=faker.phoneNumber().phoneNumber();
+        return telephoneNumber;
     }
 
     public void waitForAlertPresent(){

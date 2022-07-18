@@ -1,15 +1,14 @@
 package com.unitedcoder.regressiontest.testng;
 
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
-import com.seleniummaster.maganto.backendpages.customerpages.CustomerDashboardPage;
-import com.seleniummaster.maganto.backendpages.customerpages.CustomerGroupsPage;
-import com.seleniummaster.maganto.backendpages.customerpages.CustomerPage;
-import com.seleniummaster.maganto.backendpages.customerpages.FilterCustomerPage;
+import com.seleniummaster.maganto.backendpages.customerpages.*;
 import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.BasePage;
 import com.seleniummaster.maganto.utility.TestDataHolder;
+
 import com.seleniummaster.maganto.utility.TestUtility;
 import org.apache.tools.ant.taskdefs.Sleep;
+import io.cucumber.java.bs.A;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
@@ -25,6 +24,9 @@ public class CustomerModuleTestRunner extends BasePage {
 
 
 
+    AddAddressesPage addAddressesPage;
+
+
     @BeforeClass
     public void setup(ITestContext context){
         String url= ApplicationConfig.readFromConfigProperties(configFile,"url");
@@ -36,6 +38,7 @@ public class CustomerModuleTestRunner extends BasePage {
         customerGroupsPage=new CustomerGroupsPage(driver);
         filterCustomerPage=new FilterCustomerPage(driver);
         customerPage=new CustomerPage(driver);
+        addAddressesPage=new AddAddressesPage(driver);
 
     }
 
@@ -58,6 +61,15 @@ public class CustomerModuleTestRunner extends BasePage {
         customerDashboardPage.clickOnCustomerGroups();
         customerGroupsPage.updateExistingCustomerGroups(testDataHolder);
         Assert.assertTrue(customerGroupsPage.verifyUpdateExistingCustomerGroups());
+    }
+    @Test(description = "assign a customer to group",
+            dataProvider = "customerGroupInfo",dependsOnMethods = {"addNewCustomer"})
+    public void assignACustomerToGroup(TestDataHolder testDataHolder){
+        customerPage.selectAddedCustomer();
+        customerPage.selectActionsList();
+        customerPage.selectGroup(testDataHolder);
+        customerPage.clickOnSubmitButton();
+        customerPage.verificationACustomerAssignToGroup();
     }
 
     @Test(description = "exportCustomer")
@@ -92,16 +104,10 @@ public class CustomerModuleTestRunner extends BasePage {
         filterCustomerPage.clickOnResetFilter();
         System.out.println("ready to search other elements1");
 
-
-
        //filterCustomerPage.filterByState();
         //filterCustomerPage.clickOnResetFilter();
-
-
         filterCustomerPage.filterByWebsite();
         filterCustomerPage.verifyFilteredByWebsite();
-
-        
     }
 
     @DataProvider
@@ -118,6 +124,13 @@ public class CustomerModuleTestRunner extends BasePage {
         return data;
     }
 
+
+    @Test(groups = "regression test",description = "Customer Manager can add a new address for a customer")//dataProvider = "customerGroupInfo",,dependsOnMethods = "addNewCustomer"
+    public void addNewAddress(){
+        customerDashboardPage.navigateToAddressesLink();
+        addAddressesPage.addNewAddress();
+        Assert.assertTrue(addAddressesPage.verifyNewAddressAdded());
+    }
 
     @AfterClass
     public void tearDown(){
