@@ -98,6 +98,21 @@ public class SubCategoriesPage {
             return false;
         }
     }
+    //for delete sub categories
+    @FindBy(css = ".active>a")
+    WebElement catalogLink;
+    @FindBy(xpath = "//span[text()='Manage Categories']")
+    WebElement manageCategoriesLink;
+    // @FindBy(xpath="")
+    //WebElement shoesCategory;
+    @FindBy(xpath = "//span[contains(text(), 'Timberland')]")
+    WebElement timberlandSubCategory;
+    @FindBy(css="button[title='Delete Category']")
+    WebElement deleteCategoryButton;
+    @FindBy(xpath = "//*[text()=\"The category has been deleted.\"]")
+    WebElement deleteSubCategorySuccessfulMessage;
+
+
 
 }
 
