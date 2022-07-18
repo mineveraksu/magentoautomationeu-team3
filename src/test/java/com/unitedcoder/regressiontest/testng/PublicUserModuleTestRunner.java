@@ -16,7 +16,7 @@ public class PublicUserModuleTestRunner extends BasePage {
     MyDashboardPage dashboardPage;
     AccountInformationPage accountInformationPage;
     MyOrdersPage myOrdersPage;
-    SalePage salePage;
+    ShoppingCartPage shoppingCartPage;
     CheckOutOrderPage checkOutOrderPage;
     AddressBookPage addressBookPage;
     MyWishListPage myWishListPage;
@@ -31,7 +31,7 @@ public class PublicUserModuleTestRunner extends BasePage {
         dashboardPage = new MyDashboardPage(driver);
         accountInformationPage = new AccountInformationPage(driver);
         myOrdersPage = new MyOrdersPage(driver);
-        salePage = new SalePage(driver);
+        shoppingCartPage=new ShoppingCartPage(driver);
         addressBookPage = new AddressBookPage(driver);
         myWishListPage = new MyWishListPage(driver);
     }
@@ -60,21 +60,19 @@ public class PublicUserModuleTestRunner extends BasePage {
     @Test(groups = "regression test", description = "A User Should be Able to add products to shopping cart")
     public void addProductsToCart() {
         dashboardPage.clickOnSaleLink();
-        salePage.addProductsToCart();
-        Assert.assertTrue(salePage.verifyProductsAddedToCart());
+        shoppingCartPage.addProductsToCart();
+        Assert.assertTrue(shoppingCartPage.verifyProductsAddedToCart());
     }
 
     @Test(groups = "regression test", description = "A User Should be Able to update products to shopping cart", dependsOnMethods = "addProductsToCart")
     public void updateShoppingCart() {
-        ShoppingCartPage shoppingCartPage = new ShoppingCartPage(driver);
         shoppingCartPage.updateShoppingCart();
         Assert.assertTrue(shoppingCartPage.verifyUpdateShoppingCart());
-
+        shoppingCartPage.clickOnDeleteCartButton();
     }
 
     @Test(groups = "regression test", description = "user should be able to update and view address book")
     public void updateAndViewAddressBook() {
-        dashboardPage.verifyLogin();
         dashboardPage.clickOnAddressBookLink();
         addressBookPage.updateAddressBookMethod();
         addressBookPage.clickONSaveAddressButton();
@@ -97,7 +95,7 @@ public class PublicUserModuleTestRunner extends BasePage {
         Assert.assertTrue(downloadableProductsPage.isDownloadableProductsExist());
     }
 
-    @Test
+    @Test(description = "A user should be able to view my wish list")
     public void verifyMyWishList() {
         dashboardPage.clickOnMyWishListLink();
         myWishListPage.viewMyWshList();

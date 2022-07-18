@@ -34,6 +34,12 @@ public class CustomerModuleTestRunner extends BasePage {
 
     }
 
+    @Test(groups = "regression test", description = "Customer Manager can add a new customer ")
+    public void addNewCustomer(){
+        customerPage.addNewCustomer();
+        Assert.assertTrue(customerPage.verifyNewCustomerAdded());
+    }
+
     @Test(dataProvider = "customerGroupInfo",groups = "regression test",description = "Customer Manager can add new customer groups.")
     public void addNewCustomerGroups(TestDataHolder testDataHolder){
         login.VerifyLoginSuccessfully();
@@ -47,6 +53,14 @@ public class CustomerModuleTestRunner extends BasePage {
         customerDashboardPage.clickOnCustomerGroups();
         customerGroupsPage.updateExistingCustomerGroups(testDataHolder);
         Assert.assertTrue(customerGroupsPage.verifyUpdateExistingCustomerGroups());
+    }
+
+    @Test(description = "exportCustomer")
+    public void exportCustomer(){
+        String fileType="Excel XML";
+        customerPage.selectFileType(fileType);
+        customerPage.clickOnExportButton();
+        customerPage.isCustomerFileExported();
     }
 
     @Test(dataProvider = "customerGroupInfo",groups = "regression test",description = "Customer Manager can delete existing customer groups",dependsOnMethods = "updateExistingCustomerGroups")
@@ -76,11 +90,7 @@ public class CustomerModuleTestRunner extends BasePage {
 
         return data;
     }
-    @Test(description = "Customer Manager can add a new customer ")
-    public void addNewCustomer(){
-       customerPage.addNewCustomer();
-       Assert.assertTrue(customerPage.verifyNewCustomerAdded());
-    }
+
 
     @Test(groups = "regression test",description = "Customer Manager can add a new address for a customer")//dataProvider = "customerGroupInfo",,dependsOnMethods = "addNewCustomer"
     public void addNewAddress(){
