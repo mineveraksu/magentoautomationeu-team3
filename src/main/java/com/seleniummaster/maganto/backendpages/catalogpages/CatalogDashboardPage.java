@@ -22,6 +22,8 @@ public class CatalogDashboardPage {
     WebElement attributesLink;
     @FindBy(xpath = "//span[text()='Manage Attributes']")
     WebElement manageAttributesLink;
+    @FindBy(xpath = "(//li[@class=\"  level1\"]/a)[1]")
+    WebElement manageProductsLink;
 
     public CatalogDashboardPage(WebDriver driver) {
         this.driver = driver;
@@ -42,6 +44,16 @@ public class CatalogDashboardPage {
         actions.moveToElement(catalogLink).perform();
         testUtility.waitForElementPresent(attributesLink);
         actions.moveToElement(attributesLink).click(manageAttributesLink).perform();
+    }
+
+    public void clickOnManageProducts(){
+        testUtility.sleep(3);
+        testUtility.waitForElementPresent(catalogLink);
+        actions.moveToElement(catalogLink).perform();
+        testUtility.sleep(3);
+        testUtility.waitForElementPresent(manageProductsLink);
+        actions.moveToElement(manageProductsLink).perform();
+        testUtility.sleep(3);
     }
 
 }

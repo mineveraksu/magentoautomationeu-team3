@@ -1,10 +1,7 @@
 package com.unitedcoder.regressiontest.testng;
 
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
-import com.seleniummaster.maganto.backendpages.catalogpages.AttributesPage;
-import com.seleniummaster.maganto.backendpages.catalogpages.CatalogDashboardPage;
-import com.seleniummaster.maganto.backendpages.catalogpages.CatalogPage;
-import com.seleniummaster.maganto.backendpages.catalogpages.SubCategoriesPage;
+import com.seleniummaster.maganto.backendpages.catalogpages.*;
 import com.seleniummaster.maganto.utility.*;
 import org.testng.Assert;
 import org.testng.ITestContext;
@@ -19,6 +16,7 @@ public class CatalogModuleTestRunner extends BasePage {
     CatalogPage catalogPage;
     AttributesPage attributesPage;
     ExcelUtility excelUtility;
+    DeleteProduct deleteProduct;
 
     @BeforeClass
     public void setup(ITestContext context) {
@@ -32,6 +30,7 @@ public class CatalogModuleTestRunner extends BasePage {
         catalogPage = new CatalogPage(driver);
         attributesPage = new AttributesPage(driver);
         excelUtility=new ExcelUtility();
+        deleteProduct=new DeleteProduct(driver);
     }
 
     @Test(dataProvider = "addRootCategoryInfo", description = "Catalog manager can add root categories.")
@@ -83,6 +82,13 @@ public class CatalogModuleTestRunner extends BasePage {
         Object[] data = new Object[]
                 {excelUtility.readAttributeInfoFromExcel("Test-Data/attributeData.xlsx", "Attribute_Info")};
         return data;
+    }
+
+    @Test(description = "Catalog Manager can delete product",groups = "regression test")
+    public void deleteProducts(){
+        catalogDashboardPage.clickOnManageProducts();
+        deleteProduct.deleteProduct();
+        Assert.assertTrue(deleteProduct.verifyDeleteProduct());
     }
 
 //    @AfterClass()
