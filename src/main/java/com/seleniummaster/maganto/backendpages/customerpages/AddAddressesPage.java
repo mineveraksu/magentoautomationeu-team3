@@ -49,7 +49,7 @@ public class AddAddressesPage {
         cityField.click();
         testUtility.sleep(2);
         cityField.sendKeys(testUtility.generateCityName());
-        System.out.println("city name is selected  by  faker ");
+        System.out.println("city name is selected  by  faker name ");
         countryField.click();
         testUtility.sleep(2);
         select=new Select(countryField);
