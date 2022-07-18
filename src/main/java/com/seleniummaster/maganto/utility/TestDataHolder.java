@@ -9,6 +9,13 @@ public class TestDataHolder {
     private String attributeCode;
     private String adminName;
 
+    @Override
+    public String toString() {
+        return "TestDataHolder{" +
+                "customerGroupName='" + customerGroupName + '\'' +
+                '}';
+    }
+
     public TestDataHolder() {
     }
 

@@ -1,9 +1,13 @@
 package com.seleniummaster.maganto.backendpages.customerpages;
 
 import com.seleniummaster.maganto.utility.ApplicationConfig;
+import com.seleniummaster.maganto.utility.TestDataHolder;
 import com.seleniummaster.maganto.utility.TestUtility;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
@@ -13,16 +17,18 @@ import java.io.File;
 public class CustomerPage {
     WebDriver driver;
     TestUtility testUtility;
+    TestDataHolder testDataHolder=new TestDataHolder();
     String config = "config.properties";
-    String email = testUtility.generateEmailAddress();
+    String email;
 
     public CustomerPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
-        testUtility = new TestUtility(driver);
+        testUtility=new TestUtility(driver);
+
     }
 
-    //Add Customer
+
     @FindBy(xpath = " (//span[text()='Add New Customer'])[1]")
     WebElement addNewCustomerButton;
     @FindBy(id = "_accountfirstname")
@@ -37,8 +43,16 @@ public class CustomerPage {
     WebElement saveCustomerButton;
     @FindBy(css = ".success-msg>ul>li>span")
     WebElement customerSavedSMS;
-
-    public void addNewCustomer() {
+    @FindBy(id = "customerGrid_massaction-select")
+    WebElement actionsDropDown;
+    @FindBy(id = "visibility")
+    WebElement groupDropDown;
+    @FindBy(xpath = "//span[@class=\"field-row\"]//span[text()=\"Submit\"]")
+    WebElement submitButton;
+    @FindBy(css = ".success-msg")
+    WebElement verifyACustomerAssignToGroupSuccessfulSms;
+    public String addNewCustomer() {
+         email=testUtility.generateEmailAddress();
         testUtility.waitForElementPresent(addNewCustomerButton);
         addNewCustomerButton.click();
         testUtility.waitForElementPresent(firstNameField);
@@ -51,6 +65,7 @@ public class CustomerPage {
         passwordField.sendKeys(ApplicationConfig.readFromConfigProperties(config, "password"));
         testUtility.waitForElementPresent(saveCustomerButton);
         saveCustomerButton.click();
+        return email;
 
     }
 
@@ -96,6 +111,34 @@ public class CustomerPage {
             isExported = false;
         return isExported;
     }
+    public void selectAddedCustomer(){
+        String ckekBox="//*[@id=\"customerGrid_table\"]//tbody//*[contains(text(),'?')]//ancestor::tr//input[@type=\"checkbox\"]";
+        WebElement selectedCustomerChekBox=driver.findElement(By.xpath(ckekBox.replace("?",email)));
+        testUtility.waitForElementPresent(selectedCustomerChekBox);
+        Actions actions=new Actions(driver);
+        actions.moveToElement(selectedCustomerChekBox).perform();
+    }
+    public void selectActionsList(){
+        testUtility.waitForElementPresent(actionsDropDown);
+        Select select=new Select(actionsDropDown);
+        select.selectByVisibleText("Assign a Customer Group");
+    }
+    public void selectGroup(TestDataHolder testDataHolder ){
+       testUtility.waitForElementPresent(groupDropDown);
+        Select select2=new Select(groupDropDown);
+        select2.selectByVisibleText(testDataHolder.getCustomerGroupName());
+   }
+   public void clickOnSubmitButton(){
+        testUtility.waitForElementPresent(submitButton);
+        submitButton.click();
+       Alert alert=driver.switchTo().alert();
+       alert.accept();
+   }
+   public boolean verificationACustomerAssignToGroup(){
 
+
+       System.out.println(" assign a customer to group " + verifyACustomerAssignToGroupSuccessfulSms);
+       return verifyACustomerAssignToGroupSuccessfulSms.getText().contains("Total of 1 record(s) were updated.");
+   }
 
 }
