@@ -1,13 +1,11 @@
 package com.unitedcoder.regressiontest.testng;
 
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
-import com.seleniummaster.maganto.backendpages.customerpages.CustomerDashboardPage;
-import com.seleniummaster.maganto.backendpages.customerpages.CustomerGroupsPage;
-import com.seleniummaster.maganto.backendpages.customerpages.CustomerPage;
-import com.seleniummaster.maganto.backendpages.customerpages.FilterCustomerPage;
+import com.seleniummaster.maganto.backendpages.customerpages.*;
 import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.BasePage;
 import com.seleniummaster.maganto.utility.TestDataHolder;
+import io.cucumber.java.bs.A;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
@@ -19,6 +17,7 @@ public class CustomerModuleTestRunner extends BasePage {
     CustomerGroupsPage customerGroupsPage;
     FilterCustomerPage filterCustomerPage;
     CustomerPage customerPage;
+    AddAddressesPage addAddressesPage;
 
     @BeforeClass
     public void setup(ITestContext context){
@@ -31,6 +30,7 @@ public class CustomerModuleTestRunner extends BasePage {
         customerGroupsPage=new CustomerGroupsPage(driver);
         filterCustomerPage=new FilterCustomerPage(driver);
         customerPage=new CustomerPage(driver);
+        addAddressesPage=new AddAddressesPage(driver);
 
     }
 
@@ -100,6 +100,13 @@ public class CustomerModuleTestRunner extends BasePage {
         return data;
     }
 
+
+    @Test(groups = "regression test",description = "Customer Manager can add a new address for a customer")//dataProvider = "customerGroupInfo",,dependsOnMethods = "addNewCustomer"
+    public void addNewAddress(){
+        customerDashboardPage.navigateToAddressesLink();
+        addAddressesPage.addNewAddress();
+        Assert.assertTrue(addAddressesPage.verifyNewAddressAdded());
+    }
 
     @AfterClass
     public void tearDown(){
