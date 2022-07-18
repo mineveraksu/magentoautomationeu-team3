@@ -64,7 +64,7 @@ public class AddAddressesPage {
         zipCodeField.clear();
         zipCodeField.click();
         zipCodeField.sendKeys(testUtility.generateZipCode());
-        System.out.println("Zip code filled successful");
+        System.out.println("Zip code  filled successful");
         telephoneField.clear();
         telephoneField.click();
         telephoneField.sendKeys(testUtility.generateTelephoneNumber());
@@ -72,6 +72,7 @@ public class AddAddressesPage {
         testUtility.sleep(3);
         addedAddressSaveButton.click();
         System.out.println(" add address button clicked ");
+
     }
 
     public boolean verifyNewAddressAdded(){
