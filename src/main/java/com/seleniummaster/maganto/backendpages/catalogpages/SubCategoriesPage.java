@@ -2,6 +2,7 @@ package com.seleniummaster.maganto.backendpages.catalogpages;
 
 import com.seleniummaster.maganto.utility.TestDataHolder;
 import com.seleniummaster.maganto.utility.TestUtility;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -112,6 +113,26 @@ public class SubCategoriesPage {
     @FindBy(xpath = "//*[text()=\"The category has been deleted.\"]")
     WebElement deleteSubCategorySuccessfulMessage;
 
+    public void deleteSubCategory(){
+        testUtility.waitForElementPresent(catalogLink);
+        catalogLink.click();
+        testUtility.waitForElementPresent(manageCategoriesLink);
+        manageCategoriesLink.click();
+        testUtility.waitForElementPresent(timberlandSubCategory);
+        timberlandSubCategory.click();
+        testUtility.sleep(3);
+        testUtility.waitForElementPresent(deleteCategoryButton);
+        deleteCategoryButton.click();
+        testUtility.waitForAlertPresent();
+        Alert alert=driver.switchTo().alert();
+        alert.accept();
+        deleteCategoryButton.click();
+    }
+    public boolean verifyDeleteSubCategorySuccessful(){
+        testUtility.sleep(3);
+        deleteSubCategorySuccessfulMessage.isDisplayed();
+        return deleteSubCategorySuccessfulMessage.isDisplayed();
+    }
 
 
 }
