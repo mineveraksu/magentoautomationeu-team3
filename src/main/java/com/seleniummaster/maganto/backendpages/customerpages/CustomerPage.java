@@ -14,12 +14,13 @@ public class CustomerPage {
     WebDriver driver;
     TestUtility testUtility;
     String config = "config.properties";
-    String email = testUtility.generateEmailAddress();
+    String email;
 
     public CustomerPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
-        testUtility = new TestUtility(driver);
+        this.testUtility = new TestUtility(driver);
+        this.email = testUtility.generateEmailAddress();
     }
 
     //Add Customer
