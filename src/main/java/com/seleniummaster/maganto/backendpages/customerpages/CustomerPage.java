@@ -3,6 +3,7 @@ package com.seleniummaster.maganto.backendpages.customerpages;
 import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.TestDataHolder;
 import com.seleniummaster.maganto.utility.TestUtility;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -111,11 +112,7 @@ public class CustomerPage {
         return isExported;
     }
     public void selectAddedCustomer(){
-       // String isim="Maribel Rohan";
         String ckekBox="//*[@id=\"customerGrid_table\"]//tbody//*[contains(text(),'?')]//ancestor::tr//input[@type=\"checkbox\"]";
-
-//        WebElement selectedCustomerChekBox=driver.findElement(By.xpath(String.format("//*[@id=\"customerGrid_table\"]" +
-//                "//tbody//*[contains(text(),'%s')]//ancestor::tr//input[@type=\"checkbox\"]",name)));
         WebElement selectedCustomerChekBox=driver.findElement(By.xpath(ckekBox.replace("?",email)));
         testUtility.waitForElementPresent(selectedCustomerChekBox);
         Actions actions=new Actions(driver);
@@ -134,11 +131,14 @@ public class CustomerPage {
    public void clickOnSubmitButton(){
         testUtility.waitForElementPresent(submitButton);
         submitButton.click();
+       Alert alert=driver.switchTo().alert();
+       alert.accept();
    }
    public boolean verificationACustomerAssignToGroup(){
-       System.out.println(" assign a customer to group " + verifyACustomerAssignToGroupSuccessfulSms);
 
-  return  verifyACustomerAssignToGroupSuccessfulSms.getText().contains("Total of 1 record(s) were updated.");
+
+       System.out.println(" assign a customer to group " + verifyACustomerAssignToGroupSuccessfulSms);
+       return verifyACustomerAssignToGroupSuccessfulSms.getText().contains("Total of 1 record(s) were updated.");
    }
 
 }

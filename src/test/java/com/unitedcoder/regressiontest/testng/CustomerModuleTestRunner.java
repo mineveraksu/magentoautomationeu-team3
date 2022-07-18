@@ -55,13 +55,13 @@ public class CustomerModuleTestRunner extends BasePage {
         Assert.assertTrue(customerGroupsPage.verifyUpdateExistingCustomerGroups());
     }
     @Test(description = "assign a customer to group",
-            dataProvider = "customerGroupInfo",dependsOnMethods = "addNewCustomer")
+            dataProvider = "customerGroupInfo",dependsOnMethods = {"addNewCustomer"})
     public void assignACustomerToGroup(TestDataHolder testDataHolder){
         customerPage.selectAddedCustomer();
         customerPage.selectActionsList();
         customerPage.selectGroup(testDataHolder);
         customerPage.clickOnSubmitButton();
-        Assert.assertTrue(customerPage.verificationACustomerAssignToGroup());
+        customerPage.verificationACustomerAssignToGroup();
     }
 
     @Test(description = "exportCustomer")
