@@ -38,6 +38,36 @@ public class TestUtility{
         return middleName;
     }
 
+    public String generateStreetAddress(){
+        String streetAddress=faker.address().streetAddress();
+        return streetAddress;
+    }
+
+    public String generateCityName(){
+        String cityName=faker.address().cityName();
+        return cityName;
+    }
+
+    public  String generateCountryName(){
+        String countryName=faker.address().country();
+        return countryName;
+    }
+
+    public String generateStateName(){
+        String stateName=faker.address().state();
+        return stateName;
+    }
+
+    public String generateZipCode(){
+        String zinCode=faker.address().zipCode();
+        return zinCode;
+    }
+
+    public String generateTelephoneNumber(){
+        String telephoneNumber=faker.phoneNumber().phoneNumber();
+        return telephoneNumber;
+    }
+
     public void waitForAlertPresent(){
         WebDriverWait wai=new WebDriverWait(driver,timeout);
         wai.until(ExpectedConditions.alertIsPresent());
