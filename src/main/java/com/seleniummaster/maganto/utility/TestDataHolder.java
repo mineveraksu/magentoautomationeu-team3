@@ -59,6 +59,4 @@ public class TestDataHolder {
     }
     public String getattributeCode() {return attributeCode;}
     public String getadminName() {return adminName;}
-
-
 }
