@@ -5,12 +5,10 @@ import com.seleniummaster.maganto.backendpages.customerpages.*;
 import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.BasePage;
 import com.seleniummaster.maganto.utility.TestDataHolder;
-import com.seleniummaster.maganto.utility.TestResultListener;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
 
-@Listeners(TestResultListener.class)
 public class CustomerModuleTestRunner extends BasePage {
     final String configFile = "config.properties";
     BackEndLogin login;
@@ -86,7 +84,6 @@ public class CustomerModuleTestRunner extends BasePage {
         Assert.assertTrue(filterCustomerPage.verifyFilterCustomerByEmail());
     }
 
-
     @DataProvider
     public Object[] customerGroupInfo(){
         Object[] data=new Object[]{new TestDataHolder("Europe Customer")};
@@ -109,8 +106,16 @@ public class CustomerModuleTestRunner extends BasePage {
         Assert.assertTrue(addAddressesPage.verifyNewAddressAdded());
     }
 
-    @AfterClass
+    @Test(description = "Customer Manager can update an existing customer ")
+    public void updateCustomer(){
+        customerPage.updateCustomer();
+        Assert.assertTrue(customerPage.verifyUpdateCustomer());
+    }
+
+
+        @AfterClass
     public void tearDown(){
         closeBrowser();
     }
+
 }
