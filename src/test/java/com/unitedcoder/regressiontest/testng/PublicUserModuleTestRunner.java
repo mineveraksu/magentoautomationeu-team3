@@ -3,7 +3,6 @@ package com.unitedcoder.regressiontest.testng;
 import com.seleniummaster.maganto.frontendpages.*;
 import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.BasePage;
-import com.seleniummaster.maganto.utility.BrowserType;
 import com.seleniummaster.maganto.utility.TestResultListener;
 import org.testng.Assert;
 import org.testng.ITestContext;
@@ -111,7 +110,5 @@ public class PublicUserModuleTestRunner extends BasePage {
     public void tearDown() {
         closeBrowser();
     }
-
-
 
 }
