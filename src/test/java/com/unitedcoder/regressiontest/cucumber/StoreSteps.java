@@ -43,4 +43,5 @@ public class StoreSteps extends BasePage {
         }
         closeBrowser();
     }
+
 }
