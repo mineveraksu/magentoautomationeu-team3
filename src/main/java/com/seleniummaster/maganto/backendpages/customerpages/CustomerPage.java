@@ -26,9 +26,7 @@ public class CustomerPage {
         PageFactory.initElements(driver, this);
         this.testUtility = new TestUtility(driver);
         this.email = testUtility.generateEmailAddress();
-
         testUtility=new TestUtility(driver);
-
 
     }
 

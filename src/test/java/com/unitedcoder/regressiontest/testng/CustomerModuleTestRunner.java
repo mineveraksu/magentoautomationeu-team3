@@ -97,17 +97,22 @@ public class CustomerModuleTestRunner extends BasePage {
     public void filterCustomerByCountry(){
         TestUtility testUtility=new TestUtility(driver);
         customerDashboardPage.clickOnManageCustomers();
-        testUtility.sleep(2);
+        testUtility.sleep(1);
         filterCustomerPage.filterByCountry();
         filterCustomerPage.verifyFilteredByCountry();
-        testUtility.sleep(2);
+        testUtility.sleep(1);
         filterCustomerPage.clickOnResetFilter();
-        System.out.println("ready to search other elements1");
+        //System.out.println("ready to search by other elements1");
 
-       //filterCustomerPage.filterByState();
-        //filterCustomerPage.clickOnResetFilter();
         filterCustomerPage.filterByWebsite();
         filterCustomerPage.verifyFilteredByWebsite();
+        testUtility.sleep(1);
+        filterCustomerPage.clickOnResetFilter();
+        //System.out.println("ready to search by other elements2");
+
+        filterCustomerPage.filterByState();
+        //filterCustomerPage.clickOnResetFilter();
+        filterCustomerPage.verifyFilteredByState();
     }
 
     @DataProvider

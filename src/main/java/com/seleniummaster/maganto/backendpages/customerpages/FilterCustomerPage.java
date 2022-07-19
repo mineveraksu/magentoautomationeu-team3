@@ -1,8 +1,6 @@
 package com.seleniummaster.maganto.backendpages.customerpages;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.seleniummaster.maganto.utility.StaticMethods;
 import com.seleniummaster.maganto.utility.TestUtility;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -65,12 +63,7 @@ public class FilterCustomerPage {
         }
     }
 
-    public void filterByState() {
-        testUtility.waitForElementPresent(stateField);
-        String state = StaticMethods.getFieldFromJson("Test-Data/testData_Shatgul.json","state_name");
-        stateField.sendKeys(state);
-        searchButton.click();
-    }
+
 
 
     public void filterByCountry() {
@@ -110,6 +103,7 @@ public class FilterCustomerPage {
             {
                 Select selectWebsite = new Select(websiteField);
                 selectWebsite.selectByIndex(0);
+                testUtility.sleep(2);
                 searchButton.click();
         }
     }
@@ -121,4 +115,27 @@ public class FilterCustomerPage {
             System.out.println("Customer Manager can filter customers by Website Test is Failed!");
         }
     }
-}
+
+    public void filterByState() {
+        testUtility.waitForElementPresent(stateField);
+        String state = TestUtility.getFieldFromJson("Test-Data/testDatasSmall.json", "state_name");
+        stateField.sendKeys(state);
+        try {
+            searchButton.click();
+        }catch (org.openqa.selenium.StaleElementReferenceException ex){}
+
+    }
+
+
+
+    public void verifyFilteredByState(){
+        String state = TestUtility.getFieldFromJson("Test-Data/testDatasSmall.json","state_name");
+        if (driver.getPageSource().contains(state)) {
+            System.out.println("Customer Manager can filter customers by state Test is Passed!");
+        } else {
+            System.out.println("Customer Manager can filter customers by state Test is Failed!");
+        }
+
+    }
+    }
+
