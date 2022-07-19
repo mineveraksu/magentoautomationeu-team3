@@ -5,11 +5,12 @@ import com.seleniummaster.maganto.backendpages.customerpages.*;
 import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.BasePage;
 import com.seleniummaster.maganto.utility.TestDataHolder;
-import io.cucumber.java.bs.A;
+import com.seleniummaster.maganto.utility.TestResultListener;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
 
+@Listeners(TestResultListener.class)
 public class CustomerModuleTestRunner extends BasePage {
     final String configFile = "config.properties";
     BackEndLogin login;
