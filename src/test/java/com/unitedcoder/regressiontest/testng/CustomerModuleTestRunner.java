@@ -93,6 +93,7 @@ public class CustomerModuleTestRunner extends BasePage {
         Assert.assertTrue(filterCustomerPage.verifyFilterCustomerByEmail());
     }
 
+
     @Test(groups = "regression test",description = "Customer Manager can filter customers by Country, State, and website. ")
     public void filterCustomerByCountry(){
         TestUtility testUtility=new TestUtility(driver);
@@ -114,6 +115,7 @@ public class CustomerModuleTestRunner extends BasePage {
         //filterCustomerPage.clickOnResetFilter();
         filterCustomerPage.verifyFilteredByState();
     }
+
 
     @DataProvider
     public Object[] customerGroupInfo(){
@@ -137,8 +139,16 @@ public class CustomerModuleTestRunner extends BasePage {
         Assert.assertTrue(addAddressesPage.verifyNewAddressAdded());
     }
 
-    @AfterClass
+    @Test(description = "Customer Manager can update an existing customer ")
+    public void updateCustomer(){
+        customerPage.updateCustomer();
+        Assert.assertTrue(customerPage.verifyUpdateCustomer());
+    }
+
+
+        @AfterClass
     public void tearDown(){
         closeBrowser();
     }
+
 }

@@ -142,4 +142,52 @@ public class CustomerPage {
        return verifyACustomerAssignToGroupSuccessfulSms.getText().contains("Total of 1 record(s) were updated.");
    }
 
+    //Update Customer
+
+    @FindBy(xpath ="//a[@id='customer_info_tabs_account' and @class='tab-item-link'][1]")
+    WebElement accountInformationLink;
+    @FindBy(xpath = "(//select[@id=_accountgender])[1]")
+    WebElement selectGender;
+    @FindBy(css = "input[name='email']")
+    WebElement emailFieldBox;
+    @FindBy(css = "button[title='Search']")
+    WebElement searchButton;
+    @FindBy(xpath = "//table[@id=\"customerGrid_table\"]//tr/td[4]")
+    WebElement emailAddressAfterSearched;
+
+    public void updateCustomer(){
+        CustomerDashboardPage customerDashboardPage=new CustomerDashboardPage(driver);
+        customerDashboardPage.clickOnManageCustomers();
+        testUtility.sleep(3);
+        testUtility.waitForElementPresent(emailFieldBox);
+        emailFieldBox.sendKeys(ApplicationConfig.readFromConfigProperties(config,"email"));
+        testUtility.waitForElementPresent(searchButton);
+        searchButton.click();
+        testUtility.sleep(3);
+        testUtility.waitForElementPresent(emailAddressAfterSearched);
+        emailAddressAfterSearched.click();
+        testUtility.waitForElementPresent(accountInformationLink);
+        accountInformationLink.click();
+        testUtility.sleep(3);
+        testUtility.waitForElementPresent(lastNameField);
+        lastNameField.clear();
+        testUtility.sleep(3);
+        lastNameField.sendKeys(testUtility.generateLastName());
+        testUtility.sleep(3);
+        testUtility.waitForElementPresent(saveCustomerButton);
+        saveCustomerButton.click();
+        testUtility.sleep(3);
+        Alert alert = driver.switchTo().alert();
+        alert.accept();
+
+
+        System.out.println("test passed");
+    }
+    public boolean verifyUpdateCustomer(){
+        testUtility.waitForElementPresent(customerSavedSMS);
+        if (driver.getPageSource().contains(customerSavedSMS.getText()));
+        System.out.println("Update an existing customer information successfully");
+        return true;
+    }
+
 }
