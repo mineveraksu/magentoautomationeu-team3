@@ -46,6 +46,15 @@ public class BackEndLogin {
         loginButton.click();
     }
 
+    public void storePageLogin() {
+        testUtility.waitForElementPresent(userNameField);
+        userNameField.sendKeys(ApplicationConfig.readFromConfigProperties(configFile, "stousername"));
+        testUtility.waitForElementPresent(passwordField);
+        passwordField.sendKeys(password);
+        testUtility.waitForElementPresent(loginButton);
+        loginButton.click();
+    }
+
     public boolean VerifyLoginSuccessfully() {
         testUtility.waitForElementPresent(logoutButton);
         if (logoutButton.isDisplayed()) {
