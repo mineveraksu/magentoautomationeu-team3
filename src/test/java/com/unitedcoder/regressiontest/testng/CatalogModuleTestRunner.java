@@ -41,6 +41,13 @@ public class CatalogModuleTestRunner extends BasePage {
         catalogPage.addRootCategory(testDataHolder);
         Assert.assertTrue(catalogPage.verifyAddRootCategories(testDataHolder));
     }
+    @Test(description = " manager can view all category under default")
+    public void viewAllCategoryUnderTheDefault(){
+        login.VerifyLoginSuccessfully();
+        catalogDashboardPage.clickOnManageCategories();
+        catalogDashboardPage.clickOnExpendLink();
+        Assert.assertTrue(catalogDashboardPage.verifyManagerCanViewAllCategoriesUnderDefault());
+    }
 
     @Test(dataProvider = "subCategoriesInfo", dependsOnMethods = "addRootCategory",
             groups = "regression test", description = "Catalog Manager Can Add Sub Categories.")
