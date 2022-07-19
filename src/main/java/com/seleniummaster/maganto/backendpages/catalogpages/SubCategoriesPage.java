@@ -104,11 +104,11 @@ public class SubCategoriesPage {
     WebElement catalogLink;
     @FindBy(xpath = "//span[text()='Manage Categories']")
     WebElement manageCategoriesLink;
-    // @FindBy(xpath="")
-    //WebElement shoesCategory;
-    @FindBy(xpath = "//span[contains(text(), 'Timberland')]")
+    @FindBy(xpath = "//span[contains(text(),'shoes ')]")
+    WebElement shoesCategory;
+    @FindBy(xpath = "//span[contains(text(),'Timberland')]")
     WebElement timberlandSubCategory;
-    @FindBy(css="button[title='Delete Category']")
+    @FindBy(xpath="//span[text()='Delete Category']")
     WebElement deleteCategoryButton;
     @FindBy(xpath = "//*[text()=\"The category has been deleted.\"]")
     WebElement deleteSubCategorySuccessfulMessage;
@@ -118,15 +118,18 @@ public class SubCategoriesPage {
         catalogLink.click();
         testUtility.waitForElementPresent(manageCategoriesLink);
         manageCategoriesLink.click();
-        testUtility.waitForElementPresent(timberlandSubCategory);
-        timberlandSubCategory.click();
+        testUtility.sleep(3);
+        //testUtility.waitForElementPresent(timberlandSubCategory);
+       // timberlandSubCategory.click();
+        testUtility.waitForElementPresent(shoesCategory);
+         shoesCategory.click();
         testUtility.sleep(3);
         testUtility.waitForElementPresent(deleteCategoryButton);
         deleteCategoryButton.click();
+        testUtility.sleep(3);
         testUtility.waitForAlertPresent();
         Alert alert=driver.switchTo().alert();
         alert.accept();
-        deleteCategoryButton.click();
     }
     public boolean verifyDeleteSubCategorySuccessful(){
         testUtility.sleep(3);

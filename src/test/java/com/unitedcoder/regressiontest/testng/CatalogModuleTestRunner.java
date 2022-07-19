@@ -84,6 +84,11 @@ public class CatalogModuleTestRunner extends BasePage {
                 {excelUtility.readAttributeInfoFromExcel("Test-Data/attributeData.xlsx", "Attribute_Info")};
         return data;
     }
+    @Test(dataProvider = "AttributeInfo", description = "Catalog Manager can delete sub categories  ")
+    public void deleteSubCategories(TestDataHolder testDataHolder) {
+        subCategoriesPage.deleteSubCategory();
+        Assert.assertTrue(subCategoriesPage.verifyDeleteSubCategorySuccessful());
+    }
 
 //    @AfterClass()
 //    public void tearDown() {
