@@ -48,7 +48,6 @@ public class CatalogModuleTestRunner extends BasePage {
         Assert.assertTrue(catalogPage.verifyDeleteExistingRootCategories());
     }
 
-
     @Test(dataProvider = "subCategoriesInfo", dependsOnMethods = "addRootCategory",
             groups = "regression test", description = "Catalog Manager Can Add Sub Categories.",priority = 2)
     public void addSubCategories(TestDataHolder testDataHolder) {
