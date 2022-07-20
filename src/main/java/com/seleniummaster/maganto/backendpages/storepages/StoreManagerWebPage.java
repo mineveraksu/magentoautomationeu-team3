@@ -19,6 +19,8 @@ public class StoreManagerWebPage {
     WebElement codeField;
     @FindBy(xpath = "(//p[@class=\"form-buttons\"])[1]/button[3]/span/span/span")
     WebElement saveWebsiteButton;
+    @FindBy(css = "li.success-msg")
+    WebElement websiteSavedSuccessfulSMS;
 
     public StoreManagerWebPage(WebDriver driver) {
         this.driver = driver;
@@ -35,6 +37,17 @@ public class StoreManagerWebPage {
         codeField.sendKeys(code);
         testUtility.waitForElementPresent(saveWebsiteButton);
         saveWebsiteButton.click();
+    }
+
+    public boolean verifyWebsiteCreatedSuccessfully(){
+        testUtility.waitForElementPresent(websiteSavedSuccessfulSMS);
+        if (websiteSavedSuccessfulSMS.getText().contains("saved.")) {
+            System.out.println("Store manager create website test passed!");
+            return true;
+        } else {
+            System.out.println("Store manager create website test failed!");
+            return false;
+        }
 
     }
 }

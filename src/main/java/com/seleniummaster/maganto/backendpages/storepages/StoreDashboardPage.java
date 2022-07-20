@@ -14,17 +14,19 @@ public class StoreDashboardPage {
 
     public StoreDashboardPage(WebDriver driver) {
         this.driver = driver;
-        testUtility=new TestUtility(driver);
-        PageFactory.initElements(driver,this);
+        PageFactory.initElements(driver, this);
+        testUtility = new TestUtility(driver);
+        actions = new Actions(driver);
     }
+
     @FindBy(xpath = "//a[@class=\"active\"]//span")
     WebElement systemLink;
     @FindBy(xpath = "(//li[@class=\"  last level1\"])[2]//span")
     WebElement manageStoresLink;
 
-    public void clickOnManageStoresLink(){
+    public void clickOnManageStoresLink() {
         testUtility.waitForElementPresent(systemLink);
-        actions.moveToElement(systemLink).perform();
+        actions.moveToElement(systemLink).click().perform();
         testUtility.waitForElementPresent(manageStoresLink);
         manageStoresLink.click();
     }
