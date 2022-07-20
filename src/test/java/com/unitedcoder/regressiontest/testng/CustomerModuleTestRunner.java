@@ -5,6 +5,7 @@ import com.seleniummaster.maganto.backendpages.customerpages.*;
 import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.BasePage;
 import com.seleniummaster.maganto.utility.TestDataHolder;
+import com.seleniummaster.maganto.utility.TestUtility;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
@@ -112,6 +113,26 @@ public class CustomerModuleTestRunner extends BasePage {
         Assert.assertTrue(customerPage.verifyUpdateCustomer());
     }
 
+    @Test(groups = "regression test",description = "Customer Manager can filter customers by Country, State, and website. ")
+    public void filterCustomerByCountry(){
+        TestUtility testUtility=new TestUtility(driver);
+        customerDashboardPage.clickOnManageCustomers();
+        testUtility.sleep(1);
+        filterCustomerPage.filterByCountry();
+        filterCustomerPage.verifyFilteredByCountry();
+        testUtility.sleep(1);
+        filterCustomerPage.clickOnResetFilter();
+        //System.out.println("ready to search other elements1");
+        filterCustomerPage.filterByWebsite();
+        filterCustomerPage.verifyFilteredByWebsite();
+        testUtility.sleep(1);
+        filterCustomerPage.clickOnResetFilter();
+        //System.out.println("ready to search by other elements2");
+        filterCustomerPage.filterByState();
+        testUtility.sleep(4);
+        //filterCustomerPage.clickOnResetFilter();
+        filterCustomerPage.verifyFilteredByState();
+    }
 
         @AfterClass
     public void tearDown(){

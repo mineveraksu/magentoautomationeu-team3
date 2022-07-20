@@ -25,7 +25,6 @@ public class CustomerPage {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         testUtility=new TestUtility(driver);
-
     }
 
 
@@ -75,7 +74,6 @@ public class CustomerPage {
         System.out.println("The customer has been saved.");
         return true;
     }
-
 
     //Export Customer
 
