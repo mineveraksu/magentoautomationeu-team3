@@ -32,20 +32,18 @@ public class OrdersPage {
     WebElement shippingAndHandlingInformationField;
 
 
-
-
-
-
-
-
-
-
+    //Store Manager can edit orders
+    //Store Manager can cancel orders
     public OrdersPage(WebDriver driver)
     {
         this.driver = driver;
         PageFactory.initElements(driver,this);
         testUtility=new TestUtility(driver);
     }
+
+
+
+
 
 
 
