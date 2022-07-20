@@ -24,10 +24,7 @@ public class CustomerPage {
     public CustomerPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
-        this.testUtility = new TestUtility(driver);
-        this.email = testUtility.generateEmailAddress();
         testUtility=new TestUtility(driver);
-
     }
 
 
