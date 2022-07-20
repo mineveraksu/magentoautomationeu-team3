@@ -1,6 +1,7 @@
-package com.unitedcoder.regressiontest.cucumber;
+package com.unitedcoder.regressiontest.cucumber.store;
 
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
+import com.seleniummaster.maganto.backendpages.storepages.StoreDashboardPage;
 import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.BasePage;
 import com.seleniummaster.maganto.utility.ScreenShotUtility;
@@ -15,6 +16,7 @@ public class StoreSteps extends BasePage {
     final static String configFile = "config.properties";
     final static String url = ApplicationConfig.readFromConfigProperties(configFile, "url");
     BackEndLogin login;
+    StoreDashboardPage storeDashboardPage;
 
     @Before
     public void setup() {
@@ -25,6 +27,7 @@ public class StoreSteps extends BasePage {
     public void storeManagerIsOnTheDashboardPage() {
         login = new BackEndLogin(driver);
         login.storePageLogin();
+        storeDashboardPage=new StoreDashboardPage(driver);
     }
 
     @When("store manager clicks on create store button to fill out {string} and other information")
