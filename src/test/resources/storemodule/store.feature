@@ -11,7 +11,3 @@ Feature:Store Manager can manage a store
       |storeName|
       |blueSky  |
 
-    @UpdateStore
-
-
-    @DeleteStore
