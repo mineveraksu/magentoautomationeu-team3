@@ -1,6 +1,8 @@
 package com.seleniummaster.maganto.backendpages.customerpages;
 
 import com.seleniummaster.maganto.utility.TestUtility;
+import org.apache.tools.ant.types.selectors.SelectSelector;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -14,22 +16,30 @@ public class AddAddressesPage {
     Actions actions;
     Select select;
 
-    @FindBy(xpath = "(//div[@class=\"multi-input\"]//input[@class=\"input-text required-entry\"])[2]")
+    @FindBy(xpath = "//span[contains(text(),'Add New Address')]")
+    WebElement addNewAddressButton;
+    @FindBy(id= "_item2street0")
     WebElement streetAddressField;
-    @FindBy(xpath = "(//div[@class=\"multi-input\"]/input[@class=\"input-text required-entry\"])[2]/ancestor::table[@class=\"form-list\"]/tbody/tr[8]/td[2]/input")
+    @FindBy(id="_item2city")
     WebElement cityField;
-    @FindBy(xpath ="//select[@class=\" required-entry countries required-entry select required-entry select\"]")
+    @FindBy(id="_item2country_id")
     WebElement countryField;
-    @FindBy(id="_item391region_id")
+    @FindBy(id="_item2region_id")
     WebElement stateField;
-    @FindBy(id="_item391postcode")
+    @FindBy(id="_item2postcode")
     WebElement zipCodeField;
-    @FindBy(xpath = "//input[contains(@id,'_item391telephone') and contains(@name,'address[391][telephone]')]")
+    @FindBy(id="_item2telephone")
     WebElement telephoneField;
-    @FindBy(xpath = "//button[@title='Save Customer'][1]")
+    @FindBy(xpath = "//div[@id='page:main-container']//button[@onclick='editForm.submit();']//span[text()='Save Customer']")
     WebElement addedAddressSaveButton;
     @FindBy(xpath = "//span[text()=\"The customer has been saved.\"]")
     WebElement verifyNewAddressAddedMassage;
+    @FindBy(xpath = "//td[contains(text(),\"team33@hotmail.com\")]")
+    WebElement customerEmailAddress;
+    @FindBy(css = "#customer_info_tabs_addresses")
+    WebElement addressesLink;
+    @FindBy(id="delete_button2")
+    WebElement deleteButton2;
 
     public AddAddressesPage(WebDriver driver){
         this.driver=driver;
@@ -39,47 +49,43 @@ public class AddAddressesPage {
     }
 
     public void addNewAddress(){
-        testUtility.sleep(3);
-        testUtility.sleep(3);
-        streetAddressField.clear();
-        streetAddressField.click();
+        testUtility.waitForElementPresent(addNewAddressButton);
+        addNewAddressButton.click();
+        testUtility.waitForElementPresent(streetAddressField);
         streetAddressField.sendKeys(testUtility.generateStreetAddress());
-        System.out.println("Street address field filled ");
-        cityField.clear();
-        cityField.click();
-        testUtility.sleep(2);
+        testUtility.waitForElementPresent(cityField);
         cityField.sendKeys(testUtility.generateCityName());
-        System.out.println("city name is selected  by  faker name ");
-        countryField.click();
-        testUtility.sleep(2);
+        testUtility.waitForElementPresent(countryField);
         select=new Select(countryField);
-        select.selectByVisibleText("Canada");
-        System.out.println(" Country field filled by canada");
-        stateField.click();
-        testUtility.sleep(2);
-        select=new Select(stateField);
-        select.selectByIndex(1);
-        System.out.println("state fill in bye Index");
+        select.selectByVisibleText("Turkey");
         testUtility.waitForElementPresent(zipCodeField);
-        zipCodeField.clear();
-        zipCodeField.click();
         zipCodeField.sendKeys(testUtility.generateZipCode());
-        System.out.println("Zip code  filled successful");
-        telephoneField.clear();
-        telephoneField.click();
+        testUtility.waitForElementPresent(telephoneField);
         telephoneField.sendKeys(testUtility.generateTelephoneNumber());
-        System.out.println("telephone field filled successfully");
-        testUtility.sleep(3);
         addedAddressSaveButton.click();
-        System.out.println(" add address button clicked ");
-
     }
 
     public boolean verifyNewAddressAdded(){
         testUtility.waitForElementPresent(verifyNewAddressAddedMassage);
-        if(driver.getPageSource().contains(verifyNewAddressAddedMassage.getText()))
+        if(driver.getPageSource().contains(verifyNewAddressAddedMassage.getText())){
             System.out.println("New address added successful ! ");
-            return true;
+            return true;}
+        else{
+            System.out.println(" New address failed to add !");
+            return false;
+        }
+    }
+    //Delete Added new address steps
+    public void deleteAddedAddress(){
+        testUtility.waitForElementPresent(customerEmailAddress);
+        customerEmailAddress.click();
+        testUtility.waitForElementPresent(addressesLink);
+        addressesLink.click();
+        testUtility.waitForElementPresent(deleteButton2);
+        deleteButton2.click();
+        Alert alert=driver.switchTo().alert();
+        alert.accept();
+        actions.moveToElement(addedAddressSaveButton).click().perform();
     }
 
 }

@@ -22,13 +22,10 @@ public class CustomerDashboardPage {
     WebElement manageCustomersLink;
     @FindBy(xpath = "//span[text()='Customer Groups']")
     WebElement customerGroupsLink;
-    @FindBy(xpath = "(//span[text()='Add New Customer'])[1]")
-    WebElement addNewCustomerButton;
     @FindBy(css = "button[title='Search']")
     WebElement searchButton;
     @FindBy(css = "input[name='email']")
     WebElement emailTextBox;
-   // @FindBy(css = "tr>td:nth-child(4)")
     @FindBy(xpath = "//td[contains(text(),\"team33@hotmail.com\")]")
     WebElement customerEmailAddress;
     @FindBy(css = "#customer_info_tabs_addresses")

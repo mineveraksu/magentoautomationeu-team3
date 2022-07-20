@@ -15,20 +15,7 @@ import io.cucumber.java.en.When;
 public class StoreSteps extends BasePage {
     final static String configFile = "config.properties";
     final static String url = ApplicationConfig.readFromConfigProperties(configFile, "url");
-    BackEndLogin login;
-    StoreDashboardPage storeDashboardPage;
 
-    @Before
-    public void setup() {
-        browserSetUp(url);
-    }
-
-    @Given("store manager is on the dashboard page")
-    public void storeManagerIsOnTheDashboardPage() {
-        login = new BackEndLogin(driver);
-        login.storePageLogin();
-        storeDashboardPage=new StoreDashboardPage(driver);
-    }
 
     @When("store manager clicks on create store button to fill out {string} and other information")
     public void storeManagerClicksOnCreateStoreButtonToFillOutAndOtherInformation(String arg0) {
@@ -38,13 +25,5 @@ public class StoreSteps extends BasePage {
     public void theStoreShouldBeSavedSuccessfully() {
     }
 
-    @After
-    public void tearDown(Scenario scenario) {
-        if (scenario.isFailed()) {
-            ScreenShotUtility screenShotUtility = new ScreenShotUtility();
-            screenShotUtility.takeScreenshot("image", "failedTest", driver);
-        }
-        closeBrowser();
-    }
 
 }
