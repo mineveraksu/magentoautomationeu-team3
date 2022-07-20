@@ -8,7 +8,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class DeleteProduct {
+public class ProductPage {
     WebDriver driver;
     TestUtility testUtility;
     Actions actions;
@@ -24,7 +24,7 @@ public class DeleteProduct {
     @FindBy(xpath = "//*[contains(text(),'The product has been deleted.')]")
     WebElement deleteSuccessfulMassage;
 
-    public DeleteProduct(WebDriver driver){
+    public ProductPage(WebDriver driver){
         this.driver=driver;
         PageFactory.initElements(driver,this);
         testUtility=new TestUtility(driver);
