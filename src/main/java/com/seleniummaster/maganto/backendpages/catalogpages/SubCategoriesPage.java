@@ -2,6 +2,7 @@ package com.seleniummaster.maganto.backendpages.catalogpages;
 
 import com.seleniummaster.maganto.utility.TestDataHolder;
 import com.seleniummaster.maganto.utility.TestUtility;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -98,6 +99,45 @@ public class SubCategoriesPage {
             return false;
         }
     }
+    //for delete sub categories
+    @FindBy(css = ".active>a")
+    WebElement catalogLink;
+    @FindBy(xpath = "//span[text()='Manage Categories']")
+    WebElement manageCategoriesLink;
+    @FindBy(xpath = "//span[contains(text(),'shoes ')]")
+    WebElement shoesCategory;
+    @FindBy(xpath = "//span[contains(text(),'Timberland')]")
+    WebElement timberlandSubCategory;
+    @FindBy(xpath="//span[text()='Delete Category']")
+    WebElement deleteCategoryButton;
+    @FindBy(xpath = "//*[text()=\"The category has been deleted.\"]")
+    WebElement deleteSubCategorySuccessfulMessage;
+
+    public void deleteSubCategory(){
+        testUtility.waitForElementPresent(catalogLink);
+        catalogLink.click();
+        testUtility.waitForElementPresent(manageCategoriesLink);
+        manageCategoriesLink.click();
+        testUtility.sleep(3);
+        //testUtility.waitForElementPresent(timberlandSubCategory);
+       // timberlandSubCategory.click();
+        testUtility.waitForElementPresent(shoesCategory);
+         shoesCategory.click();
+        testUtility.sleep(3);
+        testUtility.waitForElementPresent(deleteCategoryButton);
+        deleteCategoryButton.click();
+        testUtility.sleep(3);
+        testUtility.waitForAlertPresent();
+        Alert alert=driver.switchTo().alert();
+        alert.accept();
+    }
+    public boolean verifyDeleteSubCategorySuccessful(){
+        testUtility.sleep(3);
+        deleteSubCategorySuccessfulMessage.isDisplayed();
+        return deleteSubCategorySuccessfulMessage.isDisplayed();
+    }
+
+
 }
 
 

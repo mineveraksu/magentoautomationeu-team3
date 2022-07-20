@@ -5,7 +5,6 @@ import com.seleniummaster.maganto.backendpages.customerpages.*;
 import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.BasePage;
 import com.seleniummaster.maganto.utility.TestDataHolder;
-import io.cucumber.java.bs.A;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
@@ -85,7 +84,6 @@ public class CustomerModuleTestRunner extends BasePage {
         Assert.assertTrue(filterCustomerPage.verifyFilterCustomerByEmail());
     }
 
-
     @DataProvider
     public Object[] customerGroupInfo(){
         Object[] data=new Object[]{new TestDataHolder("Europe Customer")};
@@ -106,10 +104,19 @@ public class CustomerModuleTestRunner extends BasePage {
         customerDashboardPage.navigateToAddressesLink();
         addAddressesPage.addNewAddress();
         Assert.assertTrue(addAddressesPage.verifyNewAddressAdded());
+        addAddressesPage.deleteAddedAddress();
     }
 
-    @AfterClass
-    public void tearDown(){
-        closeBrowser();
+    @Test(description = "Customer Manager can update an existing customer ")
+    public void updateCustomer(){
+        customerPage.updateCustomer();
+        Assert.assertTrue(customerPage.verifyUpdateCustomer());
     }
+
+
+//        @AfterClass
+//    public void tearDown(){
+//        closeBrowser();
+//    }
+
 }
