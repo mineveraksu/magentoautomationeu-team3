@@ -38,6 +38,16 @@ public class StoreSteps extends BasePage {
     public void theStoreShouldBeSavedSuccessfully() {
     }
 
+    @When("store manager search added order and edit some information")
+    public void storeManagerSearchAddedOrderAndEditSomeInformation() {
+
+    }
+
+    @Then("the edited information should be saved successful")
+    public void theEditedInformationShouldBeSavedSuccessful() {
+    }
+
+
     @After
     public void tearDown(Scenario scenario) {
         if (scenario.isFailed()) {
@@ -46,5 +56,7 @@ public class StoreSteps extends BasePage {
         }
         closeBrowser();
     }
+
+
 
 }
