@@ -34,29 +34,49 @@ public class CatalogModuleTestRunner extends BasePage {
         excelUtility=new ExcelUtility();
     }
 
-    @Test(dataProvider = "addRootCategoryInfo", description = "Catalog manager can add root categories.")
+    @Test(dataProvider = "addRootCategoryInfo", description = "Catalog manager can add root categories.",priority = 1)
     public void addRootCategory(TestDataHolder testDataHolder) {
         login.VerifyLoginSuccessfully();
         catalogDashboardPage.clickOnManageCategories();
         catalogPage.addRootCategory(testDataHolder);
-        Assert.assertTrue(catalogPage.verifyAddRootCategories(testDataHolder));
+        Assert.assertTrue(catalogPage.verifyAddRootCategories());
+    }
+
+    @Test(dataProvider = "addRootCategoryInfo",description ="Catalog manager can delete root categories.",priority = 5)
+    public void deleteExistingRootCategory(TestDataHolder testDataHolder){
+        catalogPage.deleteExistingRootCategory(testDataHolder);
+        Assert.assertTrue(catalogPage.verifyDeleteExistingRootCategories());
+    }
+    @Test(description = " manager can view all category under default")
+    public void viewAllCategoryUnderTheDefault(){
+        login.VerifyLoginSuccessfully();
+        catalogDashboardPage.clickOnManageCategories();
+        catalogDashboardPage.clickOnExpendLink();
+        Assert.assertTrue(catalogDashboardPage.verifyManagerCanViewAllCategoriesUnderDefault());
     }
 
     @Test(dataProvider = "subCategoriesInfo", dependsOnMethods = "addRootCategory",
-            groups = "regression test", description = "Catalog Manager Can Add Sub Categories.")
+            groups = "regression test", description = "Catalog Manager Can Add Sub Categories.",priority = 2)
     public void addSubCategories(TestDataHolder testDataHolder) {
         subCategoriesPage.addSubCategories(testDataHolder);
         Assert.assertTrue(subCategoriesPage.verifyAddSubCategories(testDataHolder));
     }
 
     @Test(dataProvider = "subCategoriesInfo", dependsOnMethods = "addSubCategories",
-            description = "Catalog Manager Can Update Sub Categories.", groups = "regression test")
+            description = "Catalog Manager Can Update Sub Categories.", groups = "regression test",priority = 3)
     public void updateExistingSubCategories(TestDataHolder testDataHolder) {
         subCategoriesPage.updateExistingSubCategories(testDataHolder);
         Assert.assertTrue(subCategoriesPage.verifyUpdateExistingSubCategories(testDataHolder));
     }
 
-    @Test(dataProvider = "AttributeInfo", description = "Category Manager can add a new Attributes under a Catalog. ")
+    @Test(dataProvider = "subCategoriesInfo", description = "Catalog Manager can delete sub categories",priority = 4)
+    public void deleteSubCategories(TestDataHolder testDataHolder) {
+        catalogDashboardPage.clickOnManageCategories();
+        subCategoriesPage.deleteExistingSubCategory(testDataHolder);
+        Assert.assertTrue(subCategoriesPage.verifyDeleteExistingSubCategory());
+    }
+
+    @Test(dataProvider = "AttributeInfo", description = "Category Manager can add a new Attributes under a Catalog. ",priority = 6)
     public void addNewAttributes(TestDataHolder testDataHolder) {
         catalogDashboardPage.clickOnManageAttributes();
         attributesPage.addNewAttributes(testDataHolder);
@@ -84,16 +104,11 @@ public class CatalogModuleTestRunner extends BasePage {
                 {excelUtility.readAttributeInfoFromExcel("Test-Data/attributeData.xlsx", "Attribute_Info")};
         return data;
     }
-    @Test(dataProvider = "AttributeInfo", description = "Catalog Manager can delete sub categories  ")
-    public void deleteSubCategories(TestDataHolder testDataHolder) {
-        subCategoriesPage.deleteSubCategory();
-        Assert.assertTrue(subCategoriesPage.verifyDeleteSubCategorySuccessful());
-    }
 
-//    @AfterClass()
-//    public void tearDown() {
-//        closeBrowser();
-//    }
+    @AfterClass()
+    public void tearDown() {
+        closeBrowser();
+    }
 }
 
 

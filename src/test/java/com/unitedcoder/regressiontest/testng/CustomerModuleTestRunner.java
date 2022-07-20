@@ -5,10 +5,6 @@ import com.seleniummaster.maganto.backendpages.customerpages.*;
 import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.BasePage;
 import com.seleniummaster.maganto.utility.TestDataHolder;
-
-import com.seleniummaster.maganto.utility.TestUtility;
-import org.apache.tools.ant.taskdefs.Sleep;
-import io.cucumber.java.bs.A;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
@@ -20,12 +16,7 @@ public class CustomerModuleTestRunner extends BasePage {
     CustomerGroupsPage customerGroupsPage;
     FilterCustomerPage filterCustomerPage;
     CustomerPage customerPage;
-    TestUtility testUtility;
-
-
-
     AddAddressesPage addAddressesPage;
-
 
     @BeforeClass
     public void setup(ITestContext context){
@@ -92,30 +83,6 @@ public class CustomerModuleTestRunner extends BasePage {
         filterCustomerPage.clickEmailField(email);
         Assert.assertTrue(filterCustomerPage.verifyFilterCustomerByEmail());
     }
-
-
-    @Test(groups = "regression test",description = "Customer Manager can filter customers by Country, State, and website. ")
-    public void filterCustomerByCountry(){
-        TestUtility testUtility=new TestUtility(driver);
-        customerDashboardPage.clickOnManageCustomers();
-        testUtility.sleep(1);
-        filterCustomerPage.filterByCountry();
-        filterCustomerPage.verifyFilteredByCountry();
-        testUtility.sleep(1);
-        filterCustomerPage.clickOnResetFilter();
-        //System.out.println("ready to search by other elements1");
-
-        filterCustomerPage.filterByWebsite();
-        filterCustomerPage.verifyFilteredByWebsite();
-        testUtility.sleep(1);
-        filterCustomerPage.clickOnResetFilter();
-        //System.out.println("ready to search by other elements2");
-
-        filterCustomerPage.filterByState();
-        //filterCustomerPage.clickOnResetFilter();
-        filterCustomerPage.verifyFilteredByState();
-    }
-
 
     @DataProvider
     public Object[] customerGroupInfo(){
