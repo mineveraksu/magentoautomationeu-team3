@@ -105,6 +105,7 @@ public class CustomerModuleTestRunner extends BasePage {
         customerDashboardPage.navigateToAddressesLink();
         addAddressesPage.addNewAddress();
         Assert.assertTrue(addAddressesPage.verifyNewAddressAdded());
+        addAddressesPage.deleteAddedAddress();
     }
 
     @Test(description = "Customer Manager can update an existing customer ")
