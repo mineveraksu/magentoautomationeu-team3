@@ -15,7 +15,7 @@ public class OrderSteps {
     }
 
     @And("store manager clıck and select the store name")
-    public void storeManagerClıckAndSelectTheStoreName() {
+    public void storeManagerClickAndSelectTheStoreName() {
     }
 
     @And("store manager select the product name")
