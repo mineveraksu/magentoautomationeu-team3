@@ -23,6 +23,11 @@ public class StoreDashboardPage {
     WebElement systemLink;
     @FindBy(xpath = "(//li[@class=\"  last level1\"])[2]//span")
     WebElement manageStoresLink;
+    @FindBy(css = " li.active.parent.level0")
+    WebElement catalogLink;
+    @FindBy(xpath = " //span[text()='Manage Products']")
+    WebElement manageProductsLink;
+
 
     public void clickOnManageStoresLink() {
         testUtility.waitForElementPresent(systemLink);
@@ -30,4 +35,18 @@ public class StoreDashboardPage {
         testUtility.waitForElementPresent(manageStoresLink);
         manageStoresLink.click();
     }
+
+    public void clickOnManageProductLink(){
+        testUtility.waitForElementPresent(catalogLink);
+        catalogLink.click();
+        testUtility.waitForElementPresent(manageProductsLink);
+        manageProductsLink.click();
+    }
+
+
+
+
+
+
+
 }
