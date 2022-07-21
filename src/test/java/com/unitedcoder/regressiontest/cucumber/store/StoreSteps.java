@@ -8,19 +8,12 @@ import com.seleniummaster.maganto.utility.ScreenShotUtility;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class StoreSteps extends BasePage {
-
-    @When("store manager clicks on create store button to fill out {string} and other information")
-    public void storeManagerClicksOnCreateStoreButtonToFillOutAndOtherInformation(String arg0) {
-    }
-
-    @Then("the store should be saved successfully")
-    public void theStoreShouldBeSavedSuccessfully() {
-    }
 
 
 }
