@@ -32,6 +32,8 @@ public class OrdersPage {
     WebElement shippingAndHandlingInformationField;
 
 
+
+
     //Store Manager can edit orders
     //Store Manager can cancel orders
     public OrdersPage(WebDriver driver)
@@ -41,6 +43,7 @@ public class OrdersPage {
         testUtility=new TestUtility(driver);
     }
 
+//    public void
 
 
 

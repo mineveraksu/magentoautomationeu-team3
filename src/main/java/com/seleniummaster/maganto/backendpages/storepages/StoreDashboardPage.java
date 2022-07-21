@@ -27,6 +27,10 @@ public class StoreDashboardPage {
     WebElement catalogLink;
     @FindBy(xpath = " //span[text()='Manage Products']")
     WebElement manageProductsLink;
+    @FindBy(xpath = "//span[text()='Sales']")
+    WebElement salesButton;
+    @FindBy(xpath = "//span[text()='Orders']")
+    WebElement ordersLink;
 
 
     public void clickOnManageStoresLink() {
@@ -43,7 +47,14 @@ public class StoreDashboardPage {
         manageProductsLink.click();
     }
 
+    public void clickOnOrdersLink(){
+        testUtility.waitForElementPresent(salesButton);
+        salesButton.click();
+        testUtility.waitForElementPresent(ordersLink);
+        ordersLink.click();
 
+
+    }
 
 
 
