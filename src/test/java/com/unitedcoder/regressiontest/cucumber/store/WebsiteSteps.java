@@ -14,7 +14,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.Assert;
 
-public class CreateWebsiteSteps extends BasePage {
+public class WebsiteSteps extends BasePage {
     final static String configFile = "config.properties";
     final static String url = ApplicationConfig.readFromConfigProperties(configFile, "url");
     BackEndLogin login;
@@ -24,15 +24,12 @@ public class CreateWebsiteSteps extends BasePage {
     @Before
     public void setup() {
         browserSetUp(url);
-    }
-
-    @Given("store manager is on the dashboard page")
-    public void storeManagerIsOnTheDashboardPage() {
         login = new BackEndLogin(driver);
         login.storePageLogin();
     }
-    @And("store manager click on manage stores link")
-    public void storeManagerClickOnManageStoresLink() {
+
+    @Given("store manager is on the dashboard page store manager click on manage stores link")
+    public void storeManagerIsOnTheDashboardPage() {
         storeDashboardPage=new StoreDashboardPage(driver);
         storeDashboardPage.clickOnManageStoresLink();
     }
