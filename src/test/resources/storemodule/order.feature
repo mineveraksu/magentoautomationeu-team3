@@ -17,7 +17,6 @@ Feature:Store Manager can manage a order
 
 
 
-
 #  Store Manager can edit orders
   @EditOrders
   Scenario : Store Manager can edit orders
