@@ -14,8 +14,8 @@ import io.cucumber.java.en.When;
 
 public class StoreSteps extends BasePage {
 
-    @When("store manager clicks on create store button to fill out {string} and other information")
-    public void storeManagerClicksOnCreateStoreButtonToFillOutAndOtherInformation(String arg0) {
+    @When("store manager clicks on create store button to fill out store information")
+    public void storeManagerClicksOnCreateStoreButtonToFillOutAndOtherInformation() {
     }
 
     @Then("the store should be saved successfully")
