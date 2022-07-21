@@ -13,9 +13,6 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class StoreSteps extends BasePage {
-    final static String configFile = "config.properties";
-    final static String url = ApplicationConfig.readFromConfigProperties(configFile, "url");
-
 
     @When("store manager clicks on create store button to fill out {string} and other information")
     public void storeManagerClicksOnCreateStoreButtonToFillOutAndOtherInformation(String arg0) {
