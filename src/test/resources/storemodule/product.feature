@@ -14,11 +14,3 @@ Feature:Store Manager Can Manage a Product
 
 
 
-
-    @UpdateProduct
-
-
-
-
-
-    @DeleteProduct

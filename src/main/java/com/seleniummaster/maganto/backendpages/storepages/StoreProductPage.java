@@ -8,7 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
 
-public class ProductPage {
+public class StoreProductPage {
     WebDriver driver;
     TestUtility testUtility;
     @FindBy(css = "select#store_switcher")
@@ -43,7 +43,7 @@ public class ProductPage {
     WebElement addProductSuccessMessage;
 
 
-    public ProductPage(WebDriver driver) {
+    public StoreProductPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         testUtility = new TestUtility(driver);
