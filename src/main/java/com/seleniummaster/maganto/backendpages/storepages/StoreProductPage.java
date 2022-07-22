@@ -17,8 +17,6 @@ public class StoreProductPage {
     WebElement addProductButton;
     @FindBy(css = "select#attribute_set_id")
     WebElement attributeSetDropDown;
-    @FindBy(css = "select[name='type']")
-    WebElement productTypeDropDown;
     @FindBy(id = "continue_button")
     WebElement continueButton;
     @FindBy(id = "product[name]")
@@ -29,6 +27,8 @@ public class StoreProductPage {
     WebElement shortDescriptionFiled;
     @FindBy(xpath = "//input[@name='product[sku]']")
     WebElement SKUField;
+    @FindBy(css = "input#weight")
+    WebElement weightFiled;
     @FindBy(css = "select#status")
     WebElement statusDropDown;
     @FindBy(css = "select#visibility")
@@ -37,6 +37,22 @@ public class StoreProductPage {
     WebElement clothingLink;
     @FindBy(css = "select#apparel_type")
     WebElement typeDropDown;
+    @FindBy(css = "a[title='Prices']")
+    WebElement pricesLink;
+    @FindBy(css = "#price")
+    WebElement priceField;
+    @FindBy(xpath = "//select[@name='product[tax_class_id]']")
+    WebElement taxClassDropDown;
+    @FindBy(xpath = "//a[@title='Websites']")
+    WebElement websiteLink;
+    @FindBy(css = "#product_website_57")
+    WebElement websiteCheckbox;
+    @FindBy(xpath = "//a[@name='inventory']")
+    WebElement inventoryLink;
+    @FindBy(css = "#inventory_qty")
+    WebElement qtyFiled;
+    @FindBy(css = "select#inventory_stock_availability")
+    WebElement stockAvailabilityDropDown;
     @FindBy(css = "button[title='Save']")
     WebElement saveButton;
     @FindBy(css = ".success-msg>ul li span")
@@ -49,18 +65,15 @@ public class StoreProductPage {
         testUtility = new TestUtility(driver);
     }
 
-    public void addProduct(String name, String description, String shortDescription, String SKU) {
-       // testUtility.waitForElementPresent(chooseStoreViewDropDown);
-       // Select select = new Select(chooseStoreViewDropDown);
-       // select.selectByValue("");
+    public void addProduct(String name, String description, String shortDescription, String SKU,String weight ,String price, String qty) {
+        testUtility.waitForElementPresent(chooseStoreViewDropDown);
+        Select select = new Select(chooseStoreViewDropDown);
+        select.selectByValue("60");
         testUtility.waitForElementPresent(addProductButton);
         addProductButton.click();
         testUtility.waitForElementPresent(attributeSetDropDown);
         Select select1 = new Select(attributeSetDropDown);
         select1.selectByValue("13");
-        testUtility.waitForElementPresent(productTypeDropDown);
-        Select select2 = new Select(productTypeDropDown);
-        select2.selectByValue("grouped");
         testUtility.waitForElementPresent(continueButton);
         continueButton.click();
         testUtility.waitForElementPresent(nameField);
@@ -71,17 +84,36 @@ public class StoreProductPage {
         shortDescriptionFiled.sendKeys(shortDescription);
         testUtility.waitForElementPresent(SKUField);
         SKUField.sendKeys(SKU);
+        testUtility.waitForElementPresent(weightFiled);
+        weightFiled.sendKeys(weight);
         testUtility.waitForElementPresent(statusDropDown);
-        Select select3 = new Select(statusDropDown);
-        select3.selectByValue("1");
+        Select select2 = new Select(statusDropDown);
+        select2.selectByValue("1");
         testUtility.waitForElementPresent(visibilityDropdown);
-        Select select4 = new Select(visibilityDropdown);
-        select4.selectByValue("4");
+        Select select3 = new Select(visibilityDropdown);
+        select3.selectByValue("4");
         testUtility.waitForElementPresent(clothingLink);
         clothingLink.click();
         testUtility.waitForElementPresent(typeDropDown);
-        Select select5 = new Select(typeDropDown);
-        select5.selectByValue("36");
+        Select select4 = new Select(typeDropDown);
+        select4.selectByValue("36");
+        testUtility.waitForElementPresent(pricesLink);
+        pricesLink.click();
+        testUtility.waitForElementPresent(priceField);
+        priceField.sendKeys(price);
+        testUtility.waitForElementPresent(taxClassDropDown);
+        Select select5=new Select(taxClassDropDown);
+        select5.selectByValue("2");
+        testUtility.waitForElementPresent(websiteLink);
+        websiteLink.click();
+        testUtility.waitForElementPresent(websiteCheckbox);
+        websiteCheckbox.click();
+        testUtility.waitForElementPresent(inventoryLink);
+        inventoryLink.click();
+        testUtility.waitForElementPresent(qtyFiled);
+        qtyFiled.sendKeys(qty);
+        testUtility.waitForElementPresent(stockAvailabilityDropDown);
+        stockAvailabilityDropDown.click();
         testUtility.waitForElementPresent(saveButton);
         saveButton.click();
 

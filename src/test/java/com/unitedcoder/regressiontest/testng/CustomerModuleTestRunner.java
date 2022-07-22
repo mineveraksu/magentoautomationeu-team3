@@ -20,43 +20,44 @@ public class CustomerModuleTestRunner extends BasePage {
     AddAddressesPage addAddressesPage;
 
     @BeforeClass
-    public void setup(ITestContext context){
-        String url= ApplicationConfig.readFromConfigProperties(configFile,"url");
+    public void setup(ITestContext context) {
+        String url = ApplicationConfig.readFromConfigProperties(configFile, "url");
         browserSetUp(url);
-        context.setAttribute("driver",driver);
-        login=new BackEndLogin(driver);
+        context.setAttribute("driver", driver);
+        login = new BackEndLogin(driver);
         login.customerPageLogin();
-        customerDashboardPage=new CustomerDashboardPage(driver);
-        customerGroupsPage=new CustomerGroupsPage(driver);
-        filterCustomerPage=new FilterCustomerPage(driver);
-        customerPage=new CustomerPage(driver);
-        addAddressesPage=new AddAddressesPage(driver);
+        customerDashboardPage = new CustomerDashboardPage(driver);
+        customerGroupsPage = new CustomerGroupsPage(driver);
+        filterCustomerPage = new FilterCustomerPage(driver);
+        customerPage = new CustomerPage(driver);
+        addAddressesPage = new AddAddressesPage(driver);
 
     }
 
     @Test(groups = "regression test", description = "Customer Manager can add a new customer ")
-    public void addNewCustomer(){
+    public void addNewCustomer() {
         customerPage.addNewCustomer();
         Assert.assertTrue(customerPage.verifyNewCustomerAdded());
     }
 
-    @Test(dataProvider = "customerGroupInfo",groups = "regression test",description = "Customer Manager can add new customer groups.")
-    public void addNewCustomerGroups(TestDataHolder testDataHolder){
+    @Test(dataProvider = "customerGroupInfo", groups = "regression test", description = "Customer Manager can add new customer groups.")
+    public void addNewCustomerGroups(TestDataHolder testDataHolder) {
         login.VerifyLoginSuccessfully();
         customerDashboardPage.clickOnCustomerGroups();
         customerGroupsPage.addNewCustomerGroups(testDataHolder);
         Assert.assertTrue(customerGroupsPage.verifyAddNewCustomerGroups());
     }
 
-    @Test(dataProvider = "customerGroupInfo",groups = "regression test",description = "Customer Manager can  update existing customer groups.",dependsOnMethods = "addNewCustomerGroups")
-    public void updateExistingCustomerGroups(TestDataHolder testDataHolder){
+    @Test(dataProvider = "customerGroupInfo", groups = "regression test", description = "Customer Manager can  update existing customer groups.", dependsOnMethods = "addNewCustomerGroups")
+    public void updateExistingCustomerGroups(TestDataHolder testDataHolder) {
         customerDashboardPage.clickOnCustomerGroups();
         customerGroupsPage.updateExistingCustomerGroups(testDataHolder);
         Assert.assertTrue(customerGroupsPage.verifyUpdateExistingCustomerGroups());
     }
+
     @Test(description = "assign a customer to group",
-            dataProvider = "customerGroupInfo",dependsOnMethods = {"addNewCustomer"})
-    public void assignACustomerToGroup(TestDataHolder testDataHolder){
+            dataProvider = "customerGroupInfo", dependsOnMethods = {"addNewCustomer"})
+    public void assignACustomerToGroup(TestDataHolder testDataHolder) {
         customerPage.selectAddedCustomer();
         customerPage.selectActionsList();
         customerPage.selectGroup(testDataHolder);
@@ -65,33 +66,34 @@ public class CustomerModuleTestRunner extends BasePage {
     }
 
     @Test(description = "exportCustomer")
-    public void exportCustomer(){
-        String fileType="Excel XML";
+    public void exportCustomer() {
+        String fileType = "Excel XML";
         customerPage.selectFileType(fileType);
         customerPage.clickOnExportButton();
         customerPage.isCustomerFileExported();
     }
 
-    @Test(dataProvider = "customerGroupInfo",groups = "regression test",description = "Customer Manager can delete existing customer groups",dependsOnMethods = "updateExistingCustomerGroups")
-    public void deleteExistingCustomerGroups(TestDataHolder testDataHolder){
+    @Test(dataProvider = "customerGroupInfo", groups = "regression test", description = "Customer Manager can delete existing customer groups", dependsOnMethods = "updateExistingCustomerGroups")
+    public void deleteExistingCustomerGroups(TestDataHolder testDataHolder) {
         customerGroupsPage.deleteExistingCustomerGroups(testDataHolder);
         Assert.assertTrue(customerGroupsPage.verifyDeleteExistingCustomerGroups());
     }
 
-    @Test(dataProvider = "filterCustomerInfo",groups = "regression test",description = "Customer Manager Can Filter Customers by Email")
-    public void filterCustomerByEmail(String email){
+    @Test(dataProvider = "filterCustomerInfo", groups = "regression test", description = "Customer Manager Can Filter Customers by Email")
+    public void filterCustomerByEmail(String email) {
         customerDashboardPage.clickOnManageCustomers();
         filterCustomerPage.clickEmailField(email);
         Assert.assertTrue(filterCustomerPage.verifyFilterCustomerByEmail());
     }
 
     @DataProvider
-    public Object[] customerGroupInfo(){
-        Object[] data=new Object[]{new TestDataHolder("Europe Customer")};
+    public Object[] customerGroupInfo() {
+        Object[] data = new Object[]{new TestDataHolder("Europe Customer")};
         return data;
     }
+
     @DataProvider
-    public Object[][]filterCustomerInfo() {
+    public Object[][] filterCustomerInfo() {
         Object[][] data = new Object[][]{
                 {"gunes8811@hotmail.com"}
         };
@@ -100,8 +102,9 @@ public class CustomerModuleTestRunner extends BasePage {
     }
 
 
-    @Test(groups = "regression test",description = "Customer Manager can add a new address for a customer")//dataProvider = "customerGroupInfo",,dependsOnMethods = "addNewCustomer"
-    public void addNewAddress(){
+    @Test(groups = "regression test", description = "Customer Manager can add a new address for a customer")
+//dataProvider = "customerGroupInfo",,dependsOnMethods = "addNewCustomer"
+    public void addNewAddress() {
         customerDashboardPage.navigateToAddressesLink();
         addAddressesPage.addNewAddress();
         Assert.assertTrue(addAddressesPage.verifyNewAddressAdded());
@@ -109,13 +112,13 @@ public class CustomerModuleTestRunner extends BasePage {
     }
 
     @Test(description = "Customer Manager can update an existing customer ")
-    public void updateCustomer(){
+    public void updateCustomer() {
         customerPage.updateCustomer();
         Assert.assertTrue(customerPage.verifyUpdateCustomer());
     }
 
-    @Test(groups = "regression test",description = "Customer Manager can filter customers by Country, State, and website. ")
-    public void filterCustomerByCountry(){
+    @Test(groups = "regression test", description = "Customer Manager can filter customers by Country, State, and website. ")
+    public void filterCustomerByCountry() {
         customerDashboardPage.clickOnManageCustomers();
         filterCustomerPage.filterByCountry();
         Assert.assertTrue(filterCustomerPage.verifyFilteredByCountry());
@@ -127,8 +130,8 @@ public class CustomerModuleTestRunner extends BasePage {
         Assert.assertTrue(filterCustomerPage.verifyFilteredByState());
     }
 
-        @AfterClass
-    public void tearDown(){
+    @AfterClass
+    public void tearDown() {
         closeBrowser();
     }
 
