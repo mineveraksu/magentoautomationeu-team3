@@ -8,6 +8,7 @@ public class TestDataHolder {
     private String rootCategoryDescription;
     private String attributeCode;
     private String adminName;
+    private String storeName;
 
     @Override
     public String toString() {
@@ -59,4 +60,12 @@ public class TestDataHolder {
     }
     public String getattributeCode() {return attributeCode;}
     public String getadminName() {return adminName;}
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
 }

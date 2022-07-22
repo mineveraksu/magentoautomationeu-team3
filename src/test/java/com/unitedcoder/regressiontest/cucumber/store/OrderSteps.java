@@ -1,11 +1,12 @@
 package com.unitedcoder.regressiontest.cucumber.store;
 
+import com.seleniummaster.maganto.utility.BasePage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-public class OrderSteps {
+public class OrderSteps extends BasePage {
     @Given("store manager is on the dashboard page and store manager click on orders link")
     public void storeManagerIsOnTheDashboardPageAndStoreManagerClickOnOrdersLink() {
     }

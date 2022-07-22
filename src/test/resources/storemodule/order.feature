@@ -9,14 +9,6 @@ Feature:Store Manager can manage a order
     And  store manager select the product name
     And  fill the product information
     Then the order should be saved successfully
-
-
-
-
-
-
-
-
 #  Store Manager can edit orders
   @EditOrders
   Scenario : Store Manager can edit orders
