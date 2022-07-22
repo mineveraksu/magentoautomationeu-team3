@@ -135,9 +135,9 @@ public class CustomerModuleTestRunner extends BasePage {
         filterCustomerPage.verifyFilteredByState();
     }
 
-        @AfterClass
-    public void tearDown(){
-        closeBrowser();
-    }
+//        @AfterClass
+//    public void tearDown(){
+//        closeBrowser();
+//    }
 
 }
