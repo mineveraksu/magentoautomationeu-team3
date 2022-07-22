@@ -1,19 +1,16 @@
 package com.unitedcoder.regressiontest.cucumber.store;
 
-import com.seleniummaster.maganto.backendpages.BackEndLogin;
-import com.seleniummaster.maganto.backendpages.storepages.StoreDashboardPage;
-import com.seleniummaster.maganto.utility.ApplicationConfig;
-import com.seleniummaster.maganto.utility.BasePage;
-import com.seleniummaster.maganto.utility.ScreenShotUtility;
-import io.cucumber.java.After;
-import io.cucumber.java.Before;
-import io.cucumber.java.Scenario;
-import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
+import com.seleniummaster.maganto.backendpages.storepages.StoreManagerWebPage;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.testng.Assert;
 
-public class StoreSteps extends BasePage {
+public class StoreSteps {
+    StoreManagerWebPage storeManagerWebPage;
 
 
+    @Then("the store names should display")
+    public void theStoreNamesShouldDisplay() {
+        Assert.assertTrue(storeManagerWebPage.verifyAllStoresViewed());
+    }
 }

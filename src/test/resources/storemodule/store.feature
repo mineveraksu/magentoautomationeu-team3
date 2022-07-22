@@ -11,3 +11,12 @@ Feature:Store Manager can manage a store
       |storeName|
       |blueSky  |
 
+    #Store Manager can view all stores
+  @ViewAllStores
+  Scenario Outline: Store Manager can view all stores
+    Given store manager is on the dashboard page store manager click on manage stores link
+    Then the store names should display
+
+    Examples:
+      |  |
+
