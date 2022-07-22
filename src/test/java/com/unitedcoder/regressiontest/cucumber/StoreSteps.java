@@ -125,5 +125,46 @@ public class StoreSteps extends BasePage {
         }
         closeBrowser();
     }
+    //add product categories
+    @When("store manager clicks categories link and check the existing product categories")
+    public void storeManagerClicksCategoriesLinkAndCheckTheExistingProductCategories() {
 
+    }
+    @Then("the product should be saved successfully")
+    public void theProductShouldBeSavedSuccessfully() {
+    }
+
+    @And("verify added a new product category")
+    public void verifyAddedANewProductCategory() {
+
+    }
+
+//update product categories
+    @When("store manager clicks an existing product and check other existing product category")
+    public void storeManagerClicksAnExistingProductAndCheckOtherExistingProductCategory() {
+    }
+
+    @Then("the product should be updated successfully")
+    public void theProductShouldBeUpdatedSuccessfully() {
+
+    }
+
+    @And("verify update the product category")
+    public void verifyUpdateTheProductCategory() {
+
+    }
+    //delete product categories
+    @When("store manager clicks an existing product and delete the product category")
+    public void storeManagerClicksAnExistingProductAndDeleteTheProductCategory() {
+
+    }
+
+    @Then("the product category should be deleted successfully")
+    public void theProductCategoryShouldBeDeletedSuccessfully() {
+
+    }
+
+    @And("verify delete the product category")
+    public void verifyDeleteTheProductCategory() {
+    }
 }
