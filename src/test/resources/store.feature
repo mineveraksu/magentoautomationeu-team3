@@ -8,6 +8,11 @@ Feature:Store Manager can manage store
     Then website created successfully
     #edit website
     #delete website
+  @DeleteWebsite
+  Scenario: Store Manager can delete a website
+    Given store manager is on the dashboard page store manager click on manage stores link
+    When store manager click create website button and fill out Website Information and click save button
+    Then website created successfully
 
   @CreateStore
   Scenario: Store Manager can create a store
