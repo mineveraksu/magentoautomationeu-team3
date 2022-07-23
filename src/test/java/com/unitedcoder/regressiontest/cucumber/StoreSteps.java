@@ -122,7 +122,7 @@ public class StoreSteps extends BasePage {
     @When("click on add product button to fill out {string} {string} {string} {string} {string} {string} {string} and other information information")
     public void clickOnAddProductButtonToFillOutAndOtherInformationInformation(String arg0, String arg1, String arg2, String arg3, String arg4, String arg5, String arg6) {
         storeProductPage = new StoreProductPage(driver);
-        storeProductPage.addProduct(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
+        storeProductPage.addProduct(testDataHolder,arg0, arg1, arg2, arg3, arg4, arg5, arg6);
     }
 
     @Then("a new product created successfully")
