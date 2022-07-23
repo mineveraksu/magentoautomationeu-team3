@@ -4,10 +4,7 @@ import com.seleniummaster.maganto.backendpages.BackEndLogin;
 import com.seleniummaster.maganto.backendpages.storepages.StoreDashboardPage;
 import com.seleniummaster.maganto.backendpages.storepages.StoreProductPage;
 import com.seleniummaster.maganto.backendpages.storepages.StoreWebsitePage;
-import com.seleniummaster.maganto.utility.ApplicationConfig;
-import com.seleniummaster.maganto.utility.BasePage;
-import com.seleniummaster.maganto.utility.ScreenShotUtility;
-import com.seleniummaster.maganto.utility.TestDataHolder;
+import com.seleniummaster.maganto.utility.*;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
@@ -24,12 +21,16 @@ public class StoreSteps extends BasePage {
     StoreDashboardPage storeDashboardPage;
     StoreWebsitePage storeManagerWebPage;
     StoreProductPage storeProductPage;
+    ExcelUtility excelUtility;
+    TestDataHolder testDataHolder;
 
     @Before("@StoreModuleTest")
     public void setup() {
         browserSetUp(url);
         login = new BackEndLogin(driver);
         login.storePageLogin();
+        excelUtility=new ExcelUtility();
+        testDataHolder=excelUtility.readStoreInfoFromExcel("Test-Data/storeModuleData.xlsx","Store_Info");
     }
     //create website
     @Given("store manager is on the dashboard page store manager click on manage stores link")
@@ -38,11 +39,10 @@ public class StoreSteps extends BasePage {
         storeDashboardPage.clickOnManageStoresLink();
     }
 
-    @When("store manager click create website button and fill out{string} {string} field and click save button")
-    public void storeManagerClickCreateWebsiteButtonAndFillTheOutFieldAndClickSaveButton(String arg0, String arg1) {
+    @When("store manager click create website button and fill out Website Information and click save button")
+    public void storeManagerClickCreateWebsiteButtonAndFillOutWebsiteInformationAndClickSaveButton() {
         storeManagerWebPage=new StoreWebsitePage(driver);
-        storeManagerWebPage.createWebsite(arg0,arg1);
-
+        storeManagerWebPage.createWebsite(testDataHolder);
     }
 
     @Then("website created successfully")
@@ -51,9 +51,10 @@ public class StoreSteps extends BasePage {
     }
     //edit website
     //delete website
+
     //create store
     @When("store manager clicks on create store button to fill out store information")
-    public void storeManagerClicksOnCreateStoreButtonToFillOutStoreInformation() {
+    public void storeManagerClicksOnCreateStoreButtonToFillOutStoreInformation(String arg0) {
 
     }
 

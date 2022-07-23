@@ -8,6 +8,8 @@ public class TestDataHolder {
     private String rootCategoryDescription;
     private String attributeCode;
     private String adminName;
+    private String websiteName;
+    private String websiteCode;
     private String storeName;
 
     @Override
@@ -67,5 +69,21 @@ public class TestDataHolder {
 
     public String getStoreName() {
         return storeName;
+    }
+
+    public void setWebsiteName(String websiteName) {
+        this.websiteName = websiteName;
+    }
+
+    public void setWebsiteCode(String websiteCode) {
+        this.websiteCode = websiteCode;
+    }
+
+    public String getWebsiteName() {
+        return websiteName;
+    }
+
+    public String getWebsiteCode() {
+        return websiteCode;
     }
 }
