@@ -2,11 +2,10 @@ package com.seleniummaster.maganto.backendpages.storepages;
 import com.seleniummaster.maganto.utility.TestUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class StoreManagerWebPage {
+public class StoreWebsitePage {
     WebDriver driver;
     TestUtility testUtility;
 
@@ -21,8 +20,10 @@ public class StoreManagerWebPage {
     WebElement saveWebsiteButton;
     @FindBy(css = "li.success-msg")
     WebElement websiteSavedSuccessfulSMS;
+    @FindBy(linkText = "Store Name")
+    WebElement storeNameLink;
 
-    public StoreManagerWebPage(WebDriver driver) {
+    public StoreWebsitePage(WebDriver driver) {
         this.driver = driver;
         testUtility = new TestUtility(driver);
         PageFactory.initElements(driver, this);
@@ -46,6 +47,16 @@ public class StoreManagerWebPage {
             return true;
         } else {
             System.out.println("Store manager create website test failed!");
+            return false;
+        }
+
+    }
+    public boolean verifyAllStoresViewed(){
+        if (storeNameLink.isDisplayed()){
+            System.out.println("Store manager can view all stores.");
+            return true;
+        }else {
+            System.out.println("Store manager can not view all stores.");
             return false;
         }
 
