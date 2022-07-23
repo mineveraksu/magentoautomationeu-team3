@@ -7,18 +7,28 @@ Feature:Store Manager can manage store
     When store manager click create website button and fill out Website Information and click save button
     Then website created successfully
     #edit website
-    #delete website
 
   @CreateStore
   Scenario: Store Manager can create a store
     Given store manager is on the dashboard page store manager click on manage stores link
     When store manager clicks on create store button to fill out store information
-    Then the store should be saved successfully
+    Then the store should be created successfully
 
-    #edit store
+  @EditStore
+  Scenario: Store Manager can edit a store
+    Given store manager is on the dashboard page store manager click on manage stores link
+    When store manager clicks on the store name to edit store then clicks on save store button
+    Then the store should be edited successfully
     #create store view
+
     #update store view
-    #delete store
+
+  @DeletedStore
+  Scenario: Store Manager can delete a store
+    Given store manager is on the dashboard page store manager click on manage stores link
+    When store manager clicks on the store name to click on the delete store button
+    Then the store should be deleted successfully
+
   @CreateProduct
   Scenario Outline: Store Manager Can Create a Product
     Given store manager is on the dashboard page store manager click on manage products link
@@ -26,9 +36,8 @@ Feature:Store Manager can manage store
     Then a new product created successfully
 
     Examples:
-      |name |description   |shortDescription|sku          |weight|price |qty|
-      |Jeans|Tommy Hilfiger|TH              |AB224488     |300   |199,99|5  |
-    
+      | name  | description    | shortDescription | sku      | weight | price  | qty |
+      | Jeans | Tommy Hilfiger | TH               | AB224488 | 300    | 199,99 | 5   |
     #update product
     #delete product
 
@@ -47,3 +56,11 @@ Feature:Store Manager can manage store
     When  store manager search orders number and edit some information
     Then  edit orders successful
     #cancle orders
+
+
+   #delete website
+  @DeleteWebsite
+  Scenario: Store Manager can delete a website
+    Given store manager is on the dashboard page store manager click on manage stores link
+    When store manager select the website then click on the delete website button
+    Then website deleted successfully
