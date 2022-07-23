@@ -18,8 +18,7 @@ public class StoreProductPage {
     TestUtility testUtility;
     Actions actions;
 
-    @FindBy(css = "select#store_switcher")
-    WebElement chooseStoreViewDropDown;
+
     @FindBy(css = "button[title='Add Product']")
     WebElement addProductButton;
     @FindBy(css = "select#attribute_set_id")
@@ -71,15 +70,9 @@ public class StoreProductPage {
         actions=new Actions(driver);
     }
 
-    public void addProduct(String name, String description, String shortDescription, String SKU, String weight , String price, String qty) {
-        testUtility.waitForElementPresent(chooseStoreViewDropDown);
-        Select select = new Select(chooseStoreViewDropDown);
-        select.selectByValue("60");
+    public void addProduct(TestDataHolder testDataHolder,String name, String description, String shortDescription, String SKU, String weight , String price, String qty) {
         testUtility.waitForElementPresent(addProductButton);
         addProductButton.click();
-        testUtility.waitForElementPresent(attributeSetDropDown);
-        Select select1 = new Select(attributeSetDropDown);
-        select1.selectByValue("13");
         testUtility.waitForElementPresent(continueButton);
         continueButton.click();
         testUtility.waitForElementPresent(nameField);
@@ -98,12 +91,6 @@ public class StoreProductPage {
         testUtility.waitForElementPresent(visibilityDropdown);
         Select select3 = new Select(visibilityDropdown);
         select3.selectByValue("4");
-        testUtility.sleep(3);
-        testUtility.waitForElementPresent(clothingLink);
-        actions.moveToElement(clothingLink).click();
-        testUtility.waitForElementPresent(typeDropDown);
-         Select select4 = new Select(typeDropDown);
-        select4.selectByValue("36");
         testUtility.waitForElementPresent(pricesLink);
         testUtility.javaScriptClick(pricesLink);
         testUtility.waitForElementPresent(priceField);
@@ -113,9 +100,9 @@ public class StoreProductPage {
         select5.selectByValue("2");
         testUtility.waitForElementPresent(websiteLink);
         websiteLink.click();
-//        WebElement websiteCheckBox= driver.findElement(By.xpath(String.format("//label[text()='%s']//preceding::input[1]",testDataHolder.getRootCategoryName())));
-//        testUtility.waitForElementPresent(websiteCheckBox);
-//        websiteCheckBox.click();
+        WebElement websiteCheckBox= driver.findElement(By.xpath(String.format("//label[text()='%s']//preceding::input[1]",testDataHolder.getWebsiteName())));
+        testUtility.waitForElementPresent(websiteCheckBox);
+        websiteCheckBox.click();
         testUtility.waitForElementPresent(inventoryLink);
         testUtility.javaScriptClick(inventoryLink);
         testUtility.waitForElementPresent(qtyFiled);
