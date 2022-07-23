@@ -7,6 +7,7 @@ import com.seleniummaster.maganto.backendpages.storepages.StoreWebsitePage;
 import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.BasePage;
 import com.seleniummaster.maganto.utility.ScreenShotUtility;
+import com.seleniummaster.maganto.utility.TestDataHolder;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
