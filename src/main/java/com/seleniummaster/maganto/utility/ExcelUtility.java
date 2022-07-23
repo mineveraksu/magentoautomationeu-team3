@@ -65,4 +65,19 @@ public class ExcelUtility {
         return testDataHolder;
     }
 
+    public TestDataHolder readStoreInfoFromExcel(String fileName, String sheetName){
+        ExcelUtility excelUtility=new ExcelUtility();
+        XSSFWorkbook workbook= null;
+        try {
+            workbook = new XSSFWorkbook(fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        TestDataHolder testDataHolder=new TestDataHolder();
+        testDataHolder.setWebsiteName(excelUtility.readFromExcelCell(fileName,sheetName,1,0));
+        testDataHolder.setWebsiteCode(excelUtility.readFromExcelCell(fileName,sheetName,1,1));
+        testDataHolder.setStoreName(excelUtility.readFromExcelCell(fileName,sheetName,1,2));
+        return testDataHolder;
+    }
+
 }
