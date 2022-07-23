@@ -1,10 +1,12 @@
 package com.seleniummaster.maganto.backendpages.storepages;
 
+import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.TestUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
 public class CreateOrderPage {
@@ -12,10 +14,15 @@ public class CreateOrderPage {
     TestUtility testUtility;
     Actions actions;
     Select select;
+    String Config= "config.properties";
+    String email;
 
-//    public CreateOrderPage(){
-//        this.driver=
-//    }
+    public CreateOrderPage(WebDriver driver){
+        this.driver=driver;
+        testUtility= new TestUtility(driver);
+        PageFactory.initElements(driver,this);
+    }
+
 
     @FindBy(xpath = "(//span[text()='Create New Order'])[2]")
     WebElement createNewOrdersTab;
@@ -53,7 +60,7 @@ public class CreateOrderPage {
     @FindBy (xpath = "//input[@type='text' and @id='order-billing_address_telephone']")
     WebElement billingAddressTelephoneField;
     @FindBy (xpath = "//input[@id=\"order-shipping_as_billing\"]")
-    WebElement  sameAsBilingAddressRadioButton;
+    WebElement  sameAsBillingAddressRadioButton;
     @FindBy (xpath = "//input[@id='p_method_cashondelivery']")
     WebElement cashOnDeliveryRadioButton;
 
@@ -67,4 +74,80 @@ public class CreateOrderPage {
 
     @FindBy (xpath = "//span[text()='The order has been created.']")
     WebElement successMessage;
+
+    public void openCreateANewOrderPage(WebDriver driver){
+        testUtility.waitForElementPresent(createNewOrdersTab);
+        createNewOrdersTab.click();
+        testUtility.waitForElementPresent(customerEmailField);
+        customerEmailField.click();
+        customerEmailField.sendKeys(ApplicationConfig.readFromConfigProperties(Config,email));
+        testUtility.waitForElementPresent(storeNameRadioButton);
+        storeNameRadioButton.click();
+        testUtility.waitForElementPresent(addProductsLink);
+        addProductsLink.click();
+        testUtility.waitForElementPresent(selectCheckBox);
+        selectCheckBox.click();
+        testUtility.waitForElementPresent(addSelectedProductsToOrdersLink);
+        addSelectedProductsToOrdersLink.click();
+
+
+    }
+    public void fillBillingAndShippingAddressForm(WebDriver driver){
+        testUtility.waitForElementPresent(billingAddressFirstNameField);
+        billingAddressFirstNameField.click();
+        billingAddressFirstNameField.sendKeys(testUtility.generateFirstName());
+        testUtility.waitForElementPresent(billingAddressLastNameField);
+        billingAddressLastNameField.click();
+        billingAddressLastNameField.sendKeys(testUtility.generateLastName());
+        testUtility.waitForElementPresent(billingAddressStreetNameField);
+        billingAddressStreetNameField.click();
+        billingAddressStreetNameField.sendKeys(testUtility.generateStreetAddress());
+        testUtility.waitForElementPresent(billingAddressCityNameField);
+        billingAddressCityNameField.click();
+        billingAddressCityNameField.sendKeys(testUtility.generateCityName());
+        testUtility.waitForElementPresent(billingAddressCountryNameField);
+        billingAddressCountryNameField.click();
+        select=new Select(billingAddressCountryNameField);
+        select.selectByVisibleText("Turkey");
+        testUtility.waitForElementPresent(billingAddressStateNameField);
+        billingAddressStateNameField.click();
+        select=new Select(billingAddressStateNameField);
+        select.selectByVisibleText("Alaska");
+        testUtility.waitForElementPresent(billingAddressZipCodeField);
+        billingAddressZipCodeField.click();
+        billingAddressZipCodeField.sendKeys(testUtility.generateZipCode());
+        testUtility.waitForElementPresent(billingAddressTelephoneField);
+        billingAddressTelephoneField.click();
+        billingAddressTelephoneField.sendKeys(testUtility.generateTelephoneNumber());
+        testUtility.waitForElementPresent(sameAsBillingAddressRadioButton);
+        sameAsBillingAddressRadioButton.click();
+
+
+
+    }
+
+    public void selectShippingAndPaymentMethodAndSubmitOrder(WebDriver driver){
+        testUtility.waitForElementPresent(getShippingMethodsAndRatesLink);
+        getShippingMethodsAndRatesLink.click();
+        testUtility.waitForElementPresent(freeShippingRadioButton);
+        freeShippingRadioButton.click();
+        testUtility.waitForElementPresent(cashOnDeliveryRadioButton);
+        cashOnDeliveryRadioButton.click();
+        testUtility.waitForElementPresent(submitOrderButton);
+        submitOrderButton.click();
+
+    }
+    public boolean verifyCreateNewOrder(){
+        testUtility.waitForElementPresent(successMessage);
+        if (successMessage.getText().contains("The order has been created.")){
+            System.out.println("Store manager create new order test passed!");
+            return true;
+
+        }else {
+            System.out.println("Store manager create new order test failed!");
+            return false;
+        }
+
+
+    }
 }
