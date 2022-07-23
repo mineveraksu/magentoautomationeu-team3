@@ -1,4 +1,5 @@
 package com.seleniummaster.maganto.backendpages.storepages;
+import com.seleniummaster.maganto.utility.TestDataHolder;
 import com.seleniummaster.maganto.utility.TestUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,6 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 public class StoreWebsitePage {
     WebDriver driver;
     TestUtility testUtility;
+
 
 
     @FindBy(xpath = "(//td[@class=\"form-buttons\"])[1]//span/span/span")//1/3
@@ -27,13 +29,13 @@ public class StoreWebsitePage {
         PageFactory.initElements(driver, this);
     }
 
-    public void createWebsite(String name,String code) {
+    public void createWebsite(TestDataHolder testDataHolder) {
         testUtility.waitForElementPresent(createWebsiteLink);
         createWebsiteLink.click();
         testUtility.waitForElementPresent(nameField);
-        nameField.sendKeys(name);
+        nameField.sendKeys(testDataHolder.getWebsiteName());
         testUtility.waitForElementPresent(codeField);
-        codeField.sendKeys(code);
+        codeField.sendKeys(testDataHolder.getWebsiteCode());
         testUtility.waitForElementPresent(saveWebsiteButton);
         saveWebsiteButton.click();
     }

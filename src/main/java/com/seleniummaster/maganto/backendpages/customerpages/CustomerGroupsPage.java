@@ -106,8 +106,7 @@ public class CustomerGroupsPage {
         } else {
             System.out.println("Customer Manager update existing customer groups Test Failed!! ");
             return false;
-        }
-    }
+        }    }
 
     public void deleteExistingCustomerGroups(TestDataHolder testDataHolder) {
         clickOnExistingCustomerGroup(testDataHolder);
