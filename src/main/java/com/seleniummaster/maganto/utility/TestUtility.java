@@ -2,6 +2,7 @@ package com.seleniummaster.maganto.utility;
 
 import com.github.javafaker.Faker;
 import com.google.gson.Gson;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -28,6 +29,10 @@ public class TestUtility{
     public void waitForElementPresent(WebElement element){
         WebDriverWait wait=new WebDriverWait(driver,timeout);
         wait.until(ExpectedConditions.visibilityOf(element));
+    }
+    public void javaScriptClick(WebElement element){
+        JavascriptExecutor jse = (JavascriptExecutor)driver;
+        jse.executeScript("arguments[0].click()", element);
     }
 
     public String generateFirstName(){
