@@ -89,6 +89,7 @@ public class StoreSteps extends BasePage {
     //create order
     @Given("store manager is on the dashboard page and store manager click on orders link")
     public void storeManagerIsOnTheDashboardPageAndStoreManagerClickOnOrdersLink() {
+
     }
 
     @When("store manager click on create new orders link")
