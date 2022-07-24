@@ -23,7 +23,7 @@ public class StoreDashboardPage {
     WebElement systemLink;
     @FindBy(xpath = "(//li[@class=\"  last level1\"])[2]//span")
     WebElement manageStoresLink;
-    @FindBy(css = " li.active.parent.level0")
+    @FindBy(xpath = "//span[text()='Catalog']")
     WebElement catalogLink;
     @FindBy(xpath = " //span[text()='Manage Products']")
     WebElement manageProductsLink;
