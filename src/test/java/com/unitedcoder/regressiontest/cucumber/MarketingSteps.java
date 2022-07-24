@@ -1,7 +1,7 @@
 package com.unitedcoder.regressiontest.cucumber;
 
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
-import com.seleniummaster.maganto.backendpages.marketingpages.MarketingdashboardPage;
+import com.seleniummaster.maganto.backendpages.marketingpages.MarketingDashboardPage;
 import com.seleniummaster.maganto.backendpages.marketingpages.NewsletterTemplatePage;
 import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.BasePage;
@@ -18,7 +18,7 @@ public class MarketingSteps extends BasePage {
     final static String configFile = "config.properties";
     final static String url = ApplicationConfig.readFromConfigProperties(configFile, "url");
     BackEndLogin login;
-    MarketingdashboardPage marketingdashboardPage;
+    MarketingDashboardPage marketingdashboardPage;
     NewsletterTemplatePage newsletterTemplatePage;
 
     @Before("@MarketingModule")
@@ -26,7 +26,7 @@ public class MarketingSteps extends BasePage {
         browserSetUp(url);
         login = new BackEndLogin(driver);
         login.marketingPageLogin();
-        marketingdashboardPage = new MarketingdashboardPage(driver);
+        marketingdashboardPage = new MarketingDashboardPage(driver);
     }
 
     @Given("marketing manager is on the dashboard page and clicks on Newsletter Templates link")

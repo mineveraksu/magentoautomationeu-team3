@@ -27,3 +27,11 @@ Feature:Marketing Manager can manage market
     Examples:
       | Template Name  |
       | Team3 Template |
+
+
+  @ViewPendingReviews
+  Scenario: Marketing Manager can view pending reviews
+    Given marketing manager is on the dashboard page and marketing manager click on pending reviews link
+    When marketing manager view on pending reviews page
+    Then the pending reviews view successfully
+
