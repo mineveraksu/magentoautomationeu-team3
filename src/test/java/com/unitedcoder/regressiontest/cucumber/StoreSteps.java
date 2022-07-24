@@ -54,6 +54,15 @@ public class StoreSteps extends BasePage {
     }
 
     //edit website
+    @Given("store manager select the website and edit website information and click save button ")
+    public void storeManagerSelectTheWebsiteAndEditWebsiteInformationAndClickSaveButton(){
+        storeWebsitePage=new StoreWebsitePage(driver);
+        storeWebsitePage.editWebsite(testDataHolder);
+    }
+    @Then("website edit successfully")
+    public void websiteEditSuccessfully(){
+        Assert.assertTrue(storeWebsitePage.verifyWebsiteEditSuccessfully());
+    }
 
 
     //delete website

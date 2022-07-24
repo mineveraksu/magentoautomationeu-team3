@@ -58,6 +58,27 @@ public class StoreWebsitePage {
         }
     }
 
+    public void editWebsite(TestDataHolder testDataHolder){
+        WebElement websiteName = driver.findElement(By.xpath(String.format("//a[contains(text(),'%s')]", testDataHolder.getWebsiteName())));
+        testUtility.waitForElementPresent(websiteName);
+        websiteName.click();
+        testUtility.waitForElementPresent(codeField);
+        codeField.sendKeys(testDataHolder.getWebsiteCode()+"1");
+        testUtility.waitForElementPresent(saveWebsiteButton);
+        saveWebsiteButton.click();
+    }
+
+    public boolean verifyWebsiteEditSuccessfully(){
+        testUtility.waitForElementPresent(successMessage);
+        if (successMessage.getText().contains("saved.")) {
+            System.out.println("Store manager create website test passed!");
+            return true;
+        } else {
+            System.out.println("Store manager create website test failed!");
+            return false;
+        }
+    }
+
     public void deleteWebsite(TestDataHolder testDataHolder) {
         WebElement websiteName = driver.findElement(By.xpath(String.format("//a[contains(text(),'%s')]", testDataHolder.getWebsiteName())));
         testUtility.waitForElementPresent(websiteName);
