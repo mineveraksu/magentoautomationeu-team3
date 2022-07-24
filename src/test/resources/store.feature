@@ -20,6 +20,16 @@ Feature:Store Manager can manage store
     When store manager clicks on the store name to edit store then clicks on save store button
     Then the store should be edited successfully
     #create store view
+   @CreateStoreView
+   Scenario Outline: Store Manager can create a store view
+     Given store manager is on the dashboard page store manager click on manage stores link
+     When  Stote manager click the creat store view link
+     And   fill out the information field"<StoreName>""<StoreCode>"
+     Then  Verify the created store view saved
+     Examples:
+       |StoreName          |StoreCode|
+       |  team3store       |   team33      |
+
 
     #update store view
 

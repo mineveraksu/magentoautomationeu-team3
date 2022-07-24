@@ -11,7 +11,7 @@ public class StoreViewPage {
 
         WebDriver driver;
         TestUtility testUtility;
-        @FindBy(xpath = "(//td[@class=\"form-buttons\"])[1]//button[3]/span/span/span")
+        @FindBy(xpath = "//td[@class=\"form-buttons\"]/button[3]/span/span/span")
         WebElement createStoreViewLink;
         @FindBy(css = "#store_group_id")
         WebElement storeDropDown;
