@@ -2,7 +2,7 @@ package com.unitedcoder.regressiontest.cucumber;
 
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
 import com.seleniummaster.maganto.backendpages.marketingpages.MarketingDashboardPage;
-import com.seleniummaster.maganto.backendpages.marketingpages.ViewAllReviewsPage;
+import com.seleniummaster.maganto.backendpages.marketingpages.NewsletterTemplatePage;
 import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.BasePage;
 import com.seleniummaster.maganto.utility.ScreenShotUtility;
@@ -12,53 +12,58 @@ import io.cucumber.java.Scenario;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.junit.Assert;
+import org.testng.Assert;
 
 public class MarketingSteps extends BasePage {
     final static String configFile = "config.properties";
     final static String url = ApplicationConfig.readFromConfigProperties(configFile, "url");
     BackEndLogin login;
-    MarketingDashboardPage marketingDashboardPage;
-    ViewAllReviewsPage viewAllReviewsPage;
+    MarketingDashboardPage marketingdashboardPage;
+    NewsletterTemplatePage newsletterTemplatePage;
 
-    @Before("@MarketingModule")
+    @Before("@MarketingModuleTest")
     public void setup() {
         browserSetUp(url);
         login = new BackEndLogin(driver);
         login.marketingPageLogin();
+        marketingdashboardPage = new MarketingDashboardPage(driver);
     }
 
     @Given("marketing manager is on the dashboard page and clicks on Newsletter Templates link")
     public void marketingManagerIsOnTheDashboardPageAndClicksOnNewsletterTemplatesLink() {
+        marketingdashboardPage.clickOnNewsletterTemplatesLink();
+        newsletterTemplatePage = new NewsletterTemplatePage(driver);
     }
 
-    @When("marketing manager clicks on Add New Template button and fill out New Newsletter Template Information and clicks save Template button")
-    public void marketingManagerClicksOnAddNewTemplateButtonAndFillOutNewNewsletterTemplateInformationAndClicksSaveTemplateButton() {
+    @When("marketing manager clicks on Add New Template button and fill out {string}{string} Information and clicks save Template button")
+    public void marketingManagerClicksOnAddNewTemplateButtonAndFillOutInformationAndClicksSaveTemplateButton(String arg0, String arg1) {
+        newsletterTemplatePage.addNewNewsletterTemplate(arg0,arg1);
     }
 
-    @Then("a new Newsletter template added successfully")
-    public void aNewNewsletterTemplateAddedSuccessfully() {
+    @Then("a new Newsletter template {string} added successfully")
+    public void aNewNewsletterTemplateAddedSuccessfully(String arg0) {
+        Assert.assertTrue(newsletterTemplatePage.verifyNewsletterTemplateAddedSuccessfully(arg0));
     }
 
-
-    //ViewPendingReviews
-    @Given("marketing manager is on the dashboard page and marketing manager click on pending reviews link")
-    public void marketingManagerIsOnTheDashboardPageAndMarketingManagerClickOnPendingReviewsLink() {
-        marketingDashboardPage=new MarketingDashboardPage(driver);
-        marketingDashboardPage.clickOnPendingReviewsLink();
-
+    @When("marketing manager clicks on {string} and change email to click on save Template button")
+    public void marketingManagerClicksOnAndChangeEmailToClickOnSaveTemplateButton(String arg0) {
+        newsletterTemplatePage.updateNewsletterTemplate(arg0);
     }
 
-    @When("marketing manager view on pending reviews page")
-    public void marketingManagerViewOnPendingReviewsPage() {
-        viewAllReviewsPage=new ViewAllReviewsPage(driver);
+    @Then("The Newsletter template updated successfully")
+    public void theNewsletterTemplateUpdatedSuccessfully() {
+        Assert.assertTrue(newsletterTemplatePage.verifyNewsletterTemplateUpdatedSuccessfully());
     }
 
-    @Then("the pending reviews view successfully")
-    public void thePendingReviewsViewSuccessfully() {
-        Assert.assertTrue(viewAllReviewsPage.verifyViewPendingReviewsSuccessfully());
+    @When("marketing manager clicks on {string}  to click on delete Template button")
+    public void marketingManagerClicksOnToClickOnDeleteTemplateButton(String arg0) {
+        newsletterTemplatePage.deleteNewsletterTemplate(arg0);
     }
 
+    @Then("The Newsletter template {string} deleted successfully")
+    public void theNewsletterTemplateDeletedSuccessfully(String arg0) {
+        Assert.assertTrue(newsletterTemplatePage.verifyNewsletterTemplateDeletedSuccessfully(arg0));
+    }
 
     @After("@MarketingModule")
     public void tearDown(Scenario scenario) {
@@ -68,4 +73,5 @@ public class MarketingSteps extends BasePage {
         }
         closeBrowser();
     }
+
 }

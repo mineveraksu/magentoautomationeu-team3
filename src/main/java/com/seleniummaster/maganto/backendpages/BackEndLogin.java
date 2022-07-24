@@ -64,6 +64,24 @@ public class BackEndLogin {
         loginButton.click();
     }
 
+    public void salesPageLogin() {
+        testUtility.waitForElementPresent(userNameField);
+        userNameField.sendKeys(ApplicationConfig.readFromConfigProperties(configFile, "salusername"));
+        testUtility.waitForElementPresent(passwordField);
+        passwordField.sendKeys(password);
+        testUtility.waitForElementPresent(loginButton);
+        loginButton.click();
+    }
+
+    public void reportingPageLogin() {
+        testUtility.waitForElementPresent(userNameField);
+        userNameField.sendKeys(ApplicationConfig.readFromConfigProperties(configFile, "repusername"));
+        testUtility.waitForElementPresent(passwordField);
+        passwordField.sendKeys(password);
+        testUtility.waitForElementPresent(loginButton);
+        loginButton.click();
+    }
+
     public boolean VerifyLoginSuccessfully() {
         testUtility.waitForElementPresent(logoutButton);
         if (logoutButton.isDisplayed()) {
