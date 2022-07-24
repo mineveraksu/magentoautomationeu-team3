@@ -31,6 +31,7 @@ public class StoreSteps extends BasePage {
         browserSetUp(url);
         login = new BackEndLogin(driver);
         login.storePageLogin();
+        storeDashboardPage = new StoreDashboardPage(driver);
         excelUtility = new ExcelUtility();
         testDataHolder = excelUtility.readStoreInfoFromExcel("Test-Data/storeModuleData.xlsx", "Store_Info");
     }
@@ -38,7 +39,6 @@ public class StoreSteps extends BasePage {
     //create website
     @Given("store manager is on the dashboard page store manager click on manage stores link")
     public void storeManagerIsOnTheDashboardPage() {
-        storeDashboardPage = new StoreDashboardPage(driver);
         storeDashboardPage.clickOnManageStoresLink();
     }
 
@@ -114,9 +114,7 @@ public class StoreSteps extends BasePage {
     //create product
     @Given("store manager is on the dashboard page store manager click on manage products link")
     public void storeManagerIsOnTheDashboardPageStoreManagerClickOnManageProductsLink() {
-        storeDashboardPage = new StoreDashboardPage(driver);
         storeDashboardPage.clickOnManageProductLink();
-
     }
 
     @When("click on add product button to fill out {string} {string} {string} {string} {string} {string} {string} and other information information")
