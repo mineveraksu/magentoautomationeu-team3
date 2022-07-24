@@ -3,6 +3,7 @@ package com.unitedcoder.regressiontest.cucumber;
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
 import com.seleniummaster.maganto.backendpages.storepages.StoreDashboardPage;
 import com.seleniummaster.maganto.backendpages.storepages.StoreProductPage;
+import com.seleniummaster.maganto.backendpages.storepages.StoreViewPage;
 import com.seleniummaster.maganto.backendpages.storepages.StoreWebsitePage;
 import com.seleniummaster.maganto.utility.*;
 import io.cucumber.java.After;
@@ -23,6 +24,9 @@ public class StoreSteps extends BasePage {
     StoreProductPage storeProductPage;
     ExcelUtility excelUtility;
     TestDataHolder testDataHolder;
+    StoreViewPage storeViewPage=new StoreViewPage(driver);
+    private String StoreName;
+    private String StoreCode;
 
     @Before("@StoreModuleTest")
     public void setup() {
@@ -63,6 +67,22 @@ public class StoreSteps extends BasePage {
     }
     //update store
     //create store view
+    @When("store manager click the manage stores link and click the create store view button")
+    public void storeManagerClickTheManageStoresLinkAndClickTheCreateStoreViewButton() {
+        storeViewPage.clickOnCreateStoreViewLink();
+    }
+
+    @And("fill in all mandatory field{string},{string}")
+    public void fillInAllMandatoryField(String arg0, String arg1) {
+        StoreName=arg0;
+        StoreCode=arg1;
+        storeViewPage.createAStoreView(StoreName,StoreCode);
+    }
+
+    @Then("store view should be created successfully")
+    public void storeViewShouldBeCreatedSuccessfully() {
+        org.junit.Assert.assertTrue(storeViewPage.verifyStoreViewSaved());
+    }
     //update store view
     //delete store
     //create product
@@ -127,5 +147,7 @@ public class StoreSteps extends BasePage {
         }
         closeBrowser();
     }
+
+
 
 }

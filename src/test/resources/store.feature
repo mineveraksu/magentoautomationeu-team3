@@ -17,6 +17,16 @@ Feature:Store Manager can manage store
 
     #edit store
     #create store view
+  @CreateAStoreView
+  Scenario Outline:Store manager can create a store view
+    Given store manager is on the dashboard page store manager click on manage stores link
+    When store manager click the manage stores link and click the create store view button
+     And fill in all mandatory field"<Name>","<Code>"
+    Then store view should be created successfully
+
+    Examples:
+      |Name           |Code     |
+      | team3 store   | team33  |
     #update store view
     #delete store
   @CreateProduct
