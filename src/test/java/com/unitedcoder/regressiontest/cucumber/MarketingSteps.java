@@ -21,7 +21,7 @@ public class MarketingSteps extends BasePage {
     MarketingDashboardPage marketingdashboardPage;
     NewsletterTemplatePage newsletterTemplatePage;
 
-    @Before("@MarketingModule")
+    @Before("@MarketingModuleTest")
     public void setup() {
         browserSetUp(url);
         login = new BackEndLogin(driver);

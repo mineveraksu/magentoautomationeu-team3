@@ -1,4 +1,4 @@
-@MarketingModule
+@MarketingModuleTest
 Feature:Marketing Manager can manage market
 
   @AddNewNewsletterTemplate
