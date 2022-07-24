@@ -31,7 +31,14 @@ Feature:Store Manager can manage store
        |  team3store       |   team33      |
 
 
-    #update store view
+    #edit store view
+  @EditStoreView
+  Scenario Outline: Store manager can edit store view
+    Given store manager is on the dashboard page store manager click on manage stores link
+    When  Store manager click the created store view link and put update name"<EditName>"
+    Then  Verify the updated store view saved
+    Examples: |EditName|
+              | team3  |
 
   @DeletedStore
   Scenario: Store Manager can delete a store

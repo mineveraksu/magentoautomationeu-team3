@@ -23,6 +23,9 @@ public class StoreViewPage {
         WebElement saveStoreViewButton;
         @FindBy(css = ".success-msg")
         WebElement successMsg;
+        @FindBy(linkText ="\n" +
+                "    team3store")
+       WebElement createdStoreViewLink;
 
         public StoreViewPage(WebDriver driver) {
             this.driver = driver;
@@ -61,5 +64,19 @@ public class StoreViewPage {
 
             return successMsg.getText().contains("The store view has been saved");
         }
+        public void clickOnTheCreatedStoreViewLink(){
+            testUtility.waitForElementPresent(createdStoreViewLink);
+            createdStoreViewLink.click();
+        }
+    public void enterEditName(String name){
+        testUtility.waitForElementPresent(storeNameField);
+        storeNameField.sendKeys(name);
+    }
+    public void editStoreView(String name){
+            clickOnTheCreatedStoreViewLink();
+            enterEditName(name);
+            clickSaveStoreViewButton();
+
+    }
     }
 

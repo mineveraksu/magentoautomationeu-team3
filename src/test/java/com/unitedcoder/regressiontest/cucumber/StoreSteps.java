@@ -107,11 +107,21 @@ public class StoreSteps extends BasePage {
 
     @Then("Verify the created store view saved")
     public void verifyTheCreatedStoreViewSaved() {
-        org.junit.Assert.assertTrue(storeViewPage.verifyStoreViewSaved());
+        Assert.assertTrue(storeViewPage.verifyStoreViewSaved());
     }
 
 
     //update store view
+    @When("Store manager click the created store view link and put update name{string}")
+    public void storeManagerClickTheCreatedStoreViewLinkAndPutUpdateName(String arg0) {
+        storeViewPage.editStoreView(arg0);
+    }
+
+    @Then("Verify the updated store view saved")
+    public void verifyTheUpdatedStoreViewSaved() {
+        Assert.assertTrue(storeViewPage.verifyStoreViewSaved());
+    }
+
 
 
     //delete store
