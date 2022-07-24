@@ -2,6 +2,7 @@ package com.unitedcoder.regressiontest.cucumber;
 
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
 import com.seleniummaster.maganto.backendpages.storepages.StoreDashboardPage;
+import com.seleniummaster.maganto.backendpages.storepages.StorePage;
 import com.seleniummaster.maganto.backendpages.storepages.StoreProductPage;
 import com.seleniummaster.maganto.backendpages.storepages.StoreWebsitePage;
 import com.seleniummaster.maganto.utility.*;
@@ -23,6 +24,7 @@ public class StoreSteps extends BasePage {
     StoreProductPage storeProductPage;
     ExcelUtility excelUtility;
     TestDataHolder testDataHolder;
+    StorePage storePage;
 
     @Before("@StoreModuleTest")
     public void setup() {
@@ -64,6 +66,13 @@ public class StoreSteps extends BasePage {
     //update store
     //create store view
     //update store view
+    //view all stores
+
+    @Then("the store names should display on this page.")
+    public void theStoreNamesShouldDisplayOnThisPage() {
+        StorePage storePage=new StorePage();
+        Assert.assertTrue(storePage.verifyAllStoresViewed());
+    }
     //delete store
     //create product
     @Given("store manager is on the dashboard page store manager click on manage products link")
@@ -127,5 +136,6 @@ public class StoreSteps extends BasePage {
         }
         closeBrowser();
     }
+
 
 }

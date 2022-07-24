@@ -16,6 +16,14 @@ Feature:Store Manager can manage store
     Then the store should be saved successfully
 
     #edit store
+    #Store Manager can view all stores
+  @ViewAllStores
+  Scenario: Store Manager can view all stores
+    Given store manager is on the dashboard page store manager click on manage stores link
+    Then the store names should display on this page.
+
+
+
     #create store view
     #update store view
     #delete store

@@ -17,6 +17,8 @@ public class StorePage {
     WebElement websiteDropDown;
     @FindBy(id = "group_name")
     WebElement storeNameField;
+    @FindBy(linkText = "Store Name")
+    WebElement storeNameLink;
     //@FindBy(id = "group_root_category_id")
    // WebElement rootCategoryDropDown;
   //  @FindBy(id = "group_root_category_id")
@@ -52,5 +54,15 @@ public class StorePage {
 //        }
 //
 //    }
+    public boolean verifyAllStoresViewed(){
+        if (storeNameLink.isDisplayed()){
+            System.out.println("Store manager can view all stores.");
+            return true;
+        }else {
+            System.out.println("Store manager can not view all stores.");
+            return false;
+        }
+
+    }
 }
 //

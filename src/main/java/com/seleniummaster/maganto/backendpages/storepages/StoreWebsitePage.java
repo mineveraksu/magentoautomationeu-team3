@@ -22,8 +22,7 @@ public class StoreWebsitePage {
     WebElement saveWebsiteButton;
     @FindBy(css = "li.success-msg")
     WebElement websiteSavedSuccessfulSMS;
-    @FindBy(linkText = "Store Name")
-    WebElement storeNameLink;
+
 
     public StoreWebsitePage(WebDriver driver) {
         this.driver = driver;
@@ -53,14 +52,5 @@ public class StoreWebsitePage {
         }
 
     }
-    public boolean verifyAllStoresViewed(){
-        if (storeNameLink.isDisplayed()){
-            System.out.println("Store manager can view all stores.");
-            return true;
-        }else {
-            System.out.println("Store manager can not view all stores.");
-            return false;
-        }
 
-    }
 }
