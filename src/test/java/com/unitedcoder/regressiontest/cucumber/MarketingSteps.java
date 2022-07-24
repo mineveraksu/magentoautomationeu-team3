@@ -3,6 +3,7 @@ package com.unitedcoder.regressiontest.cucumber;
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
 import com.seleniummaster.maganto.backendpages.marketingpages.MarketingDashboardPage;
 import com.seleniummaster.maganto.backendpages.marketingpages.NewsletterTemplatePage;
+import com.seleniummaster.maganto.backendpages.marketingpages.ReviewsPage;
 import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.BasePage;
 import com.seleniummaster.maganto.utility.ScreenShotUtility;
@@ -20,6 +21,7 @@ public class MarketingSteps extends BasePage {
     BackEndLogin login;
     MarketingDashboardPage marketingdashboardPage;
     NewsletterTemplatePage newsletterTemplatePage;
+    ReviewsPage reviewsPage;
 
     @Before("@MarketingModuleTest")
     public void setup() {
@@ -65,6 +67,34 @@ public class MarketingSteps extends BasePage {
         Assert.assertTrue(newsletterTemplatePage.verifyNewsletterTemplateDeletedSuccessfully(arg0));
     }
 
+    @Given("marketing manager is on the dashboard page and marketing manager click on pending reviews link")
+    public void marketingManagerIsOnTheDashboardPageAndMarketingManagerClickOnPendingReviewsLink() {
+    }
+
+    @When("marketing manager view on pending reviews page")
+    public void marketingManagerViewOnPendingReviewsPage() {
+    }
+
+    @Then("the pending reviews view successfully")
+    public void thePendingReviewsViewSuccessfully() {
+    }
+
+    @Given("marketing manager is on the dashboard page and marketing manager click on all reviews link")
+    public void marketingManagerIsOnTheDashboardPageAndMarketingManagerClickOnAllReviewsLink() {
+        marketingdashboardPage.clickOnAllReviewsLink();
+    }
+
+    @When("marketing manager click existing review edit button and clear the review field and edit new review in {string} field")
+    public void marketingManagerClickExistingReviewEditButtonAndClearTheReviewFieldAndEditNewReviewInField(String arg0) {
+        reviewsPage=new ReviewsPage(driver);
+        reviewsPage.updateExistingReview(arg0);
+    }
+
+    @Then("existing reviews updated successfully")
+    public void existingReviewsUpdatedSuccessfully() {
+        org.junit.Assert.assertTrue(reviewsPage.verifyReviewEdit());
+    }
+
     @After("@MarketingModule")
     public void tearDown(Scenario scenario) {
         if (scenario.isFailed()) {
@@ -73,5 +103,4 @@ public class MarketingSteps extends BasePage {
         }
         closeBrowser();
     }
-
 }
