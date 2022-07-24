@@ -114,7 +114,7 @@ public class StoreProductPage {
 
     }
 
-    public boolean verifyAddProduct() {
+    public boolean verifyAddProductSuccessfully() {
         testUtility.waitForElementPresent(addProductSuccessMessage);
         if (driver.getPageSource().contains(addProductSuccessMessage.getText())){
             System.out.println("Store Manager can Add Product Test is Passed!!!");
