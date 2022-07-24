@@ -1,10 +1,7 @@
 package com.unitedcoder.regressiontest.cucumber;
 
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
-import com.seleniummaster.maganto.backendpages.storepages.StoreDashboardPage;
-import com.seleniummaster.maganto.backendpages.storepages.StorePage;
-import com.seleniummaster.maganto.backendpages.storepages.StoreProductPage;
-import com.seleniummaster.maganto.backendpages.storepages.StoreWebsitePage;
+import com.seleniummaster.maganto.backendpages.storepages.*;
 import com.seleniummaster.maganto.utility.*;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -25,6 +22,9 @@ public class StoreSteps extends BasePage {
     ExcelUtility excelUtility;
     TestDataHolder testDataHolder;
     StorePage storePage;
+    String storeName;
+    String storeCode;
+    StoreViewPage storeViewPage=new StoreViewPage(driver);
 
     @Before("@StoreModuleTest")
     public void setup() {
@@ -94,9 +94,37 @@ public class StoreSteps extends BasePage {
     }
 
     //create store view
+    @When("Stote manager click the creat store view link")
+    public void stoteManagerClickTheCreatStoreViewLink() {
+        storeViewPage.clickOnTheCreatedStoreViewLink();
+    }
 
+    @And("fill out the information field{string}{string}")
+    public void fillOutTheInformationField(String arg0, String arg1) {
+        storeName=arg0;
+        storeCode=arg1;
+        storeViewPage.createAStoreView(storeName,storeCode);
+    }
 
+    @Then("Verify the created store view saved")
+    public void verifyTheCreatedStoreViewSaved() {
+        Assert.assertTrue(storeViewPage.verifyStoreViewSaved());
+    }
     //update store view
+
+
+    @When("Store manager click the created store view link and put update name{string}")
+    public void storeManagerClickTheCreatedStoreViewLinkAndPutUpdateName(String arg0) {
+        storeViewPage.editStoreView(arg0);
+    }
+
+    @Then("Verify the updated store view saved")
+    public void verifyTheUpdatedStoreViewSaved() {
+        Assert.assertTrue(storeViewPage.verifyStoreViewSaved());
+    }
+
+
+
 
 
     //delete store
@@ -175,4 +203,6 @@ public class StoreSteps extends BasePage {
         }
         closeBrowser();
     }
+
+
 }
