@@ -1,6 +1,9 @@
 package com.seleniummaster.maganto.backendpages.storepages;
 import com.seleniummaster.maganto.utility.TestDataHolder;
 import com.seleniummaster.maganto.utility.TestUtility;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -20,9 +23,16 @@ public class StoreWebsitePage {
     WebElement codeField;
     @FindBy(xpath = "(//p[@class=\"form-buttons\"])[1]/button[3]/span/span/span")
     WebElement saveWebsiteButton;
+    @FindBy(xpath = "(//button[@title='Delete Website']//span[text()='Delete Website'])[1]")
+    WebElement deleteWebsiteButton;
     @FindBy(css = "li.success-msg")
+
     WebElement websiteSavedSuccessfulSMS;
 
+
+    WebElement successMessage;
+    @FindBy(linkText = "Store Name")
+    WebElement storeNameLink;
 
     public StoreWebsitePage(WebDriver driver) {
         this.driver = driver;
@@ -42,15 +52,46 @@ public class StoreWebsitePage {
     }
 
     public boolean verifyWebsiteCreatedSuccessfully(){
-        testUtility.waitForElementPresent(websiteSavedSuccessfulSMS);
-        if (websiteSavedSuccessfulSMS.getText().contains("saved.")) {
+        testUtility.waitForElementPresent(successMessage);
+        if (successMessage.getText().contains("saved.")) {
             System.out.println("Store manager create website test passed!");
             return true;
         } else {
             System.out.println("Store manager create website test failed!");
             return false;
         }
+    }
 
+    public void deleteWebsite(TestDataHolder testDataHolder) {
+        WebElement websiteName = driver.findElement(By.xpath(String.format("//a[contains(text(),'%s')]", testDataHolder.getWebsiteName())));
+        testUtility.waitForElementPresent(websiteName);
+        websiteName.click();
+        testUtility.waitForElementPresent(deleteWebsiteButton);
+        deleteWebsiteButton.click();
+    }
+
+    public boolean verifyWebsiteDeletedSuccessfully() {
+        testUtility.waitForElementPresent(successMessage);
+        if (successMessage.getText().contains("deleted.")) {
+            System.out.println("Store manager delete website test passed!");
+            return true;
+        } else {
+            System.out.println("Store manager delete website test failed!");
+            return false;
+        }
+
+    }
+
+
+
+    public boolean verifyAllStoresViewed() {
+        if (storeNameLink.isDisplayed()) {
+            System.out.println("Store manager can view all stores.");
+            return true;
+        } else {
+            System.out.println("Store manager can not view all stores.");
+            return false;
+        }
     }
 
 }

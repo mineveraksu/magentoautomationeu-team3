@@ -1,25 +1,31 @@
 package com.seleniummaster.maganto.backendpages.storepages;
 
+import com.seleniummaster.maganto.utility.TestDataHolder;
 import com.seleniummaster.maganto.utility.TestUtility;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
 
+
+
 public class StoreProductPage {
     WebDriver driver;
     TestUtility testUtility;
-    @FindBy(css = "select#store_switcher")
-    WebElement chooseStoreViewDropDown;
+    Actions actions;
+
+
     @FindBy(css = "button[title='Add Product']")
     WebElement addProductButton;
     @FindBy(css = "select#attribute_set_id")
     WebElement attributeSetDropDown;
     @FindBy(id = "continue_button")
     WebElement continueButton;
-    @FindBy(id = "product[name]")
+    @FindBy(id = "name")
     WebElement nameField;
     @FindBy(css = "textarea#description")
     WebElement descriptionField;
@@ -33,7 +39,7 @@ public class StoreProductPage {
     WebElement statusDropDown;
     @FindBy(css = "select#visibility")
     WebElement visibilityDropdown;
-    @FindBy(css = "a[name='group_50']")
+    @FindBy(css = "a[title='Clothing']")
     WebElement clothingLink;
     @FindBy(css = "select#apparel_type")
     WebElement typeDropDown;
@@ -45,9 +51,7 @@ public class StoreProductPage {
     WebElement taxClassDropDown;
     @FindBy(xpath = "//a[@title='Websites']")
     WebElement websiteLink;
-    @FindBy(css = "#product_website_57")
-    WebElement websiteCheckbox;
-    @FindBy(xpath = "//a[@name='inventory']")
+    @FindBy(xpath = "//span[text()='Inventory']")
     WebElement inventoryLink;
     @FindBy(css = "#inventory_qty")
     WebElement qtyFiled;
@@ -63,17 +67,12 @@ public class StoreProductPage {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         testUtility = new TestUtility(driver);
+        actions=new Actions(driver);
     }
 
-    public void addProduct(String name, String description, String shortDescription, String SKU,String weight ,String price, String qty) {
-        testUtility.waitForElementPresent(chooseStoreViewDropDown);
-        Select select = new Select(chooseStoreViewDropDown);
-        select.selectByValue("60");
+    public void addProduct(TestDataHolder testDataHolder,String name, String description, String shortDescription, String SKU, String weight , String price, String qty) {
         testUtility.waitForElementPresent(addProductButton);
         addProductButton.click();
-        testUtility.waitForElementPresent(attributeSetDropDown);
-        Select select1 = new Select(attributeSetDropDown);
-        select1.selectByValue("13");
         testUtility.waitForElementPresent(continueButton);
         continueButton.click();
         testUtility.waitForElementPresent(nameField);
@@ -92,13 +91,8 @@ public class StoreProductPage {
         testUtility.waitForElementPresent(visibilityDropdown);
         Select select3 = new Select(visibilityDropdown);
         select3.selectByValue("4");
-        testUtility.waitForElementPresent(clothingLink);
-        clothingLink.click();
-        testUtility.waitForElementPresent(typeDropDown);
-        Select select4 = new Select(typeDropDown);
-        select4.selectByValue("36");
         testUtility.waitForElementPresent(pricesLink);
-        pricesLink.click();
+        testUtility.javaScriptClick(pricesLink);
         testUtility.waitForElementPresent(priceField);
         priceField.sendKeys(price);
         testUtility.waitForElementPresent(taxClassDropDown);
@@ -106,10 +100,11 @@ public class StoreProductPage {
         select5.selectByValue("2");
         testUtility.waitForElementPresent(websiteLink);
         websiteLink.click();
-        testUtility.waitForElementPresent(websiteCheckbox);
-        websiteCheckbox.click();
+        WebElement websiteCheckBox= driver.findElement(By.xpath(String.format("//label[text()='%s']//preceding::input[1]",testDataHolder.getWebsiteName())));
+        testUtility.waitForElementPresent(websiteCheckBox);
+        websiteCheckBox.click();
         testUtility.waitForElementPresent(inventoryLink);
-        inventoryLink.click();
+        testUtility.javaScriptClick(inventoryLink);
         testUtility.waitForElementPresent(qtyFiled);
         qtyFiled.sendKeys(qty);
         testUtility.waitForElementPresent(stockAvailabilityDropDown);
@@ -119,7 +114,7 @@ public class StoreProductPage {
 
     }
 
-    public boolean verifyAddProduct() {
+    public boolean verifyAddProductSuccessfully() {
         testUtility.waitForElementPresent(addProductSuccessMessage);
         if (driver.getPageSource().contains(addProductSuccessMessage.getText())){
             System.out.println("Store Manager can Add Product Test is Passed!!!");
