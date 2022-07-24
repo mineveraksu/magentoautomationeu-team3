@@ -10,6 +10,8 @@ import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
 
+
+
 public class CustomerModuleTestRunner extends BasePage {
     final String configFile = "config.properties";
     BackEndLogin login;
@@ -130,6 +132,11 @@ public class CustomerModuleTestRunner extends BasePage {
         Assert.assertTrue(filterCustomerPage.verifyFilteredByState());
     }
 
+    @Test(description = "Customer Manager can delete an existing customer")//,priority = 5,dependsOnGroups = {"AddCustomer"})
+    public void deleteExistingCustomer() {
+customerPage.deleteCustomer();
+       // Assert.assertTrue(customerPage.verifyDeleteCustomer());
+    }
     @AfterClass
     public void tearDown() {
         closeBrowser();

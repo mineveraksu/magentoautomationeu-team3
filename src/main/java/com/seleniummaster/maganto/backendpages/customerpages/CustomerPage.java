@@ -20,6 +20,7 @@ public class CustomerPage {
     TestDataHolder testDataHolder=new TestDataHolder();
     String config = "config.properties";
     String email;
+    private WebElement deleteCustomer;
 
     public CustomerPage(WebDriver driver) {
         this.driver = driver;
@@ -50,6 +51,19 @@ public class CustomerPage {
     WebElement submitButton;
     @FindBy(css = ".success-msg")
     WebElement verifyACustomerAssignToGroupSuccessfulSms;
+
+    @FindBy(xpath = "//td[contains(text(),'team33')]//following-sibling::td[8]/a")
+    WebElement editIcon;
+
+    @FindBy(xpath = "(//button[@title=\"Delete Customer\"])[1]")
+    WebElement deleteCustomerButton;
+    @FindBy(xpath ="//span[contains(text(),'The customer has been deleted.')]")
+    WebElement deleteSuccessMessage;
+
+    public CustomerPage() {
+
+    }
+
     public String addNewCustomer() {
          email=testUtility.generateEmailAddress();
         testUtility.waitForElementPresent(addNewCustomerButton);
@@ -147,6 +161,7 @@ public class CustomerPage {
     WebElement selectGender;
     @FindBy(css = "input[name='email']")
     WebElement emailFieldBox;
+
     @FindBy(css = "button[title='Search']")
     WebElement searchButton;
     @FindBy(xpath = "//table[@id=\"customerGrid_table\"]//tr/td[4]")
@@ -186,5 +201,29 @@ public class CustomerPage {
         System.out.println("Update an existing customer information successfully");
         return true;
     }
+
+    //Delete Customer
+
+    public void deleteCustomer() {
+        CustomerDashboardPage customerDashboardPage=new CustomerDashboardPage(driver);
+        customerDashboardPage.clickOnManageCustomers();
+        testUtility.sleep(3);
+        testUtility.waitForElementPresent(emailFieldBox);
+        emailFieldBox.sendKeys(ApplicationConfig.readFromConfigProperties(config,"email"));
+        testUtility.waitForElementPresent(searchButton);
+        searchButton.click();
+        testUtility.waitForElementPresent(editIcon);
+        editIcon.click();
+        testUtility.waitForElementPresent(deleteCustomerButton);
+        deleteCustomerButton.click();
+        testUtility.waitForAlertPresent();
+        Alert alert = driver.switchTo().alert();
+        alert.accept();
+    }
+    public boolean verifyDeleteCustomer(){
+    testUtility.waitForElementPresent(deleteSuccessMessage);
+        return deleteSuccessMessage.isDisplayed();
+    }
+
 
 }
