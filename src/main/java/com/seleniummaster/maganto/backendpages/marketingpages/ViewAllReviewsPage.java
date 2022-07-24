@@ -21,11 +21,11 @@ public class ViewAllReviewsPage {
 
     @FindAll(
 
-            @FindBy(xpath = "//tr[@class='even pointer'] [1]")
+            @FindBy(css = "div#anchor-content")
     )
     List<WebElement> pendingReviews;
 
-    @FindBy(css = "div#anchor-content")
+    @FindBy(xpath = "//tr[@class='even pointer'] [1]")
     WebElement allPendingViews;
 
     public boolean verifyViewPendingReviewsSuccessfully() {
