@@ -161,6 +161,7 @@ public class StoreSteps extends BasePage {
     //edit order
     @When("store manager search orders number and edit some information")
     public void storeManagerSearchOrdersNumberAndEditSomeInformation() {
+
     }
 
     @Then("edit orders successful")
