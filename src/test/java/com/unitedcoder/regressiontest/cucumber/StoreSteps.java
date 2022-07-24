@@ -127,7 +127,7 @@ public class StoreSteps extends BasePage {
 
     @Then("a new product created successfully")
     public void aNewProductCreatedSuccessfully() {
-        org.junit.Assert.assertTrue(storeProductPage.verifyAddProduct());
+        org.junit.Assert.assertTrue(storeProductPage.verifyAddProductSuccessfully());
     }
     //update product
     //delete product
@@ -175,6 +175,4 @@ public class StoreSteps extends BasePage {
         }
         closeBrowser();
     }
-
-
 }
