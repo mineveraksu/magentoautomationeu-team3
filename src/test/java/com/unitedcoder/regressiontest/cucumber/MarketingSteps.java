@@ -67,17 +67,6 @@ public class MarketingSteps extends BasePage {
         Assert.assertTrue(newsletterTemplatePage.verifyNewsletterTemplateDeletedSuccessfully(arg0));
     }
 
-    @Given("marketing manager is on the dashboard page and marketing manager click on pending reviews link")
-    public void marketingManagerIsOnTheDashboardPageAndMarketingManagerClickOnPendingReviewsLink() {
-    }
-
-    @When("marketing manager view on pending reviews page")
-    public void marketingManagerViewOnPendingReviewsPage() {
-    }
-
-    @Then("the pending reviews view successfully")
-    public void thePendingReviewsViewSuccessfully() {
-    }
 
     @Given("marketing manager is on the dashboard page and marketing manager click on all reviews link")
     public void marketingManagerIsOnTheDashboardPageAndMarketingManagerClickOnAllReviewsLink() {
@@ -95,6 +84,36 @@ public class MarketingSteps extends BasePage {
         org.junit.Assert.assertTrue(reviewsPage.verifyReviewEdit());
     }
 
+    //ViewPendingReviews
+    @Given("marketing manager is on the dashboard page and marketing manager click on pending reviews link")
+    public void marketingManagerIsOnTheDashboardPageAndMarketingManagerClickOnPendingReviewsLink() {
+        marketingdashboardPage=new MarketingDashboardPage(driver);
+        marketingdashboardPage.clickOnPendingReviewsLink();
+    }
+
+    @When("marketing manager view on pending reviews page")
+    public void marketingManagerViewOnPendingReviewsPage() {
+        reviewsPage=new ReviewsPage(driver);
+
+    }
+
+    @Then("the pending reviews view successfully")
+    public void thePendingReviewsViewSuccessfully() {
+        Assert.assertTrue(reviewsPage.verifyViewPendingReviewsSuccessfully());
+    }
+
+    @When("marketing manager update on mandatory field")
+    public void marketingManagerUpdateOnMandatoryField() {
+        reviewsPage=new ReviewsPage(driver);
+        reviewsPage.clickOnEditIcon();
+        reviewsPage.updatePendingReview();
+    }
+
+    @Then("the pending reviews update successful")
+    public void thePendingReviewsUpdateSuccessful() {
+        reviewsPage=new ReviewsPage(driver);
+        Assert.assertTrue(reviewsPage.verifyReviewUpdateSuccessful());
+    }
     @After("@MarketingModuleTest")
     public void tearDown(Scenario scenario) {
         if (scenario.isFailed()) {
@@ -103,4 +122,6 @@ public class MarketingSteps extends BasePage {
         }
         closeBrowser();
     }
+
+
 }
