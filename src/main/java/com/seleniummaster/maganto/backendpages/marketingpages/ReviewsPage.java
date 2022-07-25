@@ -54,9 +54,16 @@ public class ReviewsPage {
         actions=new Actions(driver);
     }
     public void clickOnEditButton(){
+        testUtility.waitForElementPresent(editButton);
+        editButton.click();
+    }
+
+    public void clickOnEditIcon(){
         testUtility.waitForElementPresent(editIcon);
         editIcon.click();
     }
+
+
     public void clearReviewField(){
         testUtility.waitForElementPresent(reviewField);
         reviewField.clear();
@@ -133,6 +140,7 @@ public class ReviewsPage {
         testUtility.waitForElementPresent(updateReviewSuccessfulMassage);
         if (updateReviewSuccessfulMassage.getText().contains("The review has been saved.")) {
             System.out.println(" Marketing module update review successful !");
+
             return true;
         } else {
             System.out.println(" Marketing module update review fail !");
