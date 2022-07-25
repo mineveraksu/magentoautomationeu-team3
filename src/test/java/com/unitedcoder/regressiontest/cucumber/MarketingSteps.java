@@ -23,6 +23,7 @@ public class MarketingSteps extends BasePage {
     NewsletterTemplatePage newsletterTemplatePage;
     ReviewsPage reviewsPage;
 
+
     @Before("@MarketingModuleTest")
     public void setup() {
         browserSetUp(url);
@@ -67,17 +68,6 @@ public class MarketingSteps extends BasePage {
         Assert.assertTrue(newsletterTemplatePage.verifyNewsletterTemplateDeletedSuccessfully(arg0));
     }
 
-    @Given("marketing manager is on the dashboard page and marketing manager click on pending reviews link")
-    public void marketingManagerIsOnTheDashboardPageAndMarketingManagerClickOnPendingReviewsLink() {
-    }
-
-    @When("marketing manager view on pending reviews page")
-    public void marketingManagerViewOnPendingReviewsPage() {
-    }
-
-    @Then("the pending reviews view successfully")
-    public void thePendingReviewsViewSuccessfully() {
-    }
 
     @Given("marketing manager is on the dashboard page and marketing manager click on all reviews link")
     public void marketingManagerIsOnTheDashboardPageAndMarketingManagerClickOnAllReviewsLink() {
@@ -94,6 +84,26 @@ public class MarketingSteps extends BasePage {
     public void existingReviewsUpdatedSuccessfully() {
         org.junit.Assert.assertTrue(reviewsPage.verifyReviewEdit());
     }
+
+    //ViewPendingReviews
+    @Given("marketing manager is on the dashboard page and marketing manager click on pending reviews link")
+    public void marketingManagerIsOnTheDashboardPageAndMarketingManagerClickOnPendingReviewsLink() {
+        marketingdashboardPage=new MarketingDashboardPage(driver);
+        marketingdashboardPage.clickOnPendingReviewsLink();
+    }
+
+    @When("marketing manager view on pending reviews page")
+    public void marketingManagerViewOnPendingReviewsPage() {
+        reviewsPage=new ReviewsPage(driver);
+
+    }
+
+    @Then("the pending reviews view successfully")
+    public void thePendingReviewsViewSuccessfully() {
+        Assert.assertTrue(reviewsPage.verifyViewPendingReviewsSuccessfully());
+    }
+
+
 
     @After("@MarketingModule")
     public void tearDown(Scenario scenario) {
