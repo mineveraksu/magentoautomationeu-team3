@@ -23,14 +23,17 @@ public class StoreDashboardPage {
     WebElement systemLink;
     @FindBy(xpath = "(//li[@class=\"  last level1\"])[2]//span")
     WebElement manageStoresLink;
-    @FindBy(css = " li.active.parent.level0")
+    @FindBy(xpath = "//span[text()='Catalog']")
     WebElement catalogLink;
     @FindBy(xpath = " //span[text()='Manage Products']")
     WebElement manageProductsLink;
-    @FindBy(xpath = "//span[text()='Sales']")
-    WebElement salesButton;
-    @FindBy(xpath = "//span[text()='Orders']")
+    @FindBy(xpath = "//span[text()=\"Sales\"]")
+    WebElement salesLink;
+    @FindBy(xpath = "//span[text()=\"Orders\"]")
     WebElement ordersLink;
+    @FindBy(xpath = "(//a[text()='View'])[1]")
+    WebElement viewLink;
+
 
 
     public void clickOnManageStoresLink() {
@@ -47,14 +50,19 @@ public class StoreDashboardPage {
         manageProductsLink.click();
     }
 
-    public void clickOnOrdersLink(){
-        testUtility.waitForElementPresent(salesButton);
-        salesButton.click();
+    public  void clickOnOrdersLink(){
+        testUtility.waitForElementPresent(salesLink);
+        actions.moveToElement(salesLink).click().perform();
         testUtility.waitForElementPresent(ordersLink);
-        ordersLink.click();
-
-
+        actions.moveToElement(ordersLink).click().perform();
     }
+
+    public void clickOnViewLink(){
+        testUtility.waitForElementPresent(viewLink);
+        actions.moveToElement(viewLink).click().perform();
+    }
+
+
 
 
 
