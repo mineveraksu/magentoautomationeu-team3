@@ -71,7 +71,7 @@ public class ReviewsPage {
             System.out.println("Marketing Manager can view pending Reviews Test is Passed!!!");
             return true;
         } else {
-            System.out.println("Marketing Manager can view pending Reviews Test is Failed!!!");
+            System.out.println("Marketing Manager can view pending Reviews Test is Failed!!");
             return false;
         }
     }
