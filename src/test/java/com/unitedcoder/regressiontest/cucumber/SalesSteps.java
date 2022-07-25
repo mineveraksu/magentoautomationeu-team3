@@ -1,9 +1,6 @@
 package com.unitedcoder.regressiontest.cucumber;
 
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
-import com.seleniummaster.maganto.backendpages.marketingpages.MarketingDashboardPage;
-import com.seleniummaster.maganto.backendpages.marketingpages.NewsletterTemplatePage;
-import com.seleniummaster.maganto.backendpages.marketingpages.ReviewsPage;
 import com.seleniummaster.maganto.backendpages.salespages.SalesDashboardPage;
 import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.BasePage;

@@ -95,7 +95,7 @@ public class MarketingSteps extends BasePage {
         org.junit.Assert.assertTrue(reviewsPage.verifyReviewEdit());
     }
 
-    @After("@MarketingModule")
+    @After("@MarketingModuleTest")
     public void tearDown(Scenario scenario) {
         if (scenario.isFailed()) {
             ScreenShotUtility screenShotUtility = new ScreenShotUtility();

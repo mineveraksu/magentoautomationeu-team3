@@ -5,7 +5,6 @@ import com.seleniummaster.maganto.backendpages.customerpages.*;
 import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.BasePage;
 import com.seleniummaster.maganto.utility.TestDataHolder;
-import com.seleniummaster.maganto.utility.TestUtility;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
