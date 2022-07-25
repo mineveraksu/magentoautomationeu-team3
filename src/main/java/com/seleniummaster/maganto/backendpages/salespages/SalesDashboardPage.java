@@ -2,7 +2,9 @@ package com.seleniummaster.maganto.backendpages.salespages;
 
 import com.seleniummaster.maganto.utility.TestUtility;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class SalesDashboardPage {
@@ -16,4 +18,17 @@ public class SalesDashboardPage {
         testUtility = new TestUtility(driver);
         actions = new Actions(driver);
     }
+    @FindBy(xpath ="(//*[text()='Sales'])[1]")
+    WebElement salesTeb;
+    @FindBy(xpath = "(//span[text()='Shipments'])[1]")
+    WebElement shipmentsOption;
+
+    public void clickOnShipmentsOption(){
+        testUtility.waitForElementPresent(salesTeb);
+        actions.moveToElement(salesTeb).perform();
+        testUtility.waitForElementPresent(shipmentsOption);
+        shipmentsOption.click();
+
+    }
+
 }
