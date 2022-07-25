@@ -1,10 +1,7 @@
 package com.unitedcoder.regressiontest.cucumber;
 
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
-import com.seleniummaster.maganto.backendpages.storepages.StoreDashboardPage;
-import com.seleniummaster.maganto.backendpages.storepages.StorePage;
-import com.seleniummaster.maganto.backendpages.storepages.StoreProductPage;
-import com.seleniummaster.maganto.backendpages.storepages.StoreWebsitePage;
+import com.seleniummaster.maganto.backendpages.storepages.*;
 import com.seleniummaster.maganto.utility.*;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -25,13 +22,13 @@ public class StoreSteps extends BasePage {
     ExcelUtility excelUtility;
     TestDataHolder testDataHolder;
     StorePage storePage;
+    StoreOrdersPage storeOrdersPage;
 
     @Before("@StoreModuleTest")
     public void setup() {
         browserSetUp(url);
         login = new BackEndLogin(driver);
         login.storePageLogin();
-        storeDashboardPage = new StoreDashboardPage(driver);
         excelUtility = new ExcelUtility();
         testDataHolder = excelUtility.readStoreInfoFromExcel("Test-Data/storeModuleData.xlsx", "Store_Info");
     }
@@ -39,6 +36,7 @@ public class StoreSteps extends BasePage {
     //create website
     @Given("store manager is on the dashboard page store manager click on manage stores link")
     public void storeManagerIsOnTheDashboardPage() {
+        storeDashboardPage = new StoreDashboardPage(driver);
         storeDashboardPage.clickOnManageStoresLink();
     }
 
@@ -114,7 +112,9 @@ public class StoreSteps extends BasePage {
     //create product
     @Given("store manager is on the dashboard page store manager click on manage products link")
     public void storeManagerIsOnTheDashboardPageStoreManagerClickOnManageProductsLink() {
+        storeDashboardPage = new StoreDashboardPage(driver);
         storeDashboardPage.clickOnManageProductLink();
+
     }
 
     @When("click on add product button to fill out {string} {string} {string} {string} {string} {string} {string} and other information information")
@@ -125,7 +125,7 @@ public class StoreSteps extends BasePage {
 
     @Then("a new product created successfully")
     public void aNewProductCreatedSuccessfully() {
-        org.junit.Assert.assertTrue(storeProductPage.verifyAddProductSuccessfully());
+        Assert.assertTrue(storeProductPage.verifyAddProductSuccessfully());
     }
     //update product
     //delete product
@@ -133,6 +133,9 @@ public class StoreSteps extends BasePage {
     //create order
     @Given("store manager is on the dashboard page and store manager click on orders link")
     public void storeManagerIsOnTheDashboardPageAndStoreManagerClickOnOrdersLink() {
+        storeDashboardPage=new StoreDashboardPage(driver);
+        storeDashboardPage.clickOnOrdersLink();
+
     }
 
     @When("store manager click on create new orders link")
@@ -156,15 +159,27 @@ public class StoreSteps extends BasePage {
     }
 
     //edit order
-    @When("store manager search orders number and edit some information")
-    public void storeManagerSearchOrdersNumberAndEditSomeInformation() {
+    @When("store manager click on view order link")
+    public void storeManagerClickOnViewOrderLink() {
+        storeDashboardPage=new StoreDashboardPage(driver);
+        storeDashboardPage.clickOnViewLink();
     }
+
+    @And("edit some information")
+    public void editSomeInformation() {
+        storeOrdersPage=new StoreOrdersPage(driver);
+        storeOrdersPage.editOrderInformation();
+    }
+
 
     @Then("edit orders successful")
     public void editOrdersSuccessful() {
+        storeOrdersPage=new StoreOrdersPage(driver);
+        storeOrdersPage.verifyOrderEdited();
     }
 
     //cancel order
+
     @After("@StoreModuleTest")
     public void tearDown(Scenario scenario) {
         if (scenario.isFailed()) {
@@ -173,4 +188,7 @@ public class StoreSteps extends BasePage {
         }
         closeBrowser();
     }
+
+
+
 }

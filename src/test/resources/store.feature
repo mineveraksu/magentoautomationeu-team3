@@ -52,10 +52,12 @@ Feature:Store Manager can manage store
    #edit orders
   @EditOrders
   Scenario: Store Manager can edit orders
-    Given store manager is on the dashboard page and store manager click on orders link
-    When  store manager search orders number and edit some information
-    Then  edit orders successful
-    #cancle orders
+  Given store manager is on the dashboard page and store manager click on orders link
+  When  store manager click on view order link
+   And   edit some information
+   Then  edit orders successful
+
+#    cancle orders
 
 
    #delete website
