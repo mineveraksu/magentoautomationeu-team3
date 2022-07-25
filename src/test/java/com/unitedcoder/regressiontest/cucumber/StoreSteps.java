@@ -24,7 +24,7 @@ public class StoreSteps extends BasePage {
     StorePage storePage;
     String storeName;
     String storeCode;
-    StoreViewPage storeViewPage=new StoreViewPage(driver);
+    StoreViewPage storeViewPage;
 
     @Before("@StoreModuleTest")
     public void setup() {
@@ -94,16 +94,18 @@ public class StoreSteps extends BasePage {
     }
 
     //create store view
-    @When("Stote manager click the creat store view link")
-    public void stoteManagerClickTheCreatStoreViewLink() {
-        storeViewPage.clickOnTheCreatedStoreViewLink();
+    @When("Store manager click the create store view button")
+    public void storeManagerClickTheCreateStoreViewButton() {
+        storeViewPage=new StoreViewPage(driver);
+        storeViewPage.clickOnCreateStoreViewButton();
     }
 
     @And("fill out the information field{string}{string}")
     public void fillOutTheInformationField(String arg0, String arg1) {
         storeName=arg0;
         storeCode=arg1;
-        storeViewPage.createAStoreView(storeName,storeCode);
+        storeViewPage=new StoreViewPage(driver);
+        storeViewPage.createAStoreView(testDataHolder,storeName,storeCode);
     }
 
     @Then("Verify the created store view saved")
@@ -115,6 +117,7 @@ public class StoreSteps extends BasePage {
 
     @When("Store manager click the created store view link and put update name{string}")
     public void storeManagerClickTheCreatedStoreViewLinkAndPutUpdateName(String arg0) {
+        storeViewPage=new StoreViewPage(driver);
         storeViewPage.editStoreView(arg0);
     }
 
@@ -203,6 +206,7 @@ public class StoreSteps extends BasePage {
         }
         closeBrowser();
     }
+
 
 
 }

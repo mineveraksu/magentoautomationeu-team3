@@ -23,12 +23,12 @@ Feature:Store Manager can manage store
    @CreateStoreView
    Scenario Outline: Store Manager can create a store view
      Given store manager is on the dashboard page store manager click on manage stores link
-     When  Stote manager click the creat store view link
+     When  Store manager click the create store view button
      And   fill out the information field"<StoreName>""<StoreCode>"
      Then  Verify the created store view saved
      Examples:
        |StoreName          |StoreCode|
-       |  team3store       |   team33      |
+       |  team33      |   mah33     |
 
 
     #edit store view
@@ -37,7 +37,8 @@ Feature:Store Manager can manage store
     Given store manager is on the dashboard page store manager click on manage stores link
     When  Store manager click the created store view link and put update name"<EditName>"
     Then  Verify the updated store view saved
-    Examples: |EditName|
+    Examples:
+              |EditName|
               | team3  |
 
   @DeletedStore
