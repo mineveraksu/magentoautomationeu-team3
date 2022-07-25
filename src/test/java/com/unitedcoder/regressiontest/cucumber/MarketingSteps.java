@@ -23,7 +23,6 @@ public class MarketingSteps extends BasePage {
     NewsletterTemplatePage newsletterTemplatePage;
     ReviewsPage reviewsPage;
 
-
     @Before("@MarketingModuleTest")
     public void setup() {
         browserSetUp(url);
@@ -115,10 +114,7 @@ public class MarketingSteps extends BasePage {
         reviewsPage=new ReviewsPage(driver);
         Assert.assertTrue(reviewsPage.verifyReviewUpdateSuccessful());
     }
-
-
-
-    @After("@MarketingModule")
+    @After("@MarketingModuleTest")
     public void tearDown(Scenario scenario) {
         if (scenario.isFailed()) {
             ScreenShotUtility screenShotUtility = new ScreenShotUtility();

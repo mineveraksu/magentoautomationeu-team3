@@ -24,6 +24,7 @@ public class CustomerPage {
         this.driver = driver;
         testUtility = new TestUtility(driver);
         PageFactory.initElements(driver, this);
+        testUtility = new TestUtility(driver);
         email = testUtility.generateEmailAddress();
     }
 
@@ -37,7 +38,7 @@ public class CustomerPage {
     WebElement emailField;
     @FindBy(id = "_accountpassword")
     WebElement passwordField;
-    @FindBy(xpath = "//div[@id='anchor-content']//p/button[3]")
+    @FindBy(xpath = "//div[@id='anchor-content']//p/button[4]")
     WebElement saveCustomerButton;
     @FindBy(css = ".success-msg>ul>li>span")
     WebElement successMessage;
@@ -53,6 +54,8 @@ public class CustomerPage {
     WebElement deleteCustomerButton;
     @FindBy(xpath = "//span[contains(text(),'The customer has been deleted.')]")
     WebElement deleteSuccessMessage;
+    @FindBy(xpath = "//span[text()='Reset Filter']")
+    WebElement resetFilterButton;
 
 
     public void addNewCustomer() {
@@ -63,7 +66,6 @@ public class CustomerPage {
         testUtility.waitForElementPresent(lastNameField);
         lastNameField.sendKeys(testUtility.generateLastName());
         testUtility.waitForElementPresent(emailField);
-        System.out.println(email);
         emailField.sendKeys(email);
         testUtility.waitForElementPresent(passwordField);
         passwordField.sendKeys(ApplicationConfig.readFromConfigProperties(config, "password"));
@@ -115,7 +117,6 @@ public class CustomerPage {
     }
 
     public void selectAddedCustomer() {
-        System.out.println(email);
         String ckekBox = "//*[@id=\"customerGrid_table\"]//tbody//*[contains(text(),'?')]//ancestor::tr//input[@type=\"checkbox\"]";
         WebElement selectedCustomerChekBox = driver.findElement(By.xpath(ckekBox.replace("?", email)));
         testUtility.waitForElementPresent(selectedCustomerChekBox);
@@ -143,8 +144,6 @@ public class CustomerPage {
     }
 
     public boolean verificationACustomerAssignToGroup() {
-
-
         System.out.println(" assign a customer to group " + verifyACustomerAssignToGroupSuccessfulSms);
         return true;
     }
@@ -157,7 +156,6 @@ public class CustomerPage {
     WebElement selectGender;
     @FindBy(css = "input[name='email']")
     WebElement emailFieldBox;
-
     @FindBy(css = "button[title='Search']")
     WebElement searchButton;
     @FindBy(xpath = "//table[@id=\"customerGrid_table\"]//tr/td[4]")
@@ -176,17 +174,11 @@ public class CustomerPage {
         emailAddressAfterSearched.click();
         testUtility.waitForElementPresent(accountInformationLink);
         accountInformationLink.click();
-        testUtility.sleep(3);
         testUtility.waitForElementPresent(lastNameField);
         lastNameField.clear();
-        testUtility.sleep(3);
         lastNameField.sendKeys(testUtility.generateLastName());
-        testUtility.sleep(3);
         testUtility.waitForElementPresent(saveCustomerButton);
         saveCustomerButton.click();
-        testUtility.sleep(3);
-        Alert alert = driver.switchTo().alert();
-        alert.accept();
     }
 
     public boolean verifyUpdateCustomer() {
@@ -199,6 +191,8 @@ public class CustomerPage {
     //Delete Customer
 
     public void deleteCustomer() {
+        testUtility.waitForElementPresent(resetFilterButton);
+        resetFilterButton.click();
         WebElement emailLocation = driver.findElement(By.xpath(String.format("//td[contains(text(),'%s')]", email)));
         testUtility.waitForElementPresent(emailLocation);
         testUtility.javaScriptClick(emailLocation);
