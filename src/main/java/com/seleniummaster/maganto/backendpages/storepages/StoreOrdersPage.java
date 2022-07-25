@@ -15,32 +15,37 @@ public class StoreOrdersPage {
     Actions actions;
 
 
-    @FindBy(xpath ="(//span[text()=\"Edit\"])[1]")
+    @FindBy(xpath = "(//span[text()=\"Edit\"])[1]")
     WebElement editButton;
     @FindBy(xpath = "//input[@id=\"order-billing_address_postcode\"]")
     WebElement zipCodeField;
     @FindBy(xpath = "//input[@id=\"order-billing_address_telephone\"]")
     WebElement telephoneField;
-    @FindBy(xpath ="//div[@class=\"order-totals-bottom\"]//p[3]//button//span[text()=\"Submit Order\"]")
+    @FindBy(xpath = "(//span[contains(text(),'Validate VAT Number')])[1]")
+    WebElement validateVatNumberButton;
+    @FindBy(xpath = "//a[contains(text(),'Get shipping methods and rates')]")
+    WebElement getShippingMethodsAndRates;
+    @FindBy(xpath = "//input[contains(@id,'s_method_flatrate_flatrate')]")
+    WebElement fixedRadioButton;
+    @FindBy(xpath = "//button[contains(@class,'scalable save')]")
     WebElement submitOrderButton;//cancel
-    @FindBy(xpath ="//span[text()='The order has been created.']")
+    @FindBy(xpath = "//span[text()='The order has been created.']")
     WebElement verifyOrderSuccessfulEdited;
 
 
     //Store Manager can edit orders
     //Store Manager can cancel orders
-    public StoreOrdersPage(WebDriver driver)
-    {
+    public StoreOrdersPage(WebDriver driver) {
         this.driver = driver;
-        PageFactory.initElements(driver,this);
-        testUtility=new TestUtility(driver);
-        actions=new Actions(driver);
+        PageFactory.initElements(driver, this);
+        testUtility = new TestUtility(driver);
+        actions = new Actions(driver);
     }
 
-    public void editOrderInformation(){
+    public void editOrderInformation() {
         testUtility.waitForElementPresent(editButton);
         actions.moveToElement(editButton).click().perform();
-        Alert alert=driver.switchTo().alert();
+        Alert alert = driver.switchTo().alert();
         alert.accept();
         testUtility.waitForElementPresent(zipCodeField);
         zipCodeField.clear();
@@ -49,33 +54,29 @@ public class StoreOrdersPage {
         telephoneField.clear();
         telephoneField.sendKeys(testUtility.generateTelephoneNumber());
         testUtility.sleep(2);
-        //testUtility.waitForElementPresent(submitOrderButton);
-        actions.moveToElement(submitOrderButton).click().perform();
-        System.out.println(" submit button clicked ");
+        testUtility.waitForElementPresent(validateVatNumberButton);
+        actions.moveToElement(validateVatNumberButton).click().perform();
+        testUtility.sleep(2);
+        testUtility.waitForElementPresent(getShippingMethodsAndRates);
+        actions.moveToElement(getShippingMethodsAndRates).click().perform();
+        testUtility.sleep(2);
+        testUtility.waitForElementPresent(fixedRadioButton);
+        actions.moveToElement(fixedRadioButton).click().perform();
         testUtility.sleep(3);
+        actions.moveToElement(submitOrderButton).click().perform();
+
     }
 
-    public boolean verifyOrderEdited(){
+    public boolean verifyOrderEdited() {
         testUtility.waitForElementPresent(verifyOrderSuccessfulEdited);
-        if(verifyOrderSuccessfulEdited.getText().contains("created.")){
+        if (verifyOrderSuccessfulEdited.getText().contains("created.")) {
             System.out.println(" Store manager edit order successful !");
             return true;
-        }else{
+        } else {
             System.out.println("Store manager edit order failed ! ");
             return false;
         }
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

@@ -50,14 +50,14 @@ Feature:Store Manager can manage store
     And  fill the product information
     Then the order should be saved successfully
    #edit orders
-#  @EditOrders
-#  Scenario: Store Manager can edit orders
-#    Given store manager is on the dashboard page and store manager click on orders link
-#    When  store manager click on view order link
-#    And   edit some information
-#    Then  edit orders successful
+  @EditOrders
+  Scenario: Store Manager can edit orders
+  Given store manager is on the dashboard page and store manager click on orders link
+  When  store manager click on view order link
+   And   edit some information
+   Then  edit orders successful
 
-    #cancle orders
+#    cancle orders
 
 
    #delete website
