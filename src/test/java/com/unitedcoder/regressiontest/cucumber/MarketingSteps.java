@@ -103,6 +103,20 @@ public class MarketingSteps extends BasePage {
         Assert.assertTrue(reviewsPage.verifyViewPendingReviewsSuccessfully());
     }
 
+    @When("marketing manager update on mandatory field")
+    public void marketingManagerUpdateOnMandatoryField() {
+        marketingdashboardPage.clickOnPendingReviewsLink();
+        reviewsPage=new ReviewsPage(driver);
+        reviewsPage.clickOnEditButton();
+        reviewsPage.updatePendingReview();
+    }
+
+    @Then("the pending reviews update successful")
+    public void thePendingReviewsUpdateSuccessful() {
+        reviewsPage=new ReviewsPage(driver);
+        reviewsPage.verifyReviewUpdateSuccessful();
+    }
+
 
 
     @After("@MarketingModule")
@@ -113,4 +127,6 @@ public class MarketingSteps extends BasePage {
         }
         closeBrowser();
     }
+
+
 }
