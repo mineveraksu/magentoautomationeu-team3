@@ -22,7 +22,9 @@ public class StoreSteps extends BasePage {
     ExcelUtility excelUtility;
     TestDataHolder testDataHolder;
     StorePage storePage;
-    StoreOrdersPage storeOrdersPage;
+    String storeName;
+    String storeCode;
+    StoreViewPage storeViewPage;
 
     @Before("@StoreModuleTest")
     public void setup() {
@@ -92,9 +94,40 @@ public class StoreSteps extends BasePage {
     }
 
     //create store view
+    @When("Store manager click the create store view button")
+    public void storeManagerClickTheCreateStoreViewButton() {
+        storeViewPage=new StoreViewPage(driver);
+        storeViewPage.clickOnCreateStoreViewButton();
+    }
 
+    @And("fill out the information field{string}{string}")
+    public void fillOutTheInformationField(String arg0, String arg1) {
+        storeName=arg0;
+        storeCode=arg1;
+        storeViewPage=new StoreViewPage(driver);
+        storeViewPage.createAStoreView(testDataHolder,storeName,storeCode);
+    }
 
+    @Then("Verify the created store view saved")
+    public void verifyTheCreatedStoreViewSaved() {
+        Assert.assertTrue(storeViewPage.verifyStoreViewSaved());
+    }
     //update store view
+
+
+    @When("Store manager click the created store view link and put update name{string}")
+    public void storeManagerClickTheCreatedStoreViewLinkAndPutUpdateName(String arg0) {
+        storeViewPage=new StoreViewPage(driver);
+        storeViewPage.editStoreView(arg0);
+    }
+
+    @Then("Verify the updated store view saved")
+    public void verifyTheUpdatedStoreViewSaved() {
+        Assert.assertTrue(storeViewPage.verifyStoreViewSaved());
+    }
+
+
+
 
 
     //delete store
@@ -125,7 +158,7 @@ public class StoreSteps extends BasePage {
 
     @Then("a new product created successfully")
     public void aNewProductCreatedSuccessfully() {
-        Assert.assertTrue(storeProductPage.verifyAddProductSuccessfully());
+        org.junit.Assert.assertTrue(storeProductPage.verifyAddProductSuccessfully());
     }
     //update product
     //delete product
@@ -133,9 +166,6 @@ public class StoreSteps extends BasePage {
     //create order
     @Given("store manager is on the dashboard page and store manager click on orders link")
     public void storeManagerIsOnTheDashboardPageAndStoreManagerClickOnOrdersLink() {
-        storeDashboardPage=new StoreDashboardPage(driver);
-        storeDashboardPage.clickOnOrdersLink();
-
     }
 
     @When("store manager click on create new orders link")
@@ -159,27 +189,15 @@ public class StoreSteps extends BasePage {
     }
 
     //edit order
-    @When("store manager click on view order link")
-    public void storeManagerClickOnViewOrderLink() {
-        storeDashboardPage=new StoreDashboardPage(driver);
-        storeDashboardPage.clickOnViewLink();
+    @When("store manager search orders number and edit some information")
+    public void storeManagerSearchOrdersNumberAndEditSomeInformation() {
     }
-
-    @And("edit some information")
-    public void editSomeInformation() {
-        storeOrdersPage=new StoreOrdersPage(driver);
-        storeOrdersPage.editOrderInformation();
-    }
-
 
     @Then("edit orders successful")
     public void editOrdersSuccessful() {
-        storeOrdersPage=new StoreOrdersPage(driver);
-        storeOrdersPage.verifyOrderEdited();
     }
 
     //cancel order
-
     @After("@StoreModuleTest")
     public void tearDown(Scenario scenario) {
         if (scenario.isFailed()) {
