@@ -35,6 +35,14 @@ Feature:Marketing Manager can manage market
     When marketing manager view on pending reviews page
     Then the pending reviews view successfully
 
+  @UpdatePendingReviews
+    Scenario: Marketing Manager can update pending Reviews
+    Given marketing manager is on the dashboard page and marketing manager click on pending reviews link
+    When  marketing manager update on mandatory field
+    Then  the pending reviews update successful
+
+
+
   @UpdateExistingReview
   Scenario Outline: Marketing Manager can update existing reviews
     Given marketing manager is on the dashboard page and marketing manager click on all reviews link
