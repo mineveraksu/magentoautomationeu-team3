@@ -57,8 +57,13 @@ Feature:Store Manager can manage store
    And   edit some information
    Then  edit orders successful
 
-#    cancle orders
-
+#    cancel orders
+  @CancelOrders
+    Scenario: Store Manager can cancel orders
+    Given store manager is on the dashboard page and store manager click on orders link
+    When  store manager click on view order link
+    And   cancel order
+    Then  cancel order successful
 
    #delete website
   @DeleteWebsite

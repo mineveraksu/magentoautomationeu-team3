@@ -179,6 +179,20 @@ public class StoreSteps extends BasePage {
     }
 
     //cancel order
+    @And("cancel order")
+    public void cancelOrder() {
+        storeDashboardPage=new StoreDashboardPage(driver);
+        storeOrdersPage=new StoreOrdersPage(driver);
+        storeDashboardPage.clickOnOrdersLink();
+        storeDashboardPage.clickOnViewLink();
+        storeOrdersPage.cancelOrder();
+    }
+
+    @Then("cancel order successful")
+    public void cancelOrderSuccessful() {
+        storeOrdersPage=new StoreOrdersPage(driver);
+        storeOrdersPage.verifyOrderCancelSuccessful();
+    }
 
     @After("@StoreModuleTest")
     public void tearDown(Scenario scenario) {

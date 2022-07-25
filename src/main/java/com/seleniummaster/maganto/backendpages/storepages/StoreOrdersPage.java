@@ -31,10 +31,14 @@ public class StoreOrdersPage {
     WebElement submitOrderButton;//cancel
     @FindBy(xpath = "//span[text()='The order has been created.']")
     WebElement verifyOrderSuccessfulEdited;
+    @FindBy(xpath = "(//span[contains(text(),'Cancel')])[2]")
+    WebElement cancelButton;
+    @FindBy(xpath = "//span[contains(text(),'The order has been cancelled.')]")
+    WebElement cancelOrderSuccessMassage;
 
 
     //Store Manager can edit orders
-    //Store Manager can cancel orders
+
     public StoreOrdersPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -78,5 +82,25 @@ public class StoreOrdersPage {
         }
     }
 
+    //Store Manager can cancel orders
+    public void cancelOrder(){
+        testUtility.sleep(2);
+        testUtility.waitForElementPresent(cancelButton);
+        actions.moveToElement(cancelButton).click().perform();
+        Alert alert=driver.switchTo().alert();
+        alert.accept();
+        testUtility.sleep(2);
+    }
+
+    public boolean verifyOrderCancelSuccessful(){
+        testUtility.waitForElementPresent(cancelOrderSuccessMassage);
+        if(cancelOrderSuccessMassage.getText().contains("The order has been cancelled.")){
+            System.out.println("Store module order cancel successful !");
+            return true;
+        }else{
+            System.out.println("Store module order cancel false , please check out !");
+            return false;
+        }
+    }
 
 }
