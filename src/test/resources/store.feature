@@ -58,6 +58,7 @@ Feature:Store Manager can manage store
     #cancle orders
 
 
+
    #delete website
   @DeleteWebsite
   Scenario: Store Manager can delete a website
