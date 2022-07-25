@@ -17,16 +17,15 @@ import java.io.File;
 public class CustomerPage {
     WebDriver driver;
     TestUtility testUtility;
-    TestDataHolder testDataHolder=new TestDataHolder();
     String config = "config.properties";
     String email;
 
     public CustomerPage(WebDriver driver) {
         this.driver = driver;
+        testUtility = new TestUtility(driver);
         PageFactory.initElements(driver, this);
-        testUtility=new TestUtility(driver);
+        email = testUtility.generateEmailAddress();
     }
-
 
     @FindBy(xpath = " (//span[text()='Add New Customer'])[1]")
     WebElement addNewCustomerButton;
@@ -41,7 +40,7 @@ public class CustomerPage {
     @FindBy(xpath = "//div[@id='anchor-content']//p/button[3]")
     WebElement saveCustomerButton;
     @FindBy(css = ".success-msg>ul>li>span")
-    WebElement customerSavedSMS;
+    WebElement successMessage;
     @FindBy(id = "customerGrid_massaction-select")
     WebElement actionsDropDown;
     @FindBy(id = "visibility")
@@ -50,8 +49,13 @@ public class CustomerPage {
     WebElement submitButton;
     @FindBy(css = ".success-msg")
     WebElement verifyACustomerAssignToGroupSuccessfulSms;
-    public String addNewCustomer() {
-         email=testUtility.generateEmailAddress();
+    @FindBy(xpath = "(//button[@title=\"Delete Customer\"])[1]")
+    WebElement deleteCustomerButton;
+    @FindBy(xpath = "//span[contains(text(),'The customer has been deleted.')]")
+    WebElement deleteSuccessMessage;
+
+
+    public void addNewCustomer() {
         testUtility.waitForElementPresent(addNewCustomerButton);
         addNewCustomerButton.click();
         testUtility.waitForElementPresent(firstNameField);
@@ -59,18 +63,18 @@ public class CustomerPage {
         testUtility.waitForElementPresent(lastNameField);
         lastNameField.sendKeys(testUtility.generateLastName());
         testUtility.waitForElementPresent(emailField);
+        System.out.println(email);
         emailField.sendKeys(email);
         testUtility.waitForElementPresent(passwordField);
         passwordField.sendKeys(ApplicationConfig.readFromConfigProperties(config, "password"));
         testUtility.waitForElementPresent(saveCustomerButton);
         saveCustomerButton.click();
-        return email;
 
     }
 
     public boolean verifyNewCustomerAdded() {
-        testUtility.waitForElementPresent(customerSavedSMS);
-        if (driver.getPageSource().contains(customerSavedSMS.getText())) ;
+        testUtility.waitForElementPresent(successMessage);
+        if (driver.getPageSource().contains(successMessage.getText())) ;
         System.out.println("The customer has been saved.");
         return true;
     }
@@ -109,55 +113,62 @@ public class CustomerPage {
             isExported = false;
         return isExported;
     }
-    public void selectAddedCustomer(){
-        String ckekBox="//*[@id=\"customerGrid_table\"]//tbody//*[contains(text(),'?')]//ancestor::tr//input[@type=\"checkbox\"]";
-        WebElement selectedCustomerChekBox=driver.findElement(By.xpath(ckekBox.replace("?",email)));
+
+    public void selectAddedCustomer() {
+        System.out.println(email);
+        String ckekBox = "//*[@id=\"customerGrid_table\"]//tbody//*[contains(text(),'?')]//ancestor::tr//input[@type=\"checkbox\"]";
+        WebElement selectedCustomerChekBox = driver.findElement(By.xpath(ckekBox.replace("?", email)));
         testUtility.waitForElementPresent(selectedCustomerChekBox);
-        Actions actions=new Actions(driver);
+        Actions actions = new Actions(driver);
         actions.moveToElement(selectedCustomerChekBox).perform();
     }
-    public void selectActionsList(){
+
+    public void selectActionsList() {
         testUtility.waitForElementPresent(actionsDropDown);
-        Select select=new Select(actionsDropDown);
+        Select select = new Select(actionsDropDown);
         select.selectByVisibleText("Assign a Customer Group");
     }
-    public void selectGroup(TestDataHolder testDataHolder ){
-       testUtility.waitForElementPresent(groupDropDown);
-        Select select2=new Select(groupDropDown);
+
+    public void selectGroup(TestDataHolder testDataHolder) {
+        testUtility.waitForElementPresent(groupDropDown);
+        Select select2 = new Select(groupDropDown);
         select2.selectByVisibleText(testDataHolder.getCustomerGroupName());
-   }
-   public void clickOnSubmitButton(){
+    }
+
+    public void clickOnSubmitButton() {
         testUtility.waitForElementPresent(submitButton);
         submitButton.click();
-       Alert alert=driver.switchTo().alert();
-       alert.accept();
-   }
-   public boolean verificationACustomerAssignToGroup(){
+        Alert alert = driver.switchTo().alert();
+        alert.accept();
+    }
+
+    public boolean verificationACustomerAssignToGroup() {
 
 
-       System.out.println(" assign a customer to group " + verifyACustomerAssignToGroupSuccessfulSms);
-       return verifyACustomerAssignToGroupSuccessfulSms.getText().contains("Total of 1 record(s) were updated.");
-   }
+        System.out.println(" assign a customer to group " + verifyACustomerAssignToGroupSuccessfulSms);
+        return true;
+    }
 
     //Update Customer
 
-    @FindBy(xpath ="//a[@id='customer_info_tabs_account' and @class='tab-item-link'][1]")
+    @FindBy(xpath = "//a[@id='customer_info_tabs_account' and @class='tab-item-link'][1]")
     WebElement accountInformationLink;
     @FindBy(xpath = "(//select[@id=_accountgender])[1]")
     WebElement selectGender;
     @FindBy(css = "input[name='email']")
     WebElement emailFieldBox;
+
     @FindBy(css = "button[title='Search']")
     WebElement searchButton;
     @FindBy(xpath = "//table[@id=\"customerGrid_table\"]//tr/td[4]")
     WebElement emailAddressAfterSearched;
 
-    public void updateCustomer(){
-        CustomerDashboardPage customerDashboardPage=new CustomerDashboardPage(driver);
+    public void updateCustomer() {
+        CustomerDashboardPage customerDashboardPage = new CustomerDashboardPage(driver);
         customerDashboardPage.clickOnManageCustomers();
         testUtility.sleep(3);
         testUtility.waitForElementPresent(emailFieldBox);
-        emailFieldBox.sendKeys(ApplicationConfig.readFromConfigProperties(config,"email"));
+        emailFieldBox.sendKeys(email);
         testUtility.waitForElementPresent(searchButton);
         searchButton.click();
         testUtility.sleep(3);
@@ -176,15 +187,34 @@ public class CustomerPage {
         testUtility.sleep(3);
         Alert alert = driver.switchTo().alert();
         alert.accept();
-
-
-        System.out.println("test passed");
     }
-    public boolean verifyUpdateCustomer(){
-        testUtility.waitForElementPresent(customerSavedSMS);
-        if (driver.getPageSource().contains(customerSavedSMS.getText()));
+
+    public boolean verifyUpdateCustomer() {
+        testUtility.waitForElementPresent(successMessage);
+        if (driver.getPageSource().contains(successMessage.getText())) ;
         System.out.println("Update an existing customer information successfully");
         return true;
     }
+
+    //Delete Customer
+
+    public void deleteCustomer() {
+        WebElement emailLocation = driver.findElement(By.xpath(String.format("//td[contains(text(),'%s')]", email)));
+        testUtility.waitForElementPresent(emailLocation);
+        testUtility.javaScriptClick(emailLocation);
+        testUtility.waitForElementPresent(deleteCustomerButton);
+        deleteCustomerButton.click();
+        testUtility.waitForAlertPresent();
+        Alert alert = driver.switchTo().alert();
+        alert.accept();
+    }
+
+    public boolean verifyDeleteCustomer() {
+        testUtility.waitForElementPresent(deleteSuccessMessage);
+        if (deleteSuccessMessage.isDisplayed())
+            System.out.println("The customer has been deleted.");
+        return true;
+    }
+
 
 }
