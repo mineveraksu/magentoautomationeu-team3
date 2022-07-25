@@ -65,9 +65,6 @@ Feature:Store Manager can manage store
     And   cancel order
     Then  cancel order successful
 
-
-
-
    #delete website
   @DeleteWebsite
   Scenario: Store Manager can delete a website
