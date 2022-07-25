@@ -38,7 +38,7 @@ public class CustomerPage {
     WebElement emailField;
     @FindBy(id = "_accountpassword")
     WebElement passwordField;
-    @FindBy(xpath = "//div[@id='anchor-content']//p/button[3]")
+    @FindBy(xpath = "//div[@id='anchor-content']//p/button[4]")
     WebElement saveCustomerButton;
     @FindBy(css = ".success-msg>ul>li>span")
     WebElement successMessage;
@@ -54,6 +54,8 @@ public class CustomerPage {
     WebElement deleteCustomerButton;
     @FindBy(xpath = "//span[contains(text(),'The customer has been deleted.')]")
     WebElement deleteSuccessMessage;
+    @FindBy(xpath = "//span[text()='Reset Filter']")
+    WebElement resetFilterButton;
 
 
     public void addNewCustomer() {
@@ -172,17 +174,11 @@ public class CustomerPage {
         emailAddressAfterSearched.click();
         testUtility.waitForElementPresent(accountInformationLink);
         accountInformationLink.click();
-        testUtility.sleep(3);
         testUtility.waitForElementPresent(lastNameField);
         lastNameField.clear();
-        testUtility.sleep(3);
         lastNameField.sendKeys(testUtility.generateLastName());
-        testUtility.sleep(3);
         testUtility.waitForElementPresent(saveCustomerButton);
         saveCustomerButton.click();
-        testUtility.sleep(3);
-        Alert alert = driver.switchTo().alert();
-        alert.accept();
     }
 
     public boolean verifyUpdateCustomer() {
@@ -195,6 +191,8 @@ public class CustomerPage {
     //Delete Customer
 
     public void deleteCustomer() {
+        testUtility.waitForElementPresent(resetFilterButton);
+        resetFilterButton.click();
         WebElement emailLocation = driver.findElement(By.xpath(String.format("//td[contains(text(),'%s')]", email)));
         testUtility.waitForElementPresent(emailLocation);
         testUtility.javaScriptClick(emailLocation);
