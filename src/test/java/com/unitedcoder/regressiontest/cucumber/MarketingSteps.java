@@ -23,7 +23,6 @@ public class MarketingSteps extends BasePage {
     NewsletterTemplatePage newsletterTemplatePage;
     ReviewsPage reviewsPage;
 
-
     @Before("@MarketingModuleTest")
     public void setup() {
         browserSetUp(url);
@@ -103,9 +102,19 @@ public class MarketingSteps extends BasePage {
         Assert.assertTrue(reviewsPage.verifyViewPendingReviewsSuccessfully());
     }
 
+    @When("marketing manager update on mandatory field")
+    public void marketingManagerUpdateOnMandatoryField() {
+        reviewsPage=new ReviewsPage(driver);
+        reviewsPage.clickOnEditIcon();
+        reviewsPage.updatePendingReview();
+    }
 
-
-    @After("@MarketingModule")
+    @Then("the pending reviews update successful")
+    public void thePendingReviewsUpdateSuccessful() {
+        reviewsPage=new ReviewsPage(driver);
+        Assert.assertTrue(reviewsPage.verifyReviewUpdateSuccessful());
+    }
+    @After("@MarketingModuleTest")
     public void tearDown(Scenario scenario) {
         if (scenario.isFailed()) {
             ScreenShotUtility screenShotUtility = new ScreenShotUtility();
@@ -113,4 +122,6 @@ public class MarketingSteps extends BasePage {
         }
         closeBrowser();
     }
+
+
 }

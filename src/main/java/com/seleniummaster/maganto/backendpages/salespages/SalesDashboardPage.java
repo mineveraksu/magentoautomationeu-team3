@@ -22,11 +22,23 @@ public class SalesDashboardPage {
     WebElement salesLink;
     @FindBy(xpath = "//span[contains(text(),'Invoices')]")
     WebElement invoicesLink;
+    @FindBy(xpath = "(//*[text()='Sales'])[1]")
+    WebElement salesTeb;
+    @FindBy(xpath = "(//span[text()='Shipments'])[1]")
+    WebElement shipmentsOption;
 
     public void clickOnInvoicesLink(){
         testUtility.waitForElementPresent(salesLink);
         actions.moveToElement(salesLink).click().perform();
         testUtility.waitForElementPresent(invoicesLink);
         actions.moveToElement(invoicesLink).click().perform();
+    }
+
+    public void clickOnShipmentsOption(){
+        testUtility.waitForElementPresent(salesTeb);
+        actions.moveToElement(salesTeb).perform();
+        testUtility.waitForElementPresent(shipmentsOption);
+        shipmentsOption.click();
+
     }
 }
