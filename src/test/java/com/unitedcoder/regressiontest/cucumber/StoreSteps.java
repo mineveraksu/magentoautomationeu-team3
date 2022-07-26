@@ -178,44 +178,39 @@ public class StoreSteps extends BasePage {
     //add product categories
     @When("store manager clicks categories link and check the existing product categories")
     public void storeManagerClicksCategoriesLinkAndCheckTheExistingProductCategories() {
-
-    }
-    @Then("the product should be saved successfully")
-    public void theProductShouldBeSavedSuccessfully() {
+        storeProductPage = new StoreProductPage(driver);
+        storeProductPage.addProductCategory();
     }
 
-    @And("verify added a new product category")
+    @Then("verify added a new product category")
     public void verifyAddedANewProductCategory() {
-
+        org.junit.Assert.assertTrue(storeProductPage.verifyAddProductCategory());
     }
 
 //update product categories
     @When("store manager clicks an existing product and check other existing product category")
     public void storeManagerClicksAnExistingProductAndCheckOtherExistingProductCategory() {
+        storeProductPage=new StoreProductPage(driver);
+        storeProductPage.updateProductCategory();
     }
 
-    @Then("the product should be updated successfully")
-    public void theProductShouldBeUpdatedSuccessfully() {
-
-    }
-
-    @And("verify update the product category")
+   @Then("verify update the product category")
     public void verifyUpdateTheProductCategory() {
+       org.junit.Assert.assertTrue(storeProductPage.verifyUpdateProductCategory());
 
     }
     //delete product categories
     @When("store manager clicks an existing product and delete the product category")
     public void storeManagerClicksAnExistingProductAndDeleteTheProductCategory() {
+        storeProductPage=new StoreProductPage(driver);
+        storeProductPage.deleteProductCategory();
+
 
     }
 
-    @Then("the product category should be deleted successfully")
-    public void theProductCategoryShouldBeDeletedSuccessfully() {
-
-    }
-
-    @And("verify delete the product category")
+    @Then("verify delete the product category")
     public void verifyDeleteTheProductCategory() {
+            org.junit.Assert.assertTrue(storeProductPage.verifyDeleteProductCategory());
     }
 
 }
