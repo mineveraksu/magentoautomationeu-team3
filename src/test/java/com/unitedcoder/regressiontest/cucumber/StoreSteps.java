@@ -214,7 +214,43 @@ public class StoreSteps extends BasePage {
         }
         closeBrowser();
     }
+    //add product categories
+    @When("store manager clicks categories link and check the existing product categories")
+    public void storeManagerClicksCategoriesLinkAndCheckTheExistingProductCategories() {
+        storeProductPage = new StoreProductPage(driver);
+        storeProductPage.addProductCategory();
+    }
 
+    @Then("verify added a new product category")
+    public void verifyAddedANewProductCategory() {
+        org.junit.Assert.assertTrue(storeProductPage.verifyAddProductCategory());
+    }
+
+//update product categories
+    @When("store manager clicks an existing product and check other existing product category")
+    public void storeManagerClicksAnExistingProductAndCheckOtherExistingProductCategory() {
+        storeProductPage=new StoreProductPage(driver);
+        storeProductPage.updateProductCategory();
+    }
+
+   @Then("verify update the product category")
+    public void verifyUpdateTheProductCategory() {
+       org.junit.Assert.assertTrue(storeProductPage.verifyUpdateProductCategory());
+
+    }
+    //delete product categories
+    @When("store manager clicks an existing product and delete the product category")
+    public void storeManagerClicksAnExistingProductAndDeleteTheProductCategory() {
+        storeProductPage=new StoreProductPage(driver);
+        storeProductPage.deleteProductCategory();
+
+
+    }
+
+    @Then("verify delete the product category")
+    public void verifyDeleteTheProductCategory() {
+            org.junit.Assert.assertTrue(storeProductPage.verifyDeleteProductCategory());
+    }
 
 
 

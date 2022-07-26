@@ -81,6 +81,29 @@ Feature:Store Manager can manage store
    #edit orders
   @EditOrders
   Scenario: Store Manager can edit orders
+
+    Given store manager is on the dashboard page and store manager click on orders link
+    When  store manager search orders number and edit some information
+    Then  edit orders successful
+    #cancle orders
+  @addProductCategory
+  Scenario: Store Manager can add product category
+    Given store manager is on the dashboard page store manager click on manage products link
+    When store manager clicks categories link and check the existing product categories
+    Then verify added a new product category
+
+  @UpdateCategory
+  Scenario: Store Manager can update a new product category
+    Given store manager is on the dashboard page store manager click on manage products link
+    When store manager clicks an existing product and check other existing product category
+  Then verify update the product category
+
+  @DeleteCategory
+  Scenario: Store Manager can update a new product category
+    Given store manager is on the dashboard page store manager click on manage products link
+    When store manager clicks an existing product and delete the product category
+   Then verify delete the product category
+
   Given store manager is on the dashboard page and store manager click on orders link
   When  store manager click on view order link
    And   edit some information
