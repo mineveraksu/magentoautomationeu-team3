@@ -180,16 +180,16 @@ public class StoreSteps extends BasePage {
     }
 
 
-    @And("fillBillingAndShippingAddressForm")
-    public void fillBillingAndShippingAddressForm() {
+    @And("fill billing and shipping address form")
+    public void fill_billing_and_shipping_address_form() {
         storeOrdersPage= new StoreOrdersPage(driver);
         storeOrdersPage.fillBillingAndShippingAddressForm(driver);
 
-
     }
 
-    @And("selectShippingAndPaymentMethodAndSubmitOrder")
-    public void selectShippingAndPaymentMethodAndSubmitOrder() {
+
+    @When("select shipping and payment method and submit order")
+    public void select_shipping_and_payment_method_and_submit_order() {
         storeOrdersPage= new StoreOrdersPage(driver);
         storeOrdersPage.selectShippingMethodAndSubmitOrder(driver);
 
