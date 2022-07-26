@@ -52,4 +52,14 @@ Feature:Marketing Manager can manage market
       |Review                                 |
       |the dress is beautiful and good quality|
 
+<<<<<<< HEAD
+  @VieNewsletterSubscribers
+  Scenario Outline: Marketing Manager can view newsletter subscribers .
+    Given marketing manager is on the dashboard page and marketing manager click on  the newsletter link.
+    When  marketing manager click on the newsletter subscribers link
+    Then newsletter subscribers page should open successfully
+    Examples:
+      |  |
+=======
 
+>>>>>>> master
