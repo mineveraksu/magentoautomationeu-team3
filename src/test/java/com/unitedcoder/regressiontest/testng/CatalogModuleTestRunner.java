@@ -42,15 +42,16 @@ public class CatalogModuleTestRunner extends BasePage {
         Assert.assertTrue(catalogPage.verifyAddRootCategories());
     }
 
-    @Test(dataProvider = "newCategoryDescription", description = "Catalog Manager can edit root categories ")
+    @Test(dataProvider = "addRootCategoryInfo", description = "Catalog Manager can edit root categories ",priority = 5)
     public void editRootCategory(TestDataHolder testDataHolder) {
         login.VerifyLoginSuccessfully();
         catalogDashboardPage.clickOnManageCategories();
         catalogPage.editRootCategory(testDataHolder);
+        Assert.assertTrue(catalogPage.verifyEditRootCategory());
     }
 
 
-    @Test(dataProvider = "addRootCategoryInfo", description = "Catalog manager can delete root categories.", priority = 5)
+    @Test(dataProvider = "addRootCategoryInfo", description = "Catalog manager can delete root categories.", priority = 6)
     public void deleteExistingRootCategory(TestDataHolder testDataHolder) {
         catalogPage.deleteExistingRootCategory(testDataHolder);
         Assert.assertTrue(catalogPage.verifyDeleteExistingRootCategories());
@@ -85,7 +86,7 @@ public class CatalogModuleTestRunner extends BasePage {
         Assert.assertTrue(subCategoriesPage.verifyDeleteExistingSubCategory());
     }
 
-    @Test(dataProvider = "AttributeInfo", description = "Category Manager can add a new Attributes under a Catalog. ", priority = 6)
+    @Test(dataProvider = "AttributeInfo", description = "Category Manager can add a new Attributes under a Catalog. ", priority = 7)
     public void addNewAttributes(TestDataHolder testDataHolder) {
         catalogDashboardPage.clickOnManageAttributes();
         attributesPage.addNewAttributes(testDataHolder);
@@ -107,13 +108,13 @@ public class CatalogModuleTestRunner extends BasePage {
         return data;
     }
 
-    @DataProvider
-    public Object[] newCategoryDescription() {
-        Object[] data = new Object[]{
-                TestUtility.getFieldFromJson("Test-Data/testDatasSmall.json", "new_category_description")
-        };
-        return data;
-    }
+//    @DataProvider
+//    public Object[] newCategoryDescription() {
+//        Object[] data = new Object[]{
+//                TestUtility.getFieldFromJson("Test-Data/testDatasSmall.json", "new_category_description")
+//        };
+//        return data;
+//    }
 
     @DataProvider
     public Object[] AttributeInfo() {

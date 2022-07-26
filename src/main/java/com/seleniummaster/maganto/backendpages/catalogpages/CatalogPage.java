@@ -59,8 +59,9 @@ public class CatalogPage {
         testUtility.waitForElementPresent(existingRootCategories);
         testUtility.sleep(3);
         existingRootCategories.click();
+        testUtility.sleep(3);
         descriptionField.clear();
-        descriptionField.sendKeys();
+        descriptionField.sendKeys(TestUtility.getFieldFromJson("Test-Data/testDatasSmall.json", "new_category_description"));
         saveCategoryButton.click();
     }
 
@@ -88,8 +89,10 @@ public class CatalogPage {
         }
     }
 
+
+
     public boolean verifyEditRootCategory() {
-        if (descriptionField.getText().contains("wonderful shoes")) {
+        if (descriptionField.getText().contains(TestUtility.getFieldFromJson("Test-Data/testDatasSmall.json", "new_category_description"))){
             System.out.println("Catalog Manager can edit root categories test Passed!");
             return true;
         } else {

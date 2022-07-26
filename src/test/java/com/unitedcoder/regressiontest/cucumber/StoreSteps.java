@@ -217,11 +217,11 @@ public class StoreSteps extends BasePage {
 
 
 
-<<<<<<< HEAD
+
 }
 
 
 
-=======
-}
->>>>>>> master
+
+
+
