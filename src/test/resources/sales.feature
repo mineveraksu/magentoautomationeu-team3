@@ -23,5 +23,5 @@ Feature:Sales Module Functions
       Then the shipments update successfully
 
     Examples:
-      |commentHistory     |number    |
+      |commentHistory     |number     |
       |Shipped successfully|12345678  |
