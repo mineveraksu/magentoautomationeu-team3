@@ -79,5 +79,18 @@ public class ExcelUtility {
         testDataHolder.setStoreName(excelUtility.readFromExcelCell(fileName,sheetName,1,2));
         return testDataHolder;
     }
+    public TestDataHolder readReportingInfoFromExcel(String fileName, String sheetName){
+        ExcelUtility excelUtility=new ExcelUtility();
+        XSSFWorkbook workbook= null;
+        try {
+            workbook = new XSSFWorkbook(fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        TestDataHolder testDataHolder=new TestDataHolder();
+        testDataHolder.setStartDate(excelUtility.readFromExcelCell(fileName,sheetName,1,0));
+        testDataHolder.setEndDate(excelUtility.readFromExcelCell(fileName,sheetName,1,1));
+        return testDataHolder;
+    }
 
 }
