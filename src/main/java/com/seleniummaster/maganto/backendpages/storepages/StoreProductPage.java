@@ -140,7 +140,7 @@ WebElement deleteProductCategorySuccessfulMessage;
 
     }
 
-    public boolean verifyAddProduct() {
+    public boolean verifyAddProductSuccessfully() {
         testUtility.waitForElementPresent(addProductSuccessMessage);
         if (driver.getPageSource().contains(addProductSuccessMessage.getText())){
             System.out.println("Store Manager can Add Product Test is Passed!!!");
@@ -164,6 +164,7 @@ WebElement deleteProductCategorySuccessfulMessage;
         testUtility.sleep(3);
         testUtility.waitForElementPresent(addedProductLink);
         addedProductLink.click();
+        testUtility.sleep(3);
         testUtility.waitForElementPresent(categoriesLink);
         categoriesLink.click();
        testUtility.waitForElementPresent(existingRootCategories);
