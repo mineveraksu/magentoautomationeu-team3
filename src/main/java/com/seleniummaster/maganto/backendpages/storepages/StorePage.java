@@ -20,7 +20,7 @@ public class StorePage {
     WebElement websiteDropDown;
     @FindBy(id = "group_name")
     WebElement storeNameField;
-<<<<<<< HEAD
+
     @FindBy(linkText = "Store Name")
     WebElement storeNameLink;
     //@FindBy(id = "group_root_category_id")
@@ -68,7 +68,7 @@ public class StorePage {
         }
 
     }
-=======
+
     @FindBy(id = "group_root_category_id")
     WebElement rootCategoryDropDown;
     @FindBy(xpath = "(//button[@title='Save Store']//span[text()='Save Store'])[1]")
@@ -178,6 +178,5 @@ public class StorePage {
         }
     }
 
->>>>>>> master
 }
 
