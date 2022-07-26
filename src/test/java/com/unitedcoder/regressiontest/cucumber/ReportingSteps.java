@@ -4,15 +4,14 @@ import com.seleniummaster.maganto.backendpages.BackEndLogin;
 import com.seleniummaster.maganto.backendpages.reportingpages.ProductsMostViewedPage;
 import com.seleniummaster.maganto.backendpages.reportingpages.ReportingDashboardPage;
 import com.seleniummaster.maganto.backendpages.salespages.SalesDashboardPage;
-import com.seleniummaster.maganto.utility.ApplicationConfig;
-import com.seleniummaster.maganto.utility.BasePage;
-import com.seleniummaster.maganto.utility.ScreenShotUtility;
+import com.seleniummaster.maganto.utility.*;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.Assert;
 
 public class ReportingSteps extends BasePage {
     final static String configFile = "config.properties";
@@ -20,6 +19,8 @@ public class ReportingSteps extends BasePage {
     BackEndLogin login;
     ReportingDashboardPage reportingDashboardPage;
     ProductsMostViewedPage productsMostViewedPage;
+    TestDataHolder testDataHolder;
+    ExcelUtility excelUtility;
 
 
     @Before("@ReportingModuleTest")
@@ -29,6 +30,8 @@ public class ReportingSteps extends BasePage {
         login.reportingPageLogin();
         reportingDashboardPage=new ReportingDashboardPage(driver);
         productsMostViewedPage=new ProductsMostViewedPage(driver);
+        excelUtility=new ExcelUtility();
+        testDataHolder=excelUtility.readReportingInfoFromExcel("Test-Data/reportingModule.xlsx","Sales_Info");
     }
     @Given("Reporting manager is on the dashboard page and clicks on Downloads link")
     public void reportingManagerIsOnTheDashboardPageAndClicksOnDownloadsLink() {
@@ -40,12 +43,12 @@ public class ReportingSteps extends BasePage {
 
     @When("reporting manager select period field and click showReports button after filling infos")
     public void reportingManagerSelectPeriodFieldAndClickShowReportsButtonAfterFillingInfos() {
-        productsMostViewedPage.viewProductsMostViewedReport();
+        productsMostViewedPage.viewProductsMostViewedReport(testDataHolder);
     }
 
     @Then("most viewed products report displayed successfully")
     public void mostViewedProductsReportDisplayedSuccessfully() {
-        productsMostViewedPage.verifyMostViewedProductsDisplayed();
+        Assert.assertTrue(productsMostViewedPage.verifyMostViewedProductsDisplayed());
     }
 
     @After("@ReportingModuleTest")

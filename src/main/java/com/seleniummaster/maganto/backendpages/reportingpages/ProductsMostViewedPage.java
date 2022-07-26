@@ -1,7 +1,9 @@
 package com.seleniummaster.maganto.backendpages.reportingpages;
 
 import com.seleniummaster.maganto.utility.ApplicationConfig;
+import com.seleniummaster.maganto.utility.TestDataHolder;
 import com.seleniummaster.maganto.utility.TestUtility;
+import org.apache.poi.ss.formula.functions.T;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,15 +16,9 @@ import java.util.List;
 public class ProductsMostViewedPage {
     WebDriver driver;
     TestUtility testUtility;
-    String config = "config.properties";
     Select select;
     int reportRowSize;
 
-    public ProductsMostViewedPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver,this);
-        testUtility=new TestUtility(driver);
-    }
     @FindBy(id = "sales_report_period_type")
     WebElement periodDropdown;
     @FindBy(id = "sales_report_from")
@@ -31,14 +27,20 @@ public class ProductsMostViewedPage {
     WebElement endDate;
     @FindBy(xpath = "(//span[contains(text(),\"Show Report\")])[1]")
     WebElement showReportsButton;
-    public void viewProductsMostViewedReport(){
+    public ProductsMostViewedPage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver,this);
+        testUtility=new TestUtility(driver);
+    }
+
+    public void viewProductsMostViewedReport(TestDataHolder testDataHolder){
     testUtility.waitForElementPresent(periodDropdown);
     select=new Select(periodDropdown);
     select.selectByValue("month");
     testUtility.waitForElementPresent(startDate);
-    startDate.sendKeys(ApplicationConfig.readFromConfigProperties(config,"startDate"));
+    startDate.sendKeys(testDataHolder.getStartDate());
     testUtility.waitForElementPresent(endDate);
-    endDate.sendKeys(ApplicationConfig.readFromConfigProperties(config,"endDate"));
+    endDate.sendKeys(testDataHolder.getEndDate());
     testUtility.waitForElementPresent(showReportsButton);
     showReportsButton.click();
 }
