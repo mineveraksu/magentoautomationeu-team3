@@ -113,6 +113,14 @@ public class StoreSteps extends BasePage {
         Assert.assertTrue(storeViewPage.verifyStoreViewSaved());
     }
     //update store view
+    //view all stores
+
+    @Then("the store names should display on this page.")
+    public void theStoreNamesShouldDisplayOnThisPage() {
+        StorePage storePage=new StorePage(driver);
+        Assert.assertTrue(storePage.verifyAllStoresViewed());
+    }
+
 
 
     @When("Store manager click the created store view link and put update name{string}")
@@ -209,4 +217,11 @@ public class StoreSteps extends BasePage {
 
 
 
+
 }
+
+
+
+
+
+

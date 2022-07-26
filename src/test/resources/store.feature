@@ -14,11 +14,22 @@ Feature:Store Manager can manage store
     When store manager clicks on create store button to fill out store information
     Then the store should be created successfully
 
+
+    #edit store
+    #Store Manager can view all stores
+  @ViewAllStores
+  Scenario: Store Manager can view all stores
+    Given store manager is on the dashboard page store manager click on manage stores link
+    Then the store names should display on this page.
+
+
+
   @EditStore
   Scenario: Store Manager can edit a store
     Given store manager is on the dashboard page store manager click on manage stores link
     When store manager clicks on the store name to edit store then clicks on save store button
     Then the store should be edited successfully
+
     #create store view
    @CreateStoreView
    Scenario Outline: Store Manager can create a store view

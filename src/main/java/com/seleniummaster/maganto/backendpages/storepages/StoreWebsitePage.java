@@ -26,6 +26,7 @@ public class StoreWebsitePage {
     @FindBy(xpath = "(//button[@title='Delete Website']//span[text()='Delete Website'])[1]")
     WebElement deleteWebsiteButton;
     @FindBy(css = "li.success-msg")
+    WebElement websiteSavedSuccessfulSMS;
     WebElement successMessage;
     @FindBy(linkText = "Store Name")
     WebElement storeNameLink;
@@ -78,14 +79,16 @@ public class StoreWebsitePage {
 
     }
 
-    public boolean verifyAllStoresViewed(){
-        if (storeNameLink.isDisplayed()){
+
+
+    public boolean verifyAllStoresViewed() {
+        if (storeNameLink.isDisplayed()) {
             System.out.println("Store manager can view all stores.");
             return true;
-        }else {
+        } else {
             System.out.println("Store manager can not view all stores.");
             return false;
         }
-
     }
+
 }
