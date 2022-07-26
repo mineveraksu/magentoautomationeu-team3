@@ -84,57 +84,58 @@ public class StorePage {
         PageFactory.initElements(driver, this);
     }
 
-    public void clickOnCreateStoreButton(){
+    public void clickOnCreateStoreButton() {
         testUtility.waitForElementPresent(createStoreButton);
         createStoreButton.click();
     }
-
-    public void selectWebsiteDropDown(TestDataHolder testDataHolder){
+    public void selectWebsiteDropDown(TestDataHolder testDataHolder) {
         testUtility.waitForElementPresent(websiteDropDown);
-        Select select=new Select(websiteDropDown);
+        Select select = new Select(websiteDropDown);
         select.selectByVisibleText(testDataHolder.getWebsiteName());
     }
-    public void typeStoreName(TestDataHolder testDataHolder){
+
+    public void typeStoreName(TestDataHolder testDataHolder) {
         testUtility.waitForElementPresent(storeNameField);
         storeNameField.sendKeys(testDataHolder.getStoreName());
     }
 
-    public void selectRootCategoryDropDown(int index){
+    public void selectRootCategoryDropDown(int index) {
         testUtility.waitForElementPresent(rootCategoryDropDown);
-        Select select=new Select(rootCategoryDropDown);
+        Select select = new Select(rootCategoryDropDown);
         select.selectByIndex(index);
     }
 
-    public void clickOnSaveStoreButton(){
+    public void clickOnSaveStoreButton() {
         testUtility.waitForElementPresent(saveStoreButton);
         saveStoreButton.click();
     }
 
-    public void clickOnDeleteStoreButton(){
+    public void clickOnDeleteStoreButton() {
         testUtility.waitForElementPresent(deleteStoreButton);
         deleteStoreButton.click();
     }
 
-    public void clickOnStoreName(TestDataHolder testDataHolder){
+    public void clickOnStoreName(TestDataHolder testDataHolder) {
         WebElement storeName = driver.findElement(By.xpath(String.format("//a[contains(text(),'%s')]", testDataHolder.getStoreName())));
         testUtility.waitForElementPresent(storeName);
         storeName.click();
     }
 
-    public void clickOnTheSecondStoreName(TestDataHolder testDataHolder){
+    public void clickOnTheSecondStoreName(TestDataHolder testDataHolder) {
         WebElement storeName = driver.findElement(By.xpath(String.format("(//a[contains(text(),'%s')])[2]", testDataHolder.getStoreName())));
         testUtility.waitForElementPresent(storeName);
         storeName.click();
     }
 
-    public void createStore(TestDataHolder testDataHolder){
+    public void createStore(TestDataHolder testDataHolder) {
         clickOnCreateStoreButton();
         selectWebsiteDropDown(testDataHolder);
         typeStoreName(testDataHolder);
         selectRootCategoryDropDown(1);
         clickOnSaveStoreButton();
     }
-    public boolean verifyStoreCreatedSuccessfully(){
+
+    public boolean verifyStoreCreatedSuccessfully() {
         testUtility.waitForElementPresent(successMessage);
         if (successMessage.getText().contains("saved.")) {
             System.out.println("Store manager create store test passed!");
@@ -151,7 +152,7 @@ public class StorePage {
         clickOnSaveStoreButton();
     }
 
-    public boolean verifyStoreEditedSuccessfully(){
+    public boolean verifyStoreEditedSuccessfully() {
         testUtility.waitForElementPresent(successMessage);
         if (successMessage.getText().contains("saved.")) {
             System.out.println("Store manager edit store test passed!");
@@ -167,7 +168,7 @@ public class StorePage {
         clickOnDeleteStoreButton();
     }
 
-    public boolean verifyStoreDeletedSuccessfully(){
+    public boolean verifyStoreDeletedSuccessfully() {
         testUtility.waitForElementPresent(successMessage);
         if (successMessage.getText().contains("deleted.")) {
             System.out.println("Store manager delete store test passed!");
@@ -176,7 +177,8 @@ public class StorePage {
             System.out.println("Store manager delete store test failed!");
             return false;
         }
-    }
 
+
+    }
 }
 

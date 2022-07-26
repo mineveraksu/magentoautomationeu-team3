@@ -31,8 +31,26 @@ Feature:Store Manager can manage store
     Then the store should be edited successfully
 
     #create store view
+   @CreateStoreView
+   Scenario Outline: Store Manager can create a store view
+     Given store manager is on the dashboard page store manager click on manage stores link
+     When  Store manager click the create store view button
+     And   fill out the information field"<StoreName>""<StoreCode>"
+     Then  Verify the created store view saved
+     Examples:
+       |StoreName          |StoreCode|
+       |  team33      |   mah33     |
 
-    #update store view
+
+    #edit store view
+  @EditStoreView
+  Scenario Outline: Store manager can edit store view
+    Given store manager is on the dashboard page store manager click on manage stores link
+    When  Store manager click the created store view link and put update name"<EditName>"
+    Then  Verify the updated store view saved
+    Examples:
+              |EditName|
+              | team3  |
 
   @DeletedStore
   Scenario: Store Manager can delete a store
@@ -63,11 +81,18 @@ Feature:Store Manager can manage store
    #edit orders
   @EditOrders
   Scenario: Store Manager can edit orders
-    Given store manager is on the dashboard page and store manager click on orders link
-    When  store manager search orders number and edit some information
-    Then  edit orders successful
-    #cancle orders
+  Given store manager is on the dashboard page and store manager click on orders link
+  When  store manager click on view order link
+   And   edit some information
+   Then  edit orders successful
 
+#    cancel orders
+  @CancelOrders
+    Scenario: Store Manager can cancel orders
+    Given store manager is on the dashboard page and store manager click on orders link
+    When  store manager click on view order link
+    And   cancel order
+    Then  cancel order successful
 
    #delete website
   @DeleteWebsite
