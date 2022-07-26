@@ -33,6 +33,8 @@ public class StoreDashboardPage {
     WebElement ordersLink;
     @FindBy(xpath = "(//a[text()='View'])[1]")
     WebElement viewLink;
+    @FindBy(xpath = "(//span[text()='Create New Order'])[2]")
+    WebElement createNewOrdersTab;
 
 
 
@@ -55,6 +57,11 @@ public class StoreDashboardPage {
         actions.moveToElement(salesLink).click().perform();
         testUtility.waitForElementPresent(ordersLink);
         actions.moveToElement(ordersLink).click().perform();
+    }
+
+    public void clickOnCreateNewOrderLink(){
+        testUtility.waitForElementPresent(createNewOrdersTab);
+        actions.moveToElement(createNewOrdersTab).click().perform();
     }
 
     public void clickOnViewLink(){

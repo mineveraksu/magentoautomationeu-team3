@@ -19,6 +19,7 @@ public class StoreSteps extends BasePage {
     StoreDashboardPage storeDashboardPage;
     StoreWebsitePage storeWebsitePage;
     StoreProductPage storeProductPage;
+    StoreOrdersPage storeOrdersPage;
     ExcelUtility excelUtility;
     TestDataHolder testDataHolder;
     StorePage storePage;
@@ -43,7 +44,7 @@ public class StoreSteps extends BasePage {
     }
 
     @When("store manager click create website button and fill out Website Information and click save button")
-    public void storeManagerClickCreateWebsiteButtonAndFillOutWebsiteInformationAndClickSaveButton() {
+    public void store_manager_click_on_create_new_orders_link_and_fill_out_the_information() {
         storeWebsitePage = new StoreWebsitePage(driver);
         storeWebsitePage.createWebsite(testDataHolder);
     }
@@ -166,26 +167,38 @@ public class StoreSteps extends BasePage {
     //create order
     @Given("store manager is on the dashboard page and store manager click on orders link")
     public void storeManagerIsOnTheDashboardPageAndStoreManagerClickOnOrdersLink() {
+        storeDashboardPage = new StoreDashboardPage(driver);
+        storeDashboardPage.clickOnOrdersLink();
     }
 
-    @When("store manager click on create new orders link")
-    public void storeManagerClickOnCreateNewOrdersLink() {
+    @When("store manager select customer and product")
+    public void store_manager_select_customer_and_product() {
+        storeDashboardPage = new StoreDashboardPage(driver);
+        storeOrdersPage= new StoreOrdersPage(driver);
+        storeDashboardPage.clickOnCreateNewOrderLink();
+        storeOrdersPage.selectCostumerAndProduct(driver);
     }
 
-    @And("store manager clıck and select the store name")
-    public void storeManagerClickAndSelectTheStoreName() {
+
+    @And("fillBillingAndShippingAddressForm")
+    public void fillBillingAndShippingAddressForm() {
+        storeOrdersPage= new StoreOrdersPage(driver);
+        storeOrdersPage.fillBillingAndShippingAddressForm(driver);
+
+
     }
 
-    @And("store manager select the product name")
-    public void storeManagerSelectTheProductName() {
+    @And("selectShippingAndPaymentMethodAndSubmitOrder")
+    public void selectShippingAndPaymentMethodAndSubmitOrder() {
+        storeOrdersPage= new StoreOrdersPage(driver);
+        storeOrdersPage.selectShippingMethodAndSubmitOrder(driver);
+
     }
 
-    @And("fill the product information")
-    public void fillTheProductInformation() {
-    }
 
     @Then("the order should be saved successfully")
     public void theOrderShouldBeSavedSuccessfully() {
+        Assert.assertTrue(storeOrdersPage.verifyCreateNewOrder());
     }
 
     //edit order
