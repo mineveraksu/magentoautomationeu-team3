@@ -64,12 +64,6 @@ public class StoreProductPage {
     WebElement addProductSuccessMessage;
 
     //add product categories
-    @FindBy(id = "#productGrid_product_filter_name")
-    WebElement nameInputBox;
-    @FindBy(xpath = "//span[text()='Search']")
-    WebElement searchButton;
-@FindBy(xpath = "//table[@id=\"productGrid_table\"]//tr/td[3]")
-WebElement nameAfterSearched;
 @FindBy(xpath = "//a[@name=\"categories\"]")
 WebElement categoriesLink;
 @FindBy(xpath = "//span[contains(text(),\"Default Category\")]")
@@ -152,15 +146,6 @@ WebElement deleteProductCategorySuccessfulMessage;
     }
 
     public void addProductCategory(){
-       /* testUtility.waitForElementPresent(nameInputBox);
-        nameInputBox.click();
-        testUtility.sleep(3);
-        nameInputBox.sendKeys("Jeans");
-       testUtility.waitForElementPresent(searchButton);
-        searchButton.click();
-        testUtility.sleep(3);
-       testUtility.waitForElementPresent(nameAfterSearched);
-      nameAfterSearched.click();*/
         testUtility.sleep(3);
         testUtility.waitForElementPresent(addedProductLink);
         addedProductLink.click();
@@ -185,14 +170,6 @@ WebElement deleteProductCategorySuccessfulMessage;
         }
     }
     public void updateProductCategory(){
-        /*testUtility.waitForElementPresent(nameInputBox);
-        nameInputBox.click();
-        testUtility.sleep(4);
-        nameInputBox.sendKeys("Jeans");
-         testUtility.waitForElementPresent(searchButton);
-        searchButton.click();
-         testUtility.waitForElementPresent(nameAfterSearched);
-        nameAfterSearched.click();*/
         testUtility.waitForElementPresent(addedProductLink);
         addedProductLink.click();
         testUtility.waitForElementPresent(categoriesLink);
@@ -216,15 +193,6 @@ WebElement deleteProductCategorySuccessfulMessage;
         }
     }
     public void deleteProductCategory(){
-       /* testUtility.waitForElementPresent(nameInputBox);
-        nameInputBox.click();
-        testUtility.sleep(4);
-        nameInputBox.sendKeys("Jeans");
-         testUtility.waitForElementPresent(searchButton);
-        searchButton.click();
-        testUtility.sleep(3);
-         testUtility.waitForElementPresent(nameAfterSearched);
-        nameAfterSearched.click();*/
         testUtility.waitForElementPresent(addedProductLink);
         addedProductLink.click();
         testUtility.waitForElementPresent(categoriesLink);
