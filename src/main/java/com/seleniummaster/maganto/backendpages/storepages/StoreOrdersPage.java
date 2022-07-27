@@ -1,18 +1,22 @@
 package com.seleniummaster.maganto.backendpages.storepages;
 
+import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.TestUtility;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.apache.tools.ant.taskdefs.Java;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
 public class StoreOrdersPage {
 
     WebDriver driver;
     TestUtility testUtility;
     Actions actions;
+    Select select;
+    String Config= "config.properties";
+    String email = "email" ;
 
 
     @FindBy(xpath = "(//span[text()=\"Edit\"])[1]")
@@ -37,7 +41,155 @@ public class StoreOrdersPage {
     WebElement cancelOrderSuccessMassage;
 
 
-    //Store Manager can edit orders
+    @FindBy (xpath = "//input[@type='text' and @id='sales_order_create_customer_grid_filter_email']")
+    WebElement customerEmailField;
+    @FindBy (xpath = "//td[contains(text(),'team33@hotmail.com')]")
+    WebElement selectedEmailField;
+    @FindBy (css="#store_122")
+    WebElement storeNameRadioButton;
+    @FindBy (xpath = "//span[contains(.,'Add Products')]")
+    WebElement addProductsLink;
+    @FindBy (xpath = "//table[@id='sales_order_create_search_grid_table']/tbody/tr/td[2]")
+    WebElement productName;
+    @FindBy (xpath = "//span[text()='Add Selected Product(s) to Order']")
+    WebElement addSelectedProductsToOrdersLink;
+
+
+    @FindBy (css="#order-billing_address_firstname")
+    WebElement billingAddressFirstNameField;
+    @FindBy (xpath = "//input[@type='text' and @id='order-billing_address_lastname']")
+    WebElement billingAddressLastNameField;
+    @FindBy (xpath = "//input[@type='text' and @id='order-billing_address_street0']")
+    WebElement billingAddressStreetNameField;
+    @FindBy (xpath = "//input[@type='text' and @id='order-billing_address_city']")
+    WebElement billingAddressCityNameField;
+    @FindBy (xpath = "//select[@id=\"order-billing_address_country_id\"]")
+    WebElement billingAddressCountryNameField;
+    @FindBy (xpath = "//select[@id=\"order-billing_address_region_id\"]")
+    WebElement billingAddressStateNameField;
+    @FindBy (xpath = "//input[@type='text' and @id='order-billing_address_postcode']")
+    WebElement billingAddressZipCodeField;
+    @FindBy (xpath = "//input[@type='text' and @id='order-billing_address_telephone']")
+    WebElement billingAddressTelephoneField;
+    @FindBy (xpath = "//input[@id='p_method_cashondelivery']")
+    WebElement cashOnDeliveryRadioButton;
+
+    @FindBy (xpath = "//a[@onclick='order.loadShippingRates();return false']")
+    WebElement getShippingMethodsAndRatesLink;
+    @FindBy (xpath = "//input[@onclick='order.setShippingMethod(this.value)']")
+    WebElement freeShippingRadioButton;
+    @FindBy (xpath = "//span[text()='The order has been created.']")
+    WebElement successMessage;
+
+
+    //Store Manager can create a new order
+    public void selectCostumerAndProduct(){
+
+        testUtility.waitForElementPresent(customerEmailField);
+        customerEmailField.click();
+        customerEmailField.sendKeys(ApplicationConfig.readFromConfigProperties(Config,email));
+        customerEmailField.sendKeys(Keys.ENTER);
+        testUtility.sleep(3);
+        testUtility.waitForElementPresent(selectedEmailField);
+        selectedEmailField.click();
+        testUtility.waitForElementPresent(storeNameRadioButton);
+        storeNameRadioButton.click();
+        testUtility.sleep(5);
+        scrollToTop();
+        testUtility.waitForElementPresent(addProductsLink);
+        addProductsLink.click();
+        testUtility.waitForElementPresent(productName);
+        productName.click();
+        testUtility.waitForElementPresent(addSelectedProductsToOrdersLink);
+        addSelectedProductsToOrdersLink.click();
+    }
+
+    public void scrollToTop() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("scroll(0,0)");
+    }
+
+    public void waitUntilLoadingFinishs() {
+//        WebElement snipper = driver.findElement(By.id("loading_mask_loader"));
+//        while (snipper.isDisplayed()) {
+//
+//        }
+    }
+
+    public void fillBillingAndShippingAddressForm(){
+        testUtility.waitForElementPresent(billingAddressFirstNameField);
+        testUtility.sleep(5);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("scroll(0,300)");
+        billingAddressFirstNameField.click();
+        billingAddressFirstNameField.sendKeys(testUtility.generateFirstName());
+        testUtility.waitForElementPresent(billingAddressLastNameField);
+        billingAddressLastNameField.click();
+        billingAddressLastNameField.sendKeys(testUtility.generateLastName());
+        testUtility.waitForElementPresent(billingAddressStreetNameField);
+        billingAddressStreetNameField.click();
+        billingAddressStreetNameField.sendKeys(testUtility.generateStreetAddress());
+        testUtility.waitForElementPresent(billingAddressCityNameField);
+        billingAddressCityNameField.click();
+        billingAddressCityNameField.sendKeys(testUtility.generateCityName());
+        testUtility.waitForElementPresent(billingAddressCountryNameField);
+        select=new Select(billingAddressCountryNameField);
+        select.selectByVisibleText("United States");
+        testUtility.waitForElementPresent(billingAddressStateNameField);
+        select=new Select(billingAddressStateNameField);
+        select.selectByVisibleText("Alaska");
+        testUtility.waitForElementPresent(billingAddressZipCodeField);
+        billingAddressZipCodeField.click();
+        billingAddressZipCodeField.sendKeys(testUtility.generateZipCode());
+        testUtility.waitForElementPresent(billingAddressTelephoneField);
+        billingAddressTelephoneField.click();
+        billingAddressTelephoneField.sendKeys(testUtility.generateTelephoneNumber());
+
+
+    }
+
+    public void selectShippingMethodAndSubmitOrder() {
+        testUtility.sleep(5);
+        testUtility.waitForElementPresent(getShippingMethodsAndRatesLink);
+        getShippingMethodsAndRatesLink.click();
+        testUtility.sleep(5);
+        testUtility.waitForElementPresent(freeShippingRadioButton);
+        freeShippingRadioButton.click();
+        testUtility.sleep(5);
+        testUtility.waitForElementPresent(cashOnDeliveryRadioButton);
+        cashOnDeliveryRadioButton.click();
+        testUtility.sleep(5);
+        scrollToTop();
+        testUtility.waitForElementPresent(submitOrderButton);
+        submitOrderButton.click();
+
+    }
+
+    public boolean verifyCreateNewOrder(){
+        testUtility.waitForElementPresent(successMessage);
+        if (successMessage.getText().contains("The order has been created.")){
+            System.out.println("Store manager create new order test passed!");
+            return true;
+
+        }else {
+            System.out.println("Store manager create new order test failed!");
+            return false;
+        }
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+        //Store Manager can edit orders
 
     public StoreOrdersPage(WebDriver driver) {
         this.driver = driver;

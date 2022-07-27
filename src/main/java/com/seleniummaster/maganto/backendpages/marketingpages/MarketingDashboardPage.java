@@ -33,6 +33,11 @@ public class MarketingDashboardPage {
     WebElement pendingReviews;
     @FindBy(xpath = "//span[contains(text(),'All Reviews')]")
     WebElement allReviewsLink;
+    @FindBy(xpath = "//span[text()='Promotions']")
+    WebElement promotionsLink;
+    @FindBy(xpath = "//span[text()='Catalog Price Rules']")
+    WebElement catalogPriceRulesLink;
+
 
     public void clickOnPendingReviewsLink() {
         testUtility.waitForElementPresent(catalogLink);
@@ -60,6 +65,14 @@ public class MarketingDashboardPage {
         actions.moveToElement(customerReviewsLink).click().perform();
         testUtility.waitForElementPresent(allReviewsLink);
         allReviewsLink.click();
+    }
+
+
+   public void clickONCatalogPriceRuleLink(){
+       testUtility.waitForElementPresent(promotionsLink);
+       actions.moveToElement(promotionsLink).perform();
+        testUtility.waitForElementPresent(catalogPriceRulesLink);
+        catalogPriceRulesLink.click();
     }
 
 }

@@ -59,10 +59,20 @@ Feature:Marketing Manager can manage market
     Then newsletter subscribers page should open successfully
     Examples:
       |  |
+  @AddNewRule
+  Scenario Outline: Marketing manager can add new rule
+    Given marketing manager is on the dashboard page and clicks on catalog price rule link
+    When  marketing manager click the add new rule button and fill out"<RuleName>"
+    Then  verify new rule added successfully
+    Examples:
+      |RuleName |
+      | team3333|
 
-
-  @AddNewShoppingCartPricePule
-  Scenario:Marketing Manager can add new  shopping cart price rule
-    Given Marketing manager on the dashboard page
-    When Marketing manager should be able add new shopping cart price rule
-    Then a new shopping cart price rule should be added
+  @SearchRuleByID
+  Scenario Outline: : Marketing manager can search rule by id
+   Given marketing manager is on the dashboard page and clicks on catalog price rule link
+    When Marketing manager enter rule name and rule id search the rule"<RuleName>""<rule id>"
+    Then Verify searched rule successfully
+    Examples:
+    |RuleName     |rule id|
+    |             |  63   |
