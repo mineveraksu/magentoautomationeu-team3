@@ -1,6 +1,7 @@
 package com.unitedcoder.regressiontest.cucumber;
 
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
+import com.seleniummaster.maganto.backendpages.marketingpages.CartPriceRulePage;
 import com.seleniummaster.maganto.backendpages.marketingpages.MarketingDashboardPage;
 import com.seleniummaster.maganto.backendpages.marketingpages.NewsletterTemplatePage;
 import com.seleniummaster.maganto.backendpages.marketingpages.ReviewsPage;
@@ -123,5 +124,42 @@ public class MarketingSteps extends BasePage {
         closeBrowser();
     }
 
+// add new Cart Price Rule
+    @Given("Marketing manager on the dashboard page and marketing manager click on Promotions link")
+    public void marketingManagerOnTheDashboardPageAndMarketingManagerClickOnPromotionsLink() {
+        MarketingDashboardPage marketingDashboardPage=new MarketingDashboardPage(driver);
+        marketingDashboardPage.clickOnPromotionsLink();
+    }
 
+    @When("click on Shopping Cart Price Rules link to fill out {string} {string} {string} and other information information")
+    public void clickOnShoppingCartPriceRulesLinkToFillOutAndOtherInformationInformation(String arg0, String arg1, String arg2) {
+        CartPriceRulePage cartPriceRulePage=new CartPriceRulePage(driver);
+        cartPriceRulePage.addNewShoppingCartPriceRule(arg0,arg1,arg2);
+
+        
+    }
+
+    @Then("a new shopping cart price rule should be added successfully")
+    public void aNewShoppingCartPriceRuleShouldBeAddedSuccessfully() {
+        CartPriceRulePage cartPriceRulePage=new CartPriceRulePage(driver);
+        Assert.assertTrue(cartPriceRulePage.verifyAddNewShoppingCartPriceRuleSuccessfully());
+
+
+    }
+    //view all Reviews
+    @Given("marketing manager is on the dashboard page and manager click on All reviews link")
+    public void marketingManagerIsOnTheDashboardPageAndManagerClickOnAllReviewsLink() {
+        MarketingDashboardPage marketingDashboardPage=new MarketingDashboardPage(driver);
+        marketingDashboardPage.clickOnAllReviewsLink();
+    }
+
+    @When("marketing manager view on All reviews page")
+    public void marketingManagerViewOnAllReviewsPage() {
+        reviewsPage=new ReviewsPage(driver);
+    }
+
+    @Then("the All reviews view successfully")
+    public void theAllReviewsViewSuccessfully() {
+        Assert.assertTrue(reviewsPage.verifyViewAllReviewsSuccessfully());
+    }
 }

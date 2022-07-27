@@ -22,13 +22,14 @@ public class SalesDashboardPage {
     WebElement salesLink;
     @FindBy(xpath = "//span[contains(text(),'Invoices')]")
     WebElement invoicesLink;
-    @FindBy(xpath = "//span[text()=\"Reports\"]")
-    WebElement reportsLink;
-    @FindBy(xpath = "(//span[text()='Sales'])[2]")
-    WebElement salesLinkUnderReportsLink;
-    @FindBy(xpath = "//span[contains(text(),'Refunds')]")
-    WebElement refundsLink;
-
+    @FindBy(xpath = "(//*[text()='Sales'])[1]")
+    WebElement salesTeb;
+    @FindBy(xpath = "(//span[text()='Shipments'])[1]")
+    WebElement shipmentsOption;
+    @FindBy(xpath = "(//span[contains(text(),'Tax')])[1]")
+    WebElement taxLink;
+    @FindBy(xpath = "(//span[contains(text(),'Manage Tax Rules')])[1]")
+    WebElement manageTaxRulesLink;
 
     public void clickOnInvoicesLink(){
         testUtility.waitForElementPresent(salesLink);
@@ -37,15 +38,21 @@ public class SalesDashboardPage {
         actions.moveToElement(invoicesLink).click().perform();
     }
 
-    public void clickOnRefundsLink(){
-        testUtility.waitForElementPresent(reportsLink);
-        actions.moveToElement(reportsLink).click().perform();
-        testUtility.waitForElementPresent(salesLinkUnderReportsLink);
-        actions.moveToElement(salesLinkUnderReportsLink).click().perform();
-        testUtility.waitForElementPresent(refundsLink);
-        actions.moveToElement(refundsLink).click().perform();
-        testUtility.sleep(2);
-    }
+    public void clickOnShipmentsOption(){
+        testUtility.waitForElementPresent(salesTeb);
+        actions.moveToElement(salesTeb).perform();
+        testUtility.waitForElementPresent(shipmentsOption);
+        shipmentsOption.click();
 
+    }
+    public void clickOnManageTaxRulesLink(){
+        testUtility.waitForElementPresent(salesLink);
+        actions.moveToElement(salesLink).click().perform();
+        testUtility.waitForElementPresent(taxLink);
+        actions.moveToElement(taxLink).click().perform();
+        testUtility.waitForElementPresent(manageTaxRulesLink);
+        actions.moveToElement(manageTaxRulesLink).click().perform();
+
+    }
 
 }
