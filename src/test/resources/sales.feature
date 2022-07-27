@@ -14,3 +14,11 @@ Feature:Sales Module Functions
     Examples:
       |commentText                 |
       |Rest of the payment cleared |
+
+
+  @ViewRefundsInTheReports
+  Scenario: Sales Manager should be able to view refunds in the Reports
+    Given sales manager click on refunds link
+    When  sales manager entering the refunds period and shows refunds
+#    And   sales manager shoot out refunds report image in <image> file
+    Then  sales manager view refunds reports successful

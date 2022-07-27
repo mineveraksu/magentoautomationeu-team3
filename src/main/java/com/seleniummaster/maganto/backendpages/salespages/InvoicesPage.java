@@ -30,6 +30,7 @@ public class InvoicesPage {
     @FindBy(xpath = "//strong[@class=\"subdue\"]")
     WebElement customerNotifiedSMS;
 
+
     public void clickOnViewButton(){
         testUtility.waitForElementPresent(viewButton);
         viewButton.click();

@@ -2,6 +2,7 @@ package com.unitedcoder.regressiontest.cucumber;
 
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
 import com.seleniummaster.maganto.backendpages.salespages.InvoicesPage;
+import com.seleniummaster.maganto.backendpages.salespages.RefundsPage;
 import com.seleniummaster.maganto.backendpages.salespages.SalesDashboardPage;
 import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.BasePage;
@@ -9,6 +10,7 @@ import com.seleniummaster.maganto.utility.ScreenShotUtility;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -20,6 +22,7 @@ public class SalesSteps extends BasePage {
     BackEndLogin login;
     SalesDashboardPage salesDashboardPage;
     InvoicesPage invoicesPage;
+    RefundsPage refundsPage;
 
 
     @Before("@SalesModuleTest")
@@ -58,5 +61,24 @@ public class SalesSteps extends BasePage {
             screenShotUtility.takeScreenshot("image", "failedTest", driver);
         }
         closeBrowser();
+    }
+
+    @Given("sales manager click on refunds link")
+    public void salesManagerIsOnTheDashboardPageAndClickOnRefundLink() {
+        salesDashboardPage.clickOnRefundsLink();
+    }
+
+    @When("sales manager entering the refunds period and shows refunds")
+    public void salesManagerEnteringTheRefundsPeriodAndShowsRefunds() {
+        refundsPage=new RefundsPage(driver);
+        refundsPage.refundsReport();
+    }
+
+    @And("sales manager shoot out refunds report image in <image> file")
+    public void salesManagerShootOutRefundsReportImageInImageFile() {
+    }
+
+    @Then("sales manager view refunds reports successful")
+    public void salesManagerViewRefundsReportsSuccessful() {
     }
 }
