@@ -35,10 +35,9 @@ public class MarketingDashboardPage {
     WebElement allReviewsLink;
     @FindBy(xpath = "//span[text()='Promotions']")
     WebElement promotionsLink;
-    @FindBy(xpath = "//*[text()='Catalog Price Rules']")
-    WebElement catalogPriceRulesOption;
-    @FindBy(xpath = "//span[text()='Shopping Cart Price Rules']")
-    WebElement shoppingCartPriceRulesOption;
+    @FindBy(xpath = "//span[text()='Catalog Price Rules']")
+    WebElement catalogPriceRulesLink;
+
 
     public void clickOnPendingReviewsLink() {
         testUtility.waitForElementPresent(catalogLink);
@@ -67,12 +66,13 @@ public class MarketingDashboardPage {
         testUtility.waitForElementPresent(allReviewsLink);
         allReviewsLink.click();
     }
-    public void clickOnPromotionsLink() {
-        testUtility.waitForElementPresent(promotionsLink);
-        actions.moveToElement(promotionsLink).click().perform();
-        //testUtility.waitForElementPresent(catalogPriceRulesOption);
-       // actions.moveToElement(catalogPriceRulesOption).click().perform();
-        testUtility.waitForElementPresent(shoppingCartPriceRulesOption);
-        actions.moveToElement(shoppingCartPriceRulesOption).click().perform();
+
+
+   public void clickONCatalogPriceRuleLink(){
+       testUtility.waitForElementPresent(promotionsLink);
+       actions.moveToElement(promotionsLink).perform();
+        testUtility.waitForElementPresent(catalogPriceRulesLink);
+        catalogPriceRulesLink.click();
     }
+
 }
