@@ -64,14 +64,21 @@ public class StoreProductPage {
     WebElement addProductSuccessMessage;
 
     //add product categories
-@FindBy(xpath = "//a[@name=\"categories\"]")
-WebElement categoriesLink;
-@FindBy(xpath = "//span[contains(text(),\"Default Category\")]")
-WebElement existingRootCategories;
-@FindBy(xpath = "//span[contains(text(),\"VIP\")]")
-WebElement existingSubCategories;
-@FindBy(xpath = "//*[contains(text(),\"Jeans\")]")
-WebElement addedProductLink;
+    @FindBy(id = "productGrid_product_filter_name")
+    WebElement nameInputBox;
+    @FindBy(xpath = "//span[text()='Search']")
+    WebElement searchButton;
+    @FindBy(xpath = "//table[@id=\"productGrid_table\"]//tr/td[3]")
+    WebElement nameAfterSearched;
+    @FindBy(xpath = "//a[@name=\"categories\"]")
+    WebElement categoriesLink;
+    @FindBy(xpath = "//span[contains(text(),\"Default Category\")]")
+    WebElement existingRootCategories;
+    @FindBy(xpath = "//span[contains(text(),\"VIP\")]")
+    WebElement existingSubCategories;
+    @FindBy(xpath = "//*[contains(text(),\"Jeans\")]")
+    WebElement addedProductLink;
+
 
 //delete product categories
     @FindBy(xpath = "//span[contains(text(),\"VIP\")]")
@@ -146,9 +153,19 @@ WebElement deleteProductCategorySuccessfulMessage;
     }
 
     public void addProductCategory(){
+
+         testUtility.waitForElementPresent(nameInputBox);
+        nameInputBox.click();
         testUtility.sleep(3);
-        testUtility.waitForElementPresent(addedProductLink);
-        addedProductLink.click();
+        nameInputBox.sendKeys("Jeans");
+       testUtility.waitForElementPresent(searchButton);
+        searchButton.click();
+        testUtility.sleep(3);
+       testUtility.waitForElementPresent(nameAfterSearched);
+      nameAfterSearched.click();
+        testUtility.sleep(3);
+       // testUtility.waitForElementPresent(addedProductLink);
+       // addedProductLink.click();
         testUtility.sleep(3);
         testUtility.waitForElementPresent(categoriesLink);
         categoriesLink.click();
@@ -170,13 +187,22 @@ WebElement deleteProductCategorySuccessfulMessage;
         }
     }
     public void updateProductCategory(){
-        testUtility.waitForElementPresent(addedProductLink);
-        addedProductLink.click();
+        testUtility.waitForElementPresent(nameInputBox);
+        nameInputBox.click();
+        testUtility.sleep(3);
+        nameInputBox.sendKeys("Jeans");
+        testUtility.waitForElementPresent(searchButton);
+        searchButton.click();
+        testUtility.sleep(3);
+        testUtility.waitForElementPresent(nameAfterSearched);
+        nameAfterSearched.click();
+        testUtility.sleep(3);
+//        testUtility.waitForElementPresent(addedProductLink);
+//        addedProductLink.click();
         testUtility.waitForElementPresent(categoriesLink);
         categoriesLink.click();
        testUtility.waitForElementPresent(existingSubCategories);
        existingSubCategories.click();
-        existingRootCategories.click();
         testUtility.sleep(3);
         testUtility.waitForElementPresent(saveButton);
         saveButton.click();
@@ -193,15 +219,23 @@ WebElement deleteProductCategorySuccessfulMessage;
         }
     }
     public void deleteProductCategory(){
-        testUtility.waitForElementPresent(addedProductLink);
-        addedProductLink.click();
+        testUtility.waitForElementPresent(nameInputBox);
+        nameInputBox.click();
+        testUtility.sleep(3);
+        nameInputBox.sendKeys("Jeans");
+        testUtility.waitForElementPresent(searchButton);
+        searchButton.click();
+        testUtility.sleep(3);
+        testUtility.waitForElementPresent(nameAfterSearched);
+        nameAfterSearched.click();
+        testUtility.sleep(3);
         testUtility.waitForElementPresent(categoriesLink);
         categoriesLink.click();
-        testUtility.waitForElementPresent(deletedCategory);
-       deletedCategory.click();
+        testUtility.waitForElementPresent(existingSubCategories);
+        existingRootCategories.click();
         testUtility.sleep(3);
-        testUtility.waitForElementPresent(deleteProductCategoryButton);
-        deleteProductCategoryButton.click();
+        testUtility.waitForElementPresent(saveButton);
+        saveButton.click();
 
     }
     public boolean verifyDeleteProductCategory() {

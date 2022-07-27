@@ -235,7 +235,7 @@ public class StoreSteps extends BasePage {
 
    @Then("verify update the product category")
     public void verifyUpdateTheProductCategory() {
-       org.junit.Assert.assertTrue(storeProductPage.verifyUpdateProductCategory());
+       Assert.assertTrue(storeProductPage.verifyUpdateProductCategory());
 
     }
     //delete product categories
