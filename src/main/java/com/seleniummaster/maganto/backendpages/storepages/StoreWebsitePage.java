@@ -32,6 +32,8 @@ public class StoreWebsitePage {
     WebElement storeNameLink;
     @FindBy(xpath = "(//p[@class=\"form-buttons\"])[1]/button[4]/span/span/span")
     WebElement saveEditWebsiteButton;
+    @FindBy(xpath = "//*[@id=\"messages\"]/ul/li/ul/li/span")
+    WebElement editWebsiteSuccessMessage;
 
     public StoreWebsitePage(WebDriver driver) {
         this.driver = driver;
@@ -72,8 +74,8 @@ public class StoreWebsitePage {
     }
 
     public boolean verifyWebsiteEditSuccessfully(){
-        testUtility.waitForElementPresent(successMessage);
-        if (successMessage.getText().contains("saved.")) {
+        testUtility.waitForElementPresent(editWebsiteSuccessMessage);
+        if (editWebsiteSuccessMessage.getText().contains("saved.")) {
             System.out.println("Store manager edit website test passed!");
             return true;
         } else {
