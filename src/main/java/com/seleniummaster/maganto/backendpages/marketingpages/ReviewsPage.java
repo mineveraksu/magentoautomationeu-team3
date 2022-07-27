@@ -41,7 +41,9 @@ public class ReviewsPage {
     WebElement summaryOfReviewField;
     @FindBy(xpath = "//span[text()='The review has been saved.']")
     WebElement updateReviewSuccessfulMassage;
-
+    //View All Reviews
+    @FindBy(xpath ="")
+    WebElement viewAllReviews;
 
 
     public ReviewsPage(WebDriver driver) {
@@ -141,6 +143,17 @@ public class ReviewsPage {
             return true;
         } else {
             System.out.println(" Marketing module update review fail !");
+            return false;
+        }
+    }
+
+    public boolean verifyViewAllReviewsSuccessfully() {
+        testUtility.waitForElementPresent(viewAllReviews);
+        if (viewAllReviews.isDisplayed()) {
+            System.out.println("Marketing Manager can view All Reviews Test is Passed!!!");
+            return true;
+        } else {
+            System.out.println("Marketing Manager can view All Reviews Test is Failed!!");
             return false;
         }
     }

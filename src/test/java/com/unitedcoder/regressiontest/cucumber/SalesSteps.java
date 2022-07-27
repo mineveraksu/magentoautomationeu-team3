@@ -86,5 +86,38 @@ public class SalesSteps extends BasePage {
         }
         closeBrowser();
     }
+//Add and update Tax Rules
+    @Given("Sales manager is on the dashboard page and clicks on Manage Tax Rules")
+    public void salesManagerIsOnTheDashboardPageAndClicksOnManageTaxRules() {
+        SalesDashboardPage salesDashboardPage=new SalesDashboardPage(driver);
+        salesDashboardPage.clickOnManageTaxRulesLink();
+    }
 
+    @When("Sales Manager click Add New Tax Rule  icon and fill out {string} {string} {string} information and click on Save Rule button")
+    public void salesManagerClickIconAndFillOutInformationAndClickOnSaveRuleButton(String arg0, String arg1, String arg2) {
+InvoicesPage invoicesPage=new InvoicesPage(driver);
+invoicesPage.addNewTaxRule(arg0,arg1,arg2);
+
+    }
+
+    @And("Sales Manager edit tax rules and click on Save Rule button")
+    public void salesManagerEditTaxRulesAndClickOnSaveRuleButton(String arg0,String arg1,String arg2) {
+        InvoicesPage invoicesPage=new InvoicesPage(driver);
+        invoicesPage.updateNewTaxRule(arg0,arg1,arg2);
+
+
+    }
+
+    @Then("a new Tax Rule created successfully")
+    public void aNewTaxRuleCreatedSuccessfully() {
+        InvoicesPage invoicesPage=new InvoicesPage(driver);
+        invoicesPage.verifyAddNewTaxRuleRuleSuccessfully();
+
+    }
+
+    @And("the new Tax Rule update successfully")
+    public void theNewTaxRuleUpdateSuccessfully() {
+        InvoicesPage invoicesPage=new InvoicesPage(driver);
+        invoicesPage.verifyUpdateNewTaxRuleRuleSuccessfully();
+    }
 }

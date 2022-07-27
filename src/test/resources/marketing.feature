@@ -69,6 +69,12 @@ Feature:Marketing Manager can manage market
       |RuleName        | description         | Priority |
       |50% Sales(team3) |50% off any product  | Medium |
 
+  @ViewAllReviews
+  Scenario: Marketing Manager can view All reviews
+    Given marketing manager is on the dashboard page and manager click on All reviews link
+    When marketing manager view on All reviews page
+    Then the All reviews view successfully
+
 
 
 

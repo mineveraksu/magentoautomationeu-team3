@@ -124,7 +124,7 @@ public class MarketingSteps extends BasePage {
         closeBrowser();
     }
 
-
+// add new Cart Price Rule
     @Given("Marketing manager on the dashboard page and marketing manager click on Promotions link")
     public void marketingManagerOnTheDashboardPageAndMarketingManagerClickOnPromotionsLink() {
         MarketingDashboardPage marketingDashboardPage=new MarketingDashboardPage(driver);
@@ -145,5 +145,21 @@ public class MarketingSteps extends BasePage {
         Assert.assertTrue(cartPriceRulePage.verifyAddNewShoppingCartPriceRuleSuccessfully());
 
 
+    }
+    //view all Reviews
+    @Given("marketing manager is on the dashboard page and manager click on All reviews link")
+    public void marketingManagerIsOnTheDashboardPageAndManagerClickOnAllReviewsLink() {
+        MarketingDashboardPage marketingDashboardPage=new MarketingDashboardPage(driver);
+        marketingDashboardPage.clickOnAllReviewsLink();
+    }
+
+    @When("marketing manager view on All reviews page")
+    public void marketingManagerViewOnAllReviewsPage() {
+        reviewsPage=new ReviewsPage(driver);
+    }
+
+    @Then("the All reviews view successfully")
+    public void theAllReviewsViewSuccessfully() {
+        Assert.assertTrue(reviewsPage.verifyViewAllReviewsSuccessfully());
     }
 }
