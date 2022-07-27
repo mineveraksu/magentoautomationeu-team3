@@ -68,7 +68,7 @@ public class StoreWebsitePage {
         testUtility.waitForElementPresent(websiteName);
         websiteName.click();
         testUtility.waitForElementPresent(codeField);
-        codeField.sendKeys("123");
+        codeField.sendKeys("1234");
         testUtility.waitForElementPresent(saveEditWebsiteButton);
         saveEditWebsiteButton.click();
     }
