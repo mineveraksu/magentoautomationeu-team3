@@ -52,7 +52,6 @@ Feature:Marketing Manager can manage market
       |Review                                 |
       |the dress is beautiful and good quality|
 
-<<<<<<< HEAD
   @VieNewsletterSubscribers
   Scenario Outline: Marketing Manager can view newsletter subscribers .
     Given marketing manager is on the dashboard page and marketing manager click on  the newsletter link.
@@ -60,6 +59,20 @@ Feature:Marketing Manager can manage market
     Then newsletter subscribers page should open successfully
     Examples:
       |  |
-=======
+  @AddNewRule
+  Scenario Outline: Marketing manager can add new rule
+    Given marketing manager is on the dashboard page and clicks on catalog price rule link
+    When  marketing manager click the add new rule button and fill out"<RuleName>"
+    Then  verify new rule added successfully
+    Examples:
+      |RuleName |
+      | team3333|
 
->>>>>>> master
+  @SearchRuleByID
+  Scenario Outline: : Marketing manager can search rule by id
+   Given marketing manager is on the dashboard page and clicks on catalog price rule link
+    When Marketing manager enter rule name and rule id search the rule"<RuleName>""<rule id>"
+    Then Verify searched rule successfully
+    Examples:
+    |RuleName     |rule id|
+    |             |  63   |
