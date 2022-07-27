@@ -73,22 +73,39 @@ Feature:Store Manager can manage store
   @CreateOrder
   Scenario: Store Manager can create an order
     Given store manager is on the dashboard page and store manager click on orders link
-    When store manager click on create new orders link
-    And  store manager clıck and select the store name
-    And  store manager select the product name
-    And  fill the product information
+    When store manager select a customer and a product
+    And fill billing address and shipping address form
+    And select shipping and payment methods and submit order
     Then the order should be saved successfully
    #edit orders
   @EditOrders
   Scenario: Store Manager can edit orders
-  Given store manager is on the dashboard page and store manager click on orders link
-  When  store manager click on view order link
-   And   edit some information
-   Then  edit orders successful
 
-#    cancel orders
+    Given store manager is on the dashboard page and store manager click on orders link
+    When  store manager search orders number and edit some information
+    Then  edit orders successful
+ #add ,update and delete product categories
+  @addProductCategory
+  Scenario: Store Manager can add product category
+    Given store manager is on the dashboard page store manager click on manage products link
+    When store manager clicks categories link and check the existing product categories
+    Then verify added a new product category
+
+  @UpdateCategory
+  Scenario: Store Manager can update a new product category
+    Given store manager is on the dashboard page store manager click on manage products link
+    When store manager clicks an existing product and check other existing product category
+    Then verify update the product category
+
+  @DeleteCategory
+  Scenario: Store Manager can delete a product category
+    Given store manager is on the dashboard page store manager click on manage products link
+    When store manager clicks an existing product and delete the product category
+    Then verify delete the product category
+
+  #    cancel orders
   @CancelOrders
-    Scenario: Store Manager can cancel orders
+  Scenario: Store Manager can cancel orders
     Given store manager is on the dashboard page and store manager click on orders link
     When  store manager click on view order link
     And   cancel order
