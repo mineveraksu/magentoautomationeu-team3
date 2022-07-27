@@ -171,29 +171,29 @@ public class StoreSteps extends BasePage {
         storeDashboardPage.clickOnOrdersLink();
     }
 
-    @When("store manager select customer and product")
-    public void store_manager_select_customer_and_product() {
-        storeDashboardPage = new StoreDashboardPage(driver);
-        storeOrdersPage= new StoreOrdersPage(driver);
-        storeDashboardPage.clickOnCreateNewOrderLink();
-        storeOrdersPage.selectCostumerAndProduct(driver);
-    }
-
-
-    @And("fill billing and shipping address form")
-    public void fill_billing_and_shipping_address_form() {
-        storeOrdersPage= new StoreOrdersPage(driver);
-        storeOrdersPage.fillBillingAndShippingAddressForm(driver);
-
-    }
-
-
-    @When("select shipping and payment method and submit order")
-    public void select_shipping_and_payment_method_and_submit_order() {
-        storeOrdersPage= new StoreOrdersPage(driver);
-        storeOrdersPage.selectShippingMethodAndSubmitOrder(driver);
-
-    }
+//    @When("store manager select customer and product")
+//    public void store_manager_select_customer_and_product() {
+//        storeDashboardPage = new StoreDashboardPage(driver);
+//        storeOrdersPage= new StoreOrdersPage(driver);
+//        storeDashboardPage.clickOnCreateNewOrderLink();
+//        storeOrdersPage.selectCostumerAndProduct(driver);
+//    }
+//
+//
+//    @And("fill billing and shipping address form")
+//    public void fill_billing_and_shipping_address_form() {
+//        storeOrdersPage= new StoreOrdersPage(driver);
+//        storeOrdersPage.fillBillingAndShippingAddressForm(driver);
+//
+//    }
+//
+//
+//    @And("select shipping and payment method and submit order")
+//    public void select_shipping_and_payment_method_and_submit_order() {
+//        storeOrdersPage= new StoreOrdersPage(driver);
+//        storeOrdersPage.selectShippingMethodAndSubmitOrder(driver);
+//
+//    }
 
 
     @Then("the order should be saved successfully")
@@ -221,5 +221,24 @@ public class StoreSteps extends BasePage {
     }
 
 
+    @When("store manager select a customer and a product")
+    public void storeManagerSelectACustomerAndAProduct() {
+        storeDashboardPage = new StoreDashboardPage(driver);
+        storeOrdersPage= new StoreOrdersPage(driver);
+        storeDashboardPage.clickOnCreateNewOrderLink();
+        storeOrdersPage.selectCostumerAndProduct();
 
+    }
+
+    @And("fill billing address and shipping address form")
+    public void fillBillingAddressAndShippingAddressForm() {
+        storeOrdersPage= new StoreOrdersPage(driver);
+        storeOrdersPage.fillBillingAndShippingAddressForm();
+    }
+
+    @And("select shipping and payment methods and submit order")
+    public void selectShippingAndPaymentMethodsAndSubmitOrder() {
+        storeOrdersPage= new StoreOrdersPage(driver);
+        storeOrdersPage.selectShippingMethodAndSubmitOrder();
+    }
 }

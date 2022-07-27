@@ -62,17 +62,17 @@ Feature:Store Manager can manage store
   @CreateOrder
   Scenario: Store Manager can create an order
     Given store manager is on the dashboard page and store manager click on orders link
-    When store manager select customer and product
-    And  fill billing and shipping address form
-    And  select shipping and payment method and submit order
+    When store manager select a customer and a product
+    And fill billing address and shipping address form
+    And select shipping and payment methods and submit order
     Then the order should be saved successfully
    #edit orders
   @EditOrders
   Scenario: Store Manager can edit orders
-  Given store manager is on the dashboard page and store manager click on orders link
-  When  store manager click on view order link
-   And   edit some information
-   Then  edit orders successful
+    Given store manager is on the dashboard page and store manager click on orders link
+    When  store manager click on view order link
+    And   edit some information
+    Then  edit orders successful
 
 #    cancel orders
   @CancelOrders

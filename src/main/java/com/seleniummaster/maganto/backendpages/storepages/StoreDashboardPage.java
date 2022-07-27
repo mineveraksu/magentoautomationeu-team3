@@ -33,7 +33,7 @@ public class StoreDashboardPage {
     WebElement ordersLink;
     @FindBy(xpath = "(//a[text()='View'])[1]")
     WebElement viewLink;
-    @FindBy(xpath = "(//span[text()='Create New Order'])[2]")
+    @FindBy(xpath = "(//span[text()='Create New Order'])[1]")
     WebElement createNewOrdersTab;
 
 
