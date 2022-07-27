@@ -1,10 +1,7 @@
 package com.unitedcoder.regressiontest.cucumber;
 
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
-import com.seleniummaster.maganto.backendpages.storepages.StoreDashboardPage;
-import com.seleniummaster.maganto.backendpages.storepages.StorePage;
-import com.seleniummaster.maganto.backendpages.storepages.StoreProductPage;
-import com.seleniummaster.maganto.backendpages.storepages.StoreWebsitePage;
+import com.seleniummaster.maganto.backendpages.storepages.*;
 import com.seleniummaster.maganto.utility.*;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -25,13 +22,15 @@ public class StoreSteps extends BasePage {
     ExcelUtility excelUtility;
     TestDataHolder testDataHolder;
     StorePage storePage;
+    String storeName;
+    String storeCode;
+    StoreViewPage storeViewPage;
 
     @Before("@StoreModuleTest")
     public void setup() {
         browserSetUp(url);
         login = new BackEndLogin(driver);
         login.storePageLogin();
-        storeDashboardPage = new StoreDashboardPage(driver);
         excelUtility = new ExcelUtility();
         testDataHolder = excelUtility.readStoreInfoFromExcel("Test-Data/storeModuleData.xlsx", "Store_Info");
     }
@@ -39,6 +38,7 @@ public class StoreSteps extends BasePage {
     //create website
     @Given("store manager is on the dashboard page store manager click on manage stores link")
     public void storeManagerIsOnTheDashboardPage() {
+        storeDashboardPage = new StoreDashboardPage(driver);
         storeDashboardPage.clickOnManageStoresLink();
     }
 
@@ -103,9 +103,48 @@ public class StoreSteps extends BasePage {
     }
 
     //create store view
+    @When("Store manager click the create store view button")
+    public void storeManagerClickTheCreateStoreViewButton() {
+        storeViewPage=new StoreViewPage(driver);
+        storeViewPage.clickOnCreateStoreViewButton();
+    }
 
+    @And("fill out the information field{string}{string}")
+    public void fillOutTheInformationField(String arg0, String arg1) {
+        storeName=arg0;
+        storeCode=arg1;
+        storeViewPage=new StoreViewPage(driver);
+        storeViewPage.createAStoreView(testDataHolder,storeName,storeCode);
+    }
 
+    @Then("Verify the created store view saved")
+    public void verifyTheCreatedStoreViewSaved() {
+        Assert.assertTrue(storeViewPage.verifyStoreViewSaved());
+    }
     //update store view
+    //view all stores
+
+    @Then("the store names should display on this page.")
+    public void theStoreNamesShouldDisplayOnThisPage() {
+        StorePage storePage=new StorePage(driver);
+        Assert.assertTrue(storePage.verifyAllStoresViewed());
+    }
+
+
+
+    @When("Store manager click the created store view link and put update name{string}")
+    public void storeManagerClickTheCreatedStoreViewLinkAndPutUpdateName(String arg0) {
+        storeViewPage=new StoreViewPage(driver);
+        storeViewPage.editStoreView(arg0);
+    }
+
+    @Then("Verify the updated store view saved")
+    public void verifyTheUpdatedStoreViewSaved() {
+        Assert.assertTrue(storeViewPage.verifyStoreViewSaved());
+    }
+
+
+
 
 
     //delete store
@@ -123,7 +162,9 @@ public class StoreSteps extends BasePage {
     //create product
     @Given("store manager is on the dashboard page store manager click on manage products link")
     public void storeManagerIsOnTheDashboardPageStoreManagerClickOnManageProductsLink() {
+        storeDashboardPage = new StoreDashboardPage(driver);
         storeDashboardPage.clickOnManageProductLink();
+
     }
 
     @When("click on add product button to fill out {string} {string} {string} {string} {string} {string} {string} and other information information")
@@ -182,4 +223,50 @@ public class StoreSteps extends BasePage {
         }
         closeBrowser();
     }
+    //add product categories
+    @When("store manager clicks categories link and check the existing product categories")
+    public void storeManagerClicksCategoriesLinkAndCheckTheExistingProductCategories() {
+        storeProductPage = new StoreProductPage(driver);
+        storeProductPage.addProductCategory();
+    }
+
+    @Then("verify added a new product category")
+    public void verifyAddedANewProductCategory() {
+        org.junit.Assert.assertTrue(storeProductPage.verifyAddProductCategory());
+    }
+
+//update product categories
+    @When("store manager clicks an existing product and check other existing product category")
+    public void storeManagerClicksAnExistingProductAndCheckOtherExistingProductCategory() {
+        storeProductPage=new StoreProductPage(driver);
+        storeProductPage.updateProductCategory();
+    }
+
+   @Then("verify update the product category")
+    public void verifyUpdateTheProductCategory() {
+       org.junit.Assert.assertTrue(storeProductPage.verifyUpdateProductCategory());
+
+    }
+    //delete product categories
+    @When("store manager clicks an existing product and delete the product category")
+    public void storeManagerClicksAnExistingProductAndDeleteTheProductCategory() {
+        storeProductPage=new StoreProductPage(driver);
+        storeProductPage.deleteProductCategory();
+
+
+    }
+
+    @Then("verify delete the product category")
+    public void verifyDeleteTheProductCategory() {
+            org.junit.Assert.assertTrue(storeProductPage.verifyDeleteProductCategory());
+    }
+
+
+
 }
+
+
+
+
+
+

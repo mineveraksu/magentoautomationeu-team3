@@ -11,6 +11,10 @@ public class TestDataHolder {
     private String websiteName;
     private String websiteCode;
     private String storeName;
+    private String startDate;
+    private String endDate;
+
+
 
     @Override
     public String toString() {
@@ -44,6 +48,11 @@ public class TestDataHolder {
         this.subCategoriesDescription = subCategoriesDescription;
         this.rootCategoryName=rootCategoryName;
     }
+    public String getNewRootCategoryDescription() {
+        return newRootCategoryDescription;
+    }
+
+    private String newRootCategoryDescription;
 
     public String getCustomerGroupName() {
         return customerGroupName;
@@ -85,5 +94,21 @@ public class TestDataHolder {
 
     public String getWebsiteCode() {
         return websiteCode;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
 }
