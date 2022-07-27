@@ -30,6 +30,8 @@ public class CatalogPage {
     WebElement deleteCategoryButton;
     @FindBy(css = ".success-msg>ul li span")
     WebElement deleteRootCategorySuccessfulMessage;
+    @FindBy(linkText = "Expand All")
+    WebElement expandAllLink;
 
 
     public CatalogPage(WebDriver driver) {
@@ -48,6 +50,18 @@ public class CatalogPage {
         testUtility.waitForElementPresent(descriptionField);
         descriptionField.sendKeys(testDataHolder.getRootCategoryDescription());
         testUtility.waitForElementPresent(saveCategoryButton);
+        saveCategoryButton.click();
+    }
+
+    public void editRootCategory(TestDataHolder testDataHolder) {
+        expandAllLink.click();
+        WebElement existingRootCategories = driver.findElement(By.xpath(String.format("//span[contains(text(),'%s (0)')]", testDataHolder.getRootCategoryName())));
+        testUtility.waitForElementPresent(existingRootCategories);
+        testUtility.sleep(3);
+        existingRootCategories.click();
+        testUtility.sleep(3);
+        descriptionField.clear();
+        descriptionField.sendKeys(TestUtility.getFieldFromJson("Test-Data/testDatasSmall.json", "new_category_description"));
         saveCategoryButton.click();
     }
 
@@ -75,7 +89,19 @@ public class CatalogPage {
         }
     }
 
-        public boolean verifyDeleteExistingRootCategories() {
+
+
+    public boolean verifyEditRootCategory() {
+        if (descriptionField.getText().contains(TestUtility.getFieldFromJson("Test-Data/testDatasSmall.json", "new_category_description"))){
+            System.out.println("Catalog Manager can edit root categories test Passed!");
+            return true;
+        } else {
+            System.out.println("Catalog Manager can edit root categories test Failed!");
+            return false;
+        }
+    }
+
+    public boolean verifyDeleteExistingRootCategories() {
         testUtility.waitForElementPresent(deleteRootCategorySuccessfulMessage);
         if (deleteRootCategorySuccessfulMessage.getText().contains("deleted")) {
             System.out.println("Catalog Manager delete existing Root Categories Test Passed!!!");

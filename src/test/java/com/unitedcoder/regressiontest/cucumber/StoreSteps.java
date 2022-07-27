@@ -44,7 +44,7 @@ public class StoreSteps extends BasePage {
     }
 
     @When("store manager click create website button and fill out Website Information and click save button")
-    public void store_manager_click_on_create_new_orders_link_and_fill_out_the_information() {
+    public void storeManagerClickCreateWebsiteButtonAndFillOutWebsiteInformationAndClickSaveButton() {
         storeWebsitePage = new StoreWebsitePage(driver);
         storeWebsitePage.createWebsite(testDataHolder);
     }
@@ -114,6 +114,14 @@ public class StoreSteps extends BasePage {
         Assert.assertTrue(storeViewPage.verifyStoreViewSaved());
     }
     //update store view
+    //view all stores
+
+    @Then("the store names should display on this page.")
+    public void theStoreNamesShouldDisplayOnThisPage() {
+        StorePage storePage=new StorePage(driver);
+        Assert.assertTrue(storePage.verifyAllStoresViewed());
+    }
+
 
 
     @When("Store manager click the created store view link and put update name{string}")
@@ -219,6 +227,43 @@ public class StoreSteps extends BasePage {
         }
         closeBrowser();
     }
+    //add product categories
+    @When("store manager clicks categories link and check the existing product categories")
+    public void storeManagerClicksCategoriesLinkAndCheckTheExistingProductCategories() {
+        storeProductPage = new StoreProductPage(driver);
+        storeProductPage.addProductCategory();
+    }
+
+    @Then("verify added a new product category")
+    public void verifyAddedANewProductCategory() {
+        org.junit.Assert.assertTrue(storeProductPage.verifyAddProductCategory());
+    }
+
+//update product categories
+    @When("store manager clicks an existing product and check other existing product category")
+    public void storeManagerClicksAnExistingProductAndCheckOtherExistingProductCategory() {
+        storeProductPage=new StoreProductPage(driver);
+        storeProductPage.updateProductCategory();
+    }
+
+   @Then("verify update the product category")
+    public void verifyUpdateTheProductCategory() {
+       Assert.assertTrue(storeProductPage.verifyUpdateProductCategory());
+
+    }
+    //delete product categories
+    @When("store manager clicks an existing product and delete the product category")
+    public void storeManagerClicksAnExistingProductAndDeleteTheProductCategory() {
+        storeProductPage=new StoreProductPage(driver);
+        storeProductPage.deleteProductCategory();
+
+
+    }
+
+    @Then("verify delete the product category")
+    public void verifyDeleteTheProductCategory() {
+            org.junit.Assert.assertTrue(storeProductPage.verifyDeleteProductCategory());
+    }
 
 
     @When("store manager select a customer and a product")
@@ -242,3 +287,9 @@ public class StoreSteps extends BasePage {
         storeOrdersPage.selectShippingMethodAndSubmitOrder();
     }
 }
+
+
+
+
+
+

@@ -1,5 +1,6 @@
 package com.seleniummaster.maganto.backendpages.storepages;
 
+import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.TestDataHolder;
 import com.seleniummaster.maganto.utility.TestUtility;
 import org.openqa.selenium.By;
@@ -62,6 +63,32 @@ public class StoreProductPage {
     @FindBy(css = ".success-msg>ul li span")
     WebElement addProductSuccessMessage;
 
+    //add product categories
+    @FindBy(id = "productGrid_product_filter_name")
+    WebElement nameInputBox;
+    @FindBy(xpath = "//span[text()='Search']")
+    WebElement searchButton;
+    @FindBy(xpath = "//table[@id=\"productGrid_table\"]//tr/td[3]")
+    WebElement nameAfterSearched;
+    @FindBy(xpath = "//a[@name=\"categories\"]")
+    WebElement categoriesLink;
+    @FindBy(xpath = "//span[contains(text(),\"Default Category\")]")
+    WebElement existingRootCategories;
+    @FindBy(xpath = "//span[contains(text(),\"VIP\")]")
+    WebElement existingSubCategories;
+    @FindBy(xpath = "//*[contains(text(),\"Jeans\")]")
+    WebElement addedProductLink;
+
+
+//delete product categories
+    @FindBy(xpath = "//span[contains(text(),\"VIP\")]")
+    WebElement deletedCategory;
+@FindBy(xpath = "//span[text()='Delete']")
+WebElement deleteProductCategoryButton;
+@FindBy(css = ".success-msg>ul li span")
+WebElement deleteProductCategorySuccessfulMessage;
+
+
 
     @FindBy(css = "#description")
     WebElement descriptionTextArea;
@@ -85,10 +112,10 @@ public class StoreProductPage {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         testUtility = new TestUtility(driver);
-        actions = new Actions(driver);
+        actions=new Actions(driver);
     }
 
-    public void addProduct(TestDataHolder testDataHolder, String name, String description, String shortDescription, String SKU, String weight, String price, String qty) {
+    public void addProduct(TestDataHolder testDataHolder,String name, String description, String shortDescription, String SKU, String weight , String price, String qty) {
         testUtility.waitForElementPresent(addProductButton);
         addProductButton.click();
         testUtility.waitForElementPresent(continueButton);
@@ -139,6 +166,103 @@ public class StoreProductPage {
             return true;
         } else {
             System.out.println("Store Manager can Add Product Test is Failed!!!");
+            return false;
+        }
+    }
+
+    public void addProductCategory(){
+
+         testUtility.waitForElementPresent(nameInputBox);
+        nameInputBox.click();
+        testUtility.sleep(3);
+        nameInputBox.sendKeys("Jeans");
+       testUtility.waitForElementPresent(searchButton);
+        searchButton.click();
+        testUtility.sleep(3);
+       testUtility.waitForElementPresent(nameAfterSearched);
+      nameAfterSearched.click();
+        testUtility.sleep(3);
+       // testUtility.waitForElementPresent(addedProductLink);
+       // addedProductLink.click();
+        testUtility.sleep(3);
+        testUtility.waitForElementPresent(categoriesLink);
+        categoriesLink.click();
+       testUtility.waitForElementPresent(existingRootCategories);
+       existingRootCategories.click();
+        testUtility.sleep(3);
+       testUtility.waitForElementPresent(saveButton);
+       saveButton.click();
+
+    }
+    public boolean verifyAddProductCategory() {
+        testUtility.waitForElementPresent(addProductSuccessMessage);
+        if (driver.getPageSource().contains(addProductSuccessMessage.getText())){
+            System.out.println("Store Manager can Add Product Test is Passed!!!");
+            return true;
+        }else {
+            System.out.println("Store Manager can Add Product Test is Failed!!!");
+            return false;
+        }
+    }
+    public void updateProductCategory(){
+        testUtility.waitForElementPresent(nameInputBox);
+        nameInputBox.click();
+        testUtility.sleep(3);
+        nameInputBox.sendKeys("Jeans");
+        testUtility.waitForElementPresent(searchButton);
+        searchButton.click();
+        testUtility.sleep(3);
+        testUtility.waitForElementPresent(nameAfterSearched);
+        nameAfterSearched.click();
+        testUtility.sleep(3);
+//        testUtility.waitForElementPresent(addedProductLink);
+//        addedProductLink.click();
+        testUtility.waitForElementPresent(categoriesLink);
+        categoriesLink.click();
+       testUtility.waitForElementPresent(existingSubCategories);
+       existingSubCategories.click();
+        testUtility.sleep(3);
+        testUtility.waitForElementPresent(saveButton);
+        saveButton.click();
+
+    }
+    public boolean verifyUpdateProductCategory() {
+        testUtility.waitForElementPresent(addProductSuccessMessage);
+        if (driver.getPageSource().contains(addProductSuccessMessage.getText())){
+            System.out.println("Store Manager can Add Product Test is Passed!!!");
+            return true;
+        }else {
+            System.out.println("Store Manager can Add Product Test is Failed!!!");
+            return false;
+        }
+    }
+    public void deleteProductCategory(){
+        testUtility.waitForElementPresent(nameInputBox);
+        nameInputBox.click();
+        testUtility.sleep(3);
+        nameInputBox.sendKeys("Jeans");
+        testUtility.waitForElementPresent(searchButton);
+        searchButton.click();
+        testUtility.sleep(3);
+        testUtility.waitForElementPresent(nameAfterSearched);
+        nameAfterSearched.click();
+        testUtility.sleep(3);
+        testUtility.waitForElementPresent(categoriesLink);
+        categoriesLink.click();
+        testUtility.waitForElementPresent(existingSubCategories);
+        existingRootCategories.click();
+        testUtility.sleep(3);
+        testUtility.waitForElementPresent(saveButton);
+        saveButton.click();
+
+    }
+    public boolean verifyDeleteProductCategory() {
+        testUtility.waitForElementPresent(deleteProductCategorySuccessfulMessage);
+        if (driver.getPageSource().contains(deleteProductCategorySuccessfulMessage.getText())){
+            System.out.println("Store Manager can delete Product category Test is Passed!!!");
+            return true;
+        }else {
+            System.out.println("Store Manager can delete Product category Test is Failed!!!");
             return false;
         }
     }
