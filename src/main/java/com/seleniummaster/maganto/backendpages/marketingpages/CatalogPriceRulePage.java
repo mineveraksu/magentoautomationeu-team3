@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.Select;
 public class CatalogPriceRulePage {
     WebDriver driver;
     TestUtility testUtility;
+
     String name;
 
 
