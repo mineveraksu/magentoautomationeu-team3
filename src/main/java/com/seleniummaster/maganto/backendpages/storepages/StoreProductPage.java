@@ -11,7 +11,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
-
+import java.util.Random;
 
 
 public class StoreProductPage {
@@ -90,6 +90,24 @@ WebElement deleteProductCategorySuccessfulMessage;
 
 
 
+    @FindBy(css = "#description")
+    WebElement descriptionTextArea;
+    @FindBy(css = "#short_description")
+    WebElement shortDescriptionTextArea;
+    @FindBy(css = "#sku")
+    WebElement SKUTextArea;
+
+
+    @FindBy(xpath = "//select[contains(@id,'status') and contains(@name,'product[status]')]")
+    WebElement statusField;
+    @FindBy(xpath = "//select[contains(@id,'visibility') and contains(@name,'product[visibility]')]")
+    WebElement visibilityField;
+
+
+    @FindBy(xpath = "//span[text()='The product has been saved.']")
+    WebElement successMessage;
+
+
     public StoreProductPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -123,11 +141,11 @@ WebElement deleteProductCategorySuccessfulMessage;
         testUtility.waitForElementPresent(priceField);
         priceField.sendKeys(price);
         testUtility.waitForElementPresent(taxClassDropDown);
-        Select select5=new Select(taxClassDropDown);
+        Select select5 = new Select(taxClassDropDown);
         select5.selectByValue("2");
         testUtility.waitForElementPresent(websiteLink);
         websiteLink.click();
-        WebElement websiteCheckBox= driver.findElement(By.xpath(String.format("//label[text()='%s']//preceding::input[1]",testDataHolder.getWebsiteName())));
+        WebElement websiteCheckBox = driver.findElement(By.xpath(String.format("//label[text()='%s']//preceding::input[1]", testDataHolder.getWebsiteName())));
         testUtility.waitForElementPresent(websiteCheckBox);
         websiteCheckBox.click();
         testUtility.waitForElementPresent(inventoryLink);
@@ -143,10 +161,10 @@ WebElement deleteProductCategorySuccessfulMessage;
 
     public boolean verifyAddProductSuccessfully() {
         testUtility.waitForElementPresent(addProductSuccessMessage);
-        if (driver.getPageSource().contains(addProductSuccessMessage.getText())){
+        if (driver.getPageSource().contains(addProductSuccessMessage.getText())) {
             System.out.println("Store Manager can Add Product Test is Passed!!!");
             return true;
-        }else {
+        } else {
             System.out.println("Store Manager can Add Product Test is Failed!!!");
             return false;
         }
@@ -248,4 +266,45 @@ WebElement deleteProductCategorySuccessfulMessage;
             return false;
         }
     }
+
+
+    public void UpdateProduct(WebDriver driver) {
+        testUtility.waitForElementPresent(descriptionTextArea);
+        descriptionTextArea.click();
+        descriptionTextArea.clear();
+        descriptionTextArea.sendKeys("new season fashion");
+        shortDescriptionTextArea.click();
+        shortDescriptionTextArea.clear();
+        shortDescriptionTextArea.sendKeys("slim-fit");
+        SKUTextArea.click();
+        SKUTextArea.clear();
+        SKUTextArea.sendKeys("abcdef1234");
+
+        statusField.clear();
+        statusField.click();
+        Select select = new Select(statusField);
+        select.selectByIndex(1);
+
+        visibilityField.click();
+        Select select1 = new Select(visibilityField);
+        select1.selectByIndex(1);
+        saveButton.click();
+
+
+    }
+
+    public boolean ProductUpdateSuccessfully() {
+        testUtility.waitForElementPresent(successMessage);
+        if (successMessage.isDisplayed()) {
+            System.out.println("Update Products Successfully!!");
+            return true;
+        } else {
+            System.out.println("Update Products failed!!!");
+            return false;
+
+        }
+    }
+
+
 }
+

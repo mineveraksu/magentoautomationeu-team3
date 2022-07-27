@@ -19,6 +19,7 @@ public class StoreSteps extends BasePage {
     StoreDashboardPage storeDashboardPage;
     StoreWebsitePage storeWebsitePage;
     StoreProductPage storeProductPage;
+    StoreOrdersPage storeOrdersPage;
     ExcelUtility excelUtility;
     TestDataHolder testDataHolder;
     StorePage storePage;
@@ -174,26 +175,38 @@ public class StoreSteps extends BasePage {
     //create order
     @Given("store manager is on the dashboard page and store manager click on orders link")
     public void storeManagerIsOnTheDashboardPageAndStoreManagerClickOnOrdersLink() {
+        storeDashboardPage = new StoreDashboardPage(driver);
+        storeDashboardPage.clickOnOrdersLink();
     }
 
-    @When("store manager click on create new orders link")
-    public void storeManagerClickOnCreateNewOrdersLink() {
-    }
+//    @When("store manager select customer and product")
+//    public void store_manager_select_customer_and_product() {
+//        storeDashboardPage = new StoreDashboardPage(driver);
+//        storeOrdersPage= new StoreOrdersPage(driver);
+//        storeDashboardPage.clickOnCreateNewOrderLink();
+//        storeOrdersPage.selectCostumerAndProduct(driver);
+//    }
+//
+//
+//    @And("fill billing and shipping address form")
+//    public void fill_billing_and_shipping_address_form() {
+//        storeOrdersPage= new StoreOrdersPage(driver);
+//        storeOrdersPage.fillBillingAndShippingAddressForm(driver);
+//
+//    }
+//
+//
+//    @And("select shipping and payment method and submit order")
+//    public void select_shipping_and_payment_method_and_submit_order() {
+//        storeOrdersPage= new StoreOrdersPage(driver);
+//        storeOrdersPage.selectShippingMethodAndSubmitOrder(driver);
+//
+//    }
 
-    @And("store manager clıck and select the store name")
-    public void storeManagerClickAndSelectTheStoreName() {
-    }
-
-    @And("store manager select the product name")
-    public void storeManagerSelectTheProductName() {
-    }
-
-    @And("fill the product information")
-    public void fillTheProductInformation() {
-    }
 
     @Then("the order should be saved successfully")
     public void theOrderShouldBeSavedSuccessfully() {
+        Assert.assertTrue(storeOrdersPage.verifyCreateNewOrder());
     }
 
     //edit order
@@ -253,7 +266,26 @@ public class StoreSteps extends BasePage {
     }
 
 
+    @When("store manager select a customer and a product")
+    public void storeManagerSelectACustomerAndAProduct() {
+        storeDashboardPage = new StoreDashboardPage(driver);
+        storeOrdersPage= new StoreOrdersPage(driver);
+        storeDashboardPage.clickOnCreateNewOrderLink();
+        storeOrdersPage.selectCostumerAndProduct();
 
+    }
+
+    @And("fill billing address and shipping address form")
+    public void fillBillingAddressAndShippingAddressForm() {
+        storeOrdersPage= new StoreOrdersPage(driver);
+        storeOrdersPage.fillBillingAndShippingAddressForm();
+    }
+
+    @And("select shipping and payment methods and submit order")
+    public void selectShippingAndPaymentMethodsAndSubmitOrder() {
+        storeOrdersPage= new StoreOrdersPage(driver);
+        storeOrdersPage.selectShippingMethodAndSubmitOrder();
+    }
 }
 
 
