@@ -30,6 +30,8 @@ public class StoreWebsitePage {
     WebElement successMessage;
     @FindBy(linkText = "Store Name")
     WebElement storeNameLink;
+    @FindBy(xpath = "(//p[@class=\"form-buttons\"])[1]/button[4]/span/span/span")
+    WebElement saveEditWebsiteButton;
 
     public StoreWebsitePage(WebDriver driver) {
         this.driver = driver;
@@ -65,8 +67,8 @@ public class StoreWebsitePage {
         websiteName.click();
         testUtility.waitForElementPresent(codeField);
         codeField.sendKeys("123");
-        testUtility.waitForElementPresent(saveWebsiteButton);
-        saveWebsiteButton.click();
+        testUtility.waitForElementPresent(saveEditWebsiteButton);
+        saveEditWebsiteButton.click();
     }
 
     public boolean verifyWebsiteEditSuccessfully(){
