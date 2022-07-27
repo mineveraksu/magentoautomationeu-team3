@@ -64,7 +64,7 @@ public class StoreWebsitePage {
         testUtility.waitForElementPresent(websiteName);
         websiteName.click();
         testUtility.waitForElementPresent(codeField);
-        codeField.sendKeys(testDataHolder.getWebsiteCode()+"1");
+        codeField.sendKeys("123");
         testUtility.waitForElementPresent(saveWebsiteButton);
         saveWebsiteButton.click();
     }
@@ -72,10 +72,10 @@ public class StoreWebsitePage {
     public boolean verifyWebsiteEditSuccessfully(){
         testUtility.waitForElementPresent(successMessage);
         if (successMessage.getText().contains("saved.")) {
-            System.out.println("Store manager create website test passed!");
+            System.out.println("Store manager edit website test passed!");
             return true;
         } else {
-            System.out.println("Store manager create website test failed!");
+            System.out.println("Store manager edit website test failed!");
             return false;
         }
     }
