@@ -72,7 +72,7 @@ public class StoreSteps extends BasePage {
     //create store
     @When("store manager clicks on create store button to fill out store information")
     public void storeManagerClicksOnCreateStoreButtonToFillOutStoreInformation() {
-        storePage=new StorePage(driver);
+        storePage = new StorePage(driver);
         storePage.createStore(testDataHolder);
     }
 
@@ -84,7 +84,7 @@ public class StoreSteps extends BasePage {
     //update store
     @When("store manager clicks on the store name to edit store then clicks on save store button")
     public void storeManagerClicksOnTheStoreNameToEditStoreThenClicksOnSaveStoreButton() {
-        storePage=new StorePage(driver);
+        storePage = new StorePage(driver);
         storePage.editStore(testDataHolder);
     }
 
@@ -97,36 +97,34 @@ public class StoreSteps extends BasePage {
     //create store view
     @When("Store manager click the create store view button")
     public void storeManagerClickTheCreateStoreViewButton() {
-        storeViewPage=new StoreViewPage(driver);
+        storeViewPage = new StoreViewPage(driver);
         storeViewPage.clickOnCreateStoreViewButton();
     }
 
     @And("fill out the information field{string}{string}")
     public void fillOutTheInformationField(String arg0, String arg1) {
-        storeName=arg0;
-        storeCode=arg1;
-        storeViewPage=new StoreViewPage(driver);
-        storeViewPage.createAStoreView(testDataHolder,storeName,storeCode);
+        storeName = arg0;
+        storeCode = arg1;
+        storeViewPage = new StoreViewPage(driver);
+        storeViewPage.createAStoreView(testDataHolder, storeName, storeCode);
     }
 
     @Then("Verify the created store view saved")
     public void verifyTheCreatedStoreViewSaved() {
         Assert.assertTrue(storeViewPage.verifyStoreViewSaved());
     }
+
     //update store view
     //view all stores
-
     @Then("the store names should display on this page.")
     public void theStoreNamesShouldDisplayOnThisPage() {
-        StorePage storePage=new StorePage(driver);
+        StorePage storePage = new StorePage(driver);
         Assert.assertTrue(storePage.verifyAllStoresViewed());
     }
 
-
-
     @When("Store manager click the created store view link and put update name{string}")
     public void storeManagerClickTheCreatedStoreViewLinkAndPutUpdateName(String arg0) {
-        storeViewPage=new StoreViewPage(driver);
+        storeViewPage = new StoreViewPage(driver);
         storeViewPage.editStoreView(arg0);
     }
 
@@ -136,13 +134,10 @@ public class StoreSteps extends BasePage {
     }
 
 
-
-
-
     //delete store
     @When("store manager clicks on the store name to click on the delete store button")
     public void storeManagerClicksOnTheStoreNameToClickOnTheDeleteStoreButton() {
-        storePage=new StorePage(driver);
+        storePage = new StorePage(driver);
         storePage.deleteStore(testDataHolder);
     }
 
@@ -162,7 +157,7 @@ public class StoreSteps extends BasePage {
     @When("click on add product button to fill out {string} {string} {string} {string} {string} {string} {string} and other information information")
     public void clickOnAddProductButtonToFillOutAndOtherInformationInformation(String arg0, String arg1, String arg2, String arg3, String arg4, String arg5, String arg6) {
         storeProductPage = new StoreProductPage(driver);
-        storeProductPage.addProduct(testDataHolder,arg0, arg1, arg2, arg3, arg4, arg5, arg6);
+        storeProductPage.addProduct(testDataHolder, arg0, arg1, arg2, arg3, arg4, arg5, arg6);
     }
 
     @Then("a new product created successfully")
@@ -227,6 +222,7 @@ public class StoreSteps extends BasePage {
         }
         closeBrowser();
     }
+
     //add product categories
     @When("store manager clicks categories link and check the existing product categories")
     public void storeManagerClicksCategoriesLinkAndCheckTheExistingProductCategories() {
@@ -239,22 +235,23 @@ public class StoreSteps extends BasePage {
         org.junit.Assert.assertTrue(storeProductPage.verifyAddProductCategory());
     }
 
-//update product categories
+    //update product categories
     @When("store manager clicks an existing product and check other existing product category")
     public void storeManagerClicksAnExistingProductAndCheckOtherExistingProductCategory() {
-        storeProductPage=new StoreProductPage(driver);
+        storeProductPage = new StoreProductPage(driver);
         storeProductPage.updateProductCategory();
     }
 
-   @Then("verify update the product category")
+    @Then("verify update the product category")
     public void verifyUpdateTheProductCategory() {
-       Assert.assertTrue(storeProductPage.verifyUpdateProductCategory());
+        Assert.assertTrue(storeProductPage.verifyUpdateProductCategory());
 
     }
+
     //delete product categories
     @When("store manager clicks an existing product and delete the product category")
     public void storeManagerClicksAnExistingProductAndDeleteTheProductCategory() {
-        storeProductPage=new StoreProductPage(driver);
+        storeProductPage = new StoreProductPage(driver);
         storeProductPage.deleteProductCategory();
 
 
@@ -262,14 +259,14 @@ public class StoreSteps extends BasePage {
 
     @Then("verify delete the product category")
     public void verifyDeleteTheProductCategory() {
-            org.junit.Assert.assertTrue(storeProductPage.verifyDeleteProductCategory());
+        org.junit.Assert.assertTrue(storeProductPage.verifyDeleteProductCategory());
     }
 
 
     @When("store manager select a customer and a product")
     public void storeManagerSelectACustomerAndAProduct() {
         storeDashboardPage = new StoreDashboardPage(driver);
-        storeOrdersPage= new StoreOrdersPage(driver);
+        storeOrdersPage = new StoreOrdersPage(driver);
         storeDashboardPage.clickOnCreateNewOrderLink();
         storeOrdersPage.selectCostumerAndProduct();
 
@@ -277,13 +274,13 @@ public class StoreSteps extends BasePage {
 
     @And("fill billing address and shipping address form")
     public void fillBillingAddressAndShippingAddressForm() {
-        storeOrdersPage= new StoreOrdersPage(driver);
+        storeOrdersPage = new StoreOrdersPage(driver);
         storeOrdersPage.fillBillingAndShippingAddressForm();
     }
 
     @And("select shipping and payment methods and submit order")
     public void selectShippingAndPaymentMethodsAndSubmitOrder() {
-        storeOrdersPage= new StoreOrdersPage(driver);
+        storeOrdersPage = new StoreOrdersPage(driver);
         storeOrdersPage.selectShippingMethodAndSubmitOrder();
     }
 }
