@@ -29,11 +29,11 @@ Feature:Sales Module Functions
   @AddAndUpdateTaxRules
   Scenario Outline: Sales Manager can add and update tax rules
     Given Sales manager is on the dashboard page and clicks on Manage Tax Rules
-    When Sales Manager click Add New Tax Rule  icon and fill out "<Name>" "<Priority1 >" "<SortOrder>" information and click on Save Rule button
+    When Sales Manager click Add New Tax Rule  icon and fill out "<Name>" "<Priority>" "<SortOrder>" information and click on Save Rule button
     And Sales Manager edit tax rules and click on Save Rule button
-    Then a new Tax Rule created successfully
-    And the new Tax Rule update successfully
+    Then a new Tax Rule created and new Tax Rule update successfully
+
 
     Examples:
-      |  Name  |Priority1| SortOrder |number     |
-      | Team3  | 3        |4         |2          |
+      |  Name  |Priority | SortOrder |
+      | Team3  | 3 |4          |

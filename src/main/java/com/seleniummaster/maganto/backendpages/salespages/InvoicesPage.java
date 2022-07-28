@@ -118,7 +118,7 @@ public class InvoicesPage {
     }
 
     //Add new tax rule
-    public void addNewTaxRule(String Name, String Priority1, String SortOrder) {
+    public void addNewTaxRule(String Name, String Priority , String SortOrder) {
         testUtility.waitForElementPresent(addNewTaxRuleButton);
         addNewTaxRuleButton.click();
         testUtility.sleep(3);
@@ -134,8 +134,9 @@ public class InvoicesPage {
         dropDownTaxRate.selectByIndex(3);
         testUtility.sleep(3);
         testUtility.waitForElementPresent(priorityField);
-        positionField.clear();
-        priorityField.sendKeys(Priority1);
+        priorityField.clear();
+        priorityField.click();
+      priorityField.sendKeys(Priority);
         testUtility.sleep(3);
         testUtility.waitForElementPresent(positionField);
         positionField.clear();

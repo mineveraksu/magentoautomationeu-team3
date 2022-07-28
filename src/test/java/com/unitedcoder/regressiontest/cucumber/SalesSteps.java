@@ -108,16 +108,13 @@ invoicesPage.addNewTaxRule(arg0,arg1,arg2);
 
     }
 
-    @Then("a new Tax Rule created successfully")
-    public void aNewTaxRuleCreatedSuccessfully() {
+
+    @Then("a new Tax Rule created and new Tax Rule update successfully")
+    public void aNewTaxRuleCreatedAndNewTaxRuleUpdateSuccessfully() {
         InvoicesPage invoicesPage=new InvoicesPage(driver);
         invoicesPage.verifyAddNewTaxRuleRuleSuccessfully();
-
-    }
-
-    @And("the new Tax Rule update successfully")
-    public void theNewTaxRuleUpdateSuccessfully() {
-        InvoicesPage invoicesPage=new InvoicesPage(driver);
         invoicesPage.verifyUpdateNewTaxRuleRuleSuccessfully();
+
     }
 }
+
