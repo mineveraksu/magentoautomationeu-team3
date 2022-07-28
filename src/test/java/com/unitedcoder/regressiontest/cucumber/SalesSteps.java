@@ -2,11 +2,10 @@ package com.unitedcoder.regressiontest.cucumber;
 
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
 import com.seleniummaster.maganto.backendpages.salespages.InvoicesPage;
+import com.seleniummaster.maganto.backendpages.salespages.RefundsPage;
 import com.seleniummaster.maganto.backendpages.salespages.SalesDashboardPage;
 import com.seleniummaster.maganto.backendpages.salespages.SalesShipmentsPage;
-import com.seleniummaster.maganto.utility.ApplicationConfig;
-import com.seleniummaster.maganto.utility.BasePage;
-import com.seleniummaster.maganto.utility.ScreenShotUtility;
+import com.seleniummaster.maganto.utility.*;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
@@ -23,6 +22,9 @@ public class SalesSteps extends BasePage {
     SalesDashboardPage salesDashboardPage;
     InvoicesPage invoicesPage;
     SalesShipmentsPage salesShipmentsPage;
+    RefundsPage refundsPage;
+    TestDataHolder testDataHolder;
+    ExcelUtility excelUtility;
 
 
     @Before("@SalesModuleTest")
@@ -31,6 +33,8 @@ public class SalesSteps extends BasePage {
         login = new BackEndLogin(driver);
         login.salesPageLogin();
         salesDashboardPage=new SalesDashboardPage(driver);
+        excelUtility=new ExcelUtility();
+        testDataHolder=excelUtility.readSalesInfoFromExcel("Test-Data/SalesModule.xlsx","Refunds_Info");
     }
     @Given("Sales manager is on the dashboard page and clicks on Orders link")
     public void salesManagerIsOnTheDashboardPageAndClicksOnOrdersLink() {
@@ -78,14 +82,6 @@ public class SalesSteps extends BasePage {
         salesShipmentsPage.verifyUpdateShipmentsTrackingInformationSuccessfully();
     }
 
-    @After("@SalesModuleTest")
-    public void tearDown(Scenario scenario) {
-        if (scenario.isFailed()) {
-            ScreenShotUtility screenShotUtility = new ScreenShotUtility();
-            screenShotUtility.takeScreenshot("image", "failedTest", driver);
-        }
-        closeBrowser();
-    }
 //Add and update Tax Rules
     @Given("Sales manager is on the dashboard page and clicks on Manage Tax Rules")
     public void salesManagerIsOnTheDashboardPageAndClicksOnManageTaxRules() {
@@ -120,4 +116,33 @@ invoicesPage.addNewTaxRule(arg0,arg1,arg2);
         InvoicesPage invoicesPage=new InvoicesPage(driver);
         invoicesPage.verifyUpdateNewTaxRuleRuleSuccessfully();
     }
+
+    @Given("sales manager click on refunds link")
+    public void salesManagerClickOnRefundsLink() {
+        salesDashboardPage.clickOnRefundsLink();
+    }
+
+    @When("sales manager entering the refunds period and shows refunds")
+    public void salesManagerEnteringTheRefundsPeriodAndShowsRefunds() {
+        refundsPage=new RefundsPage(driver);
+        refundsPage.refundsReport(testDataHolder);
+    }
+
+    @Then("sales manager view refunds reports successful")
+    public void salesManagerViewRefundsReportsSuccessful() {
+        refundsPage=new RefundsPage(driver);
+        Assert.assertTrue(refundsPage.verifyRefundsReportSuccessfulShow());
+    }
+
+
+    @After("@SalesModuleTest")
+    public void tearDown(Scenario scenario) {
+        if (scenario.isFailed()) {
+            ScreenShotUtility screenShotUtility = new ScreenShotUtility();
+            screenShotUtility.takeScreenshot("image", "failedTest", driver);
+        }
+        closeBrowser();
+    }
+
+
 }

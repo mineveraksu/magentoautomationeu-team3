@@ -37,3 +37,9 @@ Feature:Sales Module Functions
     Examples:
       |  Name  |Priority1| SortOrder |number     |
       | Team3  | 3        |4         |2          |
+
+  @ViewRefundsInTheReports
+  Scenario: Sales Manager should be able to view refunds in the Reports
+    Given sales manager click on refunds link
+    When  sales manager entering the refunds period and shows refunds
+    Then  sales manager view refunds reports successful
