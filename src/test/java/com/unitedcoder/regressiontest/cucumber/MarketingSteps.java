@@ -32,7 +32,7 @@ public class MarketingSteps extends BasePage {
         login = new BackEndLogin(driver);
         login.marketingPageLogin();
         marketingdashboardPage = new MarketingDashboardPage(driver);
-        excelUtility=new ExcelUtility();
+        excelUtility = new ExcelUtility();
         //testDataHolder=new TestDataHolder();
         testDataHolder = excelUtility.readStoreInfoFromExcel("Test-Data/storeModuleData.xlsx", "Store_Info");
     }
@@ -122,16 +122,18 @@ public class MarketingSteps extends BasePage {
         Assert.assertTrue(reviewsPage.verifyReviewUpdateSuccessful());
     }
 
+
+    //Marketing Manager can view newsletter subscribers .
     @Given("marketing manager is on the dashboard page and marketing manager click on  the newsletter link.")
     public void marketingManagerIsOnTheDashboardPageAndMarketingManagerClickOnTheNewsletterLink() {
-    }
-
-    @When("marketing manager click on the newsletter subscribers link")
-    public void marketingManagerClickOnTheNewsletterSubscribersLink() {
+        marketingdashboardPage = new MarketingDashboardPage(driver);
+        marketingdashboardPage.clickOnNewsletterSubscribersLink();
     }
 
     @Then("newsletter subscribers page should open successfully")
     public void newsletterSubscribersPageShouldOpenSuccessfully() {
+        marketingdashboardPage = new MarketingDashboardPage(driver);
+        Assert.assertTrue(marketingdashboardPage.verifyViewNewsletterSubscribers());
     }
 
     //addnewrule
@@ -142,9 +144,9 @@ public class MarketingSteps extends BasePage {
 
     @When("marketing manager click the add new rule button and fill out{string}")
     public String marketingManagerClickTheAddNewRuleButtonAndFillOut(String arg0) {
-        RuleName=arg0;
-        catalogPriceRulePage=new CatalogPriceRulePage(driver);
-        catalogPriceRulePage.AddNewRule(RuleName,testDataHolder,"65");
+        RuleName = arg0;
+        catalogPriceRulePage = new CatalogPriceRulePage(driver);
+        catalogPriceRulePage.AddNewRule(RuleName, testDataHolder, "65");
         return RuleName;
     }
 
@@ -152,20 +154,21 @@ public class MarketingSteps extends BasePage {
     public void verifyNewRuleAddedSuccessfully() {
         Assert.assertTrue(catalogPriceRulePage.verifySavedNewRule());
     }
-   // search rule by id and name
+    // search rule by id and name
 
     @When("Marketing manager enter rule name and rule id search the rule{string}{string}")
     public void marketingManagerEnterRuleNameAndRuleIdSearchTheRule(String arg0, String arg1) {
-        catalogPriceRulePage=new CatalogPriceRulePage(driver);
-        RuleName=arg0;
+        catalogPriceRulePage = new CatalogPriceRulePage(driver);
+        RuleName = arg0;
         catalogPriceRulePage.searchByName(arg0);
         catalogPriceRulePage.searchById(arg1);
     }
 
     @Then("Verify searched rule successfully")
     public void verifySearchedRuleSuccessfully() {
-       Assert.assertTrue(catalogPriceRulePage.verifySearchResult(RuleName));
+        Assert.assertTrue(catalogPriceRulePage.verifySearchResult(RuleName));
     }
+
     @After("@MarketingModuleTest")
     public void tearDown(Scenario scenario) {
         if (scenario.isFailed()) {
@@ -174,7 +177,6 @@ public class MarketingSteps extends BasePage {
         }
         closeBrowser();
     }
-
 
 
 }
