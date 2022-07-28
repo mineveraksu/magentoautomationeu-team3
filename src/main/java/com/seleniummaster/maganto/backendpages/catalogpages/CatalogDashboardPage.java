@@ -33,6 +33,9 @@ public class CatalogDashboardPage {
     @FindAll(@FindBy(xpath = "//ul[@class=\"x-tree-node-ct\"]"))
     List<WebElement> defaultCategories;
 
+    @FindBy(xpath = "//span[contains(text(),\"Manage Products\")]")
+    WebElement manageProductsLink;
+
     public CatalogDashboardPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver,this);

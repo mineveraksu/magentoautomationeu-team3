@@ -24,6 +24,18 @@ public class ProductPage {
     @FindBy(xpath = "//*[contains(text(),'The product has been deleted.')]")
     WebElement deleteSuccessfulMassage;
 
+    @FindBy(xpath = "//span[contains(text(),\"Add Product\")])[1]")
+    WebElement addProductsLink;
+    @FindBy(id = "attribute_set_id")
+    WebElement attributeSetSelectField;
+    @FindBy(id = "product_type")
+    WebElement productTypeSelectField;
+    @FindBy(xpath = "(//span[contains(text(),\"Continue\")])[1]")
+    WebElement continueButton;
+    @FindBy(id = "name")
+    WebElement productNameField;
+
+
     public ProductPage(WebDriver driver){
         this.driver=driver;
         PageFactory.initElements(driver,this);
