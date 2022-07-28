@@ -26,7 +26,6 @@ public class StoreWebsitePage {
     @FindBy(xpath = "(//button[@title='Delete Website']//span[text()='Delete Website'])[1]")
     WebElement deleteWebsiteButton;
     @FindBy(css = "li.success-msg")
-    WebElement websiteSavedSuccessfulSMS;
     WebElement successMessage;
     @FindBy(linkText = "Store Name")
     WebElement storeNameLink;

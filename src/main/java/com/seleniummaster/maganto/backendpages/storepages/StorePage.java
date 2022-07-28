@@ -35,29 +35,8 @@ public class StorePage {
 //        testUtility = new TestUtility(driver);
 //        PageFactory.initElements(driver, this);
 //    }
-//
-//    public void createWebsite(String name,String code) {
-//        testUtility.waitForElementPresent(createWebsiteLink);
-//        createWebsiteLink.click();
-//        testUtility.waitForElementPresent(nameField);
-//        nameField.sendKeys(name);
-//        testUtility.waitForElementPresent(codeField);
-//        codeField.sendKeys(code);
-//        testUtility.waitForElementPresent(saveWebsiteButton);
-//        saveWebsiteButton.click();
-//    }
-//
-//    public boolean verifyWebsiteCreatedSuccessfully(){
-//        testUtility.waitForElementPresent(websiteSavedSuccessfulSMS);
-//        if (websiteSavedSuccessfulSMS.getText().contains("saved.")) {
-//            System.out.println("Store manager create website test passed!");
-//            return true;
-//        } else {
-//            System.out.println("Store manager create website test failed!");
-//            return false;
-//        }
-//
-//    }
+
+
     public boolean verifyAllStoresViewed(){
         if (storeNameLink.isDisplayed()){
             System.out.println("Store manager can view all stores.");

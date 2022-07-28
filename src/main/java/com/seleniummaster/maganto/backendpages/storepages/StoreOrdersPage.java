@@ -18,6 +18,12 @@ public class StoreOrdersPage {
     String Config= "config.properties";
     String email = "email" ;
 
+    public StoreOrdersPage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+        testUtility = new TestUtility(driver);
+        actions = new Actions(driver);
+    }
 
     @FindBy(xpath = "(//span[text()=\"Edit\"])[1]")
     WebElement editButton;
@@ -191,12 +197,7 @@ public class StoreOrdersPage {
 
         //Store Manager can edit orders
 
-    public StoreOrdersPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-        testUtility = new TestUtility(driver);
-        actions = new Actions(driver);
-    }
+
 
     public void editOrderInformation() {
         testUtility.waitForElementPresent(editButton);
