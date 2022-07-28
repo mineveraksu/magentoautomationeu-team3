@@ -13,7 +13,8 @@ public class TestDataHolder {
     private String storeName;
     private String startDate;
     private String endDate;
-
+    private String startFrom;
+    private String endTo;
 
 
     @Override
@@ -38,16 +39,17 @@ public class TestDataHolder {
         this.customerGroupName = customerGroupName;
     }
 
-    public TestDataHolder(String rootCategoryName, String rootCategoryDescription){
+    public TestDataHolder(String rootCategoryName, String rootCategoryDescription) {
         this.rootCategoryName = rootCategoryName;
         this.rootCategoryDescription = rootCategoryDescription;
     }
 
-    public TestDataHolder(String subCategoriesName, String subCategoriesDescription,String rootCategoryName) {
+    public TestDataHolder(String subCategoriesName, String subCategoriesDescription, String rootCategoryName) {
         this.subCategoriesName = subCategoriesName;
         this.subCategoriesDescription = subCategoriesDescription;
-        this.rootCategoryName=rootCategoryName;
+        this.rootCategoryName = rootCategoryName;
     }
+
     public String getNewRootCategoryDescription() {
         return newRootCategoryDescription;
     }
@@ -57,20 +59,30 @@ public class TestDataHolder {
     public String getCustomerGroupName() {
         return customerGroupName;
     }
+
     public String getSubCategoriesName() {
         return subCategoriesName;
     }
+
     public String getSubCategoriesDescription() {
         return subCategoriesDescription;
     }
+
     public String getRootCategoryName() {
         return rootCategoryName;
     }
+
     public String getRootCategoryDescription() {
         return rootCategoryDescription;
     }
-    public String getattributeCode() {return attributeCode;}
-    public String getadminName() {return adminName;}
+
+    public String getattributeCode() {
+        return attributeCode;
+    }
+
+    public String getadminName() {
+        return adminName;
+    }
 
     public void setStoreName(String storeName) {
         this.storeName = storeName;
@@ -111,4 +123,22 @@ public class TestDataHolder {
     public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
+
+    public String getStartFrom() {
+        return startFrom;
+    }
+
+    public void setStartFrom(String startFrom) {
+        this.startFrom = startFrom;
+    }
+
+    public String getEndTo() {
+        return endTo;
+    }
+
+    public void setEndTo(String endTo) {
+        this.endTo = endTo;
+    }
 }
+
+
