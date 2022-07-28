@@ -47,7 +47,7 @@ public class ReportingDashboardPage {
         testUtility.waitForElementPresent(salesOption);
         actions.moveToElement(salesOption).perform();
         testUtility.waitForElementPresent(invoicedOption);
-        actions.moveToElement(invoicedOption).click();
+        invoicedOption.click();
 
     }
 
@@ -57,6 +57,6 @@ public class ReportingDashboardPage {
         testUtility.waitForElementPresent(salesOption);
         actions.moveToElement(salesOption).perform();
         testUtility.waitForElementPresent(shippingOption);
-        actions.moveToElement(shippingOption).click();
+        shippingOption.click();
     }
 }
