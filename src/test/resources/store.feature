@@ -7,6 +7,12 @@ Feature:Store Manager can manage store
     When store manager click create website button and fill out Website Information and click save button
     Then website created successfully
     #edit website
+  @EditWebsite
+    Scenario: Store Manager can Edit a website
+    Given store manager is on the dashboard page store manager click on manage stores link
+    When store manager select the website and edit website information and click save button
+    Then website edit successfully
+
 
   @CreateStore
   Scenario: Store Manager can create a store

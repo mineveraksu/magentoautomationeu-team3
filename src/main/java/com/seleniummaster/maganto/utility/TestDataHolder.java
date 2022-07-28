@@ -48,11 +48,6 @@ public class TestDataHolder {
         this.subCategoriesDescription = subCategoriesDescription;
         this.rootCategoryName=rootCategoryName;
     }
-    public String getNewRootCategoryDescription() {
-        return newRootCategoryDescription;
-    }
-
-    private String newRootCategoryDescription;
 
     public String getCustomerGroupName() {
         return customerGroupName;

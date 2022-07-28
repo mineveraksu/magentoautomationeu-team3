@@ -29,6 +29,10 @@ public class StoreWebsitePage {
     WebElement successMessage;
     @FindBy(linkText = "Store Name")
     WebElement storeNameLink;
+    @FindBy(xpath = "(//p[@class=\"form-buttons\"])[1]/button[4]/span/span/span")
+    WebElement saveEditWebsiteButton;
+    @FindBy(xpath = "//*[@id=\"messages\"]/ul/li/ul/li/span")
+    WebElement editWebsiteSuccessMessage;
 
     public StoreWebsitePage(WebDriver driver) {
         this.driver = driver;
@@ -54,6 +58,27 @@ public class StoreWebsitePage {
             return true;
         } else {
             System.out.println("Store manager create website test failed!");
+            return false;
+        }
+    }
+
+    public void editWebsite(TestDataHolder testDataHolder){
+        WebElement websiteName = driver.findElement(By.xpath(String.format("//a[contains(text(),'%s')]", testDataHolder.getWebsiteName())));
+        testUtility.waitForElementPresent(websiteName);
+        websiteName.click();
+        testUtility.waitForElementPresent(codeField);
+        codeField.sendKeys("1234");
+        testUtility.waitForElementPresent(saveEditWebsiteButton);
+        saveEditWebsiteButton.click();
+    }
+
+    public boolean verifyWebsiteEditSuccessfully(){
+        testUtility.waitForElementPresent(editWebsiteSuccessMessage);
+        if (editWebsiteSuccessMessage.getText().contains("saved.")) {
+            System.out.println("Store manager edit website test passed!");
+            return true;
+        } else {
+            System.out.println("Store manager edit website test failed!");
             return false;
         }
     }
