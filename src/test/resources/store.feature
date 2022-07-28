@@ -7,6 +7,12 @@ Feature:Store Manager can manage store
     When store manager click create website button and fill out Website Information and click save button
     Then website created successfully
     #edit website
+  @EditWebsite
+    Scenario: Store Manager can Edit a website
+    Given store manager is on the dashboard page store manager click on manage stores link
+    When store manager select the website and edit website information and click save button
+    Then website edit successfully
+
 
   @CreateStore
   Scenario: Store Manager can create a store
@@ -73,10 +79,9 @@ Feature:Store Manager can manage store
   @CreateOrder
   Scenario: Store Manager can create an order
     Given store manager is on the dashboard page and store manager click on orders link
-    When store manager click on create new orders link
-    And  store manager clıck and select the store name
-    And  store manager select the product name
-    And  fill the product information
+    When store manager select a customer and a product
+    And fill billing address and shipping address form
+    And select shipping and payment methods and submit order
     Then the order should be saved successfully
    #edit orders
   @EditOrders

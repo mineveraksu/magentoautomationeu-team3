@@ -35,10 +35,14 @@ public class MarketingDashboardPage {
     WebElement allReviewsLink;
     @FindBy(xpath = "//span[text()='Promotions']")
     WebElement promotionsLink;
-    @FindBy(xpath = "//*[text()='Catalog Price Rules']")
-    WebElement catalogPriceRulesOption;
-    @FindBy(xpath = "//span[text()='Shopping Cart Price Rules']")
-    WebElement shoppingCartPriceRulesOption;
+    @FindBy(xpath = "//span[text()='Catalog Price Rules']")
+    WebElement catalogPriceRulesLink;
+    @FindBy(xpath = "//span[text()='Newsletter Subscribers']")
+    WebElement newsletterSubscribersLink;
+    @FindBy(css = "#page\\:main-container > div.content-header > table > tbody > tr > td > h3")
+    WebElement newsletterSubscribersTitle;
+
+
 
     public void clickOnPendingReviewsLink() {
         testUtility.waitForElementPresent(catalogLink);
@@ -67,12 +71,30 @@ public class MarketingDashboardPage {
         testUtility.waitForElementPresent(allReviewsLink);
         allReviewsLink.click();
     }
-    public void clickOnPromotionsLink() {
-        testUtility.waitForElementPresent(promotionsLink);
-        actions.moveToElement(promotionsLink).click().perform();
-        //testUtility.waitForElementPresent(catalogPriceRulesOption);
-       // actions.moveToElement(catalogPriceRulesOption).click().perform();
-        testUtility.waitForElementPresent(shoppingCartPriceRulesOption);
-        actions.moveToElement(shoppingCartPriceRulesOption).click().perform();
+
+
+   public void clickONCatalogPriceRuleLink(){
+       testUtility.waitForElementPresent(promotionsLink);
+       actions.moveToElement(promotionsLink).perform();
+        testUtility.waitForElementPresent(catalogPriceRulesLink);
+        catalogPriceRulesLink.click();
     }
+
+    public void clickOnNewsletterSubscribersLink(){
+        testUtility.waitForElementPresent(newsletterLink);
+        actions.moveToElement(newsletterLink).perform();
+        testUtility.waitForElementPresent(newsletterSubscribersLink);
+        newsletterSubscribersLink.click();
+    }
+
+    public boolean verifyViewNewsletterSubscribers(){
+        if (newsletterSubscribersTitle.getText().contains("Newsletter Subscribers")){
+            System.out.println("Marketing Manager can view newsletter subscribers .");
+            return true;
+        }else{
+            System.out.println("Marketing Manager can not view newsletter subscribers");
+            return false;
+        }
+    }
+
 }
