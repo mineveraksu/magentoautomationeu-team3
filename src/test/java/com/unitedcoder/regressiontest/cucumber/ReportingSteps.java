@@ -88,6 +88,25 @@ public class ReportingSteps extends BasePage {
         Assert.assertTrue(shippedReportPage.verifyViewSalesShippedReportSuccessfully());
 
     }
+//See Products-Products Ordered Report
+    @Given("Reporting manager is on the dashboard page and clicks on Products Ordered link")
+    public void reportingManagerIsOnTheDashboardPageAndClicksOnProductsOrderedLink() {
+        reportingDashboardPage.ClickOnProductsOrderedOption();
+
+    }
+
+    @When("Reporting Manager Navigate to products ordered report page and select period and date {string} {string} and click Refresh button")
+    public void reportingManagerNavigateToProductsOrderedReportPageAndSelectPeriodAndDateAndClickRefreshButton(String arg0, String arg1) {
+        productsMostViewedPage.viewProductsOrderedReport(arg0,arg1);
+
+    }
+
+    @Then("Total products Ordered report displayed successfully")
+    public void totalProductsOrderedReportDisplayedSuccessfully() {
+        Assert.assertTrue(productsMostViewedPage.verifyViewProductsOrderedReport());
+    }
+
+
 }
 
 
