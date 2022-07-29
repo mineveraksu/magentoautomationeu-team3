@@ -171,8 +171,8 @@ public class MarketingSteps extends BasePage {
     //View all Reviews
     @Given("marketing manager is on the dashboard page and marketing manager click on aAll reviews link")
     public void marketingManagerIsOnTheDashboardPageAndMarketingManagerClickOnAallReviewsLink() {
-       ReviewsPage reviewsPage=new ReviewsPage(driver);
-       reviewsPage.viewAllRevies();
+        MarketingDashboardPage marketingDashboardPage=new MarketingDashboardPage(driver);
+        marketingDashboardPage.clickOnAllReviewsLink();
 
     }
 
