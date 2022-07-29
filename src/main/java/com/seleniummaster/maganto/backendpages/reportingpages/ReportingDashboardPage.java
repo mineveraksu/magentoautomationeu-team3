@@ -24,6 +24,10 @@ public class ReportingDashboardPage {
     WebElement productsLink;
     @FindBy(xpath = "(//span[contains(text(),'Most Viewed')])[1]")
     WebElement mostViewedLink;
+    @FindBy(xpath = "//span[text()=\"Sales\"]")
+    WebElement salesLink;
+    @FindBy(xpath = "(//span[text()=\"Orders\"])[1]")
+    WebElement ordersLink;
 
     public void clickOnMostViewedLink(){
         testUtility.waitForElementPresent(reportsLink);
@@ -32,6 +36,15 @@ public class ReportingDashboardPage {
         actions.moveToElement(productsLink).click().perform();
         testUtility.waitForElementPresent(mostViewedLink);
         actions.moveToElement(mostViewedLink).click().perform();
+    }
+
+    public void clickOnOrdersLink(){
+        testUtility.waitForElementPresent(reportsLink);
+        actions.moveToElement(reportsLink).click().perform();
+        testUtility.waitForElementPresent(salesLink);
+        actions.moveToElement(salesLink).click().perform();
+        testUtility.waitForElementPresent(ordersLink);
+        actions.moveToElement(ordersLink).click().perform();
     }
 
 }

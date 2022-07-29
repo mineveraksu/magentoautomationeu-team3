@@ -3,11 +3,13 @@ package com.unitedcoder.regressiontest.cucumber;
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
 import com.seleniummaster.maganto.backendpages.reportingpages.ProductsMostViewedPage;
 import com.seleniummaster.maganto.backendpages.reportingpages.ReportingDashboardPage;
+import com.seleniummaster.maganto.backendpages.reportingpages.SalesPage;
 import com.seleniummaster.maganto.backendpages.salespages.SalesDashboardPage;
 import com.seleniummaster.maganto.utility.*;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -20,7 +22,9 @@ public class ReportingSteps extends BasePage {
     ReportingDashboardPage reportingDashboardPage;
     ProductsMostViewedPage productsMostViewedPage;
     TestDataHolder testDataHolder;
+    TestDataHolder testDataHolder2;
     ExcelUtility excelUtility;
+    SalesPage salesPage;
 
 
     @Before("@ReportingModuleTest")
@@ -32,6 +36,8 @@ public class ReportingSteps extends BasePage {
         productsMostViewedPage=new ProductsMostViewedPage(driver);
         excelUtility=new ExcelUtility();
         testDataHolder=excelUtility.readReportingInfoFromExcel("Test-Data/reportingModule.xlsx","Sales_Info");
+        testDataHolder2=excelUtility.readSalesInfoFromExcel("Test-Data/SalesModule.xlsx","Refunds_Info");
+        salesPage= new SalesPage(driver);
     }
     @Given("Reporting manager is on the dashboard page and clicks on Downloads link")
     public void reportingManagerIsOnTheDashboardPageAndClicksOnDownloadsLink() {
@@ -61,4 +67,19 @@ public class ReportingSteps extends BasePage {
     }
 
 
+    @Given("Reporting manager is on the dashboard page and clicks on Orders link")
+    public void reportingManagerIsOnTheDashboardPageAndClicksOnOrdersLink() {
+        reportingDashboardPage.clickOnOrdersLink();
+    }
+
+    @When("Reporting manager choose orders reported period and see report")
+    public void reportingManagerChooseOrdersReportedPeriodAndSeeReport() {
+        salesPage.seeTotalOrdersReport(testDataHolder2);
+
+    }
+
+    @And("Reporting manager see total ordered report under the Sales")
+    public void reportingManagerSeeTotalOrderedReportUnderTheSales() {
+       Assert.assertTrue(salesPage.verifyOrdersSaw());
+    }
 }
