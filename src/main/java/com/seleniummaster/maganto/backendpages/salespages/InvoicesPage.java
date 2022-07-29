@@ -54,6 +54,9 @@ public class InvoicesPage {
     WebElement saveRuleButton;
     @FindBy(xpath = "(//span[contains(text(),'The tax rule has been saved.')])[1]")
     WebElement addedTaxRuleSuccessMessages;
+    @FindBy(xpath = "//td[contains(text(),'Team3')]")
+    WebElement existingNewTaxRules;
+
 
 
     public void clickOnViewButton() {
@@ -118,30 +121,24 @@ public class InvoicesPage {
     }
 
     //Add new tax rule
-    public void addNewTaxRule(String Name, String Priority1, String SortOrder) {
+    public void addNewTaxRule(String Name, String Priority , String SortOrder) {
         testUtility.waitForElementPresent(addNewTaxRuleButton);
         addNewTaxRuleButton.click();
-        testUtility.sleep(3);
         testUtility.waitForElementPresent(nameField);
         nameField.sendKeys(Name);
-        testUtility.sleep(3);
         Select dropDownCustomerTaxClass = new Select(selectCustomerTaxClass);
         dropDownCustomerTaxClass.selectByIndex(1);
         Select dropDownProductTaxClass = new Select(selectProductClass);
         dropDownProductTaxClass.selectByIndex(2);
-        testUtility.sleep(3);
         Select dropDownTaxRate = new Select(selectTaxRate);
         dropDownTaxRate.selectByIndex(3);
-        testUtility.sleep(3);
         testUtility.waitForElementPresent(priorityField);
-        positionField.clear();
-        priorityField.sendKeys(Priority1);
-        testUtility.sleep(3);
+        priorityField.clear();
+        priorityField.click();
+      priorityField.sendKeys(Priority);
         testUtility.waitForElementPresent(positionField);
         positionField.clear();
-        testUtility.sleep(3);
         positionField.sendKeys(SortOrder);
-        testUtility.sleep(3);
         testUtility.waitForElementPresent(saveRuleButton);
         actions.moveToElement(saveRuleButton).build().perform();
         saveRuleButton.click();
@@ -158,30 +155,18 @@ public class InvoicesPage {
         }
 
     }
-    public void updateNewTaxRule(String Name, String SortOrder,String number) {
-        testUtility.waitForElementPresent(addNewTaxRuleButton);
-        addNewTaxRuleButton.click();
-        testUtility.sleep(3);
-        testUtility.waitForElementPresent(nameField);
-        nameField.sendKeys(Name);
-        testUtility.sleep(3);
+    public void updateNewTaxRule(String Number) {
+        testUtility.waitForElementPresent(existingNewTaxRules);
+        existingNewTaxRules.click();
         Select dropDownCustomerTaxClass = new Select(selectCustomerTaxClass);
-        dropDownCustomerTaxClass.selectByIndex(4);
+        dropDownCustomerTaxClass.selectByIndex(1);
         Select dropDownProductTaxClass = new Select(selectProductClass);
-        dropDownProductTaxClass.selectByIndex(2);
-        testUtility.sleep(3);
+        dropDownProductTaxClass.selectByIndex(1);
         Select dropDownTaxRate = new Select(selectTaxRate);
         dropDownTaxRate.selectByIndex(3);
-        testUtility.sleep(3);
-        testUtility.waitForElementPresent(priorityField);
-        positionField.clear();
-        priorityField.sendKeys(number);
-        testUtility.sleep(3);
         testUtility.waitForElementPresent(positionField);
         positionField.clear();
-        testUtility.sleep(3);
-        positionField.sendKeys(SortOrder);
-        testUtility.sleep(3);
+        positionField.sendKeys(Number);
         testUtility.waitForElementPresent(saveRuleButton);
         actions.moveToElement(saveRuleButton).build().perform();
         saveRuleButton.click();

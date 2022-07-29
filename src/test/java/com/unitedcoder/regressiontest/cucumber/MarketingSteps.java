@@ -1,10 +1,7 @@
 package com.unitedcoder.regressiontest.cucumber;
 
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
-import com.seleniummaster.maganto.backendpages.marketingpages.CatalogPriceRulePage;
-import com.seleniummaster.maganto.backendpages.marketingpages.MarketingDashboardPage;
-import com.seleniummaster.maganto.backendpages.marketingpages.NewsletterTemplatePage;
-import com.seleniummaster.maganto.backendpages.marketingpages.ReviewsPage;
+import com.seleniummaster.maganto.backendpages.marketingpages.*;
 import com.seleniummaster.maganto.utility.*;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -169,6 +166,48 @@ public class MarketingSteps extends BasePage {
         Assert.assertTrue(catalogPriceRulePage.verifySearchResult(RuleName));
     }
 
+
+
+    //View all Reviews
+    @Given("marketing manager is on the dashboard page and marketing manager click on aAll reviews link")
+    public void marketingManagerIsOnTheDashboardPageAndMarketingManagerClickOnAallReviewsLink() {
+        MarketingDashboardPage marketingDashboardPage=new MarketingDashboardPage(driver);
+        marketingDashboardPage.clickOnAllReviewsLink();
+
+    }
+
+    @When("marketing manager view on all reviews page")
+    public void marketingManagerViewOnAllReviewsPage() {
+        reviewsPage = new ReviewsPage(driver);
+
+    }
+
+    @Then("the all reviews view successfully")
+    public void theAllReviewsViewSuccessfully() {
+        Assert.assertTrue(reviewsPage.verifyViewAllReviewsSuccessfully());
+
+    }
+
+//Marketing Manager can add new Cart Price Rule
+    @Given("Marketing manager on the dashboard page and marketing manager click on Promotions link")
+    public void marketingManagerOnTheDashboardPageAndMarketingManagerClickOnPromotionsLink() {
+        CartPriceRulePage cartPriceRulePage=new CartPriceRulePage(driver);
+        cartPriceRulePage.clickShoppingCartPriceRulesLink();
+    }
+
+    @When("click on Shopping Cart Price Rules link to fill out {string} {string} {string} and other information information")
+    public void clickOnShoppingCartPriceRulesLinkToFillOutAndOtherInformationInformation(String arg0, String arg1, String arg2) {
+        CartPriceRulePage cartPriceRulePage=new CartPriceRulePage(driver);
+        cartPriceRulePage.addNewShoppingCartPriceRule(arg0,arg1,arg2);
+
+    }
+
+    @Then("a new shopping cart price rule should be added successfully")
+    public void aNewShoppingCartPriceRuleShouldBeAddedSuccessfully() {
+        CartPriceRulePage cartPriceRulePage=new CartPriceRulePage(driver);
+        Assert.assertTrue(cartPriceRulePage.verifyAddNewShoppingCartPriceRuleSuccessfully());
+    }
+
     @After("@MarketingModuleTest")
     public void tearDown(Scenario scenario) {
         if (scenario.isFailed()) {
@@ -177,9 +216,8 @@ public class MarketingSteps extends BasePage {
         }
         closeBrowser();
     }
-
-
 }
+
 
 
 
