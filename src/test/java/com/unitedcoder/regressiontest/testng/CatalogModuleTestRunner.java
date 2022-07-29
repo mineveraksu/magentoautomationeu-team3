@@ -1,10 +1,7 @@
 package com.unitedcoder.regressiontest.testng;
 
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
-import com.seleniummaster.maganto.backendpages.catalogpages.AttributesPage;
-import com.seleniummaster.maganto.backendpages.catalogpages.CatalogDashboardPage;
-import com.seleniummaster.maganto.backendpages.catalogpages.CatalogPage;
-import com.seleniummaster.maganto.backendpages.catalogpages.SubCategoriesPage;
+import com.seleniummaster.maganto.backendpages.catalogpages.*;
 import com.seleniummaster.maganto.utility.*;
 import org.testng.Assert;
 import org.testng.ITestContext;
@@ -18,6 +15,7 @@ public class CatalogModuleTestRunner extends BasePage {
     SubCategoriesPage subCategoriesPage;
     CatalogPage catalogPage;
     AttributesPage attributesPage;
+    ProductPage productPage;
     ExcelUtility excelUtility;
 
     @BeforeClass
@@ -32,6 +30,7 @@ public class CatalogModuleTestRunner extends BasePage {
         catalogPage = new CatalogPage(driver);
         attributesPage = new AttributesPage(driver);
         excelUtility = new ExcelUtility();
+        productPage = new ProductPage(driver);
     }
 
     @Test(dataProvider = "addRootCategoryInfo", description = "Catalog manager can add root categories.", priority = 1)
@@ -42,7 +41,7 @@ public class CatalogModuleTestRunner extends BasePage {
         Assert.assertTrue(catalogPage.verifyAddRootCategories());
     }
 
-    @Test(dataProvider = "addRootCategoryInfo", description = "Catalog Manager can edit root categories ",priority = 5)
+    @Test(dataProvider = "addRootCategoryInfo", description = "Catalog Manager can edit root categories ", priority = 5)
     public void editRootCategory(TestDataHolder testDataHolder) {
         login.VerifyLoginSuccessfully();
         catalogDashboardPage.clickOnManageCategories();
@@ -93,6 +92,21 @@ public class CatalogModuleTestRunner extends BasePage {
         Assert.assertTrue(attributesPage.verifyNewAttributesAddedSuccessfully());
     }
 
+    @Test(dataProvider = "addProductInfo", description = "Catalog Manager can add products ")
+    public void addNewProduct(TestDataHolder testDataHolder) {
+        catalogDashboardPage.clickOnManageProductsPage();
+        productPage.addProduct(testDataHolder);
+        Assert.assertTrue(productPage.verifyProductAddedSuccessfully());
+
+    }
+    @DataProvider
+    public Object[] addProductInfo() {
+        Object[] data = new Object[]{
+                excelUtility.readCatalogAddProductInfoFromExcel("Test-Data/catalogModuleAddProducts.xlsx", "addProductInfo")};
+        return data;
+    }
+
+
     @DataProvider
     public Object[] subCategoriesInfo() {
         Object[] data = new Object[]
@@ -123,8 +137,10 @@ public class CatalogModuleTestRunner extends BasePage {
         return data;
     }
 
-    @AfterClass()
-    public void tearDown() {
-        closeBrowser();
-    }
+
+
+//    @AfterClass()
+//    public void tearDown() {
+//        closeBrowser();
+//    }
 }
