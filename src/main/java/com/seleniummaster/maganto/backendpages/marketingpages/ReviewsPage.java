@@ -97,7 +97,7 @@ public class ReviewsPage {
     }
 
     //ViewPendingReviews
-    @FindBy(xpath ="//tr[@class='even pointer'] [1]")
+    @FindBy(xpath ="(//tr[@class='even pointer'])[1]")
     WebElement pendingViews;
 
     public boolean verifyViewPendingReviewsSuccessfully() {
