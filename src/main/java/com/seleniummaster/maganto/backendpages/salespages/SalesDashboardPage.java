@@ -32,6 +32,12 @@ public class SalesDashboardPage {
     WebElement manageTaxRulesLink;
     @FindBy(xpath = "//span[contains(text(),'Orders')]")
     WebElement ordersLink;
+    @FindBy(xpath = "(//span[contains(text(),'Reports')])[2]")
+    WebElement reportsLink;
+    @FindBy(xpath = "(//span[contains(text(),'Sales')])[2]")
+    WebElement salesLinkUnderReportsLink;
+    @FindBy(xpath = "//span[contains(text(),'Refunds')]")
+    WebElement refundsLink;
 
     public void clickOnInvoicesLink(){
         testUtility.waitForElementPresent(salesLink);
@@ -64,5 +70,17 @@ public class SalesDashboardPage {
         ordersLink.click();
 
     }
+
+    public void clickOnRefundsLink(){
+        testUtility.waitForElementPresent(reportsLink);
+        actions.moveToElement(reportsLink).click().perform();
+        testUtility.waitForElementPresent(salesLinkUnderReportsLink);
+        actions.moveToElement(salesLinkUnderReportsLink).click().perform();
+        testUtility.waitForElementPresent(refundsLink);
+        actions.moveToElement(refundsLink).click().perform();
+        testUtility.sleep(2);
+    }
+
+
 
 }
