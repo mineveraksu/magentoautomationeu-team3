@@ -11,7 +11,6 @@ Feature:Reporting Module Functions
       When reporting manager select period field and click showReports button after filling infos
       Then most viewed products report displayed successfully
 
-
   @SeeSales-TotalInvoicedVsPaidReport
   Scenario Outline: Reporting Manager should be able to see sales- Total Invoiced Vs Paid Report
     Given Reporting manager is on the dashboard page and clicks on Invoiced Option
