@@ -20,7 +20,6 @@ public class SalesPage {
     TestDataHolder testDataHolder;
     int rowCount;
 
-
     @FindBy(css = "#store_switcher")
     WebElement showReportForField;
     @FindBy(css="#sales_report_report_type")
@@ -63,7 +62,7 @@ public class SalesPage {
         rowCount=rows.size();
         if(rowCount>=1){
             System.out.println("Reporting manager see total order reports successful !");
-            return  true;
+            return true;
         }else{
             System.out.println("Reporting manager can not see total orders !");
             return false;

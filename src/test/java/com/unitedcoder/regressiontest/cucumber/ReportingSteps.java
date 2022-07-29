@@ -69,6 +69,7 @@ public class ReportingSteps extends BasePage {
 
     @Given("Reporting manager is on the dashboard page and clicks on Orders link")
     public void reportingManagerIsOnTheDashboardPageAndClicksOnOrdersLink() {
+
         reportingDashboardPage.clickOnOrdersLink();
     }
 
