@@ -67,6 +67,5 @@ public class SalesPage {
             System.out.println("Reporting manager can not see total orders !");
             return false;
         }
-
     }
 }

@@ -80,7 +80,7 @@ public class ReportingSteps extends BasePage {
     }
 
     @And("Reporting manager see total ordered report under the Sales")
-    public void reportingManagerSeeTotalOrderedReportUnderTheSales() {
+    public void reportingManagerSeeTotalOrderedReportUnderTheSales(){
        Assert.assertTrue(salesPage.verifyOrdersSaw());
     }
 }
