@@ -53,28 +53,40 @@ Feature:Marketing Manager can manage market
       |the dress is beautiful and good quality|
 
   @VieNewsletterSubscribers
-  Scenario Outline: Marketing Manager can view newsletter subscribers .
+  Scenario: Marketing Manager can view newsletter subscribers .
     Given marketing manager is on the dashboard page and marketing manager click on  the newsletter link.
-    When  marketing manager click on the newsletter subscribers link
     Then newsletter subscribers page should open successfully
-    Examples:
-      |  |
 
-  @AddNewShoppingCartPricePule
-  Scenario Outline: Marketing Manager can add new shopping cart price rule
-    Given Marketing manager on the dashboard page and marketing manager click on Promotions link
-    When  click on Shopping Cart Price Rules link to fill out "<RuleName>" "<description>" "<Priority>" and other information information
-    Then a new shopping cart price rule should be added successfully
+  @AddNewRule
+  Scenario Outline: Marketing manager can add new rule
+    Given marketing manager is on the dashboard page and clicks on catalog price rule link
+    When  marketing manager click the add new rule button and fill out"<RuleName>"
+    Then  verify new rule added successfully
     Examples:
-      |RuleName        | description         | Priority |
-      |50% Sales(team3) |50% off any product  | Medium |
+      |RuleName |
+      | team3333|
+
+  @SearchRuleByID
+  Scenario Outline: : Marketing manager can search rule by id
+   Given marketing manager is on the dashboard page and clicks on catalog price rule link
+    When Marketing manager enter rule name and rule id search the rule"<RuleName>""<rule id>"
+    Then Verify searched rule successfully
+    Examples:
+    |RuleName     |rule id|
+    |             |  63   |
 
   @ViewAllReviews
   Scenario: Marketing Manager can view All reviews
-    Given marketing manager is on the dashboard page and manager click on All reviews link
-    When marketing manager view on All reviews page
-    Then the All reviews view successfully
+    Given marketing manager is on the dashboard page and marketing manager click on aAll reviews link
+    When marketing manager view on all reviews page
+    Then the all reviews view successfully
 
-
-
+    @MarketingManagerCanAddNewCartPriceRule
+    Scenario Outline: Marketing Manager can add new shopping cart price rule
+      Given Marketing manager on the dashboard page and marketing manager click on Promotions link
+      When  click on Shopping Cart Price Rules link to fill out "<RuleName>" "<description>" "<Priority>" and other information information
+      Then a new shopping cart price rule should be added successfully
+      Examples:
+        |RuleName        | description         | Priority |
+        |50% Sales(team3) |50% off any product  | Medium |
 

@@ -1,13 +1,8 @@
 package com.unitedcoder.regressiontest.cucumber;
 
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
-import com.seleniummaster.maganto.backendpages.marketingpages.CartPriceRulePage;
-import com.seleniummaster.maganto.backendpages.marketingpages.MarketingDashboardPage;
-import com.seleniummaster.maganto.backendpages.marketingpages.NewsletterTemplatePage;
-import com.seleniummaster.maganto.backendpages.marketingpages.ReviewsPage;
-import com.seleniummaster.maganto.utility.ApplicationConfig;
-import com.seleniummaster.maganto.utility.BasePage;
-import com.seleniummaster.maganto.utility.ScreenShotUtility;
+import com.seleniummaster.maganto.backendpages.marketingpages.*;
+import com.seleniummaster.maganto.utility.*;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
@@ -23,6 +18,10 @@ public class MarketingSteps extends BasePage {
     MarketingDashboardPage marketingdashboardPage;
     NewsletterTemplatePage newsletterTemplatePage;
     ReviewsPage reviewsPage;
+    CatalogPriceRulePage catalogPriceRulePage;
+    TestDataHolder testDataHolder;
+    ExcelUtility excelUtility;
+    String RuleName;
 
     @Before("@MarketingModuleTest")
     public void setup() {
@@ -30,6 +29,9 @@ public class MarketingSteps extends BasePage {
         login = new BackEndLogin(driver);
         login.marketingPageLogin();
         marketingdashboardPage = new MarketingDashboardPage(driver);
+        excelUtility = new ExcelUtility();
+        //testDataHolder=new TestDataHolder();
+        testDataHolder = excelUtility.readStoreInfoFromExcel("Test-Data/storeModuleData.xlsx", "Store_Info");
     }
 
     @Given("marketing manager is on the dashboard page and clicks on Newsletter Templates link")
@@ -40,7 +42,7 @@ public class MarketingSteps extends BasePage {
 
     @When("marketing manager clicks on Add New Template button and fill out {string}{string} Information and clicks save Template button")
     public void marketingManagerClicksOnAddNewTemplateButtonAndFillOutInformationAndClicksSaveTemplateButton(String arg0, String arg1) {
-        newsletterTemplatePage.addNewNewsletterTemplate(arg0,arg1);
+        newsletterTemplatePage.addNewNewsletterTemplate(arg0, arg1);
     }
 
     @Then("a new Newsletter template {string} added successfully")
@@ -76,7 +78,7 @@ public class MarketingSteps extends BasePage {
 
     @When("marketing manager click existing review edit button and clear the review field and edit new review in {string} field")
     public void marketingManagerClickExistingReviewEditButtonAndClearTheReviewFieldAndEditNewReviewInField(String arg0) {
-        reviewsPage=new ReviewsPage(driver);
+        reviewsPage = new ReviewsPage(driver);
         reviewsPage.updateExistingReview(arg0);
     }
 
@@ -88,13 +90,14 @@ public class MarketingSteps extends BasePage {
     //ViewPendingReviews
     @Given("marketing manager is on the dashboard page and marketing manager click on pending reviews link")
     public void marketingManagerIsOnTheDashboardPageAndMarketingManagerClickOnPendingReviewsLink() {
-        marketingdashboardPage=new MarketingDashboardPage(driver);
+        marketingdashboardPage = new MarketingDashboardPage(driver);
         marketingdashboardPage.clickOnPendingReviewsLink();
+
     }
 
     @When("marketing manager view on pending reviews page")
     public void marketingManagerViewOnPendingReviewsPage() {
-        reviewsPage=new ReviewsPage(driver);
+        reviewsPage = new ReviewsPage(driver);
 
     }
 
@@ -105,16 +108,106 @@ public class MarketingSteps extends BasePage {
 
     @When("marketing manager update on mandatory field")
     public void marketingManagerUpdateOnMandatoryField() {
-        reviewsPage=new ReviewsPage(driver);
+        reviewsPage = new ReviewsPage(driver);
         reviewsPage.clickOnEditIcon();
         reviewsPage.updatePendingReview();
     }
 
     @Then("the pending reviews update successful")
     public void thePendingReviewsUpdateSuccessful() {
-        reviewsPage=new ReviewsPage(driver);
+        reviewsPage = new ReviewsPage(driver);
         Assert.assertTrue(reviewsPage.verifyReviewUpdateSuccessful());
     }
+
+
+    //Marketing Manager can view newsletter subscribers .
+    @Given("marketing manager is on the dashboard page and marketing manager click on  the newsletter link.")
+    public void marketingManagerIsOnTheDashboardPageAndMarketingManagerClickOnTheNewsletterLink() {
+        marketingdashboardPage = new MarketingDashboardPage(driver);
+        marketingdashboardPage.clickOnNewsletterSubscribersLink();
+    }
+
+    @Then("newsletter subscribers page should open successfully")
+    public void newsletterSubscribersPageShouldOpenSuccessfully() {
+        marketingdashboardPage = new MarketingDashboardPage(driver);
+        Assert.assertTrue(marketingdashboardPage.verifyViewNewsletterSubscribers());
+    }
+
+    //addnewrule
+    @Given("marketing manager is on the dashboard page and clicks on catalog price rule link")
+    public void marketingManagerIsOnTheDashboardPageAndClicksOnCatalogPriceRuleLink() {
+        marketingdashboardPage.clickONCatalogPriceRuleLink();
+    }
+
+    @When("marketing manager click the add new rule button and fill out{string}")
+    public String marketingManagerClickTheAddNewRuleButtonAndFillOut(String arg0) {
+        RuleName = arg0;
+        catalogPriceRulePage = new CatalogPriceRulePage(driver);
+        catalogPriceRulePage.AddNewRule(RuleName, testDataHolder, "65");
+        return RuleName;
+    }
+
+    @Then("verify new rule added successfully")
+    public void verifyNewRuleAddedSuccessfully() {
+        Assert.assertTrue(catalogPriceRulePage.verifySavedNewRule());
+    }
+    // search rule by id and name
+
+    @When("Marketing manager enter rule name and rule id search the rule{string}{string}")
+    public void marketingManagerEnterRuleNameAndRuleIdSearchTheRule(String arg0, String arg1) {
+        catalogPriceRulePage = new CatalogPriceRulePage(driver);
+        RuleName = arg0;
+        catalogPriceRulePage.searchByName(arg0);
+        catalogPriceRulePage.searchById(arg1);
+    }
+
+    @Then("Verify searched rule successfully")
+    public void verifySearchedRuleSuccessfully() {
+        Assert.assertTrue(catalogPriceRulePage.verifySearchResult(RuleName));
+    }
+
+
+
+    //View all Reviews
+    @Given("marketing manager is on the dashboard page and marketing manager click on aAll reviews link")
+    public void marketingManagerIsOnTheDashboardPageAndMarketingManagerClickOnAallReviewsLink() {
+       ReviewsPage reviewsPage=new ReviewsPage(driver);
+       reviewsPage.viewAllRevies();
+
+    }
+
+    @When("marketing manager view on all reviews page")
+    public void marketingManagerViewOnAllReviewsPage() {
+        reviewsPage = new ReviewsPage(driver);
+
+    }
+
+    @Then("the all reviews view successfully")
+    public void theAllReviewsViewSuccessfully() {
+        Assert.assertTrue(reviewsPage.verifyViewAllReviewsSuccessfully());
+
+    }
+
+//Marketing Manager can add new Cart Price Rule
+    @Given("Marketing manager on the dashboard page and marketing manager click on Promotions link")
+    public void marketingManagerOnTheDashboardPageAndMarketingManagerClickOnPromotionsLink() {
+        CartPriceRulePage cartPriceRulePage=new CartPriceRulePage(driver);
+        cartPriceRulePage.clickShoppingCartPriceRulesLink();
+    }
+
+    @When("click on Shopping Cart Price Rules link to fill out {string} {string} {string} and other information information")
+    public void clickOnShoppingCartPriceRulesLinkToFillOutAndOtherInformationInformation(String arg0, String arg1, String arg2) {
+        CartPriceRulePage cartPriceRulePage=new CartPriceRulePage(driver);
+        cartPriceRulePage.addNewShoppingCartPriceRule(arg0,arg1,arg2);
+
+    }
+
+    @Then("a new shopping cart price rule should be added successfully")
+    public void aNewShoppingCartPriceRuleShouldBeAddedSuccessfully() {
+        CartPriceRulePage cartPriceRulePage=new CartPriceRulePage(driver);
+        Assert.assertTrue(cartPriceRulePage.verifyAddNewShoppingCartPriceRuleSuccessfully());
+    }
+
     @After("@MarketingModuleTest")
     public void tearDown(Scenario scenario) {
         if (scenario.isFailed()) {
@@ -123,43 +216,8 @@ public class MarketingSteps extends BasePage {
         }
         closeBrowser();
     }
-
-// add new Cart Price Rule
-    @Given("Marketing manager on the dashboard page and marketing manager click on Promotions link")
-    public void marketingManagerOnTheDashboardPageAndMarketingManagerClickOnPromotionsLink() {
-        MarketingDashboardPage marketingDashboardPage=new MarketingDashboardPage(driver);
-        marketingDashboardPage.clickOnPromotionsLink();
-    }
-
-    @When("click on Shopping Cart Price Rules link to fill out {string} {string} {string} and other information information")
-    public void clickOnShoppingCartPriceRulesLinkToFillOutAndOtherInformationInformation(String arg0, String arg1, String arg2) {
-        CartPriceRulePage cartPriceRulePage=new CartPriceRulePage(driver);
-        cartPriceRulePage.addNewShoppingCartPriceRule(arg0,arg1,arg2);
-
-        
-    }
-
-    @Then("a new shopping cart price rule should be added successfully")
-    public void aNewShoppingCartPriceRuleShouldBeAddedSuccessfully() {
-        CartPriceRulePage cartPriceRulePage=new CartPriceRulePage(driver);
-        Assert.assertTrue(cartPriceRulePage.verifyAddNewShoppingCartPriceRuleSuccessfully());
-
-
-    }
-    //view all Reviews
-    @Given("marketing manager is on the dashboard page and manager click on All reviews link")
-    public void marketingManagerIsOnTheDashboardPageAndManagerClickOnAllReviewsLink() {
-        MarketingDashboardPage marketingDashboardPage=new MarketingDashboardPage(driver);
-        marketingDashboardPage.clickOnAllReviewsLink();
-    }
-
-    @When("marketing manager view on All reviews page")
-    public void marketingManagerViewOnAllReviewsPage() {
-        reviewsPage=new ReviewsPage(driver);
-    }
-
-    @Then("the All reviews view successfully")
-    public void theAllReviewsViewSuccessfully() {
-        Assert.assertTrue(reviewsPage.verifyViewAllReviewsSuccessfully());
-    }
 }
+
+
+
+

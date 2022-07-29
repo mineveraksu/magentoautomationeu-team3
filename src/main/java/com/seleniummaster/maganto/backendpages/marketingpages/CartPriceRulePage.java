@@ -12,8 +12,10 @@ public class CartPriceRulePage {
     WebDriver driver;
     TestUtility testUtility;
     Actions actions;
-    MarketingDashboardPage dashboardPage;
-
+    @FindBy(xpath = "//span[text()='Promotions']")
+    WebElement promotionsLink;
+    @FindBy(xpath = "//span[text()='Shopping Cart Price Rules']")
+    WebElement shoppingCartPriceRulesLink;
     @FindBy(xpath = "(//span[text()='Add New Rule'])[1]")
     WebElement addNewRuleButton;
     @FindBy(id = "rule_name")
@@ -44,33 +46,32 @@ public class CartPriceRulePage {
         testUtility = new TestUtility(driver);
         actions=new Actions(driver);
     }
+    public void clickShoppingCartPriceRulesLink() {
+        testUtility.waitForElementPresent(promotionsLink);
+        actions.moveToElement(promotionsLink).click().perform();
+        testUtility.waitForElementPresent(shoppingCartPriceRulesLink);
+        actions.moveToElement(shoppingCartPriceRulesLink).click().perform();
+
+    }
     public void addNewShoppingCartPriceRule(String RuleName,String description ,String Priority ){
-       // MarketingDashboardPage marketingDashboardPage=new MarketingDashboardPage(driver);
-       // marketingDashboardPage.clickOnPromotionsLink();
+
         testUtility.waitForElementPresent(addNewRuleButton);
         addNewRuleButton.click();
-        testUtility.sleep(3);
         testUtility.waitForElementPresent(ruleNameField);
         ruleNameField.sendKeys(RuleName);
-        testUtility.sleep(3);
         testUtility.waitForElementPresent(descriptionField);
         descriptionField.sendKeys(description);
-        testUtility.sleep(3);
         Select dropDownStatus = new Select(status);
         dropDownStatus.selectByVisibleText("Active");
         Select dropDownWebsites=new Select(websites);
         dropDownWebsites.selectByIndex(1);
-        testUtility.sleep(3);
         Select dropDownGroups=new Select(customerGroups);
         dropDownGroups.selectByValue("0");
-        testUtility.sleep(3);
         Select dropDownCoupon=new Select(coupon);
         dropDownCoupon.selectByValue("1");
-        testUtility.sleep(3);
         testUtility.waitForElementPresent(priorityField);
         priorityField.sendKeys(Priority);
-        testUtility.sleep(3);
-       testUtility.waitForElementPresent(saveButton);
+        testUtility.waitForElementPresent(saveButton);
         actions.moveToElement(saveButton).build().perform();
         saveButton.click();
     }
@@ -85,6 +86,6 @@ public class CartPriceRulePage {
         }
     }
 
-    }
+}
 
 

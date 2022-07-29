@@ -1,6 +1,7 @@
 package com.seleniummaster.maganto.backendpages.marketingpages;
 
 import com.seleniummaster.maganto.utility.TestUtility;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -8,11 +9,14 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
+import java.util.List;
+
 public class ReviewsPage {
     WebDriver driver;
     TestUtility testUtility;
     Actions actions;
     Select select;
+    int allReviewsRowSize;
 
 
     @FindBy(xpath = "//td[contains(text(),'team33')]//following-sibling::td[6]/a")
@@ -42,7 +46,7 @@ public class ReviewsPage {
     @FindBy(xpath = "//span[text()='The review has been saved.']")
     WebElement updateReviewSuccessfulMassage;
     //View All Reviews
-    @FindBy(xpath ="")
+    @FindBy(xpath ="table.data>tbody>tr")
     WebElement viewAllReviews;
 
 
@@ -146,16 +150,25 @@ public class ReviewsPage {
             return false;
         }
     }
-
+//View All Reviews
+    public void viewAllRevies(){
+        MarketingDashboardPage marketingDashboardPage=new MarketingDashboardPage(driver);
+        marketingDashboardPage.clickOnAllReviewsLink();
+    }
     public boolean verifyViewAllReviewsSuccessfully() {
-        testUtility.waitForElementPresent(viewAllReviews);
+        /*testUtility.waitForElementPresent(viewAllReviews);
         if (viewAllReviews.isDisplayed()) {
             System.out.println("Marketing Manager can view All Reviews Test is Passed!!!");
             return true;
         } else {
             System.out.println("Marketing Manager can view All Reviews Test is Failed!!");
             return false;
-        }
+        }*/
+        List<WebElement> rows=driver.findElements(By.cssSelector("table.data>tbody>tr"));
+        allReviewsRowSize=rows.size();
+        System.out.println("this test pass!");
+        return allReviewsRowSize>0;
+
     }
 
 }
