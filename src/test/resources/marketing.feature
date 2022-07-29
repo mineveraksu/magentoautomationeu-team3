@@ -74,3 +74,19 @@ Feature:Marketing Manager can manage market
     Examples:
     |RuleName     |rule id|
     |             |  63   |
+
+  @ViewAllReviews
+  Scenario: Marketing Manager can view All reviews
+    Given marketing manager is on the dashboard page and marketing manager click on aAll reviews link
+    When marketing manager view on all reviews page
+    Then the all reviews view successfully
+
+    @MarketingManagerCanAddNewCartPriceRule
+    Scenario Outline: Marketing Manager can add new shopping cart price rule
+      Given Marketing manager on the dashboard page and marketing manager click on Promotions link
+      When  click on Shopping Cart Price Rules link to fill out "<RuleName>" "<description>" "<Priority>" and other information information
+      Then a new shopping cart price rule should be added successfully
+      Examples:
+        |RuleName        | description         | Priority |
+        |50% Sales(team3) |50% off any product  | Medium |
+

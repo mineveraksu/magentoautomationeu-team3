@@ -110,4 +110,18 @@ public class ExcelUtility {
         return testDataHolder;
     }
 
+    public TestDataHolder readSalesInfoFromExcel(String fileName, String sheetName){
+        ExcelUtility excelUtility=new ExcelUtility();
+        XSSFWorkbook workbook= null;
+        try {
+            workbook = new XSSFWorkbook(fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        TestDataHolder testDataHolder=new TestDataHolder();
+        testDataHolder.setStartFrom(excelUtility.readFromExcelCell(fileName,sheetName,1,0));
+        testDataHolder.setEndTo(excelUtility.readFromExcelCell(fileName,sheetName,1,1));
+        return testDataHolder;
+    }
+
 }

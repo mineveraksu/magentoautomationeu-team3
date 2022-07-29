@@ -111,7 +111,6 @@ public class ProductPage {
         select.selectByValue("113");
         testUtility.waitForElementPresent(saveButton);
         saveButton.click();
-
     }
     public boolean verifyProductAddedSuccessfully(){
         testUtility.waitForElementPresent(productSavedSuccessfulSMS);
