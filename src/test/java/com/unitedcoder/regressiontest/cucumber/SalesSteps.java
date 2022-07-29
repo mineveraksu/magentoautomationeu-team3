@@ -82,7 +82,7 @@ public class SalesSteps extends BasePage {
         salesShipmentsPage.verifyUpdateShipmentsTrackingInformationSuccessfully();
     }
 
-//Add and update Tax Rules
+    //Add Tax Rules
     @Given("Sales manager is on the dashboard page and clicks on Manage Tax Rules")
     public void salesManagerIsOnTheDashboardPageAndClicksOnManageTaxRules() {
         SalesDashboardPage salesDashboardPage=new SalesDashboardPage(driver);
@@ -91,17 +91,8 @@ public class SalesSteps extends BasePage {
 
     @When("Sales Manager click Add New Tax Rule  icon and fill out {string} {string} {string} information and click on Save Rule button")
     public void salesManagerClickIconAndFillOutInformationAndClickOnSaveRuleButton(String arg0, String arg1, String arg2) {
-InvoicesPage invoicesPage=new InvoicesPage(driver);
-invoicesPage.addNewTaxRule(arg0,arg1,arg2);
-
-    }
-
-    @And("Sales Manager edit tax rules and click on Save Rule button")
-    public void salesManagerEditTaxRulesAndClickOnSaveRuleButton(String arg0,String arg1,String arg2) {
-        InvoicesPage invoicesPage=new InvoicesPage(driver);
-        invoicesPage.updateNewTaxRule(arg0,arg1,arg2);
-
-
+     InvoicesPage invoicesPage=new InvoicesPage(driver);
+     invoicesPage.addNewTaxRule(arg0,arg1,arg2);
     }
 
     @Then("a new Tax Rule created successfully")
@@ -110,8 +101,14 @@ invoicesPage.addNewTaxRule(arg0,arg1,arg2);
         invoicesPage.verifyAddNewTaxRuleRuleSuccessfully();
 
     }
+    //update Tax Rules
+    @When("Sales Manager click Add New Tax Rule icon and fill out {string}information and edit tax rules")
+    public void salesManagerClickAddNewTaxRuleIconAndFillOutInformationAndEditTaxRules(String arg0) {
+        InvoicesPage invoicesPage=new InvoicesPage(driver);
+        invoicesPage.updateNewTaxRule(arg0);
+    }
 
-    @And("the new Tax Rule update successfully")
+    @Then("the new Tax Rule update successfully")
     public void theNewTaxRuleUpdateSuccessfully() {
         InvoicesPage invoicesPage=new InvoicesPage(driver);
         invoicesPage.verifyUpdateNewTaxRuleRuleSuccessfully();
@@ -145,4 +142,6 @@ invoicesPage.addNewTaxRule(arg0,arg1,arg2);
     }
 
 
+
 }
+

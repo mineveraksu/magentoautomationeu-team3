@@ -13,6 +13,12 @@ public class TestDataHolder {
     private String storeName;
     private String startDate;
     private String endDate;
+    private String productName;
+    private String productDescription;
+    private String shortDescription;
+    private String SKU;
+    private String weight;
+    private String price;
     private String startFrom;
     private String endTo;
 
@@ -124,21 +130,70 @@ public class TestDataHolder {
         this.endDate = endDate;
     }
 
-    public String getStartFrom() {
-        return startFrom;
+
+    public String getProductName() {
+        return productName;
     }
 
-    public void setStartFrom(String startFrom) {
-        this.startFrom = startFrom;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
-    public String getEndTo() {
-        return endTo;
+    public String getProductDescription() {
+        return productDescription;
     }
 
-    public void setEndTo(String endTo) {
-        this.endTo = endTo;
+    public void setProductDescription(String productDescription) {
+        this.productDescription = productDescription;
     }
-}
+
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
+    }
+
+    public String getSKU() {
+        return SKU;
+    }
+
+    public void setSKU(String SKU) {
+        this.SKU = SKU;
+    }
+
+    public String getWeight() {
+        return weight;
+    }
+
+    public void setWeight(String weight) {
+        this.weight = weight;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+        public String getStartFrom () {
+            return startFrom;
+        }
+
+        public void setStartFrom (String startFrom){
+            this.startFrom = startFrom;
+        }
+
+        public String getEndTo () {
+            return endTo;
+        }
+
+        public void setEndTo (String endTo){
+            this.endTo = endTo;
+        }
 
 
+    }

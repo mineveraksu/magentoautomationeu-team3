@@ -1,6 +1,7 @@
 package com.seleniummaster.maganto.backendpages.marketingpages;
 
 import com.seleniummaster.maganto.utility.TestUtility;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -8,18 +9,21 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
+import java.util.List;
+
 public class ReviewsPage {
     WebDriver driver;
     TestUtility testUtility;
     Actions actions;
     Select select;
+    int allReviewsRowSize;
 
 
     @FindBy(xpath = "//td[contains(text(),'team33')]//following-sibling::td[6]/a")
     WebElement editButton;
     @FindBy(xpath = "(//a[text()=\"Edit\"])[1]")
     WebElement editIcon;
-    @FindBy(id="detail")
+    @FindBy(id = "detail")
     WebElement reviewField;
     @FindBy(xpath = "(//button[@id=\"save_button\"])[1]")
     WebElement saveReviewButton;
@@ -41,59 +45,60 @@ public class ReviewsPage {
     WebElement summaryOfReviewField;
     @FindBy(xpath = "//span[text()='The review has been saved.']")
     WebElement updateReviewSuccessfulMassage;
-    //View All Reviews
-    @FindBy(xpath ="")
-    WebElement viewAllReviews;
-
 
     public ReviewsPage(WebDriver driver) {
         this.driver = driver;
-        testUtility=new TestUtility(driver);
-        PageFactory.initElements(driver,this);
-        actions=new Actions(driver);
+        testUtility = new TestUtility(driver);
+        PageFactory.initElements(driver, this);
+        actions = new Actions(driver);
     }
-    public void clickOnEditButton(){
+
+    public void clickOnEditButton() {
         testUtility.waitForElementPresent(editButton);
         editButton.click();
     }
 
-    public void clickOnEditIcon(){
+    public void clickOnEditIcon() {
         testUtility.waitForElementPresent(editIcon);
         editIcon.click();
     }
 
 
-    public void clearReviewField(){
+    public void clearReviewField() {
         testUtility.waitForElementPresent(reviewField);
         reviewField.clear();
     }
-    public void editNewReview(String review){
+
+    public void editNewReview(String review) {
         testUtility.waitForElementPresent(reviewField);
         reviewField.sendKeys(review);
     }
-    public void clickOnSaveReviewButton(){
+
+    public void clickOnSaveReviewButton() {
         testUtility.waitForElementPresent(saveReviewButton);
         saveReviewButton.click();
     }
-    public void updateExistingReview(String review){
+
+    public void updateExistingReview(String review) {
         clickOnEditButton();
         clearReviewField();
         editNewReview(review);
         clickOnSaveReviewButton();
     }
-    public boolean verifyReviewEdit(){
+
+    public boolean verifyReviewEdit() {
         testUtility.waitForElementPresent(reviewSuccessfulAddedSMS);
-        if (reviewSuccessfulAddedSMS.getText().contains("saved.")){
+        if (reviewSuccessfulAddedSMS.getText().contains("saved.")) {
             System.out.println("marketing manager edit existing review test passed!");
             return true;
-        }else {
+        } else {
             System.out.println("marketing manager edit existing review test failed");
             return false;
         }
     }
 
     //ViewPendingReviews
-    @FindBy(xpath ="//tr[@class='even pointer'] [1]")
+    @FindBy(xpath = "(//tr[@class='even pointer'])[1]")
     WebElement pendingViews;
 
     public boolean verifyViewPendingReviewsSuccessfully() {
@@ -107,7 +112,7 @@ public class ReviewsPage {
         }
     }
 
-    public void updatePendingReview(){
+    public void updatePendingReview() {
         testUtility.sleep(2);
         testUtility.waitForElementPresent(qualityRadioButton);
         actions.moveToElement(qualityRadioButton).click().perform();
@@ -116,10 +121,10 @@ public class ReviewsPage {
         testUtility.waitForElementPresent(valueRadioButton);
         actions.moveToElement(valueRadioButton).click().perform();
         testUtility.waitForElementPresent(statusSelectField);
-        select=new Select(statusSelectField);
+        select = new Select(statusSelectField);
         select.selectByIndex(2);
         testUtility.waitForElementPresent(visibleInField);
-        select=new Select(visibleInField);
+        select = new Select(visibleInField);
         select.selectByIndex(2);
         testUtility.waitForElementPresent(nickNameField);
         nickNameField.clear();
@@ -147,15 +152,19 @@ public class ReviewsPage {
         }
     }
 
+    //View All Reviews
     public boolean verifyViewAllReviewsSuccessfully() {
-        testUtility.waitForElementPresent(viewAllReviews);
-        if (viewAllReviews.isDisplayed()) {
-            System.out.println("Marketing Manager can view All Reviews Test is Passed!!!");
+        List<WebElement> rows = driver.findElements(By.cssSelector("table.data>tbody>tr"));
+        allReviewsRowSize = rows.size();
+        if (allReviewsRowSize > 0) {
+            System.out.println("Marketing Manager can view all Reviews Test is Passed!!!");
             return true;
         } else {
-            System.out.println("Marketing Manager can view All Reviews Test is Failed!!");
+            System.out.println("Marketing Manager can view all Reviews Test is Failed!!");
             return false;
         }
-    }
 
+    }
 }
+
+
