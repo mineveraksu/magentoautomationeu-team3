@@ -4,6 +4,7 @@ Feature:Sales Module Functions
   @CreateNewOrder
   Scenario: Sales Manager can create a new order
     Given Sales manager is on the dashboard page and clicks on Orders link
+    When sales manager click Create New Order button and select a customer and select a store#Black Nolita Cami-Black-S
 
 
   @ViewInvoicesAndAddComments

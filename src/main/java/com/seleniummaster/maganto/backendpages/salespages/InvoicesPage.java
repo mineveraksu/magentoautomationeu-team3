@@ -121,27 +121,20 @@ public class InvoicesPage {
     public void addNewTaxRule(String Name, String Priority1, String SortOrder) {
         testUtility.waitForElementPresent(addNewTaxRuleButton);
         addNewTaxRuleButton.click();
-        testUtility.sleep(3);
         testUtility.waitForElementPresent(nameField);
         nameField.sendKeys(Name);
-        testUtility.sleep(3);
         Select dropDownCustomerTaxClass = new Select(selectCustomerTaxClass);
         dropDownCustomerTaxClass.selectByIndex(1);
         Select dropDownProductTaxClass = new Select(selectProductClass);
         dropDownProductTaxClass.selectByIndex(2);
-        testUtility.sleep(3);
         Select dropDownTaxRate = new Select(selectTaxRate);
         dropDownTaxRate.selectByIndex(3);
-        testUtility.sleep(3);
         testUtility.waitForElementPresent(priorityField);
         positionField.clear();
         priorityField.sendKeys(Priority1);
-        testUtility.sleep(3);
         testUtility.waitForElementPresent(positionField);
         positionField.clear();
-        testUtility.sleep(3);
         positionField.sendKeys(SortOrder);
-        testUtility.sleep(3);
         testUtility.waitForElementPresent(saveRuleButton);
         actions.moveToElement(saveRuleButton).build().perform();
         saveRuleButton.click();

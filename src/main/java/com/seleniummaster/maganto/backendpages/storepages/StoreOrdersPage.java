@@ -115,13 +115,6 @@ public class StoreOrdersPage {
         js.executeScript("scroll(0,0)");
     }
 
-    public void waitUntilLoadingFinishs() {
-//        WebElement snipper = driver.findElement(By.id("loading_mask_loader"));
-//        while (snipper.isDisplayed()) {
-//
-//        }
-    }
-
     public void fillBillingAndShippingAddressForm(){
         testUtility.waitForElementPresent(billingAddressFirstNameField);
         testUtility.sleep(5);
@@ -150,8 +143,6 @@ public class StoreOrdersPage {
         testUtility.waitForElementPresent(billingAddressTelephoneField);
         billingAddressTelephoneField.click();
         billingAddressTelephoneField.sendKeys(testUtility.generateTelephoneNumber());
-
-
     }
 
     public void selectShippingMethodAndSubmitOrder() {
@@ -168,7 +159,6 @@ public class StoreOrdersPage {
         scrollToTop();
         testUtility.waitForElementPresent(submitOrderButton);
         submitOrderButton.click();
-
     }
 
     public boolean verifyCreateNewOrder(){
