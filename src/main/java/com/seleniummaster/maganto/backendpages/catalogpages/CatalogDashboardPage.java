@@ -64,6 +64,13 @@ public class CatalogDashboardPage {
         testUtility.waitForElementPresent(attributesLink);
         actions.moveToElement(attributesLink).click(manageAttributesLink).perform();
     }
+    public void clickOnManageProductsPage(){
+
+        testUtility.waitForElementPresent(catalogLink);
+        actions.moveToElement(catalogLink).click().perform();
+        testUtility.waitForElementPresent(manageProductsLink);
+        actions.moveToElement(manageProductsLink).click().perform();
+    }
 //    public boolean isDefaultCategoryExist(){
 //
 //        String categoryFilePath= String.valueOf(categoryFileLocation);
