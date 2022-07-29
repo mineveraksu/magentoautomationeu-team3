@@ -156,14 +156,6 @@ public class ReviewsPage {
         marketingDashboardPage.clickOnAllReviewsLink();
     }
     public boolean verifyViewAllReviewsSuccessfully() {
-        /*testUtility.waitForElementPresent(viewAllReviews);
-        if (viewAllReviews.isDisplayed()) {
-            System.out.println("Marketing Manager can view All Reviews Test is Passed!!!");
-            return true;
-        } else {
-            System.out.println("Marketing Manager can view All Reviews Test is Failed!!");
-            return false;
-        }*/
         List<WebElement> rows=driver.findElements(By.cssSelector("table.data>tbody>tr"));
         allReviewsRowSize=rows.size();
         System.out.println("this test pass!");
