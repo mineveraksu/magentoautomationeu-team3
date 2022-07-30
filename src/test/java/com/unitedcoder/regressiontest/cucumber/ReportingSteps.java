@@ -1,9 +1,7 @@
 package com.unitedcoder.regressiontest.cucumber;
 
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
-import com.seleniummaster.maganto.backendpages.reportingpages.ProductsMostViewedPage;
-import com.seleniummaster.maganto.backendpages.reportingpages.ReportingDashboardPage;
-import com.seleniummaster.maganto.backendpages.reportingpages.SalesPage;
+import com.seleniummaster.maganto.backendpages.reportingpages.*;
 import com.seleniummaster.maganto.utility.*;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -24,6 +22,8 @@ public class ReportingSteps extends BasePage {
     TestDataHolder testDataHolder2;
     ExcelUtility excelUtility;
     SalesPage salesPage;
+    InvoicedVsPaidReportPage invoicedVsPaidReportPage;
+    ShippedReportPage shippedReportPage;
 
 
     @Before("@ReportingModuleTest")
@@ -41,6 +41,8 @@ public class ReportingSteps extends BasePage {
     @Given("Reporting manager is on the dashboard page and clicks on Downloads link")
     public void reportingManagerIsOnTheDashboardPageAndClicksOnDownloadsLink() {
     }
+
+    //
     @Given("Reporting manager is on the dashboard page and clicks on mostViewed link")
     public void reportingManagerIsOnTheDashboardPageAndClicksOnMostViewedLink() {
         reportingDashboardPage.clickOnMostViewedLink();
@@ -56,6 +58,44 @@ public class ReportingSteps extends BasePage {
         Assert.assertTrue(productsMostViewedPage.verifyMostViewedProductsDisplayed());
     }
 
+
+    //See Sales-Total Invoiced vs Paid Report
+    @Given("Reporting manager is on the dashboard page and clicks on Invoiced Option")
+    public void reportingManagerIsOnTheDashboardPageAndClicksOnInvoicedOption() {
+        reportingDashboardPage.ClickOnInvoicedOption();
+
+    }
+
+    @When("Reporting Manager Navigate to Total Invoiced vs Paid Report page and select period and date {string} {string} and click show Report button")
+    public void reportingManagerNavigateToTotalInvoicedVsPaidReportPageAndSelectPeriodAndDateAndClickShowReportButton(String arg0, String arg1) {
+        invoicedVsPaidReportPage=new InvoicedVsPaidReportPage(driver);
+        invoicedVsPaidReportPage.viewSalesInvoicedVsPaidReport(arg0,arg1);
+    }
+
+    @Then("Total Invoiced Vs Paid report view successfully")
+    public void totalInvoicedVsPaidReportViewSuccessfully() {
+        invoicedVsPaidReportPage.verifyViewSalesInvoicedVsPaidReportSuccessfully();
+    }
+
+    //See Sales-Total Shipped Report
+    @Given("Reporting manager is on the dashboard page and clicks on Shipping Option")
+    public void reportingManagerIsOnTheDashboardPageAndClicksOnShippingOption() {
+        reportingDashboardPage.ClickOnShippingOption();
+    }
+
+    @When("Reporting Manager Navigate to Total Shipped Report page and select period and date {string} {string} and click show Report button")
+    public void reportingManagerNavigateToTotalShippedReportPageAndSelectPeriodAndDateAndClickShowReportButton(String arg0, String arg1) {
+        shippedReportPage=new ShippedReportPage(driver);
+        shippedReportPage.viewSalesShippedReport(arg0,arg1);
+    }
+
+    @Then("Total Shipped report view successfully")
+    public void totalShippedReportViewSuccessfully() {
+        shippedReportPage.verifyViewSalesShippedReportSuccessfully();
+    }
+
+
+    //
     @Given("Reporting manager is on the dashboard page and clicks on Orders link")
     public void reportingManagerIsOnTheDashboardPageAndClicksOnOrdersLink() {
         reportingDashboardPage.clickOnOrdersLink();
@@ -71,7 +111,8 @@ public class ReportingSteps extends BasePage {
     public void reportingManagerSeeTotalOrderedReportUnderTheSales(){
        Assert.assertTrue(salesPage.verifyOrdersSaw());
     }
-//See Products-Products Ordered Report
+
+    //See Products-Products Ordered Report
     @Given("Reporting manager is on the dashboard page and clicks on Products Ordered link")
     public void reportingManagerIsOnTheDashboardPageAndClicksOnProductsOrderedLink() {
         reportingDashboardPage.ClickOnProductsOrderedOption();
@@ -88,6 +129,8 @@ public class ReportingSteps extends BasePage {
     public void totalProductsOrderedReportDisplayedSuccessfully() {
         Assert.assertTrue(productsMostViewedPage.verifyViewProductsOrderedReport());
     }
+
+
     @After("@ReportingModuleTest")
     public void tearDown(Scenario scenario) {
         if (scenario.isFailed()) {
@@ -96,6 +139,7 @@ public class ReportingSteps extends BasePage {
         }
         closeBrowser();
     }
+
 
 }
 

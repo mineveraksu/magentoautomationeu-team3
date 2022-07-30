@@ -52,8 +52,8 @@ public class ReportingDashboardPage {
         actions.moveToElement(reportsLink).click().perform();
         testUtility.waitForElementPresent(salesLink);
         actions.moveToElement(salesLink).click().perform();
-        testUtility.waitForElementPresent(ordersLink);
-        actions.moveToElement(ordersLink).click().perform();
+        testUtility.waitForElementPresent(invoicedOption);
+        actions.moveToElement(invoicedOption).click().perform();
     }
 
     public void ClickOnShippingOption() {
