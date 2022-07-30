@@ -2,10 +2,13 @@
 Feature:Sales Module Functions
 
   @CreateNewOrder
-  Scenario: Sales Manager can create a new order
+  Scenario Outline: Sales Manager can create a new order
     Given Sales manager is on the dashboard page and clicks on Orders link
-    When sales manager click Create New Order button and select a customer and select a store#Black Nolita Cami-Black-S
-
+    When sales manager selects a "<store name>" in order to add a "<product name>" to order
+    Then Sales Manager created a new order successfully
+    Examples:
+    |store name|product name             |
+    |English   |Black Nolita Cami-Black-S|
 
   @ViewInvoicesAndAddComments
   Scenario Outline: Sales Manager should be able to view invoices and add comments to invoice history

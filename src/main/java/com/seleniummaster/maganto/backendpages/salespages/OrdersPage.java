@@ -20,12 +20,18 @@ public class OrdersPage {
     WebElement addProductButton;
     @FindBy(css = "#sales_order_create_search_grid_filter_name")
     WebElement productNameField;
-    @FindBy(xpath = "//button[@title='Add']")
-    WebElement addButton;
-    @FindBy(xpath = "(//button[@class='scalable save'])[2]")
-    WebElement sendTrackingInformationButton;
-    @FindBy(css = ".success-msg>ul li span")
-    WebElement updateShipmentSuccessMessage;
+    @FindBy(xpath = "//span[text()='Add Selected Product(s) to Order']")
+    WebElement addSelectedProductsToOrderButton;
+    @FindBy(xpath = "//input[@value='checkmo']")
+    WebElement checkOrderRadioButton;
+    @FindBy(xpath = "//a[contains(text(),'shipping method')]")
+    WebElement changeShippingMethodLink;
+    @FindBy(xpath = "//input[@value='freeshipping_freeshipping']")
+    WebElement freeShippingRadioButton;
+    @FindBy(css = "#submit_order_top_button")
+    WebElement submitOrderButton;
+    @FindBy(css = "li.success-msg>ul>li>span")
+    WebElement successMessage;
 
 
     public OrdersPage(WebDriver driver) {
@@ -47,6 +53,7 @@ public class OrdersPage {
     }
 
     public void clickOnCustomerEmail() {
+        testUtility.sleep(3);
         WebElement customerEmail = driver.findElement(By.xpath(String.format("//td[contains(text(),'%s')]", email)));
         testUtility.waitForElementPresent(customerEmail);
         customerEmail.click();
@@ -60,21 +67,66 @@ public class OrdersPage {
 
     public void clickOnAddProductButton() {
         testUtility.waitForElementPresent(addProductButton);
-        addProductButton.click();
+        testUtility.javaScriptClick(addProductButton);
     }
 
     public void typeProductName(String productName) {
         testUtility.waitForElementPresent(productNameField);
-        productNameField.sendKeys(productName+ Keys.ENTER);
+        productNameField.sendKeys(productName + Keys.ENTER);
     }
 
-    public void createANewOrder(String storeName){
+    public void selectCheckbox(String productName) {
+        testUtility.sleep(2);
+        WebElement checkBox=driver.findElement(By.xpath(String.format("(//*[contains(text(),'%s')])[2]//following-sibling::td[3]/input", productName)));
+        testUtility.waitForElementPresent(checkBox);
+        checkBox.click();
+    }
+
+    public void clickOnAddSelectedProductsToOrderButton() {
+        testUtility.waitForElementPresent(addSelectedProductsToOrderButton);
+        addSelectedProductsToOrderButton.click();
+    }
+
+    public void selectPaymentMethod() {
+        testUtility.waitForElementPresent(checkOrderRadioButton);
+        checkOrderRadioButton.click();
+    }
+
+    public void selectShippingMethod() {
+        testUtility.waitForElementPresent(changeShippingMethodLink);
+        changeShippingMethodLink.click();
+        testUtility.waitForElementPresent(freeShippingRadioButton);
+        freeShippingRadioButton.click();
+    }
+
+    public void clickOnSubmitOrderButton() {
+        testUtility.waitForElementPresent(submitOrderButton);
+        submitOrderButton.click();
+    }
+
+
+    public void createANewOrder(String storeName, String productName) {
         clickOnCreateNewOrderButton();
         selectViewDropDown();
         clickOnCustomerEmail();
         selectAStore(storeName);
         clickOnAddProductButton();
+        typeProductName(productName);
+        selectCheckbox(productName);
+        clickOnAddSelectedProductsToOrderButton();
+        selectPaymentMethod();
+        selectShippingMethod();
+        clickOnSubmitOrderButton();
     }
 
-
+    public boolean verifyOrderCreatedSuccessfully(){
+        testUtility.waitForElementPresent(successMessage);
+        if(successMessage.isDisplayed()){
+            System.out.println("Sales Manager create a new order Test Passed");
+            return true;
+        }else{
+            System.out.println("Sales Manager create a new order Test Failed");
+            return false;
+        }
+    }
 }
