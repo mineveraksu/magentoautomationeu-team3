@@ -33,11 +33,18 @@ public class ReportingSteps extends BasePage {
         browserSetUp(url);
         login = new BackEndLogin(driver);
         login.reportingPageLogin();
+
         reportingDashboardPage=new ReportingDashboardPage(driver);
         excelUtility=new ExcelUtility();
         testDataHolder=excelUtility.readReportingInfoFromExcel("Test-Data/reportingModule.xlsx","Sales_Info");
         testDataHolder2=excelUtility.readSalesInfoFromExcel("Test-Data/SalesModule.xlsx","Refunds_Info");
         salesPage= new SalesPage(driver);
+        reportingDashboardPage = new ReportingDashboardPage(driver);
+        productsMostViewedPage = new ProductsMostViewedPage(driver);
+        excelUtility = new ExcelUtility();
+        testDataHolder = excelUtility.readReportingInfoFromExcel("Test-Data/reportingModule.xlsx", "Sales_Info");
+        testDataHolder2 = excelUtility.readSalesInfoFromExcel("Test-Data/SalesModule.xlsx", "Refunds_Info");
+        salesPage = new SalesPage(driver);
     }
 
     @Given("Reporting manager is on the dashboard page and clicks on mostViewed link")
@@ -66,8 +73,8 @@ public class ReportingSteps extends BasePage {
 
     @When("Reporting Manager Navigate to Total Invoiced vs Paid Report page and select period and date {string} {string} and click show Report button")
     public void reportingManagerNavigateToTotalInvoicedVsPaidReportPageAndSelectPeriodAndDateAndClickShowReportButton(String arg0, String arg1) {
-        invoicedVsPaidReportPage=new InvoicedVsPaidReportPage(driver);
-        invoicedVsPaidReportPage.viewSalesInvoicedVsPaidReport(arg0,arg1);
+        invoicedVsPaidReportPage = new InvoicedVsPaidReportPage(driver);
+        invoicedVsPaidReportPage.viewSalesInvoicedVsPaidReport(arg0, arg1);
     }
 
     @Then("Total Invoiced Vs Paid report view successfully")
@@ -83,8 +90,8 @@ public class ReportingSteps extends BasePage {
 
     @When("Reporting Manager Navigate to Total Shipped Report page and select period and date {string} {string} and click show Report button")
     public void reportingManagerNavigateToTotalShippedReportPageAndSelectPeriodAndDateAndClickShowReportButton(String arg0, String arg1) {
-        shippedReportPage=new ShippedReportPage(driver);
-        shippedReportPage.viewSalesShippedReport(arg0,arg1);
+        shippedReportPage = new ShippedReportPage(driver);
+        shippedReportPage.viewSalesShippedReport(arg0, arg1);
     }
 
     @Then("Total Shipped report view successfully")
@@ -106,8 +113,8 @@ public class ReportingSteps extends BasePage {
     }
 
     @And("Reporting manager see total ordered report under the Sales")
-    public void reportingManagerSeeTotalOrderedReportUnderTheSales(){
-       Assert.assertTrue(salesPage.verifyOrdersSaw());
+    public void reportingManagerSeeTotalOrderedReportUnderTheSales() {
+        Assert.assertTrue(salesPage.verifyOrdersSaw());
     }
 
     //See Products-Products Ordered Report
@@ -119,7 +126,7 @@ public class ReportingSteps extends BasePage {
 
     @When("Reporting Manager Navigate to products ordered report page and select period and date {string} {string} and click Refresh button")
     public void reportingManagerNavigateToProductsOrderedReportPageAndSelectPeriodAndDateAndClickRefreshButton(String arg0, String arg1) {
-        productsMostViewedPage.viewProductsOrderedReport(arg0,arg1);
+        productsMostViewedPage.viewProductsOrderedReport(arg0, arg1);
 
     }
 
@@ -151,6 +158,17 @@ public class ReportingSteps extends BasePage {
             screenShotUtility.takeScreenshot("image", "failedTest", driver);
         }
         closeBrowser();
+    }
+
+    @Given("Reporting manager is on the dashboard page and clicks on downloads link")
+    public void reportingManagerIsOnTheDashboardPageAndClicksOnDownloadsLink() {
+        reportingDashboardPage.ClickOnDownloadsLink();
+    }
+
+    @Then("Reporting Manager can see Products - Products Downloads Report")
+    public void reportingManagerCanSeeProductsProductsDownloadsReport() {
+        DownloadsPage downloadsPage=new DownloadsPage(driver);
+        downloadsPage.verifyViewSalesInvoicedVsPaidReportSuccessfully();
     }
 }
 

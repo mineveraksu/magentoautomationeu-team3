@@ -41,6 +41,8 @@ public class ReportingDashboardPage {
     WebElement customersLink;
     @FindBy(xpath = "(//span[text()=\"New Accounts\"])[1]")
     WebElement newAccountsLink;
+    @FindBy(xpath = "//span[text()='Downloads']")
+    WebElement downloadsLink;
 
     public void clickOnMostViewedLink() {
         testUtility.waitForElementPresent(reportsLink);
@@ -88,9 +90,15 @@ public class ReportingDashboardPage {
         productsOrderedLink.click();
     }
 
-    public void clickOnNewAccountsLink(){
+
+    public void clickOnNewAccountsLink() {
         testUtility.waitForElementPresent(reportsLink);
         actions.moveToElement(reportsLink).moveToElement(customersLink).moveToElement(newAccountsLink).click().perform();
+    }
+    public void ClickOnDownloadsLink(){
+        testUtility.waitForElementPresent(reportsLink);
+        actions.moveToElement(reportsLink).moveToElement(productsLink).moveToElement(downloadsLink).click().perform();
+
     }
 }
 
