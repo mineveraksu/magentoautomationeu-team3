@@ -52,3 +52,13 @@ Feature:Sales Module Functions
     When  sales manager entering the refunds period and shows refunds
     Then  sales manager view refunds reports successful
 
+  @ManageUpdateShoppingCart
+  Scenario Outline: Sales Manager should be able to manage update an existing shopping cart for customers.
+    Given Sales manager is on the dashboard page and click on the manage customers link
+    When Sales manager open a customer and open his shopping cart
+    And Sales manager edit the shopping cart
+    Then The shopping cart should be edited successfully
+    Examples:
+      |  quantity |
+      | 5  |
+

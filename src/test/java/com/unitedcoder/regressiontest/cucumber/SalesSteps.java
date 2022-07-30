@@ -1,10 +1,7 @@
 package com.unitedcoder.regressiontest.cucumber;
 
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
-import com.seleniummaster.maganto.backendpages.salespages.InvoicesPage;
-import com.seleniummaster.maganto.backendpages.salespages.RefundsPage;
-import com.seleniummaster.maganto.backendpages.salespages.SalesDashboardPage;
-import com.seleniummaster.maganto.backendpages.salespages.SalesShipmentsPage;
+import com.seleniummaster.maganto.backendpages.salespages.*;
 import com.seleniummaster.maganto.utility.*;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -25,6 +22,7 @@ public class SalesSteps extends BasePage {
     RefundsPage refundsPage;
     TestDataHolder testDataHolder;
     ExcelUtility excelUtility;
+    ManageCustomersPage manageCustomersPage;
 
 
     @Before("@SalesModuleTest")
@@ -141,7 +139,25 @@ public class SalesSteps extends BasePage {
         closeBrowser();
     }
 
+    // Sales Manager manage update a shopping cart for customers.
+    @Given("Sales manager is on the dashboard page and click on the manage customers link")
+    public void salesManagerIsOnTheDashboardPageAndClickOnTheManageCustomersLink() {
+        salesDashboardPage=new SalesDashboardPage(driver);
+        salesDashboardPage.clickOnManageCustomersLink();
+        manageCustomersPage=new ManageCustomersPage(driver);
+        manageCustomersPage.openShoppingCart();
+    }
 
+    @When("Sales manager open a customer and open his shopping cart")
+    public void salesManagerOpenACustomerAndOpenHisShoppingCart() {
+    }
 
+    @And("Sales manager edit the shopping cart")
+    public void salesManagerEditTheShoppingCart() {
+    }
+
+    @Then("The shopping cart should be edited successfully")
+    public void theShoppingCartShouldBeEditedSuccessfully() {
+    }
 }
 

@@ -1,5 +1,6 @@
 package com.seleniummaster.maganto.backendpages.salespages;
 
+import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.TestUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,17 +13,25 @@ public class ManageCustomersPage {
     WebDriver driver;
     TestUtility testUtility;
     Actions actions;
+    String configFile = "config.properties";
     public ManageCustomersPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         testUtility = new TestUtility(driver);
         actions = new Actions(driver);
     }
-    @FindBy(xpath = "//*[@id=\"nav\"]/li[4]/a/span")
-    WebElement customersLink;
 
-    @FindBy(xpath = "//*span[text()='Manage Customers'")
-    WebElement ManageCustomersLink;
+    @FindBy(xpath = "//span[text()='Reset Filter']")
+    WebElement resetFilterButton;
+
+    @FindBy(xpath = "//span[text()='Search']")
+    WebElement searchButton;
+
+    @FindBy(id = "customerGrid_filter_email")
+    WebElement emailField;
+
+    @FindBy(linkText = "Edit")
+    WebElement editButton;
 
     @FindBy(id = "customer_info_tabs_cart")
     WebElement shoppingCartLink;
@@ -35,6 +44,30 @@ public class ManageCustomersPage {
 
     @FindBy(css= "button[span='OK']")
     WebElement okButton;
+
+    @FindBy(linkText = "Delete")
+    WebElement deleteButton;
+
+    public void openShoppingCart(){
+        String email = ApplicationConfig.readFromConfigProperties(configFile,"email");
+        testUtility.sleep(2);
+        testUtility.waitForElementPresent(resetFilterButton);
+        resetFilterButton.click();
+        testUtility.sleep(2);
+        testUtility.waitForElementPresent(emailField);
+        emailField.sendKeys(email);
+        searchButton.click();
+        testUtility.sleep(2);
+        testUtility.waitForElementPresent(editButton);
+        editButton.click();
+        testUtility.sleep(2);
+        testUtility.waitForElementPresent(shoppingCartLink);
+        shoppingCartLink.click();
+        testUtility.sleep(2);
+
+    }
+
+
 
 
 
