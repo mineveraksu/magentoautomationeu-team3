@@ -76,5 +76,14 @@ public class ReportingDashboardPage {
 
     }
 
+    public void clickOnOrdersLink() {
+        testUtility.waitForElementPresent(reportsLink);
+        actions.moveToElement(reportsLink).click().perform();
+        testUtility.waitForElementPresent(salesOption);
+        actions.moveToElement(salesOption).perform();
+        testUtility.waitForElementPresent(shippingOption);
+        shippingOption.click();
+
+    }
 }
 
