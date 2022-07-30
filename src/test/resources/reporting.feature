@@ -1,10 +1,6 @@
 @ReportingModuleTest
 Feature:Reporting Module Functions
 
-  @SeeProducts-ProductsDownloadsReport
-  Scenario: Reporting Manager can see Products - Products Downloads Report
-    Given Reporting manager is on the dashboard page and clicks on Downloads link
-
     @SeeProducts-MostViewedProductsReport
     Scenario: Reporting Manager should be able to see Products - Products Most Viewed Report
       Given Reporting manager is on the dashboard page and clicks on mostViewed link
@@ -50,5 +46,9 @@ Feature:Reporting Module Functions
         |fromDate  |toDate    |
         |01/01/2022|07/30/2022|
 
+  @SeeProducts-ProductsDownloadsReport
+  Scenario: Reporting Manager should be able to see Products - Products Downloads Report
+    Given Reporting manager is on the dashboard page and clicks on downloads link
+    Then Reporting Manager can see Products - Products Downloads Report
 
 
