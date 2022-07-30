@@ -18,6 +18,7 @@ public class ReportingDashboardPage {
         testUtility = new TestUtility(driver);
         actions = new Actions(driver);
     }
+
     @FindBy(xpath = "(//span[contains(text(),'Reports')])[1]")
     WebElement reportsLink;
     @FindBy(xpath = "//span[text()='Products']")
@@ -30,9 +31,14 @@ public class ReportingDashboardPage {
     WebElement invoicedOption;
     @FindBy(xpath = "//span[contains(text(),'Shipping')]")
     WebElement shippingOption;
+    @FindBy(xpath = "(//span[text()='Products Ordered'])[1]")
+    WebElement productsOrderedLink;
+    @FindBy(xpath = "//span[text()=\"Sales\"]")
+    WebElement salesLink;
+    @FindBy(xpath = "(//span[text()=\"Orders\"])[1]")
+    WebElement ordersLink;
 
-
-    public void clickOnMostViewedLink(){
+    public void clickOnMostViewedLink() {
         testUtility.waitForElementPresent(reportsLink);
         actions.moveToElement(reportsLink).click().perform();
         testUtility.waitForElementPresent(productsLink);
@@ -41,17 +47,16 @@ public class ReportingDashboardPage {
         actions.moveToElement(mostViewedLink).click().perform();
     }
 
-    public void ClickOnInvoicedOption(){
+    public void ClickOnInvoicedOption() {
         testUtility.waitForElementPresent(reportsLink);
         actions.moveToElement(reportsLink).click().perform();
-        testUtility.waitForElementPresent(salesOption);
-        actions.moveToElement(salesOption).perform();
-        testUtility.waitForElementPresent(invoicedOption);
-        invoicedOption.click();
-
+        testUtility.waitForElementPresent(salesLink);
+        actions.moveToElement(salesLink).click().perform();
+        testUtility.waitForElementPresent(ordersLink);
+        actions.moveToElement(ordersLink).click().perform();
     }
 
-    public void ClickOnShippingOption(){
+    public void ClickOnShippingOption() {
         testUtility.waitForElementPresent(reportsLink);
         actions.moveToElement(reportsLink).click().perform();
         testUtility.waitForElementPresent(salesOption);
@@ -59,4 +64,24 @@ public class ReportingDashboardPage {
         testUtility.waitForElementPresent(shippingOption);
         shippingOption.click();
     }
+
+    public void clickOnOrdersLink() {
+        testUtility.waitForElementPresent(reportsLink);
+        actions.moveToElement(reportsLink).click().perform();
+        testUtility.waitForElementPresent(salesLink);
+        actions.moveToElement(salesLink).click().perform();
+        testUtility.waitForElementPresent(ordersLink);
+        actions.moveToElement(ordersLink).click().perform();
+
+    }
+    public void ClickOnProductsOrderedOption() {
+        testUtility.waitForElementPresent(reportsLink);
+        actions.moveToElement(reportsLink).click().perform();
+        testUtility.waitForElementPresent(productsLink);
+        actions.moveToElement(productsLink).click().perform();
+        testUtility.waitForElementPresent(productsOrderedLink);
+        actions.moveToElement(productsOrderedLink).perform();
+        productsOrderedLink.click();
+    }
 }
+
