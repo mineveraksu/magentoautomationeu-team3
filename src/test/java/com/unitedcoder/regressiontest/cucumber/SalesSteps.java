@@ -158,5 +158,14 @@ public class SalesSteps extends BasePage {
         closeBrowser();
     }
 
+    @When("sales manager clicks on the pending order to  click on the Cancel Button")
+    public void salesManagerClicksOnThePendingOrderToClickOnTheCancelButton() {
+        ordersPage.deleteOrder();
+    }
+
+    @Then("Sales Manager deleted a order successfully")
+    public void salesManagerDeletedAOrderSuccessfully() {
+        Assert.assertTrue(ordersPage.verifyOrderDeletedSuccessfully());
+    }
 }
 
