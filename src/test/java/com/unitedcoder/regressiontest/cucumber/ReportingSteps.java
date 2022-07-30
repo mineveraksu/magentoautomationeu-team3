@@ -1,8 +1,9 @@
 package com.unitedcoder.regressiontest.cucumber;
 
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
-import com.seleniummaster.maganto.backendpages.reportingpages.*;
-import com.seleniummaster.maganto.backendpages.salespages.SalesDashboardPage;
+import com.seleniummaster.maganto.backendpages.reportingpages.ProductsMostViewedPage;
+import com.seleniummaster.maganto.backendpages.reportingpages.ReportingDashboardPage;
+import com.seleniummaster.maganto.backendpages.reportingpages.SalesPage;
 import com.seleniummaster.maganto.utility.*;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -23,8 +24,6 @@ public class ReportingSteps extends BasePage {
     TestDataHolder testDataHolder2;
     ExcelUtility excelUtility;
     SalesPage salesPage;
-    InvoicedVsPaidReportPage invoicedVsPaidReportPage;
-    ShippedReportPage shippedReportPage;
 
 
     @Before("@ReportingModuleTest")
@@ -32,18 +31,16 @@ public class ReportingSteps extends BasePage {
         browserSetUp(url);
         login = new BackEndLogin(driver);
         login.reportingPageLogin();
-        reportingDashboardPage = new ReportingDashboardPage(driver);
-        productsMostViewedPage = new ProductsMostViewedPage(driver);
-        excelUtility = new ExcelUtility();
-        testDataHolder = excelUtility.readReportingInfoFromExcel("Test-Data/reportingModule.xlsx", "Sales_Info");
-        testDataHolder2 = excelUtility.readSalesInfoFromExcel("Test-Data/SalesModule.xlsx", "Refunds_Info");
-        salesPage = new SalesPage(driver);
+        reportingDashboardPage=new ReportingDashboardPage(driver);
+        productsMostViewedPage=new ProductsMostViewedPage(driver);
+        excelUtility=new ExcelUtility();
+        testDataHolder=excelUtility.readReportingInfoFromExcel("Test-Data/reportingModule.xlsx","Sales_Info");
+        testDataHolder2=excelUtility.readSalesInfoFromExcel("Test-Data/SalesModule.xlsx","Refunds_Info");
+        salesPage= new SalesPage(driver);
     }
-
     @Given("Reporting manager is on the dashboard page and clicks on Downloads link")
     public void reportingManagerIsOnTheDashboardPageAndClicksOnDownloadsLink() {
     }
-
     @Given("Reporting manager is on the dashboard page and clicks on mostViewed link")
     public void reportingManagerIsOnTheDashboardPageAndClicksOnMostViewedLink() {
         reportingDashboardPage.clickOnMostViewedLink();
@@ -59,19 +56,8 @@ public class ReportingSteps extends BasePage {
         Assert.assertTrue(productsMostViewedPage.verifyMostViewedProductsDisplayed());
     }
 
-    @After("@ReportingModuleTest")
-    public void tearDown(Scenario scenario) {
-        if (scenario.isFailed()) {
-            ScreenShotUtility screenShotUtility = new ScreenShotUtility();
-            screenShotUtility.takeScreenshot("image", "failedTest", driver);
-        }
-        closeBrowser();
-    }
-
-
     @Given("Reporting manager is on the dashboard page and clicks on Orders link")
     public void reportingManagerIsOnTheDashboardPageAndClicksOnOrdersLink() {
-
         reportingDashboardPage.clickOnOrdersLink();
     }
 
@@ -82,11 +68,10 @@ public class ReportingSteps extends BasePage {
     }
 
     @And("Reporting manager see total ordered report under the Sales")
-    public void reportingManagerSeeTotalOrderedReportUnderTheSales() {
-        Assert.assertTrue(salesPage.verifyOrdersSaw());
+    public void reportingManagerSeeTotalOrderedReportUnderTheSales(){
+       Assert.assertTrue(salesPage.verifyOrdersSaw());
     }
-
-    //See Products-Products Ordered Report
+//See Products-Products Ordered Report
     @Given("Reporting manager is on the dashboard page and clicks on Products Ordered link")
     public void reportingManagerIsOnTheDashboardPageAndClicksOnProductsOrderedLink() {
         reportingDashboardPage.ClickOnProductsOrderedOption();
@@ -95,7 +80,7 @@ public class ReportingSteps extends BasePage {
 
     @When("Reporting Manager Navigate to products ordered report page and select period and date {string} {string} and click Refresh button")
     public void reportingManagerNavigateToProductsOrderedReportPageAndSelectPeriodAndDateAndClickRefreshButton(String arg0, String arg1) {
-        productsMostViewedPage.viewProductsOrderedReport(arg0, arg1);
+        productsMostViewedPage.viewProductsOrderedReport(arg0,arg1);
 
     }
 
@@ -103,5 +88,14 @@ public class ReportingSteps extends BasePage {
     public void totalProductsOrderedReportDisplayedSuccessfully() {
         Assert.assertTrue(productsMostViewedPage.verifyViewProductsOrderedReport());
     }
+    @After("@ReportingModuleTest")
+    public void tearDown(Scenario scenario) {
+        if (scenario.isFailed()) {
+            ScreenShotUtility screenShotUtility = new ScreenShotUtility();
+            screenShotUtility.takeScreenshot("image", "failedTest", driver);
+        }
+        closeBrowser();
+    }
 
 }
+
