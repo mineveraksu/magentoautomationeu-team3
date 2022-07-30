@@ -1,6 +1,7 @@
 package com.seleniummaster.maganto.backendpages.customerpages;
 
 
+import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.TestUtility;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -45,9 +46,10 @@ public class FilterCustomerPage {
     WebElement resetFilter;
 
 
-    public void clickEmailField(String email) {
+    public void clickEmailField() {
         testUtility.waitForElementPresent(emailField);
-        emailField.sendKeys(email);
+        emailField.clear();
+        emailField.sendKeys(ApplicationConfig.readFromConfigProperties(config,"email"));
         testUtility.waitForElementPresent(searchButton);
         searchButton.click();
     }

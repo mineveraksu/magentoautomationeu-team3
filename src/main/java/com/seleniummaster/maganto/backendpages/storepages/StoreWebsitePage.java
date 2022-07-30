@@ -29,6 +29,10 @@ public class StoreWebsitePage {
     WebElement successMessage;
     @FindBy(linkText = "Store Name")
     WebElement storeNameLink;
+    @FindBy(xpath = "(//p[@class=\"form-buttons\"])[1]/button[4]/span/span/span")
+    WebElement saveEditWebsiteButton;
+    @FindBy(xpath = "//*[@id=\"messages\"]/ul/li/ul/li/span")
+    WebElement editWebsiteSuccessMessage;
 
     public StoreWebsitePage(WebDriver driver) {
         this.driver = driver;
@@ -58,6 +62,27 @@ public class StoreWebsitePage {
         }
     }
 
+    public void editWebsite(TestDataHolder testDataHolder){
+        WebElement websiteName = driver.findElement(By.xpath(String.format("//a[contains(text(),'%s')]", testDataHolder.getWebsiteName())));
+        testUtility.waitForElementPresent(websiteName);
+        websiteName.click();
+        testUtility.waitForElementPresent(codeField);
+        codeField.sendKeys("1234");
+        testUtility.waitForElementPresent(saveEditWebsiteButton);
+        saveEditWebsiteButton.click();
+    }
+
+    public boolean verifyWebsiteEditSuccessfully(){
+        testUtility.waitForElementPresent(editWebsiteSuccessMessage);
+        if (editWebsiteSuccessMessage.getText().contains("saved.")) {
+            System.out.println("Store manager edit website test passed!");
+            return true;
+        } else {
+            System.out.println("Store manager edit website test failed!");
+            return false;
+        }
+    }
+
     public void deleteWebsite(TestDataHolder testDataHolder) {
         WebElement websiteName = driver.findElement(By.xpath(String.format("//a[contains(text(),'%s')]", testDataHolder.getWebsiteName())));
         testUtility.waitForElementPresent(websiteName);
@@ -78,14 +103,16 @@ public class StoreWebsitePage {
 
     }
 
-    public boolean verifyAllStoresViewed(){
-        if (storeNameLink.isDisplayed()){
+
+
+    public boolean verifyAllStoresViewed() {
+        if (storeNameLink.isDisplayed()) {
             System.out.println("Store manager can view all stores.");
             return true;
-        }else {
+        } else {
             System.out.println("Store manager can not view all stores.");
             return false;
         }
-
     }
+
 }

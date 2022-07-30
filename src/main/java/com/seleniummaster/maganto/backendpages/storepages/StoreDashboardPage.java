@@ -27,6 +27,15 @@ public class StoreDashboardPage {
     WebElement catalogLink;
     @FindBy(xpath = " //span[text()='Manage Products']")
     WebElement manageProductsLink;
+    @FindBy(xpath = "//span[text()=\"Sales\"]")
+    WebElement salesLink;
+    @FindBy(xpath = "//span[text()=\"Orders\"]")
+    WebElement ordersLink;
+    @FindBy(xpath = "(//a[text()='View'])[1]")
+    WebElement viewLink;
+    @FindBy(xpath = "(//span[text()='Create New Order'])[1]")
+    WebElement createNewOrdersTab;
+
 
 
     public void clickOnManageStoresLink() {
@@ -41,6 +50,23 @@ public class StoreDashboardPage {
         catalogLink.click();
         testUtility.waitForElementPresent(manageProductsLink);
         manageProductsLink.click();
+    }
+
+    public  void clickOnOrdersLink(){
+        testUtility.waitForElementPresent(salesLink);
+        actions.moveToElement(salesLink).click().perform();
+        testUtility.waitForElementPresent(ordersLink);
+        actions.moveToElement(ordersLink).click().perform();
+    }
+
+    public void clickOnCreateNewOrderLink(){
+        testUtility.waitForElementPresent(createNewOrdersTab);
+        actions.moveToElement(createNewOrdersTab).click().perform();
+    }
+
+    public void clickOnViewLink(){
+        testUtility.waitForElementPresent(viewLink);
+        actions.moveToElement(viewLink).click().perform();
     }
 
 

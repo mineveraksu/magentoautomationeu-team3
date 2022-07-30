@@ -69,7 +69,6 @@ public class PublicUserModuleTestRunner extends BasePage {
     public void updateShoppingCart() {
         shoppingCartPage.updateShoppingCart();
         Assert.assertTrue(shoppingCartPage.verifyUpdateShoppingCart());
-        shoppingCartPage.clickOnDeleteCartButton();
     }
 
     @Test(groups = "regression test", description = "user should be able to update and view address book")

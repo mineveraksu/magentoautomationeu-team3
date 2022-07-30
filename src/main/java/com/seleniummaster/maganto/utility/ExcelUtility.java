@@ -79,5 +79,49 @@ public class ExcelUtility {
         testDataHolder.setStoreName(excelUtility.readFromExcelCell(fileName,sheetName,1,2));
         return testDataHolder;
     }
+    public TestDataHolder readReportingInfoFromExcel(String fileName, String sheetName){
+        ExcelUtility excelUtility=new ExcelUtility();
+        XSSFWorkbook workbook= null;
+        try {
+            workbook = new XSSFWorkbook(fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        TestDataHolder testDataHolder=new TestDataHolder();
+        testDataHolder.setStartDate(excelUtility.readFromExcelCell(fileName,sheetName,1,0));
+        testDataHolder.setEndDate(excelUtility.readFromExcelCell(fileName,sheetName,1,1));
+        return testDataHolder;
+    }
+    public TestDataHolder readCatalogAddProductInfoFromExcel(String fileName, String sheetName){
+        ExcelUtility excelUtility=new ExcelUtility();
+        XSSFWorkbook workbook= null;
+        try {
+            workbook = new XSSFWorkbook(fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        TestDataHolder testDataHolder=new TestDataHolder();
+        testDataHolder.setProductName(excelUtility.readFromExcelCell(fileName,sheetName,1,0));
+        testDataHolder.setProductDescription(excelUtility.readFromExcelCell(fileName,sheetName,1,1));
+        testDataHolder.setShortDescription(excelUtility.readFromExcelCell(fileName,sheetName,1,2));
+        testDataHolder.setSKU(excelUtility.readFromExcelCell(fileName,sheetName,1,3));
+        testDataHolder.setWeight(excelUtility.readFromExcelCell(fileName,sheetName,1,4));
+        testDataHolder.setPrice(excelUtility.readFromExcelCell(fileName,sheetName,1,5));
+        return testDataHolder;
+    }
+
+    public TestDataHolder readSalesInfoFromExcel(String fileName, String sheetName){
+        ExcelUtility excelUtility=new ExcelUtility();
+        XSSFWorkbook workbook= null;
+        try {
+            workbook = new XSSFWorkbook(fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        TestDataHolder testDataHolder=new TestDataHolder();
+        testDataHolder.setStartFrom(excelUtility.readFromExcelCell(fileName,sheetName,1,0));
+        testDataHolder.setEndTo(excelUtility.readFromExcelCell(fileName,sheetName,1,1));
+        return testDataHolder;
+    }
 
 }
