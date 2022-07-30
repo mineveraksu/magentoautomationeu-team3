@@ -110,6 +110,7 @@ public class CatalogModuleTestRunner extends BasePage {
     public void filterProductsInTheCategoryProductsTab(TestDataHolder testDataHolder){
         catalogDashboardPage.clickOnManageCategories();
         productPage.filterProductInTheCategoryProductsTab(testDataHolder);
+        Assert.assertTrue(productPage.verifyFilterProductInTheCategoryProductsTab());
     }
     @DataProvider
     public Object[] addProductInfo() {

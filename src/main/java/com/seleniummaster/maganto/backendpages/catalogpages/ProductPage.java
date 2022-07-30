@@ -73,6 +73,8 @@ public class ProductPage {
     WebElement filterProductsByName;
     @FindBy(xpath = "//*[@title=\"Search\"and@type=\"button\"]")
     WebElement productsSearchButton;
+    @FindBy(xpath = "//*[@id=\"catalog_category_products_table\"]/tbody/tr[1]/td[3]")
+    WebElement filterProductSuccessfulMessage;
 
     public ProductPage(WebDriver driver){
         this.driver=driver;
@@ -163,6 +165,19 @@ public class ProductPage {
         filterProductsByName.sendKeys(testDataHolder.getProductName());
         testUtility.waitForElementPresent(productsSearchButton);
         productsSearchButton.click();
+
+    }
+
+    public boolean verifyFilterProductInTheCategoryProductsTab(){
+        testUtility.waitForElementPresent(filterProductSuccessfulMessage);
+        if (filterProductSuccessfulMessage.isDisplayed()){
+            System.out.println("Filter Product In The Category Products Tab Passed");
+            return true;
+        }
+        else {
+            System.out.println("Filter Product In The Category Products Tab Failed");
+            return false;
+        }
 
     }
     public void deleteProduct(){
