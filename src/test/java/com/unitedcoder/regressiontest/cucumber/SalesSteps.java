@@ -98,7 +98,7 @@ public class SalesSteps extends BasePage {
     @Then("a new Tax Rule created successfully")
     public void aNewTaxRuleCreatedSuccessfully() {
         InvoicesPage invoicesPage=new InvoicesPage(driver);
-        invoicesPage.verifyAddNewTaxRuleRuleSuccessfully();
+        Assert.assertTrue(invoicesPage.verifyAddNewTaxRuleRuleSuccessfully());
 
     }
     //update Tax Rules
@@ -111,7 +111,7 @@ public class SalesSteps extends BasePage {
     @Then("the new Tax Rule update successfully")
     public void theNewTaxRuleUpdateSuccessfully() {
         InvoicesPage invoicesPage=new InvoicesPage(driver);
-        invoicesPage.verifyUpdateNewTaxRuleRuleSuccessfully();
+        Assert.assertTrue(invoicesPage.verifyUpdateNewTaxRuleRuleSuccessfully());
     }
 
     @Given("sales manager click on refunds link")
