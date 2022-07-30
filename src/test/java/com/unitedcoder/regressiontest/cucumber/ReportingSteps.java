@@ -4,7 +4,6 @@ import com.seleniummaster.maganto.backendpages.BackEndLogin;
 import com.seleniummaster.maganto.backendpages.reportingpages.ProductsMostViewedPage;
 import com.seleniummaster.maganto.backendpages.reportingpages.ReportingDashboardPage;
 import com.seleniummaster.maganto.backendpages.reportingpages.SalesPage;
-import com.seleniummaster.maganto.backendpages.salespages.SalesDashboardPage;
 import com.seleniummaster.maganto.utility.*;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -57,19 +56,8 @@ public class ReportingSteps extends BasePage {
         Assert.assertTrue(productsMostViewedPage.verifyMostViewedProductsDisplayed());
     }
 
-    @After("@ReportingModuleTest")
-    public void tearDown(Scenario scenario) {
-        if (scenario.isFailed()) {
-            ScreenShotUtility screenShotUtility = new ScreenShotUtility();
-            screenShotUtility.takeScreenshot("image", "failedTest", driver);
-        }
-        closeBrowser();
-    }
-
-
     @Given("Reporting manager is on the dashboard page and clicks on Orders link")
     public void reportingManagerIsOnTheDashboardPageAndClicksOnOrdersLink() {
-
         reportingDashboardPage.clickOnOrdersLink();
     }
 
@@ -100,6 +88,14 @@ public class ReportingSteps extends BasePage {
     public void totalProductsOrderedReportDisplayedSuccessfully() {
         Assert.assertTrue(productsMostViewedPage.verifyViewProductsOrderedReport());
     }
-
+    @After("@ReportingModuleTest")
+    public void tearDown(Scenario scenario) {
+        if (scenario.isFailed()) {
+            ScreenShotUtility screenShotUtility = new ScreenShotUtility();
+            screenShotUtility.takeScreenshot("image", "failedTest", driver);
+        }
+        closeBrowser();
+    }
 
 }
+

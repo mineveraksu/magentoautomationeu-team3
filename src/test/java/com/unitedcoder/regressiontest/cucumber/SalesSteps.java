@@ -1,10 +1,7 @@
 package com.unitedcoder.regressiontest.cucumber;
 
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
-import com.seleniummaster.maganto.backendpages.salespages.InvoicesPage;
-import com.seleniummaster.maganto.backendpages.salespages.RefundsPage;
-import com.seleniummaster.maganto.backendpages.salespages.SalesDashboardPage;
-import com.seleniummaster.maganto.backendpages.salespages.SalesShipmentsPage;
+import com.seleniummaster.maganto.backendpages.salespages.*;
 import com.seleniummaster.maganto.utility.*;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -23,6 +20,7 @@ public class SalesSteps extends BasePage {
     InvoicesPage invoicesPage;
     SalesShipmentsPage salesShipmentsPage;
     RefundsPage refundsPage;
+    OrdersPage ordersPage;
     TestDataHolder testDataHolder;
     ExcelUtility excelUtility;
 
@@ -32,23 +30,37 @@ public class SalesSteps extends BasePage {
         browserSetUp(url);
         login = new BackEndLogin(driver);
         login.salesPageLogin();
-        salesDashboardPage=new SalesDashboardPage(driver);
-        excelUtility=new ExcelUtility();
-        testDataHolder=excelUtility.readSalesInfoFromExcel("Test-Data/SalesModule.xlsx","Refunds_Info");
+        salesDashboardPage = new SalesDashboardPage(driver);
+        excelUtility = new ExcelUtility();
+        testDataHolder = excelUtility.readSalesInfoFromExcel("Test-Data/SalesModule.xlsx", "Refunds_Info");
     }
+
     @Given("Sales manager is on the dashboard page and clicks on Orders link")
     public void salesManagerIsOnTheDashboardPageAndClicksOnOrdersLink() {
+        salesDashboardPage.clickOnOrdersLink();
+        ordersPage=new OrdersPage(driver);
+    }
+
+
+    @When("sales manager selects a {string} in order to add a {string} to order")
+    public void salesManagerSelectsAInOrderToAddAToOrder(String arg0, String arg1) {
+        ordersPage.createANewOrder(arg0,arg1);
+    }
+
+    @Then("Sales Manager created a new order successfully")
+    public void salesManagerCreatedANewOrderSuccessfully() {
+        Assert.assertTrue(ordersPage.verifyOrderCreatedSuccessfully());
     }
 
     @Given("sales manager is on the dashboard page and click on invoices link")
     public void salesManagerIsOnTheDashboardPageAndClickOnInvoicesLink() {
-        salesDashboardPage=new SalesDashboardPage(driver);
+        salesDashboardPage = new SalesDashboardPage(driver);
         salesDashboardPage.clickOnInvoicesLink();
     }
 
     @When("sales manager click edit button and click comment text and added comment to {string} filed")
     public void salesManagerClickEditButtonAndClickCommentTextAndAddedCommentToFiled(String arg0) {
-        invoicesPage=new InvoicesPage(driver);
+        invoicesPage = new InvoicesPage(driver);
         invoicesPage.viewInvoicesAndAddComments(arg0);
     }
 
@@ -67,7 +79,7 @@ public class SalesSteps extends BasePage {
 
     @When("Sales Manager click view icon and fill out {string} information and click on submit comment button")
     public void salesManagerClickViewIconAndFillOutInformationAndClickOnSubmitCommentButton(String arg0) {
-        salesShipmentsPage=new SalesShipmentsPage(driver);
+        salesShipmentsPage = new SalesShipmentsPage(driver);
         salesShipmentsPage.updateShipmentsHistory(arg0);
     }
 
@@ -85,33 +97,38 @@ public class SalesSteps extends BasePage {
     //Add Tax Rules
     @Given("Sales manager is on the dashboard page and clicks on Manage Tax Rules")
     public void salesManagerIsOnTheDashboardPageAndClicksOnManageTaxRules() {
-        SalesDashboardPage salesDashboardPage=new SalesDashboardPage(driver);
+        SalesDashboardPage salesDashboardPage = new SalesDashboardPage(driver);
         salesDashboardPage.clickOnManageTaxRulesLink();
     }
 
     @When("Sales Manager click Add New Tax Rule  icon and fill out {string} {string} {string} information and click on Save Rule button")
     public void salesManagerClickIconAndFillOutInformationAndClickOnSaveRuleButton(String arg0, String arg1, String arg2) {
-     InvoicesPage invoicesPage=new InvoicesPage(driver);
-     invoicesPage.addNewTaxRule(arg0,arg1,arg2);
+        InvoicesPage invoicesPage = new InvoicesPage(driver);
+        invoicesPage.addNewTaxRule(arg0, arg1, arg2);
     }
 
     @Then("a new Tax Rule created successfully")
     public void aNewTaxRuleCreatedSuccessfully() {
-        InvoicesPage invoicesPage=new InvoicesPage(driver);
+        InvoicesPage invoicesPage = new InvoicesPage(driver);
+        invoicesPage.verifyAddNewTaxRuleRuleSuccessfully();
         Assert.assertTrue(invoicesPage.verifyAddNewTaxRuleRuleSuccessfully());
 
     }
+
     //update Tax Rules
     @When("Sales Manager click Add New Tax Rule icon and fill out {string}information and edit tax rules")
     public void salesManagerClickAddNewTaxRuleIconAndFillOutInformationAndEditTaxRules(String arg0) {
-        InvoicesPage invoicesPage=new InvoicesPage(driver);
+        InvoicesPage invoicesPage = new InvoicesPage(driver);
         invoicesPage.updateNewTaxRule(arg0);
     }
 
     @Then("the new Tax Rule update successfully")
     public void theNewTaxRuleUpdateSuccessfully() {
-        InvoicesPage invoicesPage=new InvoicesPage(driver);
+
+        InvoicesPage invoicesPage = new InvoicesPage(driver);
+        invoicesPage.verifyUpdateNewTaxRuleRuleSuccessfully();
         Assert.assertTrue(invoicesPage.verifyUpdateNewTaxRuleRuleSuccessfully());
+
     }
 
     @Given("sales manager click on refunds link")
@@ -121,13 +138,13 @@ public class SalesSteps extends BasePage {
 
     @When("sales manager entering the refunds period and shows refunds")
     public void salesManagerEnteringTheRefundsPeriodAndShowsRefunds() {
-        refundsPage=new RefundsPage(driver);
+        refundsPage = new RefundsPage(driver);
         refundsPage.refundsReport(testDataHolder);
     }
 
     @Then("sales manager view refunds reports successful")
     public void salesManagerViewRefundsReportsSuccessful() {
-        refundsPage=new RefundsPage(driver);
+        refundsPage = new RefundsPage(driver);
         Assert.assertTrue(refundsPage.verifyRefundsReportSuccessfulShow());
     }
 
@@ -140,8 +157,6 @@ public class SalesSteps extends BasePage {
         }
         closeBrowser();
     }
-
-
 
 }
 
