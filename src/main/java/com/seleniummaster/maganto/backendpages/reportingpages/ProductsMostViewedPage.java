@@ -18,6 +18,7 @@ public class ProductsMostViewedPage {
     TestUtility testUtility;
     Select select;
     int reportRowSize;
+    //int allReviewsRowSize;
 
     @FindBy(id = "sales_report_period_type")
     WebElement periodDropdown;
@@ -27,6 +28,21 @@ public class ProductsMostViewedPage {
     WebElement endDate;
     @FindBy(xpath = "(//span[contains(text(),\"Show Report\")])[1]")
     WebElement showReportsButton;
+
+
+    //products ordered report
+    @FindBy(css = "#store_switcher")
+    WebElement selectShowReportFor;
+    @FindBy(css= "#period_date_from")
+    WebElement productsOrderedStartDate;
+    @FindBy(css = "#period_date_to")
+    WebElement productsOrderedEndDate;
+    @FindBy(css = "#report_period")
+    WebElement selectShowBy;
+    @FindBy(xpath = "//button[@title=\"Refresh\"]")
+    WebElement refreshButton;
+
+
     public ProductsMostViewedPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver,this);
@@ -48,5 +64,33 @@ public class ProductsMostViewedPage {
         List<WebElement> rows=driver.findElements(By.cssSelector("table.data>tbody>tr"));
         reportRowSize=rows.size();
         return reportRowSize>0;
+    }
+
+    //see Products - Products Ordered Report
+    public void viewProductsOrderedReport(String fromDate,String toDate){
+        testUtility.waitForElementPresent(selectShowReportFor);
+        select=new Select(selectShowReportFor);
+        select.selectByIndex(0);
+        testUtility.waitForElementPresent(productsOrderedStartDate);
+       productsOrderedStartDate.sendKeys(fromDate);
+        testUtility.waitForElementPresent(productsOrderedEndDate);
+        productsOrderedEndDate.sendKeys(toDate);
+        testUtility.waitForElementPresent(selectShowBy);
+        select=new Select(selectShowBy);
+        select.selectByIndex(2);
+        testUtility.waitForElementPresent(refreshButton);
+        refreshButton.click();
+    }
+    public boolean verifyViewProductsOrderedReport() {
+        List<WebElement> rows = driver.findElements(By.cssSelector("table.data>tbody>tr"));
+        reportRowSize = rows.size();
+        if (reportRowSize > 0) {
+            System.out.println("Reporting Manager can view all products ordered Test is Passed!!!");
+            return true;
+        } else {
+            System.out.println("Reporting Manager can view all products ordered Test is Failed!!");
+            return false;
+
+        }
     }
 }

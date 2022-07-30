@@ -66,7 +66,7 @@ public class ReportingSteps extends BasePage {
         closeBrowser();
     }
 
-
+//See ordered report
     @Given("Reporting manager is on the dashboard page and clicks on Orders link")
     public void reportingManagerIsOnTheDashboardPageAndClicksOnOrdersLink() {
 
@@ -82,5 +82,39 @@ public class ReportingSteps extends BasePage {
     @And("Reporting manager see total ordered report under the Sales")
     public void reportingManagerSeeTotalOrderedReportUnderTheSales(){
        Assert.assertTrue(salesPage.verifyOrdersSaw());
+    }
+//See Products-Products Ordered Report
+    @Given("Reporting manager is on the dashboard page and clicks on Products Ordered link")
+    public void reportingManagerIsOnTheDashboardPageAndClicksOnProductsOrderedLink() {
+        reportingDashboardPage.ClickOnProductsOrderedOption();
+
+    }
+
+    @When("Reporting Manager Navigate to products ordered report page and select period and date {string} {string} and click Refresh button")
+    public void reportingManagerNavigateToProductsOrderedReportPageAndSelectPeriodAndDateAndClickRefreshButton(String arg0, String arg1) {
+        productsMostViewedPage.viewProductsOrderedReport(arg0,arg1);
+
+    }
+
+    @Then("Total products Ordered report displayed successfully")
+    public void totalProductsOrderedReportDisplayedSuccessfully() {
+        Assert.assertTrue(productsMostViewedPage.verifyViewProductsOrderedReport());
+    }
+
+    // See texes report
+    @Given("Reporting manager on the dashboard page and click on tax link")
+    public void reportingManagerOnTheDashboardPageAndClickOnTaxLink() {
+        reportingDashboardPage.clickOnTaxLink();
+
+    }
+
+    @When("Reporting manager select taxes report period {string} {string} and click on shor report button")
+    public void reportingManagerSelectTaxesReportPeriodAndClickOnShorReportButton(String arg0, String arg1) {
+        salesPage.seeTaxesRateReport(arg0,arg1);
+    }
+
+    @Then("Taxes report display successful")
+    public void taxesReportDisplaySuccessful() {
+        Assert.assertTrue(salesPage.taxesReportSawVerify());
     }
 }

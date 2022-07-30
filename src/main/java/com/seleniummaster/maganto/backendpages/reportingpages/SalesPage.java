@@ -19,6 +19,7 @@ public class SalesPage {
     Actions actions;
     TestDataHolder testDataHolder;
     int rowCount;
+    int rowSize;
 
     @FindBy(css = "#store_switcher")
     WebElement showReportForField;
@@ -67,5 +68,35 @@ public class SalesPage {
             System.out.println("Reporting manager can not see total orders !");
             return false;
         }
+    }
+
+    // See texes rate report
+    public void seeTaxesRateReport(String startedTime, String endedTime){
+        testUtility.waitForElementPresent(showReportForField);
+        Select select1=new Select(showReportForField);
+        select1.selectByVisibleText("All Websites");
+        Select select2=new Select(matchPeriodToField);
+        select2.selectByVisibleText("Order Created Date");
+        Select select3=new Select(periodField);
+        select3.selectByVisibleText("Year");
+        testUtility.waitForElementPresent(fromField);
+        fromField.sendKeys(startedTime);
+        testUtility.waitForElementPresent(toField);
+        toField.sendKeys(endedTime);
+        testUtility.waitForElementPresent(showReportButton);
+        actions.moveToElement(showReportButton).click().perform();
+    }
+
+    public boolean taxesReportSawVerify(){
+        List<WebElement> rows=driver.findElements(By.cssSelector(".data>tbody>tr"));
+        rowSize=rows.size();
+        if(rowSize>=1){
+            System.out.println(" Reporting manager can see taxes report ");
+            return true;
+        }else{
+            System.out.println(" Reporting manager can not see taxes report ");
+            return false;
+        }
+
     }
 }
