@@ -20,55 +20,8 @@ public class StorePage {
     WebElement websiteDropDown;
     @FindBy(id = "group_name")
     WebElement storeNameField;
-
     @FindBy(linkText = "Store Name")
     WebElement storeNameLink;
-    //@FindBy(id = "group_root_category_id")
-   // WebElement rootCategoryDropDown;
-  //  @FindBy(id = "group_root_category_id")
-//    WebElement rootCategoryDropDown;
-//    @FindBy(css = "li.success-msg")
-//    WebElement websiteSavedSuccessfulSMS;
-//
-//    public StorePage(WebDriver driver) {
-//        this.driver = driver;
-//        testUtility = new TestUtility(driver);
-//        PageFactory.initElements(driver, this);
-//    }
-//
-//    public void createWebsite(String name,String code) {
-//        testUtility.waitForElementPresent(createWebsiteLink);
-//        createWebsiteLink.click();
-//        testUtility.waitForElementPresent(nameField);
-//        nameField.sendKeys(name);
-//        testUtility.waitForElementPresent(codeField);
-//        codeField.sendKeys(code);
-//        testUtility.waitForElementPresent(saveWebsiteButton);
-//        saveWebsiteButton.click();
-//    }
-//
-//    public boolean verifyWebsiteCreatedSuccessfully(){
-//        testUtility.waitForElementPresent(websiteSavedSuccessfulSMS);
-//        if (websiteSavedSuccessfulSMS.getText().contains("saved.")) {
-//            System.out.println("Store manager create website test passed!");
-//            return true;
-//        } else {
-//            System.out.println("Store manager create website test failed!");
-//            return false;
-//        }
-//
-//    }
-    public boolean verifyAllStoresViewed(){
-        if (storeNameLink.isDisplayed()){
-            System.out.println("Store manager can view all stores.");
-            return true;
-        }else {
-            System.out.println("Store manager can not view all stores.");
-            return false;
-        }
-
-    }
-
     @FindBy(id = "group_root_category_id")
     WebElement rootCategoryDropDown;
     @FindBy(xpath = "(//button[@title='Save Store']//span[text()='Save Store'])[1]")
@@ -83,6 +36,17 @@ public class StorePage {
         testUtility = new TestUtility(driver);
         PageFactory.initElements(driver, this);
     }
+
+    public boolean verifyAllStoresViewed(){
+        if (storeNameLink.isDisplayed()){
+            System.out.println("Store manager can view all stores.");
+            return true;
+        }else {
+            System.out.println("Store manager can not view all stores.");
+            return false;
+        }
+    }
+
 
     public void clickOnCreateStoreButton() {
         testUtility.waitForElementPresent(createStoreButton);
@@ -164,6 +128,7 @@ public class StorePage {
     }
 
     public void deleteStore(TestDataHolder testDataHolder) {
+        createStore(testDataHolder);
         clickOnTheSecondStoreName(testDataHolder);
         clickOnDeleteStoreButton();
     }

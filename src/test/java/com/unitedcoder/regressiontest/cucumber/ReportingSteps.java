@@ -4,7 +4,6 @@ import com.seleniummaster.maganto.backendpages.BackEndLogin;
 import com.seleniummaster.maganto.backendpages.reportingpages.ProductsMostViewedPage;
 import com.seleniummaster.maganto.backendpages.reportingpages.ReportingDashboardPage;
 import com.seleniummaster.maganto.backendpages.reportingpages.SalesPage;
-import com.seleniummaster.maganto.backendpages.salespages.SalesDashboardPage;
 import com.seleniummaster.maganto.utility.*;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -57,19 +56,8 @@ public class ReportingSteps extends BasePage {
         Assert.assertTrue(productsMostViewedPage.verifyMostViewedProductsDisplayed());
     }
 
-    @After("@ReportingModuleTest")
-    public void tearDown(Scenario scenario) {
-        if (scenario.isFailed()) {
-            ScreenShotUtility screenShotUtility = new ScreenShotUtility();
-            screenShotUtility.takeScreenshot("image", "failedTest", driver);
-        }
-        closeBrowser();
-    }
-
-//See ordered report
     @Given("Reporting manager is on the dashboard page and clicks on Orders link")
     public void reportingManagerIsOnTheDashboardPageAndClicksOnOrdersLink() {
-
         reportingDashboardPage.clickOnOrdersLink();
     }
 
@@ -100,21 +88,14 @@ public class ReportingSteps extends BasePage {
     public void totalProductsOrderedReportDisplayedSuccessfully() {
         Assert.assertTrue(productsMostViewedPage.verifyViewProductsOrderedReport());
     }
-
-    // See texes report
-    @Given("Reporting manager on the dashboard page and click on tax link")
-    public void reportingManagerOnTheDashboardPageAndClickOnTaxLink() {
-        reportingDashboardPage.clickOnTaxLink();
-
+    @After("@ReportingModuleTest")
+    public void tearDown(Scenario scenario) {
+        if (scenario.isFailed()) {
+            ScreenShotUtility screenShotUtility = new ScreenShotUtility();
+            screenShotUtility.takeScreenshot("image", "failedTest", driver);
+        }
+        closeBrowser();
     }
 
-    @When("Reporting manager select taxes report period {string} {string} and click on shor report button")
-    public void reportingManagerSelectTaxesReportPeriodAndClickOnShorReportButton(String arg0, String arg1) {
-        salesPage.seeTaxesRateReport(arg0,arg1);
-    }
-
-    @Then("Taxes report display successful")
-    public void taxesReportDisplaySuccessful() {
-        Assert.assertTrue(salesPage.taxesReportSawVerify());
-    }
 }
+

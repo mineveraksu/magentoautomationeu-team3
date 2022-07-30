@@ -18,6 +18,12 @@ public class StoreOrdersPage {
     String Config= "config.properties";
     String email = "email" ;
 
+    public StoreOrdersPage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+        testUtility = new TestUtility(driver);
+        actions = new Actions(driver);
+    }
 
     @FindBy(xpath = "(//span[text()=\"Edit\"])[1]")
     WebElement editButton;
@@ -109,13 +115,6 @@ public class StoreOrdersPage {
         js.executeScript("scroll(0,0)");
     }
 
-    public void waitUntilLoadingFinishs() {
-//        WebElement snipper = driver.findElement(By.id("loading_mask_loader"));
-//        while (snipper.isDisplayed()) {
-//
-//        }
-    }
-
     public void fillBillingAndShippingAddressForm(){
         testUtility.waitForElementPresent(billingAddressFirstNameField);
         testUtility.sleep(5);
@@ -144,8 +143,6 @@ public class StoreOrdersPage {
         testUtility.waitForElementPresent(billingAddressTelephoneField);
         billingAddressTelephoneField.click();
         billingAddressTelephoneField.sendKeys(testUtility.generateTelephoneNumber());
-
-
     }
 
     public void selectShippingMethodAndSubmitOrder() {
@@ -162,7 +159,6 @@ public class StoreOrdersPage {
         scrollToTop();
         testUtility.waitForElementPresent(submitOrderButton);
         submitOrderButton.click();
-
     }
 
     public boolean verifyCreateNewOrder(){
@@ -191,12 +187,7 @@ public class StoreOrdersPage {
 
         //Store Manager can edit orders
 
-    public StoreOrdersPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-        testUtility = new TestUtility(driver);
-        actions = new Actions(driver);
-    }
+
 
     public void editOrderInformation() {
         testUtility.waitForElementPresent(editButton);

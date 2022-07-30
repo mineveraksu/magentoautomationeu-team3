@@ -61,6 +61,12 @@ public class ProductPage {
     WebElement shoesTypeField;
     @FindBy(css = "li.success-msg")
     WebElement productSavedSuccessfulSMS;
+    @FindBy(xpath = "(//a[contains(text(),\"Edit\")])[2]")
+    WebElement editIcon;
+    @FindBy(id = "country_of_manufacture")
+    WebElement countryManufacturerSelection;
+    @FindBy(xpath = "(//span[contains(text(),\"Save\")])[1]")
+    WebElement editProductsSaveButton;
 
 
     public ProductPage(WebDriver driver){
@@ -112,6 +118,25 @@ public class ProductPage {
         testUtility.waitForElementPresent(saveButton);
         saveButton.click();
     }
+    public void editProducts(){
+        testUtility.waitForElementPresent(editIcon);
+        editIcon.click();
+        testUtility.waitForElementPresent(countryManufacturerSelection);
+        select=new Select(countryManufacturerSelection);
+        select.selectByValue("NL");
+        testUtility.waitForElementPresent(editProductsSaveButton);
+        editProductsSaveButton.click();
+    }
+    public boolean verifyProductEditSuccessful(){
+        testUtility.waitForElementPresent(productSavedSuccessfulSMS);
+        if (productSavedSuccessfulSMS.getText().contains("saved.")){
+            System.out.println("Catalog manager edit product test Passed!");
+            return true;
+        }else {
+            System.out.println("Catalog manager edit product test failed");
+            return false;
+        }
+    }
     public boolean verifyProductAddedSuccessfully(){
         testUtility.waitForElementPresent(productSavedSuccessfulSMS);
         if (productSavedSuccessfulSMS.getText().contains("saved.")){
@@ -121,6 +146,8 @@ public class ProductPage {
             System.out.println("Catalog manager add product test failed");
             return false;
         }
+
+
     }
     public void deleteProduct(){
         searchButton.click();
