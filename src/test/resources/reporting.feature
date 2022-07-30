@@ -51,4 +51,11 @@ Feature:Reporting Module Functions
         |01/01/2022|07/30/2022|
 
 
-
+  @SeeCustomersNewAccountsReport
+  Scenario Outline: Reporting Manager should be able to see Customers - New Accounts Report
+    Given  Reporting manager is on the dashboard page and clicks on New Accounts link
+    When   Reporting manager selects "<fromDate>" and "<toDate>" and clicks on Refresh button
+    Then    Reporting manager can see Customers - New Accounts Report table
+    Examples:
+      | fromDate   | toDate     |
+      | 01/01/2022 | 07/30/2022 |
