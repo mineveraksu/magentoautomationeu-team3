@@ -1,6 +1,7 @@
 package com.unitedcoder.regressiontest.cucumber;
 
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
+import com.seleniummaster.maganto.backendpages.marketingpages.NewsletterTemplatePage;
 import com.seleniummaster.maganto.backendpages.reportingpages.*;
 import com.seleniummaster.maganto.utility.*;
 import io.cucumber.java.After;
@@ -24,6 +25,7 @@ public class ReportingSteps extends BasePage {
     SalesPage salesPage;
     InvoicedVsPaidReportPage invoicedVsPaidReportPage;
     ShippedReportPage shippedReportPage;
+    NewAccountsPage newAccountsPage;
 
 
     @Before("@ReportingModuleTest")
@@ -31,6 +33,12 @@ public class ReportingSteps extends BasePage {
         browserSetUp(url);
         login = new BackEndLogin(driver);
         login.reportingPageLogin();
+
+        reportingDashboardPage=new ReportingDashboardPage(driver);
+        excelUtility=new ExcelUtility();
+        testDataHolder=excelUtility.readReportingInfoFromExcel("Test-Data/reportingModule.xlsx","Sales_Info");
+        testDataHolder2=excelUtility.readSalesInfoFromExcel("Test-Data/SalesModule.xlsx","Refunds_Info");
+        salesPage= new SalesPage(driver);
         reportingDashboardPage = new ReportingDashboardPage(driver);
         productsMostViewedPage = new ProductsMostViewedPage(driver);
         excelUtility = new ExcelUtility();
@@ -46,6 +54,7 @@ public class ReportingSteps extends BasePage {
 
     @When("reporting manager select period field and click showReports button after filling infos")
     public void reportingManagerSelectPeriodFieldAndClickShowReportsButtonAfterFillingInfos() {
+        productsMostViewedPage=new ProductsMostViewedPage(driver);
         productsMostViewedPage.viewProductsMostViewedReport(testDataHolder);
     }
 
@@ -126,6 +135,21 @@ public class ReportingSteps extends BasePage {
         Assert.assertTrue(productsMostViewedPage.verifyViewProductsOrderedReport());
     }
 
+    @Given("Reporting manager is on the dashboard page and clicks on New Accounts link")
+    public void reportingManagerIsOnTheDashboardPageAndClicksOnNewAccountsLink() {
+        reportingDashboardPage.clickOnNewAccountsLink();
+    }
+
+    @When("Reporting manager selects {string} and {string} and clicks on Refresh button")
+    public void reportingManagerSelectsAndAndClicksOnRefreshButton(String arg0, String arg1) {
+        newAccountsPage=new NewAccountsPage(driver);
+        newAccountsPage.seeCustomersNewAccountsReport(arg0,arg1);
+    }
+
+    @Then("Reporting manager can see Customers - New Accounts Report table")
+    public void reportingManagerCanSeeCustomersNewAccountsReportTable() {
+        Assert.assertTrue(newAccountsPage.verifySeeCustomersNewAccountsReport());
+    }
 
     @After("@ReportingModuleTest")
     public void tearDown(Scenario scenario) {
@@ -135,7 +159,6 @@ public class ReportingSteps extends BasePage {
         }
         closeBrowser();
     }
-
 
     @Given("Reporting manager is on the dashboard page and clicks on downloads link")
     public void reportingManagerIsOnTheDashboardPageAndClicksOnDownloadsLink() {
