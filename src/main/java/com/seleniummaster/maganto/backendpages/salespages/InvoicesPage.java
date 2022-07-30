@@ -135,7 +135,7 @@ public class InvoicesPage {
         testUtility.waitForElementPresent(priorityField);
         priorityField.clear();
         priorityField.click();
-      priorityField.sendKeys(Priority);
+        priorityField.sendKeys(Priority);
         testUtility.waitForElementPresent(positionField);
         positionField.clear();
         positionField.sendKeys(SortOrder);
@@ -183,5 +183,4 @@ public class InvoicesPage {
         }
 
     }
-
 }

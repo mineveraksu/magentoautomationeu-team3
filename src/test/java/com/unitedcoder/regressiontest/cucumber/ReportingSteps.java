@@ -4,7 +4,6 @@ import com.seleniummaster.maganto.backendpages.BackEndLogin;
 import com.seleniummaster.maganto.backendpages.reportingpages.ProductsMostViewedPage;
 import com.seleniummaster.maganto.backendpages.reportingpages.ReportingDashboardPage;
 import com.seleniummaster.maganto.backendpages.reportingpages.SalesPage;
-import com.seleniummaster.maganto.backendpages.salespages.SalesDashboardPage;
 import com.seleniummaster.maganto.utility.*;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -57,19 +56,8 @@ public class ReportingSteps extends BasePage {
         Assert.assertTrue(productsMostViewedPage.verifyMostViewedProductsDisplayed());
     }
 
-    @After("@ReportingModuleTest")
-    public void tearDown(Scenario scenario) {
-        if (scenario.isFailed()) {
-            ScreenShotUtility screenShotUtility = new ScreenShotUtility();
-            screenShotUtility.takeScreenshot("image", "failedTest", driver);
-        }
-        closeBrowser();
-    }
-
-
     @Given("Reporting manager is on the dashboard page and clicks on Orders link")
     public void reportingManagerIsOnTheDashboardPageAndClicksOnOrdersLink() {
-
         reportingDashboardPage.clickOnOrdersLink();
     }
 
@@ -83,4 +71,31 @@ public class ReportingSteps extends BasePage {
     public void reportingManagerSeeTotalOrderedReportUnderTheSales(){
        Assert.assertTrue(salesPage.verifyOrdersSaw());
     }
+//See Products-Products Ordered Report
+    @Given("Reporting manager is on the dashboard page and clicks on Products Ordered link")
+    public void reportingManagerIsOnTheDashboardPageAndClicksOnProductsOrderedLink() {
+        reportingDashboardPage.ClickOnProductsOrderedOption();
+
+    }
+
+    @When("Reporting Manager Navigate to products ordered report page and select period and date {string} {string} and click Refresh button")
+    public void reportingManagerNavigateToProductsOrderedReportPageAndSelectPeriodAndDateAndClickRefreshButton(String arg0, String arg1) {
+        productsMostViewedPage.viewProductsOrderedReport(arg0,arg1);
+
+    }
+
+    @Then("Total products Ordered report displayed successfully")
+    public void totalProductsOrderedReportDisplayedSuccessfully() {
+        Assert.assertTrue(productsMostViewedPage.verifyViewProductsOrderedReport());
+    }
+    @After("@ReportingModuleTest")
+    public void tearDown(Scenario scenario) {
+        if (scenario.isFailed()) {
+            ScreenShotUtility screenShotUtility = new ScreenShotUtility();
+            screenShotUtility.takeScreenshot("image", "failedTest", driver);
+        }
+        closeBrowser();
+    }
+
 }
+
