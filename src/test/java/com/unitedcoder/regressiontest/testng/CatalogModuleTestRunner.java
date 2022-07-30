@@ -105,6 +105,12 @@ public class CatalogModuleTestRunner extends BasePage {
         productPage.editProducts();
         Assert.assertTrue(productPage.verifyProductEditSuccessful());
     }
+
+    @Test(dataProvider = "addProductInfo",description ="Category Manager can filter products in the Category Products tab" )
+    public void filterProductsInTheCategoryProductsTab(TestDataHolder testDataHolder){
+        catalogDashboardPage.clickOnManageCategories();
+        productPage.filterProductInTheCategoryProductsTab(testDataHolder);
+    }
     @DataProvider
     public Object[] addProductInfo() {
         Object[] data = new Object[]{

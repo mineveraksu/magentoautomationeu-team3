@@ -67,7 +67,12 @@ public class ProductPage {
     WebElement countryManufacturerSelection;
     @FindBy(xpath = "(//span[contains(text(),\"Save\")])[1]")
     WebElement editProductsSaveButton;
-
+    @FindBy(xpath = "//*[@id=\"category_info_tabs_products\"]")
+    WebElement categoryProductsField;
+    @FindBy(id="catalog_category_products_filter_name")
+    WebElement filterProductsByName;
+    @FindBy(xpath = "//*[@title=\"Search\"and@type=\"button\"]")
+    WebElement productsSearchButton;
 
     public ProductPage(WebDriver driver){
         this.driver=driver;
@@ -147,6 +152,17 @@ public class ProductPage {
             return false;
         }
 
+
+    }
+
+    public void filterProductInTheCategoryProductsTab (TestDataHolder testDataHolder){
+        testUtility.waitForElementPresent(categoryProductsField);
+        testUtility.sleep(3);
+        categoryProductsField.click();
+        testUtility.waitForElementPresent(filterProductsByName);
+        filterProductsByName.sendKeys(testDataHolder.getProductName());
+        testUtility.waitForElementPresent(productsSearchButton);
+        productsSearchButton.click();
 
     }
     public void deleteProduct(){
