@@ -69,14 +69,14 @@ Feature:Store Manager can manage store
     And fill billing address and shipping address form
     And select shipping and payment methods and submit order
     Then the order should be saved successfully
-   #edit orders
+
   @EditOrders
   Scenario: Store Manager can edit orders
 
     Given store manager is on the dashboard page and store manager click on orders link
     When  store manager search orders number and edit some information
     Then  edit orders successful
- #add ,update and delete product categories
+
   @addProductCategory
   Scenario: Store Manager can add product category
     Given store manager is on the dashboard page store manager click on manage products link
@@ -95,7 +95,6 @@ Feature:Store Manager can manage store
     When store manager clicks an existing product and delete the product category
     Then verify delete the product category
 
-  #    cancel orders
   @CancelOrders
   Scenario: Store Manager can cancel orders
     Given store manager is on the dashboard page and store manager click on orders link
