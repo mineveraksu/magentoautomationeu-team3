@@ -12,14 +12,11 @@ Feature:Reporting Module Functions
       Then most viewed products report displayed successfully
 
   @SeeTotalOrderedReport
-  Scenario Outline: Reporting Manager should be able to see Sales -Total Ordered Report
+  Scenario: Reporting Manager should be able to see Sales -Total Ordered Report
     Given  Reporting manager is on the dashboard page and clicks on Orders link
     When   Reporting manager choose orders reported period and see report
     And    Reporting manager see total ordered report under the Sales
 
-    Examples:
-      |fromDate  |toDate    |
-      |01/01/2013|07/30/2022|
 
     @SeeProducts-ProductsOrderedReport
     Scenario Outline: Reporting Manager should be able to see Products - Products Ordered Report
