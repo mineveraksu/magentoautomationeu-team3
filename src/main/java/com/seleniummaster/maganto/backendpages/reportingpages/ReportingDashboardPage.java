@@ -65,6 +65,15 @@ public class ReportingDashboardPage {
         shippingOption.click();
     }
 
+    public void clickOnOrdersLink() {
+        testUtility.waitForElementPresent(reportsLink);
+        actions.moveToElement(reportsLink).click().perform();
+        testUtility.waitForElementPresent(salesLink);
+        actions.moveToElement(salesLink).click().perform();
+        testUtility.waitForElementPresent(ordersLink);
+        actions.moveToElement(ordersLink).click().perform();
+
+    }
     public void ClickOnProductsOrderedOption() {
         testUtility.waitForElementPresent(reportsLink);
         actions.moveToElement(reportsLink).click().perform();
@@ -73,17 +82,6 @@ public class ReportingDashboardPage {
         testUtility.waitForElementPresent(productsOrderedLink);
         actions.moveToElement(productsOrderedLink).perform();
         productsOrderedLink.click();
-
-    }
-
-    public void clickOnOrdersLink() {
-        testUtility.waitForElementPresent(reportsLink);
-        actions.moveToElement(reportsLink).click().perform();
-        testUtility.waitForElementPresent(salesOption);
-        actions.moveToElement(salesOption).perform();
-        testUtility.waitForElementPresent(shippingOption);
-        shippingOption.click();
-
     }
 }
 
