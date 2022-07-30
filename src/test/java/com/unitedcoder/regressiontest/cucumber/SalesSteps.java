@@ -164,29 +164,48 @@ public class SalesSteps extends BasePage {
     public void salesManagerIsOnTheDashboardPageAndClickOnTheManageCustomersLink() {
         salesDashboardPage = new SalesDashboardPage(driver);
         salesDashboardPage.clickOnManageCustomersLink();
-        manageCustomersPage = new ManageCustomersPage(driver);
-        manageCustomersPage.openShoppingCart();
     }
 
     @When("Sales manager open a customer and open his shopping cart")
     public void salesManagerOpenACustomerAndOpenHisShoppingCart() {
+        manageCustomersPage = new ManageCustomersPage(driver);
+        manageCustomersPage.openShoppingCart();
     }
 
     @And("Sales manager edit the shopping cart")
     public void salesManagerEditTheShoppingCart() {
+        manageCustomersPage.editShoppingCart();
     }
 
     @Then("The shopping cart should be edited successfully")
+    public void theShoppingCartShouldBeEditedSuccessfully() {
+        Assert.assertTrue(manageCustomersPage.verifyEditShoppingCart());
+    }
+
+    //delete shopping cart
+    @And("Sales manager delete the shopping cart")
+    public void salesManagerDeleteTheShoppingCart() {
+        manageCustomersPage.deleteShoppingCart();
+    }
+
+    @Then("The shopping cart should be deleted successfully")
+    public void theShoppingCartShouldBeDeletedSuccessfully() {
+        Assert.assertTrue(manageCustomersPage.verifyDeleteShoppingCart());
+
+    }
 
 
     @When("sales manager clicks on the pending order to  click on the Cancel Button")
-        public void salesManagerClicksOnThePendingOrderToClickOnTheCancelButton () {
-            ordersPage.deleteOrder();
-        }
-        @Then("Sales Manager deleted a order successfully")
-        public void salesManagerDeletedAOrderSuccessfully() {
-            Assert.assertTrue(ordersPage.verifyOrderDeletedSuccessfully());
-        }
+    public void salesManagerClicksOnThePendingOrderToClickOnTheCancelButton() {
+        ordersPage.deleteOrder();
     }
+
+    @Then("Sales Manager deleted a order successfully")
+    public void salesManagerDeletedAOrderSuccessfully() {
+        Assert.assertTrue(ordersPage.verifyOrderDeletedSuccessfully());
+    }
+
+
+}
 
 
