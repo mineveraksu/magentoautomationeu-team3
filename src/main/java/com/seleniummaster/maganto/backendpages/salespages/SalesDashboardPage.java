@@ -20,12 +20,18 @@ public class SalesDashboardPage {
     }
     @FindBy(xpath = "//span[contains(text(),'Sales')]")
     WebElement salesLink;
+    @FindBy(xpath = "//span[contains(text(),'Orders')]")
+    WebElement ordersLink;
+
     @FindBy(xpath = "//span[contains(text(),'Invoices')]")
     WebElement invoicesLink;
     @FindBy(xpath = "(//*[text()='Sales'])[1]")
     WebElement salesTeb;
     @FindBy(xpath = "(//span[text()='Shipments'])[1]")
     WebElement shipmentsOption;
+    @FindBy(xpath = "//span[contains(text(),'Credit Memos')]")
+    WebElement creditMemoLink;
+
     @FindBy(xpath = "(//span[contains(text(),'Tax')])[1]")
     WebElement taxLink;
     @FindBy(xpath = "(//span[contains(text(),'Manage Tax Rules')])[1]")
@@ -44,6 +50,12 @@ public class SalesDashboardPage {
         testUtility.waitForElementPresent(invoicesLink);
         actions.moveToElement(invoicesLink).click().perform();
     }
+    public void clickOnOrdersLink(){
+        testUtility.waitForElementPresent(salesLink);
+        actions.moveToElement(salesLink).click().perform();
+        testUtility.waitForElementPresent(ordersLink);
+        actions.moveToElement(ordersLink).click().perform();
+    }
 
     public void clickOnShipmentsOption(){
         testUtility.waitForElementPresent(salesTeb);
@@ -51,6 +63,25 @@ public class SalesDashboardPage {
         testUtility.waitForElementPresent(shipmentsOption);
         shipmentsOption.click();
 
+    }
+    public void clickOnCreditMemoLink(){
+        testUtility.waitForElementPresent(salesLink);
+        actions.moveToElement(salesLink).click().perform();
+        testUtility.waitForElementPresent(creditMemoLink);
+        actions.moveToElement(creditMemoLink).click().perform();
+        // can vie memo
+        // view link
+        //(//*[@id='sales_creditmemo_grid_table']/tbody/tr/td[contains(text(),'yasin  ali')])[1]//ancestor::tr/td[9]
+        //account information table viseble ; for verify view ;(//*[@class="box-right"])[1]
+        //(//table[@id='sales_order_grid_table']/tbody/tr/td[contains(text(),'Zakary  Hamill')])[1]//ancestor::tr/td[9]
+        // pending link location
+        //invoice link location
+        //(//span[text()='Invoice'])[1]
+        //invoice submit button
+        ////span[text()='Submit Invoice']
+        //creditmemo button  ;(//span[text()='Credit Memo'])[1]
+        //refund offline button  ;//span[text()='Refund Offline']
+        // credit demo created success message ;li.success-msg//The credit memo has been created.
     }
     public void clickOnManageTaxRulesLink(){
         testUtility.waitForElementPresent(salesLink);
