@@ -4,6 +4,7 @@ import com.seleniummaster.maganto.backendpages.BackEndLogin;
 import com.seleniummaster.maganto.backendpages.catalogpages.*;
 import com.seleniummaster.maganto.utility.*;
 import org.testng.Assert;
+import org.testng.ITest;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
 
@@ -97,7 +98,12 @@ public class CatalogModuleTestRunner extends BasePage {
         catalogDashboardPage.clickOnManageProductsPage();
         productPage.addProduct(testDataHolder);
         Assert.assertTrue(productPage.verifyProductAddedSuccessfully());
-
+    }
+    @Test(description = "Catalog Manager can edit products ")
+    public void editProducts(){
+        catalogDashboardPage.clickOnManageProductsPage();
+        productPage.editProducts();
+        Assert.assertTrue(productPage.verifyProductEditSuccessful());
     }
     @DataProvider
     public Object[] addProductInfo() {
@@ -105,7 +111,6 @@ public class CatalogModuleTestRunner extends BasePage {
                 excelUtility.readCatalogAddProductInfoFromExcel("Test-Data/catalogModuleAddProducts.xlsx", "addProductInfo")};
         return data;
     }
-
 
     @DataProvider
     public Object[] subCategoriesInfo() {
@@ -138,9 +143,8 @@ public class CatalogModuleTestRunner extends BasePage {
     }
 
 
-
-//    @AfterClass()
-//    public void tearDown() {
-//        closeBrowser();
-//    }
+    @AfterClass()
+    public void tearDown() {
+        closeBrowser();
+    }
 }
