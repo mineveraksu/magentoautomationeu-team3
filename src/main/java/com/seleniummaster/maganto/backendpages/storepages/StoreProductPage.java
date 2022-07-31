@@ -90,13 +90,18 @@ public class StoreProductPage {
     WebElement addedProductLink;
 
 
-//delete product categories
+    @FindBy(xpath = "//span[text()='The product has been saved.']")
+    WebElement updateSuccessMessage;
+
+
+
+    //delete product categories
     @FindBy(xpath = "//span[contains(text(),\"VIP\")]")
     WebElement deletedCategory;
-@FindBy(xpath = "//span[text()='Delete']")
-WebElement deleteProductCategoryButton;
-@FindBy(css = ".success-msg>ul li span")
-WebElement deleteProductCategorySuccessfulMessage;
+    @FindBy(xpath = "//span[text()='Delete']")
+    WebElement deleteProductCategoryButton;
+    @FindBy(css = ".success-msg>ul li span")
+    WebElement deleteProductCategorySuccessfulMessage;
 
 
     @FindBy(xpath = "//span[text()='The product has been saved.']")
@@ -302,8 +307,6 @@ WebElement deleteProductCategorySuccessfulMessage;
 
 
 
-    }
 
-
-
+}
 

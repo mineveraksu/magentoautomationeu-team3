@@ -172,7 +172,6 @@ public class StoreSteps extends BasePage {
     public void aNewProductCreatedSuccessfully() {
         org.junit.Assert.assertTrue(storeProductPage.verifyAddProductSuccessfully());
     }
-
     //update product
 
     @When("select the product {string} and update description {string}")
