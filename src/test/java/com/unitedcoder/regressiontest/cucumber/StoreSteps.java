@@ -173,6 +173,18 @@ public class StoreSteps extends BasePage {
         org.junit.Assert.assertTrue(storeProductPage.verifyAddProductSuccessfully());
     }
     //update product
+
+    @When("select the product {string} and update description {string}")
+    public void selectTheProductAndUpdateDescription(String arg0, String arg1) {
+        storeProductPage=new StoreProductPage(driver);
+        storeProductPage.selectProduct(arg0);
+        storeProductPage.updateProduct(arg1);
+    }
+
+    @Then("product information updated successfully")
+    public void productInformationUpdatedSuccessfully() {
+        Assert.assertTrue(storeProductPage.ProductUpdateSuccessfully());
+    }
     //delete product
 
     //create order
