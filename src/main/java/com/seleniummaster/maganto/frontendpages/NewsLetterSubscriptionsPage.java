@@ -15,9 +15,9 @@ public class NewsLetterSubscriptionsPage {
         testUtility=new TestUtility(driver);
     }
 
-    @FindBy(xpath = "//*[@id=\"top\"]/body/div/div[2]/div[2]/div/div[1]/div/div[2]/ul/li[11]/a")
+    @FindBy(xpath = "//*[@class=\"block-content\"]//li[11] ")
     WebElement newsLetterSubscriptionsLink;
-    @FindBy(xpath = "//*[@id=\"top\"]/body/div/div[2]/div[2]/div/div[2]/div[2]/div/h1")
+    @FindBy(xpath = "//*[@class=\"page-title\"]//h1")
     WebElement newsLetterSubscriptionPage;
 
     public void newsLetterSubscription(){
