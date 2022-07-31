@@ -67,7 +67,14 @@ public class ProductPage {
     WebElement countryManufacturerSelection;
     @FindBy(xpath = "(//span[contains(text(),\"Save\")])[1]")
     WebElement editProductsSaveButton;
-
+    @FindBy(xpath = "//*[@id=\"category_info_tabs_products\"]")
+    WebElement categoryProductsField;
+    @FindBy(id="catalog_category_products_filter_name")
+    WebElement filterProductsByName;
+    @FindBy(xpath = "//*[@title=\"Search\"and@type=\"button\"]")
+    WebElement productsSearchButton;
+    @FindBy(xpath = "//*[@id=\"catalog_category_products_table\"]/tbody/tr[1]/td[3]")
+    WebElement filterProductSuccessfulMessage;
 
     public ProductPage(WebDriver driver){
         this.driver=driver;
@@ -147,6 +154,30 @@ public class ProductPage {
             return false;
         }
 
+
+    }
+
+    public void filterProductInTheCategoryProductsTab (TestDataHolder testDataHolder){
+        testUtility.waitForElementPresent(categoryProductsField);
+        testUtility.sleep(3);
+        categoryProductsField.click();
+        testUtility.waitForElementPresent(filterProductsByName);
+        filterProductsByName.sendKeys(testDataHolder.getProductName());
+        testUtility.waitForElementPresent(productsSearchButton);
+        productsSearchButton.click();
+
+    }
+
+    public boolean verifyFilterProductInTheCategoryProductsTab(){
+        testUtility.waitForElementPresent(filterProductSuccessfulMessage);
+        if (filterProductSuccessfulMessage.isDisplayed()){
+            System.out.println("Filter Product In The Category Products Tab Passed");
+            return true;
+        }
+        else {
+            System.out.println("Filter Product In The Category Products Tab Failed");
+            return false;
+        }
 
     }
     public void deleteProduct(){

@@ -23,6 +23,7 @@ public class SalesSteps extends BasePage {
     OrdersPage ordersPage;
     TestDataHolder testDataHolder;
     ExcelUtility excelUtility;
+    ManageCustomersPage manageCustomersPage;
 
 
     @Before("@SalesModuleTest")
@@ -38,13 +39,13 @@ public class SalesSteps extends BasePage {
     @Given("Sales manager is on the dashboard page and clicks on Orders link")
     public void salesManagerIsOnTheDashboardPageAndClicksOnOrdersLink() {
         salesDashboardPage.clickOnOrdersLink();
-        ordersPage=new OrdersPage(driver);
+        ordersPage = new OrdersPage(driver);
     }
 
 
     @When("sales manager selects a {string} in order to add a {string} to order")
     public void salesManagerSelectsAInOrderToAddAToOrder(String arg0, String arg1) {
-        ordersPage.createANewOrder(arg0,arg1);
+        ordersPage.createANewOrder(arg0, arg1);
     }
 
     @Then("Sales Manager created a new order successfully")
@@ -158,6 +159,42 @@ public class SalesSteps extends BasePage {
         closeBrowser();
     }
 
+    // Sales Manager manage update a shopping cart for customers.
+    @Given("Sales manager is on the dashboard page and click on the manage customers link")
+    public void salesManagerIsOnTheDashboardPageAndClickOnTheManageCustomersLink() {
+        salesDashboardPage = new SalesDashboardPage(driver);
+        salesDashboardPage.clickOnManageCustomersLink();
+    }
+
+    @When("Sales manager open a customer and open his shopping cart")
+    public void salesManagerOpenACustomerAndOpenHisShoppingCart() {
+        manageCustomersPage = new ManageCustomersPage(driver);
+        manageCustomersPage.openShoppingCart();
+    }
+
+    @And("Sales manager edit the shopping cart")
+    public void salesManagerEditTheShoppingCart() {
+        manageCustomersPage.editShoppingCart();
+    }
+
+    @Then("The shopping cart should be edited successfully")
+    public void theShoppingCartShouldBeEditedSuccessfully() {
+        Assert.assertTrue(manageCustomersPage.verifyEditShoppingCart());
+    }
+
+    //delete shopping cart
+    @And("Sales manager delete the shopping cart")
+    public void salesManagerDeleteTheShoppingCart() {
+        manageCustomersPage.deleteShoppingCart();
+    }
+
+    @Then("The shopping cart should be deleted successfully")
+    public void theShoppingCartShouldBeDeletedSuccessfully() {
+        Assert.assertTrue(manageCustomersPage.verifyDeleteShoppingCart());
+
+    }
+
+
     @When("sales manager clicks on the pending order to  click on the Cancel Button")
     public void salesManagerClicksOnThePendingOrderToClickOnTheCancelButton() {
         ordersPage.deleteOrder();
@@ -167,5 +204,8 @@ public class SalesSteps extends BasePage {
     public void salesManagerDeletedAOrderSuccessfully() {
         Assert.assertTrue(ordersPage.verifyOrderDeletedSuccessfully());
     }
+
+
 }
+
 
