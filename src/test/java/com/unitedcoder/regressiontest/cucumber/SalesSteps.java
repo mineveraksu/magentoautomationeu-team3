@@ -171,6 +171,10 @@ public class SalesSteps extends BasePage {
         manageCustomersPage = new ManageCustomersPage(driver);
         manageCustomersPage.openShoppingCart();
     }
+    @And("Sales manager can view shopping cart")
+    public void salesManagerCanViewShoppingCart(){
+        Assert.assertTrue(manageCustomersPage.verifyShoppingCartView());
+    }
 
     @And("Sales manager edit the shopping cart")
     public void salesManagerEditTheShoppingCart() {
