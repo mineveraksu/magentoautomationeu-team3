@@ -69,3 +69,19 @@ Feature:Reporting Module Functions
     Examples:
       |startedTime|endedTime|
       |01/01/2010 |30/07/2022|
+    @CustomerByOrdersTotal
+    Scenario Outline: Reporting manager can see customer by orders total
+      Given Reporting manager is on the dashboard page and clicks on customer by order total link
+      When  Reporting manager enter "<from data>""<to data>" and click refresh button
+      Then verifymanager can see customers by orders total
+      Examples:
+      |from data |to data|
+      |07/01/2022|07/20/2022|
+      @CustomerByNumberOfOrders
+  Scenario Outline: Reporting manager can see customer by number of orders
+    Given Reporting manager is on the dashboard page and clicks on customer by number of orders link
+    When  Reporting manager enter "<from data>""<to data>" and click on refresh button
+    Then verifymanager can see customers by number of orders
+    Examples:
+      |from data |to data|
+      |07/10/2022|07/30/2022|
