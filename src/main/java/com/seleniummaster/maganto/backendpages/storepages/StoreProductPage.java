@@ -179,6 +179,8 @@ public class StoreProductPage {
         descriptionTextArea.click();
         descriptionTextArea.clear();
         descriptionTextArea.sendKeys(description);
+        testUtility.waitForElementPresent(saveButton);
+        saveButton.click();
 
     }
 
