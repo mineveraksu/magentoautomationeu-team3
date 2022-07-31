@@ -21,7 +21,7 @@ public class MyDashboardPage {
     WebElement accountInformationLink;
     @FindBy(xpath = "//div[@class=\"block-content\"]//ul//li[3]/a")
     WebElement addressBookLink;
-    @FindBy(css = ".col-2.addresses-additional>ol")
+    @FindBy(css = ".col-1.addresses-primary>ol")
     WebElement updatedAddressTable;
     @FindBy(css = "li.success-msg")
     WebElement updatedAddressBookSuccessfulMessage;
@@ -40,6 +40,7 @@ public class MyDashboardPage {
 
     @FindBy(xpath = "//div[@class=\"block-content\"]//ul//li[9]/a")
     WebElement myWishListLink;
+
 
 
     public MyDashboardPage(WebDriver driver) {
