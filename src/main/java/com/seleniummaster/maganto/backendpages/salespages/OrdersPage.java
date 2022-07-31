@@ -1,6 +1,7 @@
 package com.seleniummaster.maganto.backendpages.salespages;
 
 import com.seleniummaster.maganto.utility.ApplicationConfig;
+import com.seleniummaster.maganto.utility.TestDataHolder;
 import com.seleniummaster.maganto.utility.TestUtility;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -10,6 +11,7 @@ import org.openqa.selenium.support.ui.Select;
 public class OrdersPage {
     WebDriver driver;
     TestUtility testUtility;
+    TestDataHolder testDataHolder;
     String email;
 
     @FindBy(xpath = "//td[@class=\"form-buttons\"]/button/span/span/span")
@@ -32,6 +34,11 @@ public class OrdersPage {
     WebElement submitOrderButton;
     @FindBy(css = "li.success-msg>ul>li>span")
     WebElement successMessage;
+    @FindBy(id = "sales_order_grid_filter_status")
+    WebElement statusDropDown;
+    @FindBy(xpath = "//span[text()='Search']")
+    WebElement searchButton;
+
 
 
     public OrdersPage(WebDriver driver) {
@@ -39,6 +46,7 @@ public class OrdersPage {
         PageFactory.initElements(driver, this);
         testUtility = new TestUtility(driver);
         email = ApplicationConfig.readFromConfigProperties("config.properties", "email");
+        testDataHolder=new TestDataHolder();
     }
 
     public void clickOnCreateNewOrderButton() {
@@ -117,6 +125,21 @@ public class OrdersPage {
         selectPaymentMethod();
         selectShippingMethod();
         clickOnSubmitOrderButton();
+    }
+    public void selectStatusOfOrders(){
+                Select select=new Select(statusDropDown);
+                select.selectByValue("pending");
+                testUtility.sleep(2);
+                //testUtility.waitForElementPresent(searchButton);
+                searchButton.click();
+
+    }
+    public void clickOnPendingLink(TestDataHolder testDataHolder){
+        testUtility.sleep(3);
+        //WebElement pendingLink=driver.findElement(By.xpath(String.format("(//table[@id='sales_order_grid_table']/tbody/tr/td[contains(text(),'%s')])[1]//ancestor::tr/td[9]",testDataHolder.getBillToName())));
+        WebElement pendingLink=driver.findElement(By.xpath(String.format("(//*[contains(text(),'%s')])[1]//following-sibling::td[4]",testDataHolder.getBillToName())));
+        testUtility.waitForElementPresent(pendingLink);
+        pendingLink.click();
     }
 
     public boolean verifyOrderCreatedSuccessfully(){

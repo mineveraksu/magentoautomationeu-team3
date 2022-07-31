@@ -14,8 +14,8 @@ public class AddressBookPage {
     ExcelUtility excelUtility;
     String excelFile = "Test-Data/addressBookData.xlsx";
 
-    @FindBy(linkText = "Edit Address")
-    WebElement editAddressLink;
+    @FindBy(linkText = "Change Billing Address")
+    WebElement  editBillingAddressLink;
     @FindBy(id = "firstname")
     WebElement firstNameField;
     @FindBy(id = "lastname")
@@ -42,8 +42,8 @@ public class AddressBookPage {
     }
 
     public void clickONEditNewAddressButton() {
-        testUtility.waitForElementPresent(editAddressLink);
-        editAddressLink.click();
+        testUtility.waitForElementPresent(editBillingAddressLink);
+        editBillingAddressLink.click();
     }
 
     public void enterFirstName() {

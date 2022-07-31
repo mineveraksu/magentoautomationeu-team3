@@ -22,6 +22,16 @@ public class TestDataHolder {
     private String startFrom;
     private String endTo;
 
+    public String getBillToName() {
+        return billToName;
+    }
+
+    public void setBillToName(String billToName) {
+        this.billToName = billToName;
+    }
+
+    private String billToName;
+
 
     @Override
     public String toString() {

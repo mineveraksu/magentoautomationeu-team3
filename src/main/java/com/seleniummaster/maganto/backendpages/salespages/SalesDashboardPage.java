@@ -20,12 +20,18 @@ public class SalesDashboardPage {
     }
     @FindBy(xpath = "//span[contains(text(),'Sales')]")
     WebElement salesLink;
+//    @FindBy(xpath = "//span[contains(text(),'Orders')]")
+//    WebElement ordersLink;
+
     @FindBy(xpath = "//span[contains(text(),'Invoices')]")
     WebElement invoicesLink;
     @FindBy(xpath = "(//*[text()='Sales'])[1]")
     WebElement salesTeb;
     @FindBy(xpath = "(//span[text()='Shipments'])[1]")
     WebElement shipmentsOption;
+    @FindBy(xpath = "//span[contains(text(),'Credit Memos')]")
+    WebElement creditMemoLink;
+
     @FindBy(xpath = "(//span[contains(text(),'Tax')])[1]")
     WebElement taxLink;
     @FindBy(xpath = "(//span[contains(text(),'Manage Tax Rules')])[1]")
@@ -38,6 +44,10 @@ public class SalesDashboardPage {
     WebElement salesLinkUnderReportsLink;
     @FindBy(xpath = "//span[contains(text(),'Refunds')]")
     WebElement refundsLink;
+    @FindBy(xpath = "//*[@id=\"nav\"]/li[4]/a/span")
+    WebElement customersLink;
+    @FindBy(xpath = "//span[text()='Manage Customers']")
+    WebElement manageCustomersLink;
 
     public void clickOnInvoicesLink(){
         testUtility.waitForElementPresent(salesLink);
@@ -51,6 +61,13 @@ public class SalesDashboardPage {
         actions.moveToElement(salesTeb).perform();
         testUtility.waitForElementPresent(shipmentsOption);
         shipmentsOption.click();
+
+    }
+    public void clickOnCreditMemoLink(){
+        testUtility.waitForElementPresent(salesLink);
+        actions.moveToElement(salesLink).click().perform();
+        testUtility.waitForElementPresent(creditMemoLink);
+        actions.moveToElement(creditMemoLink).click().perform();
 
     }
     public void clickOnManageTaxRulesLink(){
@@ -80,6 +97,13 @@ public class SalesDashboardPage {
         actions.moveToElement(refundsLink).click().perform();
         testUtility.sleep(2);
     }
+    public void clickOnManageCustomersLink(){
+        testUtility.waitForElementPresent(customersLink);
+        actions.moveToElement(customersLink).click().perform();
+        testUtility.waitForElementPresent(manageCustomersLink);
+        manageCustomersLink.click();
+    }
+
 
 
 

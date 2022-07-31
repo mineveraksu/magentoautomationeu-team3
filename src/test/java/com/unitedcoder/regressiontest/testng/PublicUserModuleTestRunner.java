@@ -19,6 +19,7 @@ public class PublicUserModuleTestRunner extends BasePage {
     CheckOutOrderPage checkOutOrderPage;
     AddressBookPage addressBookPage;
     MyWishListPage myWishListPage;
+    NewsLetterSubscriptionsPage newsLetterSubscriptionsPage;
 
     @BeforeClass
     public void setup(ITestContext context) {
@@ -33,6 +34,7 @@ public class PublicUserModuleTestRunner extends BasePage {
         shoppingCartPage=new ShoppingCartPage(driver);
         addressBookPage = new AddressBookPage(driver);
         myWishListPage = new MyWishListPage(driver);
+        newsLetterSubscriptionsPage=new NewsLetterSubscriptionsPage(driver);
     }
 
     @Test(groups = "regression test", description = "A user should be able to edit account information")
@@ -99,6 +101,11 @@ public class PublicUserModuleTestRunner extends BasePage {
         myWishListPage.viewMyWshList();
         Assert.assertTrue(myWishListPage.viewMyWshList());
     }
+
+    @Test(groups = "regression test",description = "A User Can See NewsLetter Subscription Link And Contents")
+    public void NewsletterSubscription(){
+        newsLetterSubscriptionsPage.newsLetterSubscription();
+        Assert.assertTrue(newsLetterSubscriptionsPage.verifyNewsLetterSubscription());}
 
     @AfterMethod
     public void backToDashboardPage() {

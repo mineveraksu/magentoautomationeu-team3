@@ -37,8 +37,12 @@ public class ReportingDashboardPage {
     WebElement salesLink;
     @FindBy(xpath = "(//span[text()=\"Orders\"])[1]")
     WebElement ordersLink;
-    @FindBy(xpath = "(//span[contains(text(),'Tax')])[1]")
-    WebElement taxLink;
+    @FindBy(xpath = "(//span[text()=\"Customers\"])[1]")
+    WebElement customersLink;
+    @FindBy(xpath = "(//span[text()=\"New Accounts\"])[1]")
+    WebElement newAccountsLink;
+    @FindBy(xpath = "//span[text()='Downloads']")
+    WebElement downloadsLink;
 
     public void clickOnMostViewedLink() {
         testUtility.waitForElementPresent(reportsLink);
@@ -54,8 +58,8 @@ public class ReportingDashboardPage {
         actions.moveToElement(reportsLink).click().perform();
         testUtility.waitForElementPresent(salesLink);
         actions.moveToElement(salesLink).click().perform();
-        testUtility.waitForElementPresent(ordersLink);
-        actions.moveToElement(ordersLink).click().perform();
+        testUtility.waitForElementPresent(invoicedOption);
+        actions.moveToElement(invoicedOption).click().perform();
     }
 
     public void ClickOnShippingOption() {
@@ -86,13 +90,15 @@ public class ReportingDashboardPage {
         productsOrderedLink.click();
     }
 
-    public void clickOnTaxLink(){
+
+    public void clickOnNewAccountsLink() {
         testUtility.waitForElementPresent(reportsLink);
-        actions.moveToElement(reportsLink).click().perform();
-        testUtility.waitForElementPresent(salesLink);
-        actions.moveToElement(salesLink).click().perform();
-        testUtility.waitForElementPresent(taxLink);
-        actions.moveToElement(taxLink).click().perform();
+        actions.moveToElement(reportsLink).moveToElement(customersLink).moveToElement(newAccountsLink).click().perform();
+    }
+    public void ClickOnDownloadsLink(){
+        testUtility.waitForElementPresent(reportsLink);
+        actions.moveToElement(reportsLink).moveToElement(productsLink).moveToElement(downloadsLink).click().perform();
+
     }
 }
 
