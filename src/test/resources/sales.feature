@@ -55,4 +55,16 @@ Feature:Sales Module Functions
     Given sales manager click on refunds link
     When  sales manager entering the refunds period and shows refunds
     Then  sales manager view refunds reports successful
+    @ViewCreditMemo
+    Scenario: Sales manager can view credit memo
+      Given sales manager is on the dashboard and click credit memo link
+      When  manager click the view button and view credit memo information
+      Then verify view credit memo
+      @AddCreditMemo
+      Scenario: Sales manager can add credit memo
+        Given Sales manager is on the dashboard page and clicks on Orders link
+        When  Sales manager click pending and invoice button to create credit memo
+        Then  Verify added credit memo
+
+
 

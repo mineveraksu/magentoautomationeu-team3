@@ -121,6 +121,7 @@ public class ExcelUtility {
         TestDataHolder testDataHolder=new TestDataHolder();
         testDataHolder.setStartFrom(excelUtility.readFromExcelCell(fileName,sheetName,1,0));
         testDataHolder.setEndTo(excelUtility.readFromExcelCell(fileName,sheetName,1,1));
+        testDataHolder.setBillToName(excelUtility.readFromExcelCell(fileName,sheetName,1,2));
         return testDataHolder;
     }
 

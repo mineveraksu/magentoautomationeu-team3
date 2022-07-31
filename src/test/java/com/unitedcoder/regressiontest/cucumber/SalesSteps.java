@@ -23,6 +23,8 @@ public class SalesSteps extends BasePage {
     OrdersPage ordersPage;
     TestDataHolder testDataHolder;
     ExcelUtility excelUtility;
+    CreditMemoPage creditMemoPage;
+    AddCreditMemoPage addCreditMemoPage;
 
 
     @Before("@SalesModuleTest")
@@ -147,6 +149,41 @@ public class SalesSteps extends BasePage {
         refundsPage = new RefundsPage(driver);
         Assert.assertTrue(refundsPage.verifyRefundsReportSuccessfulShow());
     }
+    // view credit memo
+    @Given("sales manager is on the dashboard and click credit memo link")
+    public void salesManagerIsOnTheDashboardAndClickCreditMemoLink() {
+        salesDashboardPage=new SalesDashboardPage(driver);
+        salesDashboardPage.clickOnCreditMemoLink();
+    }
+
+    @When("manager click the view button and view credit memo information")
+    public void managerClickTheViewButtonAndViewCreditMemoInformation() {
+        creditMemoPage=new CreditMemoPage(driver);
+        creditMemoPage.viewCreditMemoMethod(testDataHolder);
+
+    }
+
+    @Then("verify view credit memo")
+    public void verifyViewCreditMemo() {
+        creditMemoPage=new CreditMemoPage(driver);
+        org.testng.Assert.assertTrue(creditMemoPage.verifyViewCreditMemo());
+
+    }
+    //Add creditMemo
+    @When("Sales manager click pending and invoice button to create credit memo")
+    public void salesManagerClickPendingAndInvoiceButtonToCreateCreditMemo() {
+        ordersPage=new OrdersPage(driver);
+        ordersPage.selectStatusOfOrders();
+        ordersPage.clickOnPendingLink(testDataHolder);
+        addCreditMemoPage=new AddCreditMemoPage(driver);
+        addCreditMemoPage.addCreditMemo();
+
+    }
+    @Then("Verify added credit memo")
+    public void verifyAddedCreditMemo() {
+        addCreditMemoPage=new AddCreditMemoPage(driver);
+        org.testng.Assert.assertTrue(addCreditMemoPage.verifyAddedCreditMemo());
+    }
 
 
     @After("@SalesModuleTest")
@@ -157,6 +194,8 @@ public class SalesSteps extends BasePage {
         }
         closeBrowser();
     }
+
+
 
 }
 
