@@ -63,6 +63,15 @@ public class StoreProductPage {
     @FindBy(css = ".success-msg>ul li span")
     WebElement addProductSuccessMessage;
 
+//    UPDATEPRODUCT
+    @FindBy(xpath ="//input[@id='productGrid_product_filter_name']")
+    WebElement productNameField;
+    @FindBy(xpath = "//*[contains(text(),'Jeans')]")
+    WebElement selectedProductNameField;
+    @FindBy(css = "#description")
+    WebElement descriptionTextArea;
+
+
     //add product categories
     @FindBy(id = "productGrid_product_filter_name")
     WebElement nameInputBox;
@@ -87,21 +96,6 @@ public class StoreProductPage {
 WebElement deleteProductCategoryButton;
 @FindBy(css = ".success-msg>ul li span")
 WebElement deleteProductCategorySuccessfulMessage;
-
-
-
-    @FindBy(css = "#description")
-    WebElement descriptionTextArea;
-    @FindBy(css = "#short_description")
-    WebElement shortDescriptionTextArea;
-    @FindBy(css = "#sku")
-    WebElement SKUTextArea;
-
-
-    @FindBy(xpath = "//select[contains(@id,'status') and contains(@name,'product[status]')]")
-    WebElement statusField;
-    @FindBy(xpath = "//select[contains(@id,'visibility') and contains(@name,'product[visibility]')]")
-    WebElement visibilityField;
 
 
     @FindBy(xpath = "//span[text()='The product has been saved.']")
@@ -268,6 +262,15 @@ WebElement deleteProductCategorySuccessfulMessage;
     }
 
 
+    public void selectProduct (String productName){
+        testUtility.waitForElementPresent(productNameField);
+        productNameField.click();
+        productNameField.clear();
+        productNameField.sendKeys(productName);
+        productNameField.sendKeys(Keys.ENTER);
+        testUtility.sleep(3);
+        testUtility.waitForElementPresent(selectedProductNameField);
+        selectedProductNameField.click();
 
     public void updateProduct(String description) {
         testUtility.waitForElementPresent(descriptionTextArea);
