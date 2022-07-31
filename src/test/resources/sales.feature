@@ -7,8 +7,8 @@ Feature:Sales Module Functions
     When sales manager selects a "<store name>" in order to add a "<product name>" to order
     Then Sales Manager created a new order successfully
     Examples:
-    |store name|product name             |
-    |English   |Black Nolita Cami-Black-S|
+      | store name | product name              |
+      | English    | Black Nolita Cami-Black-S |
 
   @ViewInvoicesAndAddComments
   Scenario Outline: Sales Manager should be able to view invoices and add comments to invoice history
@@ -16,19 +16,19 @@ Feature:Sales Module Functions
     When sales manager click edit button and click comment text and added comment to "<commentText>" filed
     Then view invoices successfully and added comments to invoice history successfully
     Examples:
-      |commentText                 |
-      |Rest of the payment cleared |
+      | commentText                 |
+      | Rest of the payment cleared |
 
-    @UpdateShipments
-    Scenario Outline: Sales Manager can update shipments
-      Given Sales manager is on the dashboard page and clicks on shipmentsOption
-      When Sales Manager click view icon and fill out "<commentHistory>" information and click on submit comment button
-      And Sales Manager edit shipping and tracking information and fill out "<number>" and click on add button
-      Then the shipments update successfully
+  @UpdateShipments
+  Scenario Outline: Sales Manager can update shipments
+    Given Sales manager is on the dashboard page and clicks on shipmentsOption
+    When Sales Manager click view icon and fill out "<commentHistory>" information and click on submit comment button
+    And Sales Manager edit shipping and tracking information and fill out "<number>" and click on add button
+    Then the shipments update successfully
 
     Examples:
-      |commentHistory     |number     |
-      |Shipped successfully|12345678  |
+      | commentHistory       | number   |
+      | Shipped successfully | 12345678 |
 
   @AddTaxRules
   Scenario Outline: Sales Manager can add and update tax rules
@@ -37,17 +37,17 @@ Feature:Sales Module Functions
     Then a new Tax Rule created successfully
 
     Examples:
-      |  Name  |Priority | SortOrder |
-      | Team3  | 3       |       4   |
+      | Name  | Priority | SortOrder |
+      | Team3 | 3        | 4         |
 
-    @UpdateTaxRules
-    Scenario Outline: Sales Manager can update tax rules
-      Given Sales manager is on the dashboard page and clicks on Manage Tax Rules
-      When Sales Manager click Add New Tax Rule icon and fill out "<Number>"information and edit tax rules
-      Then the new Tax Rule update successfully
-      Examples:
-        |  Number |
-        | 5  |
+  @UpdateTaxRules
+  Scenario Outline: Sales Manager can update tax rules
+    Given Sales manager is on the dashboard page and clicks on Manage Tax Rules
+    When Sales Manager click Add New Tax Rule icon and fill out "<Number>"information and edit tax rules
+    Then the new Tax Rule update successfully
+    Examples:
+      | Number |
+      | 5      |
 
 
   @ViewRefundsInTheReports
@@ -68,3 +68,27 @@ Feature:Sales Module Functions
 
 
 
+
+  @ManageUpdateShoppingCart
+  Scenario Outline: Sales Manager should be able to manage update an existing shopping cart for customers.
+    Given Sales manager is on the dashboard page and click on the manage customers link
+    When Sales manager open a customer and open his shopping cart
+    And Sales manager edit the shopping cart
+    Then The shopping cart should be edited successfully
+    Examples:
+      | quantity |
+      | 5        |
+
+  @DeleteShoppingCart
+  Scenario: Sales Manager should be able to delete shopping cart
+    Given Sales manager is on the dashboard page and click on the manage customers link
+    When Sales manager open a customer and open his shopping cart
+    And Sales manager delete the shopping cart
+    Then The shopping cart should be deleted successfully
+
+
+  @DeleteOrder
+  Scenario: Sales Manager can delete a new order
+    Given Sales manager is on the dashboard page and clicks on Orders link
+    When sales manager clicks on the pending order to  click on the Cancel Button
+    Then Sales Manager deleted a order successfully

@@ -44,6 +44,10 @@ public class SalesDashboardPage {
     WebElement salesLinkUnderReportsLink;
     @FindBy(xpath = "//span[contains(text(),'Refunds')]")
     WebElement refundsLink;
+    @FindBy(xpath = "//*[@id=\"nav\"]/li[4]/a/span")
+    WebElement customersLink;
+    @FindBy(xpath = "//span[text()='Manage Customers']")
+    WebElement manageCustomersLink;
 
     public void clickOnInvoicesLink(){
         testUtility.waitForElementPresent(salesLink);
@@ -93,6 +97,13 @@ public class SalesDashboardPage {
         actions.moveToElement(refundsLink).click().perform();
         testUtility.sleep(2);
     }
+    public void clickOnManageCustomersLink(){
+        testUtility.waitForElementPresent(customersLink);
+        actions.moveToElement(customersLink).click().perform();
+        testUtility.waitForElementPresent(manageCustomersLink);
+        manageCustomersLink.click();
+    }
+
 
 
 
