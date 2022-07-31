@@ -26,6 +26,8 @@ public class ReportingSteps extends BasePage {
     InvoicedVsPaidReportPage invoicedVsPaidReportPage;
     ShippedReportPage shippedReportPage;
     NewAccountsPage newAccountsPage;
+    CustomersByOrdersTotal customersByOrdersTotal;
+    CustomersByNumberOfOrders customersByNumberOfOrders;
 
 
     @Before("@ReportingModuleTest")
@@ -178,6 +180,39 @@ public class ReportingSteps extends BasePage {
     public void taxesReportDisplaySuccessful() {
         Assert.assertTrue(salesPage.taxesReportSawVerify());
     }
+    // see customers by orders total
+    @Given("Reporting manager is on the dashboard page and clicks on customer by order total link")
+    public void reportingManagerIsOnTheDashboardPageAndClicksOnCustomerByOrderTotalLink() {
+        reportingDashboardPage.ClickOnCustomersByOrdersTotalLink();
+    }
+
+    @When("Reporting manager enter {string}{string} and click refresh button")
+    public void reportingManagerEnterAndClickRefreshButton(String arg0, String arg1) {
+        customersByOrdersTotal=new CustomersByOrdersTotal(driver);
+        customersByOrdersTotal.customerByOrdersTotalMethod(arg0,arg1);
+
+    }
+
+    @Then("verifymanager can see customers by orders total")
+    public void verifymanagerCanSeeCustomersByOrdersTotal() {
+        customersByOrdersTotal=new CustomersByOrdersTotal(driver);
+        org.testng.Assert.assertTrue(customersByOrdersTotal.verifyManagerCanSeeCustomersByOrdersTotal());
+    }
+    @Given("Reporting manager is on the dashboard page and clicks on customer by number of orders link")
+    public void reportingManagerIsOnTheDashboardPageAndClicksOnCustomerByNumberOfOrdersLink() {
+        reportingDashboardPage.ClickOnCustomersByNumberOfOrdersLink();
+    }
+    @When("Reporting manager enter {string}{string} and click on refresh button")
+    public void reportingManagerEnterAndClickOnRefreshButton(String arg0, String arg1) {
+        customersByNumberOfOrders=new CustomersByNumberOfOrders(driver);
+        customersByNumberOfOrders.customerByNumberOfOrdersMethod(arg0,arg1);
+    }
+
+    @Then("verifymanager can see customers by number of orders")
+    public void verifymanagerCanSeeCustomersByNumberOfOrders() {
+        customersByNumberOfOrders=new CustomersByNumberOfOrders(driver);
+        org.testng.Assert.assertTrue(customersByNumberOfOrders.verifyManagerCanSeeCustomersByNumberOfOrders());
+    }
 
     @After("@ReportingModuleTest")
     public void tearDown(Scenario scenario) {
@@ -187,6 +222,8 @@ public class ReportingSteps extends BasePage {
         }
         closeBrowser();
     }
+
+
 
 }
 
