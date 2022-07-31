@@ -43,6 +43,8 @@ public class ReportingDashboardPage {
     WebElement newAccountsLink;
     @FindBy(xpath = "//span[text()='Downloads']")
     WebElement downloadsLink;
+    @FindBy(xpath = "(//span[contains(text(),'Tax')])[1]")
+    WebElement taxLink;
 
     public void clickOnMostViewedLink() {
         testUtility.waitForElementPresent(reportsLink);
@@ -100,5 +102,15 @@ public class ReportingDashboardPage {
         actions.moveToElement(reportsLink).moveToElement(productsLink).moveToElement(downloadsLink).click().perform();
 
     }
+
+    public void clickOnTaxLink(){
+        testUtility.waitForElementPresent(reportsLink);
+        actions.moveToElement(reportsLink).click().perform();
+        testUtility.waitForElementPresent(salesLink);
+        actions.moveToElement(salesLink).click().perform();
+        testUtility.waitForElementPresent(taxLink);
+        actions.moveToElement(taxLink).click().perform();
+    }
 }
+
 

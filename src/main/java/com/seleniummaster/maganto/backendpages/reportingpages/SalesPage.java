@@ -56,6 +56,7 @@ public class SalesPage {
         toField.sendKeys(testDataHolder.getEndTo());
         testUtility.waitForElementPresent(showReportButton);
         actions.moveToElement(showReportButton).click().perform();
+
     }
 
     public boolean verifyOrdersSaw(){

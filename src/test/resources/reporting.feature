@@ -59,3 +59,13 @@ Feature:Reporting Module Functions
     Examples:
       | fromDate   | toDate     |
       | 01/01/2022 | 07/30/2022 |
+
+  @SeeTaxesReport
+  Scenario Outline: Reporting Manager should be able to see Sales - Taxes Report Grouped by Tax Rate
+    Given Reporting manager on the dashboard page and click on tax link
+    When  Reporting manager select taxes report period "<startedTime>" "<endedTime>" and click on shor report button
+    Then  Taxes report display successful
+
+    Examples:
+      |startedTime|endedTime|
+      |01/01/2010 |30/07/2022|

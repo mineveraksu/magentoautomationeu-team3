@@ -151,14 +151,6 @@ public class ReportingSteps extends BasePage {
         Assert.assertTrue(newAccountsPage.verifySeeCustomersNewAccountsReport());
     }
 
-    @After("@ReportingModuleTest")
-    public void tearDown(Scenario scenario) {
-        if (scenario.isFailed()) {
-            ScreenShotUtility screenShotUtility = new ScreenShotUtility();
-            screenShotUtility.takeScreenshot("image", "failedTest", driver);
-        }
-        closeBrowser();
-    }
 
     @Given("Reporting manager is on the dashboard page and clicks on downloads link")
     public void reportingManagerIsOnTheDashboardPageAndClicksOnDownloadsLink() {
@@ -170,5 +162,31 @@ public class ReportingSteps extends BasePage {
         DownloadsPage downloadsPage=new DownloadsPage(driver);
         downloadsPage.verifyViewSalesInvoicedVsPaidReportSuccessfully();
     }
+
+    @Given("Reporting manager on the dashboard page and click on tax link")
+    public void reportingManagerOnTheDashboardPageAndClickOnTaxLink() {
+        reportingDashboardPage.clickOnTaxLink();
+
+    }
+
+    @When("Reporting manager select taxes report period {string} {string} and click on shor report button")
+    public void reportingManagerSelectTaxesReportPeriodAndClickOnShorReportButton(String arg0, String arg1) {
+        salesPage.seeTaxesRateReport(arg0, arg1);
+    }
+
+    @Then("Taxes report display successful")
+    public void taxesReportDisplaySuccessful() {
+        Assert.assertTrue(salesPage.taxesReportSawVerify());
+    }
+
+    @After("@ReportingModuleTest")
+    public void tearDown(Scenario scenario) {
+        if (scenario.isFailed()) {
+            ScreenShotUtility screenShotUtility = new ScreenShotUtility();
+            screenShotUtility.takeScreenshot("image", "failedTest", driver);
+        }
+        closeBrowser();
+    }
+
 }
 
