@@ -268,28 +268,15 @@ WebElement deleteProductCategorySuccessfulMessage;
     }
 
 
-    public void UpdateProduct(WebDriver driver) {
+
+    public void updateProduct(String description) {
         testUtility.waitForElementPresent(descriptionTextArea);
+        testUtility.sleep(3);
         descriptionTextArea.click();
         descriptionTextArea.clear();
-        descriptionTextArea.sendKeys("new season fashion");
-        shortDescriptionTextArea.click();
-        shortDescriptionTextArea.clear();
-        shortDescriptionTextArea.sendKeys("slim-fit");
-        SKUTextArea.click();
-        SKUTextArea.clear();
-        SKUTextArea.sendKeys("abcdef1234");
-
-        statusField.clear();
-        statusField.click();
-        Select select = new Select(statusField);
-        select.selectByIndex(1);
-
-        visibilityField.click();
-        Select select1 = new Select(visibilityField);
-        select1.selectByIndex(1);
+        descriptionTextArea.sendKeys(description);
+        testUtility.waitForElementPresent(saveButton);
         saveButton.click();
-
 
     }
 
