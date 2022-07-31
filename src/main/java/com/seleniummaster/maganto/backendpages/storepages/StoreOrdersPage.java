@@ -1,6 +1,7 @@
 package com.seleniummaster.maganto.backendpages.storepages;
 
 import com.seleniummaster.maganto.utility.ApplicationConfig;
+import com.seleniummaster.maganto.utility.TestDataHolder;
 import com.seleniummaster.maganto.utility.TestUtility;
 import org.apache.tools.ant.taskdefs.Java;
 import org.openqa.selenium.*;
@@ -51,8 +52,6 @@ public class StoreOrdersPage {
     WebElement customerEmailField;
     @FindBy (xpath = "//td[contains(text(),'team33@hotmail.com')]")
     WebElement selectedEmailField;
-    @FindBy (css="#store_122")
-    WebElement storeNameRadioButton;
     @FindBy (xpath = "//span[contains(.,'Add Products')]")
     WebElement addProductsLink;
     @FindBy (xpath = "//table[@id='sales_order_create_search_grid_table']/tbody/tr/td[2]")
@@ -89,60 +88,23 @@ public class StoreOrdersPage {
 
 
     //Store Manager can create a new order
-    public void selectCostumerAndProduct(){
-
+    public void selectCustomerAndProduct(String storeName){
         testUtility.waitForElementPresent(customerEmailField);
         customerEmailField.click();
         customerEmailField.sendKeys(ApplicationConfig.readFromConfigProperties(Config,email));
         customerEmailField.sendKeys(Keys.ENTER);
-        testUtility.sleep(3);
         testUtility.waitForElementPresent(selectedEmailField);
         selectedEmailField.click();
+        testUtility.sleep(3);
+        WebElement storeNameRadioButton=driver.findElement(By.xpath(String.format("//label[text()='%s']", storeName)));
         testUtility.waitForElementPresent(storeNameRadioButton);
         storeNameRadioButton.click();
-        testUtility.sleep(5);
-        scrollToTop();
         testUtility.waitForElementPresent(addProductsLink);
-        addProductsLink.click();
+        testUtility.javaScriptClick(addProductsLink);
         testUtility.waitForElementPresent(productName);
-        productName.click();
+        testUtility.javaScriptClick(productName);
         testUtility.waitForElementPresent(addSelectedProductsToOrdersLink);
-        addSelectedProductsToOrdersLink.click();
-    }
-
-    public void scrollToTop() {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("scroll(0,0)");
-    }
-
-    public void fillBillingAndShippingAddressForm(){
-        testUtility.waitForElementPresent(billingAddressFirstNameField);
-        testUtility.sleep(5);
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("scroll(0,300)");
-        billingAddressFirstNameField.click();
-        billingAddressFirstNameField.sendKeys(testUtility.generateFirstName());
-        testUtility.waitForElementPresent(billingAddressLastNameField);
-        billingAddressLastNameField.click();
-        billingAddressLastNameField.sendKeys(testUtility.generateLastName());
-        testUtility.waitForElementPresent(billingAddressStreetNameField);
-        billingAddressStreetNameField.click();
-        billingAddressStreetNameField.sendKeys(testUtility.generateStreetAddress());
-        testUtility.waitForElementPresent(billingAddressCityNameField);
-        billingAddressCityNameField.click();
-        billingAddressCityNameField.sendKeys(testUtility.generateCityName());
-        testUtility.waitForElementPresent(billingAddressCountryNameField);
-        select=new Select(billingAddressCountryNameField);
-        select.selectByVisibleText("United States");
-        testUtility.waitForElementPresent(billingAddressStateNameField);
-        select=new Select(billingAddressStateNameField);
-        select.selectByVisibleText("Alaska");
-        testUtility.waitForElementPresent(billingAddressZipCodeField);
-        billingAddressZipCodeField.click();
-        billingAddressZipCodeField.sendKeys(testUtility.generateZipCode());
-        testUtility.waitForElementPresent(billingAddressTelephoneField);
-        billingAddressTelephoneField.click();
-        billingAddressTelephoneField.sendKeys(testUtility.generateTelephoneNumber());
+        testUtility.javaScriptClick(addSelectedProductsToOrdersLink);
     }
 
     public void selectShippingMethodAndSubmitOrder() {
@@ -155,8 +117,6 @@ public class StoreOrdersPage {
         testUtility.sleep(5);
         testUtility.waitForElementPresent(cashOnDeliveryRadioButton);
         cashOnDeliveryRadioButton.click();
-        testUtility.sleep(5);
-        scrollToTop();
         testUtility.waitForElementPresent(submitOrderButton);
         submitOrderButton.click();
     }

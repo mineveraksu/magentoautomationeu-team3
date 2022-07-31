@@ -63,16 +63,17 @@ Feature:Store Manager can manage store
     #delete product
 
   @CreateOrder
-  Scenario: Store Manager can create an order
+  Scenario Outline: Store Manager can create an order
     Given store manager is on the dashboard page and store manager click on orders link
-    When store manager select a customer and a product
-    And fill billing address and shipping address form
+    When store manager select a customer and a store "<StoreName>" and a product
     And select shipping and payment methods and submit order
     Then the order should be saved successfully
+    Examples:
+      |StoreName     |
+      |  team33      |
 
   @EditOrders
   Scenario: Store Manager can edit orders
-
     Given store manager is on the dashboard page and store manager click on orders link
     When  store manager search orders number and edit some information
     Then  edit orders successful

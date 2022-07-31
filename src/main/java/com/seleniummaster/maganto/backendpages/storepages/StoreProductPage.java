@@ -127,7 +127,7 @@ WebElement deleteProductCategorySuccessfulMessage;
         testUtility.waitForElementPresent(shortDescriptionFiled);
         shortDescriptionFiled.sendKeys(shortDescription);
         testUtility.waitForElementPresent(SKUField);
-        SKUField.sendKeys(SKU);
+        SKUField.sendKeys(SKU+ System.currentTimeMillis());
         testUtility.waitForElementPresent(weightFiled);
         weightFiled.sendKeys(weight);
         testUtility.waitForElementPresent(statusDropDown);
