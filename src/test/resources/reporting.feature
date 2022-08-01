@@ -28,6 +28,14 @@ Feature:Reporting Module Functions
       |fromDate  |toDate    |
       |01/01/2013|07/30/2022|
 
+  @SeeSales-TotalRefundedReport
+  Scenario Outline:  Reporting Manager should be able to see sales- Total Refunded Report
+    Given Reporting manager is on the dashboard page and clicks on refunded Option
+    When  Reporting Manager Navigate to Total Refunded Report page and select period and date "<fromDate>" "<toDate>" and click show Report button
+    Then  Total refunded report view successfully
+    Examples:
+      |fromDate  |toDate    |
+      |01/01/2020|08/01/2022|
 
   @SeeTotalOrderedReport
   Scenario: Reporting Manager should be able to see Sales -Total Ordered Report
