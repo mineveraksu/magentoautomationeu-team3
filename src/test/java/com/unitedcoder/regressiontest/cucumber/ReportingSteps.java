@@ -111,16 +111,29 @@ public class ReportingSteps extends BasePage {
     public void reportingManagerNavigateToTotalRefundedReportPageAndSelectPeriodAndDateAndClickShowReportButton(String arg0, String arg1){
         salesPage= new SalesPage(driver);
         salesPage.seeTotalRefundsReport(arg0,arg1);
-
-
     }
-
     @Then("Total refunded report view successfully")
     public void totalRefundedReportViewSuccessfully() {
         salesPage=new SalesPage(driver);
-        salesPage.verifyRefundsReportSuccessfullyShown();
+        Assert.assertTrue(salesPage.verifyRefundsReportSuccessfullyShown());
     }
 
+    //COUPONUSAGEREPORT
+    @Given("Reporting manager is on the dashboard page and clicks on Coupon Usage Option")
+    public void reportingManagerIsOnTheDashboardPageAndClicksOnCouponUsageOption() {
+        reportingDashboardPage.clickOnCouponsLink();
+    }
+
+    @When("Reporting Manager Navigate to Coupon Usage Report page and select period and date {string} {string} and click show Report button")
+    public void reportingManagerNavigateToCouponUsageReportPageAndSelectPeriodAndDateAndClickShowReportButton(String arg0, String arg1) {
+        salesPage=new SalesPage(driver);
+        salesPage.seeCouponUsageReport(arg0,arg1);
+    }
+
+    @Then("Coupon Usage report view successfully")
+    public void couponUsageReportViewSuccessfully() {
+        Assert.assertTrue(salesPage.verifyCouponUsageSuccessfullyShown());
+    }
     //
     @Given("Reporting manager is on the dashboard page and clicks on Orders link")
     public void reportingManagerIsOnTheDashboardPageAndClicksOnOrdersLink() {
