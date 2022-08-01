@@ -49,6 +49,8 @@ public class ReportingDashboardPage {
     WebElement customerByOrdersTotalLink;
     @FindBy(xpath = "//span[text()='Customers by number of orders']")
     WebElement customerByNumberOfOrdersLink;
+    @FindBy(xpath = "//span[text()='Refunds']")
+    WebElement refundsLink;
 
 
     public void clickOnMostViewedLink() {
@@ -76,6 +78,16 @@ public class ReportingDashboardPage {
         actions.moveToElement(salesOption).perform();
         testUtility.waitForElementPresent(shippingOption);
         shippingOption.click();
+    }
+
+    public void clickOnRefundedLink(){
+        testUtility.waitForElementPresent(reportsLink);
+        actions.moveToElement(reportsLink).click().perform();
+        testUtility.waitForElementPresent(salesLink);
+        actions.moveToElement(salesLink).perform();
+        testUtility.waitForElementPresent(refundsLink);
+        refundsLink.click();
+
     }
 
     public void clickOnOrdersLink() {
