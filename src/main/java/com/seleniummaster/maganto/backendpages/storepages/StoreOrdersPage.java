@@ -135,20 +135,7 @@ public class StoreOrdersPage {
 
     }
 
-
-
-
-
-
-
-
-
-
-
-        //Store Manager can edit orders
-
-
-
+    //Store Manager can edit orders
     public void editOrderInformation() {
         testUtility.waitForElementPresent(editButton);
         actions.moveToElement(editButton).click().perform();
@@ -186,9 +173,8 @@ public class StoreOrdersPage {
     }
 
     //Store Manager can cancel orders
-    public void cancelOrder(){
+    public void clickOnCancelOrder(){
         testUtility.sleep(2);
-        testUtility.waitForElementPresent(cancelButton);
         actions.moveToElement(cancelButton).click().perform();
         Alert alert=driver.switchTo().alert();
         alert.accept();
@@ -200,7 +186,8 @@ public class StoreOrdersPage {
         if(cancelOrderSuccessMassage.getText().contains("The order has been cancelled.")){
             System.out.println("Store module order cancel successful !");
             return true;
-        }else{
+        }
+        else{
             System.out.println("Store module order cancel false , please check out !");
             return false;
         }
