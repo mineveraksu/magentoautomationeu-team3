@@ -51,6 +51,9 @@ public class ManageCustomersPage {
     @FindBy(linkText = "Delete")
     WebElement deleteButton;
 
+    @FindBy(xpath = "//*[@id=\"customer_cart_grid1_table\"]/thead/tr[1]/th[1]/span/a")
+    WebElement customerShoppingCartView;
+
     public void openShoppingCart() {
         String email = ApplicationConfig.readFromConfigProperties(configFile, "email");
         testUtility.sleep(2);
@@ -67,6 +70,20 @@ public class ManageCustomersPage {
         testUtility.waitForElementPresent(shoppingCartLink);
         shoppingCartLink.click();
         testUtility.sleep(2);
+
+    }
+
+    public boolean verifyShoppingCartView(){
+        testUtility.waitForElementPresent(customerShoppingCartView);
+        testUtility.sleep(3);
+        if (customerShoppingCartView.isDisplayed()){
+            System.out.println("Manager can view Customer Shopping Cart");
+            return true;
+        }
+        else {
+            System.out.println("Manager can't view Customer Shopping Cart");
+            return false;
+        }
 
     }
 
