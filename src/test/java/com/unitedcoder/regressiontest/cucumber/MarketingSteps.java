@@ -208,6 +208,21 @@ public class MarketingSteps extends BasePage {
         Assert.assertTrue(cartPriceRulePage.verifyAddNewShoppingCartPriceRuleSuccessfully());
     }
 
+    //updatecartpricerule
+
+    @When("select the {string} and change the {string}")
+    public void selectTheAndChangeThe(String arg0, String arg1) {
+        CartPriceRulePage cartPriceRulePage=new CartPriceRulePage(driver);
+        cartPriceRulePage.updateCartPriceRule(arg0,arg1);
+
+    }
+
+    @Then("cart price rule should be updated successfully")
+    public void cartPriceRuleShouldBeUpdatedSuccessfully() {
+        CartPriceRulePage cartPriceRulePage= new CartPriceRulePage(driver);
+        Assert.assertTrue(cartPriceRulePage.verifyAddNewShoppingCartPriceRuleSuccessfully());
+    }
+
     @After("@MarketingModuleTest")
     public void tearDown(Scenario scenario) {
         if (scenario.isFailed()) {
@@ -216,6 +231,8 @@ public class MarketingSteps extends BasePage {
         }
         closeBrowser();
     }
+
+
 }
 
 

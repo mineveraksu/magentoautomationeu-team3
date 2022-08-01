@@ -1,6 +1,7 @@
 package com.seleniummaster.maganto.backendpages.marketingpages;
 
 import com.seleniummaster.maganto.utility.TestUtility;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -18,9 +19,9 @@ public class CartPriceRulePage {
     WebElement shoppingCartPriceRulesLink;
     @FindBy(xpath = "(//span[text()='Add New Rule'])[1]")
     WebElement addNewRuleButton;
-    @FindBy(id = "rule_name")
+    @FindBy(xpath = "//input[@id='rule_name']")
     WebElement ruleNameField;
-    @FindBy(id = "rule_description")
+    @FindBy(xpath = "//input[@id='rule_name']")
     WebElement descriptionField;
     @FindBy(id = "rule_is_active")
     WebElement status;
@@ -38,6 +39,37 @@ public class CartPriceRulePage {
     WebElement successMessages;
     @FindBy(xpath = "//td[contains(text(),'50% Sales')]")
     WebElement existingRule;
+
+
+
+
+
+    @FindBy(xpath = "//input[@id='promo_quote_grid_filter_rule_id']")
+    WebElement filterCartRuleIdField;
+    @FindBy(xpath = "//input[@id='promo_quote_grid_filter_name']")
+    WebElement filterCartRuleNameField;
+    @FindBy(xpath = "//td[@class='a-right ']")
+    WebElement selectedCartRuleIdField;
+    @FindBy(xpath = "//td[@class='a-left ']")
+    WebElement SelectedCartRuleNameField;
+    @FindBy(xpath = "//*[contains(text(),'Search')]")
+    WebElement cartRuleSearchButton;
+    @FindBy(xpath = "//*[contains(text(),'No records found')]")
+    WebElement noRecordsFoundMessage;
+
+    @FindBy(xpath = "//*[contains(text(),'50% Sales(team3)')]")
+    WebElement selectedCartRuleNamesFirstColumn;
+
+//    WebElement storeNameRadioButton=driver.findElement(By.xpath(String.format("//label[text()='%s']", RuleName)));
+//        testUtility.waitForElementPresent(storeNameRadioButton);
+//        storeNameRadioButton.click();
+//
+//    WebElement selectedCartRuleNamesFirstColumn=driver.findElement(By.xpath(String.format("//*[contains(text(),'%s')]", RuleName)));
+//        testUtility.waitForElementPresent(selectedCartRuleNamesFirstColumn);
+//        selectedCartRuleNamesFirstColumn.click();
+
+
+
 
 
     public CartPriceRulePage(WebDriver driver) {
@@ -86,6 +118,39 @@ public class CartPriceRulePage {
         }
     }
 
-}
+    public void updateCartPriceRule(String RuleName,String Description){
+        testUtility.waitForElementPresent(filterCartRuleNameField);
+        filterCartRuleNameField.click();
+        filterCartRuleNameField.clear();
+        testUtility.waitForElementPresent(cartRuleSearchButton);
+        cartRuleSearchButton.click();
+        filterCartRuleNameField.click();
+        filterCartRuleNameField.sendKeys(RuleName);
+        testUtility.waitForElementPresent(cartRuleSearchButton);
+        cartRuleSearchButton.click();
+        WebElement selectedCartRuleNamesFirstColumn=driver.findElement(By.xpath(String.format("//*[contains(text(),'%s')]", RuleName)));
+        testUtility.waitForElementPresent(selectedCartRuleNamesFirstColumn);
+        selectedCartRuleNamesFirstColumn.click();
+        testUtility.waitForElementPresent(descriptionField);
+        descriptionField.click();
+        descriptionField.clear();
+        descriptionField.sendKeys(Description);
+        testUtility.waitForElementPresent(saveButton);
+        saveButton.click();
+    }
 
+    public boolean updateCartPriceRuleSuccessfully(){
+        testUtility.waitForElementPresent(successMessages);
+        if (driver.getPageSource().contains(successMessages.getText())) {
+            System.out.println("Marketing Manager can update Shopping Cart Price Rule Test is Passed!!!");
+            return true;
+        } else {
+            System.out.println("Marketing Manager can update Shopping Cart Price Rule Test is Failed!!!");
+            return false;
+        }
+
+    }
+
+
+}
 
