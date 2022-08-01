@@ -68,6 +68,12 @@ Feature:Sales Module Functions
 
 
 
+@ManageOpenAndViewShoppingCart
+  Scenario: Sales Manager should be able to manage view shopping cart for customers
+  Given Sales manager is on the dashboard page and click on the manage customers link
+  When Sales manager open a customer and open his shopping cart
+  Then Sales manager can view shopping cart
+
 
   @ManageUpdateShoppingCart
   Scenario Outline: Sales Manager should be able to manage update an existing shopping cart for customers.

@@ -59,7 +59,16 @@ Feature:Store Manager can manage store
     Examples:
       | name  | description    | shortDescription | sku      | weight | price  | qty |
       | Jeans | Tommy Hilfiger | TH               | AB224488 | 300    | 199,99 | 5   |
-    #update product
+
+  @UpdateProduct
+  Scenario Outline: Store Manager Can Update a Product
+    Given store manager is on the dashboard page store manager click on manage products link
+    When select the product "<name>" and update description "<description>"
+    Then product information updated successfully
+    Examples:
+      | name  | description        |
+      | Jeans | new season fashion |
+
     #delete product
 
   @CreateOrder

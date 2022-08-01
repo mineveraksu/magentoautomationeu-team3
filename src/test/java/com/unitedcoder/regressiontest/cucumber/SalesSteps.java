@@ -162,6 +162,10 @@ public class SalesSteps extends BasePage {
         creditMemoPage.viewCreditMemoMethod(testDataHolder);
 
     }
+    @And("Sales manager can view shopping cart")
+    public void salesManagerCanViewShoppingCart(){
+        Assert.assertTrue(manageCustomersPage.verifyShoppingCartView());
+    }
 
     @Then("verify view credit memo")
     public void verifyViewCreditMemo() {
