@@ -67,7 +67,7 @@ public class StoreDashboardPage {
     public void clickOnViewLink(){
         testUtility.waitForElementPresent(viewLink);
         actions.moveToElement(viewLink).click().perform();
-        System.out.println("View link clicked !");
+        System.out.println("View link clicked!");
     }
 
 

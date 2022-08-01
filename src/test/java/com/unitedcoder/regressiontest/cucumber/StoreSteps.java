@@ -220,7 +220,7 @@ public class StoreSteps extends BasePage {
 
     //cancel order
     @When("cancel order")
-    public void cancelOrder() {
+    public void cancelOrder(){
         storeOrdersPage=new StoreOrdersPage(driver);
         storeOrdersPage.clickOnCancelOrder();
     }
