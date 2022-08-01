@@ -90,3 +90,11 @@ Feature:Marketing Manager can manage market
         |RuleName        | description         | Priority |
         |50% Sales(team3) |50% off any product  | Medium |
 
+  @MarketingManagerUpdateCartPriceRule
+   Scenario Outline: MarketingManagerUpdateCartPriceRule
+      Given Marketing manager on the dashboard page and marketing manager click on Promotions link
+      When select the "<RuleName>" and change the "<description>"
+      Then cart price rule should be updated successfully
+      Examples:
+      |RuleName          |description                               |
+      |50% Sales(team3)  | validate until the end of this year      |

@@ -161,43 +161,43 @@ public class SalesSteps extends BasePage {
         creditMemoPage=new CreditMemoPage(driver);
         creditMemoPage.viewCreditMemoMethod(testDataHolder);
 
-    }
-    @And("Sales manager can view shopping cart")
-    public void salesManagerCanViewShoppingCart(){
-        Assert.assertTrue(manageCustomersPage.verifyShoppingCartView());
-    }
-
-    @Then("verify view credit memo")
-    public void verifyViewCreditMemo() {
-        creditMemoPage=new CreditMemoPage(driver);
-        org.testng.Assert.assertTrue(creditMemoPage.verifyViewCreditMemo());
-
-    }
-    //Add creditMemo
-    @When("Sales manager click pending and invoice button to create credit memo")
-    public void salesManagerClickPendingAndInvoiceButtonToCreateCreditMemo() {
-        ordersPage=new OrdersPage(driver);
-        ordersPage.selectStatusOfOrders();
-        ordersPage.clickOnPendingLink(testDataHolder);
-        addCreditMemoPage=new AddCreditMemoPage(driver);
-        addCreditMemoPage.addCreditMemo();
-
-    }
-    @Then("Verify added credit memo")
-    public void verifyAddedCreditMemo() {
-        addCreditMemoPage=new AddCreditMemoPage(driver);
-        org.testng.Assert.assertTrue(addCreditMemoPage.verifyAddedCreditMemo());
-    }
-
-
-    @After("@SalesModuleTest")
-    public void tearDown(Scenario scenario) {
-        if (scenario.isFailed()) {
-            ScreenShotUtility screenShotUtility = new ScreenShotUtility();
-            screenShotUtility.takeScreenshot("image", "failedTest", driver);
-        }
-        closeBrowser();
-    }
+//    }
+//    @And("Sales manager can view shopping cart")
+//    public void salesManagerCanViewShoppingCart(){
+//        Assert.assertTrue(manageCustomersPage.verifyShoppingCartView());
+//    }
+//
+//    @Then("verify view credit memo")
+//    public void verifyViewCreditMemo() {
+//        creditMemoPage=new CreditMemoPage(driver);
+//        org.testng.Assert.assertTrue(creditMemoPage.verifyViewCreditMemo());
+//
+//    }
+//    //Add creditMemo
+//    @When("Sales manager click pending and invoice button to create credit memo")
+//    public void salesManagerClickPendingAndInvoiceButtonToCreateCreditMemo() {
+//        ordersPage=new OrdersPage(driver);
+//        ordersPage.selectStatusOfOrders();
+//        ordersPage.clickOnPendingLink(testDataHolder);
+//        addCreditMemoPage=new AddCreditMemoPage(driver);
+//        addCreditMemoPage.addCreditMemo();
+//
+//    }
+//    @Then("Verify added credit memo")
+//    public void verifyAddedCreditMemo() {
+//        addCreditMemoPage=new AddCreditMemoPage(driver);
+//        org.testng.Assert.assertTrue(addCreditMemoPage.verifyAddedCreditMemo());
+//    }
+//
+//
+//    @After("@SalesModuleTest")
+//    public void tearDown(Scenario scenario) {
+//        if (scenario.isFailed()) {
+//            ScreenShotUtility screenShotUtility = new ScreenShotUtility();
+//            screenShotUtility.takeScreenshot("image", "failedTest", driver);
+//        }
+//        closeBrowser();
+//    }
 
 
 
