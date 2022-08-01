@@ -133,39 +133,39 @@ public class SalesSteps extends BasePage {
 
     }
 
-//    @Given("sales manager click on refunds link")
-//    public void salesManagerClickOnRefundsLink() {
-//        salesDashboardPage.clickOnRefundsLink();
+    @Given("sales manager click on refunds link")
+    public void salesManagerClickOnRefundsLink() {
+        salesDashboardPage.clickOnRefundsLink();
+    }
+
+    @When("sales manager entering the refunds period and shows refunds")
+    public void salesManagerEnteringTheRefundsPeriodAndShowsRefunds() {
+        refundsPage = new RefundsPage(driver);
+        refundsPage.refundsReport(testDataHolder);
+    }
+
+    @Then("sales manager view refunds reports successful")
+    public void salesManagerViewRefundsReportsSuccessful() {
+        refundsPage = new RefundsPage(driver);
+        Assert.assertTrue(refundsPage.verifyRefundsReportSuccessfulShow());
+    }
+    // view credit memo
+    @Given("sales manager is on the dashboard and click credit memo link")
+    public void salesManagerIsOnTheDashboardAndClickCreditMemoLink() {
+        salesDashboardPage=new SalesDashboardPage(driver);
+        salesDashboardPage.clickOnCreditMemoLink();
+    }
+
+    @When("manager click the view button and view credit memo information")
+    public void managerClickTheViewButtonAndViewCreditMemoInformation() {
+        creditMemoPage=new CreditMemoPage(driver);
+        creditMemoPage.viewCreditMemoMethod(testDataHolder);
+
 //    }
-//
-//    @When("sales manager entering the refunds period and shows refunds")
-//    public void salesManagerEnteringTheRefundsPeriodAndShowsRefunds() {
-//        refundsPage = new RefundsPage(driver);
-//        refundsPage.refundsReport(testDataHolder);
+//    @And("Sales manager can view shopping cart")
+//    public void salesManagerCanViewShoppingCart(){
+//        Assert.assertTrue(manageCustomersPage.verifyShoppingCartView());
 //    }
-//
-//    @Then("sales manager view refunds reports successful")
-//    public void salesManagerViewRefundsReportsSuccessful() {
-//        refundsPage = new RefundsPage(driver);
-//        Assert.assertTrue(refundsPage.verifyRefundsReportSuccessfulShow());
-//    }
-//    // view credit memo
-//    @Given("sales manager is on the dashboard and click credit memo link")
-//    public void salesManagerIsOnTheDashboardAndClickCreditMemoLink() {
-//        salesDashboardPage=new SalesDashboardPage(driver);
-//        salesDashboardPage.clickOnCreditMemoLink();
-//    }
-//
-//    @When("manager click the view button and view credit memo information")
-//    public void managerClickTheViewButtonAndViewCreditMemoInformation() {
-//        creditMemoPage=new CreditMemoPage(driver);
-//        creditMemoPage.viewCreditMemoMethod(testDataHolder);
-//
-////    }
-////    @And("Sales manager can view shopping cart")
-////    public void salesManagerCanViewShoppingCart(){
-////        Assert.assertTrue(manageCustomersPage.verifyShoppingCartView());
-////    }
 //
 //    @Then("verify view credit memo")
 //    public void verifyViewCreditMemo() {

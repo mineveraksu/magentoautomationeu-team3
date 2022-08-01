@@ -60,15 +60,6 @@ public class CartPriceRulePage {
     @FindBy(xpath = "//*[contains(text(),'50% Sales(team3)')]")
     WebElement selectedCartRuleNamesFirstColumn;
 
-//    WebElement storeNameRadioButton=driver.findElement(By.xpath(String.format("//label[text()='%s']", RuleName)));
-//        testUtility.waitForElementPresent(storeNameRadioButton);
-//        storeNameRadioButton.click();
-//
-//    WebElement selectedCartRuleNamesFirstColumn=driver.findElement(By.xpath(String.format("//*[contains(text(),'%s')]", RuleName)));
-//        testUtility.waitForElementPresent(selectedCartRuleNamesFirstColumn);
-//        selectedCartRuleNamesFirstColumn.click();
-
-
 
 
 
