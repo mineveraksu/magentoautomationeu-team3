@@ -176,10 +176,6 @@ public class StoreSteps extends BasePage {
     //delete product
 
     //create order
-    @Given("store manager is on the dashboard page and store manager click on orders link")
-    public void storeManagerIsOnTheDashboardPageAndStoreManagerClickOnOrdersLink() {
-        storeDashboardPage.clickOnOrdersLink();
-    }
 
     @And("select shipping and payment methods and submit order")
     public void selectShippingAndPaymentMethodsAndSubmitOrder() {
@@ -193,15 +189,35 @@ public class StoreSteps extends BasePage {
     }
 
     //edit order
+    @Given("store manager is on the dashboard page and store manager click on orders link")
+    public void storeManagerIsOnTheDashboardPageAndStoreManagerClickOnOrdersLink() {
+        storeDashboardPage.clickOnOrdersLink();
+        storeDashboardPage.clickOnViewLink();
+    }
+
     @When("store manager search orders number and edit some information")
     public void storeManagerSearchOrdersNumberAndEditSomeInformation() {
+       storeOrdersPage=new StoreOrdersPage(driver);
+       storeOrdersPage.editOrderInformation();
     }
 
     @Then("edit orders successful")
     public void editOrdersSuccessful() {
+        Assert.assertTrue(storeOrdersPage.verifyOrderEdited());
     }
 
     //cancel order
+    @When("cancel order")
+    public void cancelOrder() {
+        storeOrdersPage=new StoreOrdersPage(driver);
+        storeOrdersPage.clickOnCancelOrder();
+    }
+
+    @Then("cancel order successful")
+    public void cancelOrderSuccessful() {
+     Assert.assertTrue(storeOrdersPage.verifyOrderCancelSuccessful());
+    }
+
 
     //add product categories
     @When("store manager clicks categories link and check the existing product categories")
@@ -258,6 +274,8 @@ public class StoreSteps extends BasePage {
         }
         closeBrowser();
     }
+
+
 }
 
 
