@@ -250,16 +250,14 @@ public class ReportingSteps extends BasePage {
         org.testng.Assert.assertTrue(customersByNumberOfOrders.verifyManagerCanSeeCustomersByNumberOfOrders());
     }
 
+    @Given("Reporting manager on the dashboard page and click on tags_popular Link")
+    public void reportingManagerOnTheDashboardPageAndClickOnTags_popularLink() {
+        reportingDashboardPage.click_PopularLink();
+    }
 
-
-
-    @After("@ReportingModuleTest")
-    public void tearDown(Scenario scenario) {
-        if (scenario.isFailed()) {
-            ScreenShotUtility screenShotUtility = new ScreenShotUtility();
-            screenShotUtility.takeScreenshot("image", "failedTest", driver);
-        }
-        closeBrowser();
+    @Then("verify popular report displayed")
+    public void verifyPopularReportDisplayed() {
+        popularPage.verifyPopularReportDisplayed();
     }
 
     @Given("Reporting manager is on the dashboard page and click on product review link")
@@ -272,14 +270,18 @@ public class ReportingSteps extends BasePage {
         report_ReviewsPage.verifyProductReviewReportSuccessfullyDisplayed();
     }
 
-    @Given("Reporting manager on the dashboard page and click on tags_popular Link")
-    public void reportingManagerOnTheDashboardPageAndClickOnTags_popularLink() {
-        reportingDashboardPage.click_PopularLink();
+
+    @After("@ReportingModuleTest")
+    public void tearDown(Scenario scenario) {
+        if (scenario.isFailed()) {
+            ScreenShotUtility screenShotUtility = new ScreenShotUtility();
+            screenShotUtility.takeScreenshot("image", "failedTest", driver);
+        }
+        closeBrowser();
     }
 
-    @Then("verify popular report displayed")
-    public void verifyPopularReportDisplayed() {
-        popularPage.verifyPopularReportDisplayed();
-    }
+
+
+
 }
 

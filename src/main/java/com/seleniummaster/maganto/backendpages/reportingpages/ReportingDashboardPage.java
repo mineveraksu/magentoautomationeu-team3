@@ -51,6 +51,8 @@ public class ReportingDashboardPage {
     WebElement customerByNumberOfOrdersLink;
     @FindBy(xpath = "//span[text()='Refunds']")
     WebElement refundsLink;
+    @FindBy (xpath = "//span[text()='Coupons']")
+    WebElement couponsLink;
     @FindBy(xpath = "//span[text()='Tags']")
     WebElement tagsLink;
     @FindBy(xpath = "//span[text()='Popular']")
@@ -59,6 +61,7 @@ public class ReportingDashboardPage {
     WebElement reviewsLink;
     @FindBy(xpath = "//span[text()='Products Reviews']")
     WebElement product_ReviewsLink;
+
 
     public void clickOnMostViewedLink() {
         testUtility.waitForElementPresent(reportsLink);
@@ -93,6 +96,16 @@ public class ReportingDashboardPage {
         testUtility.waitForElementPresent(salesLink);
         actions.moveToElement(salesLink).perform();
         testUtility.waitForElementPresent(refundsLink);
+        refundsLink.click();
+
+    }
+
+    public void clickOnCouponsLink(){
+        testUtility.waitForElementPresent(reportsLink);
+        actions.moveToElement(reportsLink).click().perform();
+        testUtility.waitForElementPresent(salesLink);
+        actions.moveToElement(salesLink).perform();
+        testUtility.waitForElementPresent(couponsLink);
         refundsLink.click();
 
     }
@@ -164,5 +177,6 @@ public class ReportingDashboardPage {
         actions.moveToElement(product_ReviewsLink).click().perform();
     }
 }
+
 
 
