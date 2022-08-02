@@ -37,6 +37,15 @@ Feature:Reporting Module Functions
       |fromDate  |toDate    |
       |01/01/2020|08/01/2022|
 
+  @SeeSales-CouponUsageReport
+  Scenario Outline:  Reporting Manager should be able to see sales- Coupon Usage Report
+    Given Reporting manager is on the dashboard page and clicks on Coupon Usage Option
+    When  Reporting Manager Navigate to Coupon Usage Report page and select period and date "<fromDate>" "<toDate>" and click show Report button
+    Then  Coupon Usage report view successfully
+    Examples:
+      |fromDate  |toDate    |
+      |01/01/2013|08/01/2022|
+
   @SeeTotalOrderedReport
   Scenario: Reporting Manager should be able to see Sales -Total Ordered Report
     Given  Reporting manager is on the dashboard page and clicks on Orders link
