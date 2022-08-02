@@ -79,7 +79,7 @@ public class SalesPage {
         }
     }
 
-    // See texes rate report
+    // See taxes rate report
     public void seeTaxesRateReport(String startedTime, String endedTime) {
         testUtility.waitForElementPresent(showReportForField);
         Select select1 = new Select(showReportForField);
@@ -135,6 +135,35 @@ public class SalesPage {
         }
 
     }
+
+    //couponusagereport
+    public void seeCouponUsageReport(String fromDate, String toDate) {
+        testUtility.waitForElementPresent(matchPeriodToField);
+        Select select1 = new Select(matchPeriodToField);
+        select1.selectByVisibleText("Order Created Date");
+        Select select2 = new Select(periodField);
+        select2.selectByVisibleText("Month");
+        testUtility.waitForElementPresent(fromField);
+        fromField.sendKeys(fromDate);
+        testUtility.waitForElementPresent(toField);
+        toField.sendKeys(toDate);
+        testUtility.waitForElementPresent(showReportButton);
+        actions.moveToElement(showReportButton).click().perform();
+
+    }
+
+    public boolean verifyCouponUsageSuccessfullyShown(){
+        List<WebElement> rows = driver.findElements(By.cssSelector(".data>tbody>tr"));
+        rowSize = rows.size();
+        if (rowSize >= 1) {
+            System.out.println(" Reporting manager can see taxes report ");
+            return true;
+        } else {
+            System.out.println(" Reporting manager can not see taxes report ");
+            return false;
+        }
+    }
+
 
 
 
