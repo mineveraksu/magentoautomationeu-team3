@@ -168,6 +168,15 @@ public class OrdersPage {
             return false;
         }
     }
+    public void selectStatus(){
+        selectStatusOfOrders();
+    }
+    public void searchBillToName(){
+        testUtility.waitForElementPresent(billToNameField);
+        billToNameField.sendKeys("team3");
+        billToNameField.sendKeys(Keys.ENTER);
+        testUtility.sleep(5);
+    }
 
     public void updateOrderWithInStorePickup(){
         testUtility.waitForElementPresent(viewButton);
