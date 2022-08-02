@@ -158,9 +158,9 @@ public class SalesSteps extends BasePage {
 
     @When("manager click the view button and view credit memo information")
     public void managerClickTheViewButtonAndViewCreditMemoInformation() {
-        creditMemoPage=new CreditMemoPage(driver);
+        creditMemoPage = new CreditMemoPage(driver);
         creditMemoPage.viewCreditMemoMethod(testDataHolder);
-
+    }
 //    }
 //    @And("Sales manager can view shopping cart")
 //    public void salesManagerCanViewShoppingCart(){
@@ -190,16 +190,15 @@ public class SalesSteps extends BasePage {
 //    }
 //
 //
-//    @After("@SalesModuleTest")
-//    public void tearDown(Scenario scenario) {
-//        if (scenario.isFailed()) {
-//            ScreenShotUtility screenShotUtility = new ScreenShotUtility();
-//            screenShotUtility.takeScreenshot("image", "failedTest", driver);
-//        }
-//        closeBrowser();
-//    }
+    @After("@SalesModuleTest")
+    public void tearDown(Scenario scenario) {
+        if (scenario.isFailed()) {
+            ScreenShotUtility screenShotUtility = new ScreenShotUtility();
+            screenShotUtility.takeScreenshot("image", "failedTest", driver);
+        }
+        closeBrowser();
+    }
 
 
-
-}
+    }
 
