@@ -156,11 +156,19 @@ public class SalesSteps extends BasePage {
         salesDashboardPage.clickOnCreditMemoLink();
     }
 
+
     @When("manager click the view button and view credit memo information")
     public void managerClickTheViewButtonAndViewCreditMemoInformation() {
         creditMemoPage = new CreditMemoPage(driver);
         creditMemoPage.viewCreditMemoMethod(testDataHolder);
     }
+
+//    @When("manager click the view button and view credit memo information")
+//    public void managerClickTheViewButtonAndViewCreditMemoInformation() {
+//        creditMemoPage=new CreditMemoPage(driver);
+//        creditMemoPage.viewCreditMemoMethod(testDataHolder);
+//
+
 //    }
 //    @And("Sales manager can view shopping cart")
 //    public void salesManagerCanViewShoppingCart(){
@@ -173,6 +181,7 @@ public class SalesSteps extends BasePage {
 //        org.testng.Assert.assertTrue(creditMemoPage.verifyViewCreditMemo());
 //
 //    }
+
 //    //Add creditMemo
 //    @When("Sales manager click pending and invoice button to create credit memo")
 //    public void salesManagerClickPendingAndInvoiceButtonToCreateCreditMemo() {
@@ -190,6 +199,25 @@ public class SalesSteps extends BasePage {
 //    }
 //
 //
+
+    //Add creditMemo
+    @When("Sales manager click pending and invoice button to create credit memo")
+    public void salesManagerClickPendingAndInvoiceButtonToCreateCreditMemo() {
+        ordersPage=new OrdersPage(driver);
+        ordersPage.selectStatusOfOrders();
+        ordersPage.clickOnPendingLink(testDataHolder);
+        addCreditMemoPage=new AddCreditMemoPage(driver);
+        addCreditMemoPage.addCreditMemo();
+
+    }
+    @Then("Verify added credit memo")
+    public void verifyAddedCreditMemo() {
+        addCreditMemoPage=new AddCreditMemoPage(driver);
+        org.testng.Assert.assertTrue(addCreditMemoPage.verifyAddedCreditMemo());
+    }
+
+
+
     @After("@SalesModuleTest")
     public void tearDown(Scenario scenario) {
         if (scenario.isFailed()) {
