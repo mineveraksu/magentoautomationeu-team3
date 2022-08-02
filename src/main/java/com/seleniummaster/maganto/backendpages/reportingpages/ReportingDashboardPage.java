@@ -51,7 +51,14 @@ public class ReportingDashboardPage {
     WebElement customerByNumberOfOrdersLink;
     @FindBy(xpath = "//span[text()='Refunds']")
     WebElement refundsLink;
-
+    @FindBy(xpath = "//span[text()='Tags']")
+    WebElement tagsLink;
+    @FindBy(xpath = "//span[text()='Popular']")
+    WebElement popularLink;
+    @FindBy(xpath = "//span[text()='Reviews']")
+    WebElement reviewsLink;
+    @FindBy(xpath = "//span[text()='Products Reviews']")
+    WebElement product_ReviewsLink;
 
     public void clickOnMostViewedLink() {
         testUtility.waitForElementPresent(reportsLink);
@@ -137,6 +144,24 @@ public class ReportingDashboardPage {
         testUtility.waitForElementPresent(reportsLink);
         actions.moveToElement(reportsLink).moveToElement(customersLink).moveToElement(customerByNumberOfOrdersLink).click().perform();
 
+    }
+
+    public void click_PopularLink() {
+        testUtility.waitForElementPresent(reportsLink);
+        actions.moveToElement(reportsLink).click().perform();
+        testUtility.waitForElementPresent(tagsLink);
+        actions.moveToElement(tagsLink).click().perform();
+        testUtility.waitForElementPresent(popularLink);
+        actions.moveToElement(popularLink).click().perform();
+    }
+
+    public void click_Products_Reviews() {
+        testUtility.waitForElementPresent(reportsLink);
+        actions.moveToElement(reportsLink).click().perform();
+        testUtility.waitForElementPresent(reviewsLink);
+        actions.moveToElement(reviewsLink).click().perform();
+        testUtility.waitForElementPresent(product_ReviewsLink);
+        actions.moveToElement(product_ReviewsLink).click().perform();
     }
 }
 

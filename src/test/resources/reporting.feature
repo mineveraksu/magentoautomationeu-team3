@@ -93,3 +93,13 @@ Feature:Reporting Module Functions
     Examples:
       |from data |to data|
       |07/10/2022|07/30/2022|
+
+    @SeePopularReport
+    Scenario: Reporting manager can see tags_Popular report
+      Given Reporting manager on the dashboard page and click on tags_popular Link
+      Then verify popular report displayed
+
+    @SeeProductReviewsReport
+    Scenario: Reporting manager can see product reviews report
+      Given Reporting manager is on the dashboard page and click on product review link
+      Then verify product review report display

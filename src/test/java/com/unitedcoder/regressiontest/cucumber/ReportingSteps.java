@@ -122,11 +122,11 @@ public class ReportingSteps extends BasePage {
         Assert.assertTrue(salesPage.verifyRefundsReportSuccessfullyShown());
     }
 
-    //COUPONUSAGEREPORT
+    /*//COUPONUSAGEREPORT
     @Given("Reporting manager is on the dashboard page and clicks on Coupon Usage Option")
     public void reportingManagerIsOnTheDashboardPageAndClicksOnCouponUsageOption() {
         reportingDashboardPage.clickOnCouponsLink();
-    }
+    }*/
 
     @When("Reporting Manager Navigate to Coupon Usage Report page and select period and date {string} {string} and click show Report button")
     public void reportingManagerNavigateToCouponUsageReportPageAndSelectPeriodAndDateAndClickShowReportButton(String arg0, String arg1) {
