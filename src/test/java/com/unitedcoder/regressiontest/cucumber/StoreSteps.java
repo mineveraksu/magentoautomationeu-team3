@@ -278,6 +278,17 @@ public class StoreSteps extends BasePage {
         storeOrdersPage.selectCustomerAndProduct(arg0);
     }
 
+    @When("Store manager can search {string} product and delete the product")
+    public void storeManagerCanSearchProductAndDeleteTheProduct(String arg0) {
+        storeProductPage=new StoreProductPage(driver);
+        storeProductPage.deleteProduct();
+    }
+
+    @Then("the product delete successfully")
+    public void theProductDeleteSuccessfully() {
+        org.junit.Assert.assertTrue(storeProductPage.verifyDeleteProductSuccessfully());
+    }
+
     @After("@StoreModuleTest")
     public void tearDown(Scenario scenario) {
         if (scenario.isFailed()) {

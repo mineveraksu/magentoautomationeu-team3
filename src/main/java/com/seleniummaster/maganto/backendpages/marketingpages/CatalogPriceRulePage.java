@@ -2,8 +2,11 @@ package com.seleniummaster.maganto.backendpages.marketingpages;
 
 import com.seleniummaster.maganto.utility.TestDataHolder;
 import com.seleniummaster.maganto.utility.TestUtility;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
@@ -39,6 +42,27 @@ public class CatalogPriceRulePage {
     WebElement successMsg;//The rule has been saved.
     @FindBy(xpath = "//table[@id=\"promo_catalog_grid_table\"]//tbody")
     WebElement verifyElement;
+
+    @FindBy(xpath = "//span[contains(text(),\"Promotions\")]")
+    WebElement promotionsDropDownList;
+    @FindBy(xpath = "//span[contains(text(),\"Catalog Price Rules\")]")
+    WebElement catalogPriceRuleOption;
+    @FindBy(css = "#promo_catalog_grid_filter_name")
+    WebElement catalogRuleNameField;
+    @FindBy(xpath = "//td[contains(text(),\"team3333\")]")
+    WebElement team3333;
+    @FindBy(css = "#rule_description")
+    WebElement descriptionField;
+    @FindBy(css = "#rule_website_ids")
+    WebElement websites;
+    @FindBy(css = "#rule_customer_group_ids")
+    WebElement customerGroup;
+    @FindBy(xpath = "//span[contains(text(),'Save and Apply')]")
+    WebElement saveAndApplyButton;
+    @FindBy(xpath = "//span[contains(text(),\"The rule has been saved.\")]")
+    WebElement updateSuccessMassage;
+    @FindBy(css = "#rule_sort_order")
+    WebElement priority;
 
     public CatalogPriceRulePage(WebDriver driver) {
         this.driver = driver;
@@ -115,6 +139,42 @@ public class CatalogPriceRulePage {
 
         return verifyElement.getText().contains(rulename);
 
+    }
+
+    public void updateCatalogPriceRule(){
+        testUtility.waitForElementPresent(catalogRuleNameField);
+        catalogRuleNameField.sendKeys("team3333");
+        catalogRuleNameField.sendKeys(Keys.ENTER);
+        testUtility.waitForElementPresent(team3333);
+        team3333.click();
+        testUtility.waitForElementPresent(descriptionField);
+        descriptionField.clear();
+        descriptionField.sendKeys("This is update for team3 catalog price rule;"+System.currentTimeMillis());
+        testUtility.waitForElementPresent(websites);
+        Select select=new Select(websites);
+        select.selectByValue("29");
+        testUtility.waitForElementPresent(customerGroup);
+        Select select1=new Select(customerGroup);
+        select1.selectByValue("244");
+        testUtility.waitForElementPresent(priority);
+        priority.click();
+        testUtility.waitForElementPresent(saveAndApplyButton);
+        testUtility.sleep(10);
+        WebElement element = driver.findElement(By.xpath("//span[contains(text(),'Save and Apply')]"));
+        Actions actions = new Actions(driver);
+        actions.moveToElement(element).click().perform();
+    }
+
+    public boolean verifyCatalogPriceRuleUpdateSuccess(){
+
+        testUtility.waitForElementPresent(updateSuccessMassage);
+        if (updateSuccessMassage.getText().contains("The rule has been saved.")) {
+            System.out.println("marketing manager update catalog price rule test passed!");
+            return true;
+        } else {
+            System.out.println("marketing manager update catalog price rule test failed");
+            return false;
+        }
     }
 
 }

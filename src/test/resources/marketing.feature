@@ -98,3 +98,9 @@ Feature:Marketing Manager can manage market
       Examples:
       |RuleName          |description                               |
       |50% Sales(team3)  | validate until the end of this year      |
+
+  @UpdateCatalogPriceRule
+  Scenario: Marketing Manager can update existing Catalog Price Rule
+    Given marketing manager is on the dashboard page and clicks on catalog price rule link
+    When update existing Catalog Price Rule
+    Then verify existing Catalog Price Rule updated
