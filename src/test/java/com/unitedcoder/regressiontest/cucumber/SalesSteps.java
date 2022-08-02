@@ -54,6 +54,18 @@ public class SalesSteps extends BasePage {
         Assert.assertTrue(ordersPage.verifyOrderCreatedSuccessfully());
     }
 
+    @When("Sale manager update order with in store pickup")
+    public void saleManagerUpdateOrderWithInStorePickup() {
+        ordersPage.selectStatus();
+        ordersPage.searchBillToName();
+        ordersPage.updateOrderWithInStorePickup();
+    }
+
+    @Then("Successfully update orders")
+    public void successfullyUpdateOrders() {
+        ordersPage.verifyUpdateSuccess();
+    }
+
     @Given("sales manager is on the dashboard page and click on invoices link")
     public void salesManagerIsOnTheDashboardPageAndClickOnInvoicesLink() {
         salesDashboardPage = new SalesDashboardPage(driver);

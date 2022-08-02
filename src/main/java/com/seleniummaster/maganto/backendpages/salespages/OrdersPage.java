@@ -38,6 +38,22 @@ public class OrdersPage {
     WebElement statusDropDown;
     @FindBy(xpath = "//span[text()='Search']")
     WebElement searchButton;
+    @FindBy(xpath = "//a[contains(text(),\"View\")]")
+    WebElement viewButton;
+    @FindBy(id = "sales_order_grid_filter_billing_name")
+    WebElement billToNameField;
+    @FindBy(xpath = "//button[@title='Ship']")
+    WebElement shipButton;
+    @FindBy(xpath = "//span[contains(text(),\"Add Tracking Number\")]")
+    WebElement addTrackingNumberButton;
+    @FindBy(id = "trackingC1")
+    WebElement carrierDropDown;
+    @FindBy(id = "trackingN1")
+    WebElement numberField;
+    @FindBy (xpath = "//span[contains(text(),\"Submit Shipment\")]")
+    WebElement submitShipmentButton;
+    @FindBy(xpath = "//span[contains(text(),\"The shipment has been created.\")]")
+    WebElement updateSuccessMessage;
 
 
 
@@ -152,4 +168,35 @@ public class OrdersPage {
             return false;
         }
     }
+
+    public void updateOrderWithInStorePickup(){
+        testUtility.waitForElementPresent(viewButton);
+        viewButton.click();
+        testUtility.waitForElementPresent(shipButton);
+        shipButton.click();
+        testUtility.waitForElementPresent(addTrackingNumberButton);
+        addTrackingNumberButton.click();
+        testUtility.waitForElementPresent(carrierDropDown);
+        Select select1=new Select(carrierDropDown);
+        select1.selectByValue("dhl");
+        testUtility.waitForElementPresent(numberField);
+        testUtility.sleep(5);
+        numberField.sendKeys("123"+System.currentTimeMillis());
+        testUtility.sleep(5);
+        testUtility.waitForElementPresent(submitShipmentButton);
+        submitShipmentButton.click();
+    }
+
+    public boolean verifyUpdateSuccess(){
+        testUtility.waitForElementPresent(updateSuccessMessage);
+        if (updateSuccessMessage.isDisplayed()){
+            System.out.println("Update order with in store test case pickup passed");
+            return true;
+        }else
+        {
+            System.out.println("Update order with in store pickup test case field");
+            return false;
+        }
+    }
+
 }
