@@ -101,6 +101,25 @@ public class ReportingSteps extends BasePage {
         shippedReportPage.verifyViewSalesShippedReportSuccessfully();
     }
 
+    @Given("Reporting manager is on the dashboard page and clicks on refunded Option")
+    public void reportingManagerIsOnTheDashboardPageAndClicksOnRefundedOption() {
+        reportingDashboardPage.clickOnRefundedLink();
+
+    }
+
+    @When("Reporting Manager Navigate to Total Refunded Report page and select period and date {string} {string} and click show Report button")
+    public void reportingManagerNavigateToTotalRefundedReportPageAndSelectPeriodAndDateAndClickShowReportButton(String arg0, String arg1){
+        salesPage= new SalesPage(driver);
+        salesPage.seeTotalRefundsReport(arg0,arg1);
+
+
+    }
+
+    @Then("Total refunded report view successfully")
+    public void totalRefundedReportViewSuccessfully() {
+        salesPage=new SalesPage(driver);
+        salesPage.verifyRefundsReportSuccessfullyShown();
+    }
 
     //
     @Given("Reporting manager is on the dashboard page and clicks on Orders link")
@@ -214,6 +233,9 @@ public class ReportingSteps extends BasePage {
         org.testng.Assert.assertTrue(customersByNumberOfOrders.verifyManagerCanSeeCustomersByNumberOfOrders());
     }
 
+
+
+
     @After("@ReportingModuleTest")
     public void tearDown(Scenario scenario) {
         if (scenario.isFailed()) {
@@ -222,8 +244,6 @@ public class ReportingSteps extends BasePage {
         }
         closeBrowser();
     }
-
-
 
 }
 
