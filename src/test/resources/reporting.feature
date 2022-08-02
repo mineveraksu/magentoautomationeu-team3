@@ -127,7 +127,7 @@ Feature:Reporting Module Functions
     Then verifymanager can see customers by number of orders
     Examples:
       |from data |to data|
-      |07/10/2022|07/30/2022|
+
 
   @SeePopularReport
   Scenario: Reporting manager can see tags_Popular report
@@ -138,3 +138,4 @@ Feature:Reporting Module Functions
   Scenario: Reporting manager can see product reviews report
     Given Reporting manager is on the dashboard page and click on product review link
     Then verify product review report display
+
