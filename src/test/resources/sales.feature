@@ -96,5 +96,5 @@ Feature:Sales Module Functions
   @DeleteOrder
   Scenario: Sales Manager can delete a new order
     Given Sales manager is on the dashboard page and clicks on Orders link
-    When sales manager clicks on the pending order to  click on the Cancel Button
+    When sales manager clicks on the pending order to click on the Cancel Button
     Then Sales Manager deleted a order successfully

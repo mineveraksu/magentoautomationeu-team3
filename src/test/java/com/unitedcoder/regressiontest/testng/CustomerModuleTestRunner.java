@@ -98,8 +98,7 @@ public class CustomerModuleTestRunner extends BasePage {
 
 
 
-    @Test(enabled = false,groups = "regression test", description = "Customer Manager can add a new address for a customer")
-//dataProvider = "customerGroupInfo",,dependsOnMethods = "addNewCustomer"
+    @Test(groups = "regression test", description = "Customer Manager can add a new address for a customer",dependsOnMethods = "filterCustomerByCountry")
     public void addNewAddress() {
         customerDashboardPage.navigateToAddressesLink();
         addAddressesPage.addNewAddress();
@@ -124,6 +123,7 @@ public class CustomerModuleTestRunner extends BasePage {
         filterCustomerPage.clickOnResetFilter();
         filterCustomerPage.filterByState();
         Assert.assertTrue(filterCustomerPage.verifyFilteredByState());
+        filterCustomerPage.clickOnResetFilter();
     }
 
     @Test(description = "Customer Manager can delete an existing customer",dependsOnMethods = "updateCustomer")

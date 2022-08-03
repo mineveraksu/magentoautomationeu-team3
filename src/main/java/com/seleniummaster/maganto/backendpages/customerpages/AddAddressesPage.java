@@ -24,14 +24,14 @@ public class AddAddressesPage {
     WebElement cityField;
     @FindBy(id="_item2country_id")
     WebElement countryField;
-    @FindBy(id="_item2region_id")
-    WebElement stateField;
     @FindBy(id="_item2postcode")
     WebElement zipCodeField;
     @FindBy(id="_item2telephone")
     WebElement telephoneField;
     @FindBy(xpath = "//div[@id='page:main-container']//button[@onclick='editForm.submit();']//span[text()='Save Customer']")
     WebElement addedAddressSaveButton;
+    @FindBy(xpath = "//div[@id='page:main-container']//button[@type='button']//span[text()='Save and Continue Edit']")
+    WebElement saveAndContinueEditButton;
     @FindBy(xpath = "//span[text()=\"The customer has been saved.\"]")
     WebElement verifyNewAddressAddedMassage;
     @FindBy(xpath = "//td[contains(text(),\"team33@hotmail.com\")]")
@@ -62,7 +62,8 @@ public class AddAddressesPage {
         zipCodeField.sendKeys(testUtility.generateZipCode());
         testUtility.waitForElementPresent(telephoneField);
         telephoneField.sendKeys(testUtility.generateTelephoneNumber());
-        addedAddressSaveButton.click();
+        testUtility.sleep(3);
+        testUtility.javaScriptClick(addedAddressSaveButton);
     }
 
     public boolean verifyNewAddressAdded(){
@@ -83,9 +84,11 @@ public class AddAddressesPage {
         addressesLink.click();
         testUtility.waitForElementPresent(deleteButton2);
         deleteButton2.click();
+        testUtility.waitForAlertPresent();
         Alert alert=driver.switchTo().alert();
         alert.accept();
-        actions.moveToElement(addedAddressSaveButton).click().perform();
+        testUtility.sleep(5);
+        testUtility.javaScriptClick(saveAndContinueEditButton);
     }
 
 }
