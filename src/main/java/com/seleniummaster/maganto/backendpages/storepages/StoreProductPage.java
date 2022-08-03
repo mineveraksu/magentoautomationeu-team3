@@ -3,10 +3,7 @@ package com.seleniummaster.maganto.backendpages.storepages;
 import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.TestDataHolder;
 import com.seleniummaster.maganto.utility.TestUtility;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -106,6 +103,14 @@ public class StoreProductPage {
 
     @FindBy(xpath = "//span[text()='The product has been saved.']")
     WebElement successMessage;
+
+    //delete product
+    @FindBy(xpath = "//a[contains(text(),\"Edit\")]")
+    WebElement editButton;
+    @FindBy(xpath = "//button[@title='Delete']")
+    WebElement deleteProductButton;
+    @FindBy(xpath = "//span[text()='The product has been deleted.']")
+    WebElement deleteProductSuccessMessage;
 
 
     public StoreProductPage(WebDriver driver) {
@@ -299,6 +304,32 @@ public class StoreProductPage {
             return true;
         }else {
             System.out.println("Store Manager can delete Product category Test is Failed!!!");
+            return false;
+        }
+    }
+
+    public void deleteProduct() {
+        testUtility.waitForElementPresent(nameInputBox);
+        nameInputBox.click();
+        testUtility.sleep(3);
+        nameInputBox.sendKeys("Jeans");
+        nameInputBox.sendKeys(Keys.ENTER);
+        testUtility.sleep(3);
+        testUtility.waitForElementPresent(editButton);
+        editButton.click();
+        testUtility.waitForElementPresent(deleteProductButton);
+        deleteProductButton.click();
+        Alert alert = driver.switchTo().alert();
+        alert.accept();
+    }
+
+    public boolean verifyDeleteProductSuccessfully() {
+        testUtility.waitForElementPresent(deleteProductSuccessMessage);
+        if (driver.getPageSource().contains(deleteProductSuccessMessage.getText())) {
+            System.out.println("Store Manager can delete Product Test is Passed!!!");
+            return true;
+        } else {
+            System.out.println("Store Manager can Add Product Test is Failed!!!");
             return false;
         }
     }

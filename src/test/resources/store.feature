@@ -124,3 +124,13 @@ Feature:Store Manager can manage store
     Given store manager is on the dashboard page store manager click on manage stores link
     When store manager select the website then click on the delete website button
     Then website deleted successfully
+
+  @DeleteProduct
+  Scenario Outline: Store Manager Can Delete a Product
+    Given store manager is on the dashboard page store manager click on manage products link
+    When Store manager can search "<name>" product and delete the product
+    Then the product delete successfully
+
+    Examples:
+      | name  |
+      | Jeans |

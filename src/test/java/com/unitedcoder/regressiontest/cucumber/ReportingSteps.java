@@ -28,6 +28,8 @@ public class ReportingSteps extends BasePage {
     NewAccountsPage newAccountsPage;
     CustomersByOrdersTotal customersByOrdersTotal;
     CustomersByNumberOfOrders customersByNumberOfOrders;
+    Report_ReviewsPage report_ReviewsPage;
+    PopularPage popularPage;
 
 
     @Before("@ReportingModuleTest")
@@ -47,6 +49,8 @@ public class ReportingSteps extends BasePage {
         testDataHolder = excelUtility.readReportingInfoFromExcel("Test-Data/reportingModule.xlsx", "Sales_Info");
         testDataHolder2 = excelUtility.readSalesInfoFromExcel("Test-Data/SalesModule.xlsx", "Refunds_Info");
         salesPage = new SalesPage(driver);
+        report_ReviewsPage = new Report_ReviewsPage(driver);
+        popularPage = new PopularPage(driver);
     }
 
     @Given("Reporting manager is on the dashboard page and clicks on mostViewed link")
@@ -246,7 +250,25 @@ public class ReportingSteps extends BasePage {
         org.testng.Assert.assertTrue(customersByNumberOfOrders.verifyManagerCanSeeCustomersByNumberOfOrders());
     }
 
+    @Given("Reporting manager on the dashboard page and click on tags_popular Link")
+    public void reportingManagerOnTheDashboardPageAndClickOnTags_popularLink() {
+        reportingDashboardPage.click_PopularLink();
+    }
 
+    @Then("verify popular report displayed")
+    public void verifyPopularReportDisplayed() {
+        popularPage.verifyPopularReportDisplayed();
+    }
+
+    @Given("Reporting manager is on the dashboard page and click on product review link")
+    public void reportingManagerIsOnTheDashboardPageAndClickOnProductReviewLink() {
+        reportingDashboardPage.click_Products_Reviews();
+    }
+
+    @Then("verify product review report display")
+    public void verifyProductReviewReportDisplay() {
+        report_ReviewsPage.verifyProductReviewReportSuccessfullyDisplayed();
+    }
 
 
     @After("@ReportingModuleTest")
@@ -257,6 +279,9 @@ public class ReportingSteps extends BasePage {
         }
         closeBrowser();
     }
+
+
+
 
 }
 

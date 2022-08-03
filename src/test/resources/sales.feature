@@ -10,6 +10,12 @@ Feature:Sales Module Functions
       | store name | product name              |
       | English    | Black Nolita Cami-Black-S |
 
+  @UpdateOrderWithInStorePickup
+  Scenario: Sales manager should able to update orders with in store pickup
+    Given Sales manager is on the dashboard page and clicks on Orders link
+    When Sale manager update order with in store pickup
+    Then Successfully update orders
+
   @ViewInvoicesAndAddComments
   Scenario Outline: Sales Manager should be able to view invoices and add comments to invoice history
     Given sales manager is on the dashboard page and click on invoices link
@@ -38,7 +44,7 @@ Feature:Sales Module Functions
 
     Examples:
       | Name  | Priority | SortOrder |
-      | Team3 | 3        | 4         |
+      | Team3 | 3        | 4        |
 
   @UpdateTaxRules
   Scenario Outline: Sales Manager can update tax rules

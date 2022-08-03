@@ -25,6 +25,7 @@ public class SalesSteps extends BasePage {
     ExcelUtility excelUtility;
     CreditMemoPage creditMemoPage;
     AddCreditMemoPage addCreditMemoPage;
+    ManageCustomersPage manageCustomersPage;
 
 
     @Before("@SalesModuleTest")
@@ -52,6 +53,18 @@ public class SalesSteps extends BasePage {
     @Then("Sales Manager created a new order successfully")
     public void salesManagerCreatedANewOrderSuccessfully() {
         Assert.assertTrue(ordersPage.verifyOrderCreatedSuccessfully());
+    }
+
+    @When("Sale manager update order with in store pickup")
+    public void saleManagerUpdateOrderWithInStorePickup() {
+        ordersPage.selectStatus();
+        ordersPage.searchBillToName();
+        ordersPage.updateOrderWithInStorePickup();
+    }
+
+    @Then("Successfully update orders")
+    public void successfullyUpdateOrders() {
+        ordersPage.verifyUpdateSuccess();
     }
 
     @Given("sales manager is on the dashboard page and click on invoices link")
@@ -163,42 +176,17 @@ public class SalesSteps extends BasePage {
         creditMemoPage.viewCreditMemoMethod(testDataHolder);
     }
 
-//    @When("manager click the view button and view credit memo information")
-//    public void managerClickTheViewButtonAndViewCreditMemoInformation() {
-//        creditMemoPage=new CreditMemoPage(driver);
-//        creditMemoPage.viewCreditMemoMethod(testDataHolder);
-//
+    @And("Sales manager can view shopping cart")
+    public void salesManagerCanViewShoppingCart(){
+        Assert.assertTrue(manageCustomersPage.verifyShoppingCartView());
+    }
 
-//    }
-//    @And("Sales manager can view shopping cart")
-//    public void salesManagerCanViewShoppingCart(){
-//        Assert.assertTrue(manageCustomersPage.verifyShoppingCartView());
-//    }
-//
-//    @Then("verify view credit memo")
-//    public void verifyViewCreditMemo() {
-//        creditMemoPage=new CreditMemoPage(driver);
-//        org.testng.Assert.assertTrue(creditMemoPage.verifyViewCreditMemo());
-//
-//    }
+    @Then("verify view credit memo")
+    public void verifyViewCreditMemo() {
+        creditMemoPage=new CreditMemoPage(driver);
+        org.testng.Assert.assertTrue(creditMemoPage.verifyViewCreditMemo());
 
-//    //Add creditMemo
-//    @When("Sales manager click pending and invoice button to create credit memo")
-//    public void salesManagerClickPendingAndInvoiceButtonToCreateCreditMemo() {
-//        ordersPage=new OrdersPage(driver);
-//        ordersPage.selectStatusOfOrders();
-//        ordersPage.clickOnPendingLink(testDataHolder);
-//        addCreditMemoPage=new AddCreditMemoPage(driver);
-//        addCreditMemoPage.addCreditMemo();
-//
-//    }
-//    @Then("Verify added credit memo")
-//    public void verifyAddedCreditMemo() {
-//        addCreditMemoPage=new AddCreditMemoPage(driver);
-//        org.testng.Assert.assertTrue(addCreditMemoPage.verifyAddedCreditMemo());
-//    }
-//
-//
+    }
 
     //Add creditMemo
     @When("Sales manager click pending and invoice button to create credit memo")
@@ -212,10 +200,45 @@ public class SalesSteps extends BasePage {
     }
     @Then("Verify added credit memo")
     public void verifyAddedCreditMemo() {
-        addCreditMemoPage=new AddCreditMemoPage(driver);
-        org.testng.Assert.assertTrue(addCreditMemoPage.verifyAddedCreditMemo());
+        addCreditMemoPage=new AddCreditMemoPage(driver);     org.testng.Assert.assertTrue(addCreditMemoPage.verifyAddedCreditMemo());
+   }
+
+    // Sales Manager manage update a shopping cart for customers.
+    @Given("Sales manager is on the dashboard page and click on the manage customers link")
+    public void salesManagerIsOnTheDashboardPageAndClickOnTheManageCustomersLink() {
+        salesDashboardPage = new SalesDashboardPage(driver);
+        salesDashboardPage.clickOnManageCustomersLink();
+        manageCustomersPage = new ManageCustomersPage(driver);
+        manageCustomersPage.openShoppingCart();
     }
 
+    @When("Sales manager open a customer and open his shopping cart")
+    public void salesManagerOpenACustomerAndOpenHisShoppingCart() {
+        manageCustomersPage = new ManageCustomersPage(driver);
+        manageCustomersPage.openShoppingCart();
+    }
+
+    @And("Sales manager edit the shopping cart")
+    public void salesManagerEditTheShoppingCart() {
+        manageCustomersPage.editShoppingCart();
+    }
+
+    @Then("The shopping cart should be edited successfully")
+    public void theShoppingCartShouldBeEditedSuccessfully() {
+        Assert.assertTrue(manageCustomersPage.verifyEditShoppingCart());
+    }
+
+    //delete shopping cart
+    @And("Sales manager delete the shopping cart")
+    public void salesManagerDeleteTheShoppingCart() {
+        manageCustomersPage.deleteShoppingCart();
+    }
+
+    @Then("The shopping cart should be deleted successfully")
+    public void theShoppingCartShouldBeDeletedSuccessfully() {
+        Assert.assertTrue(manageCustomersPage.verifyDeleteShoppingCart());
+
+    }
 
 
     @After("@SalesModuleTest")
@@ -227,6 +250,16 @@ public class SalesSteps extends BasePage {
         closeBrowser();
     }
 
-
+    @When("sales manager clicks on the pending order to  click on the Cancel Button")
+    public void salesManagerClicksOnThePendingOrderToClickOnTheCancelButton() {
+        ordersPage.deleteOrder();
     }
+
+    @Then("Sales Manager deleted a order successfully")
+    public void salesManagerDeletedAOrderSuccessfully() {
+        Assert.assertTrue(ordersPage.verifyOrderDeletedSuccessfully());
+    }
+
+
+}
 
