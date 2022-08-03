@@ -223,6 +223,19 @@ public class MarketingSteps extends BasePage {
         Assert.assertTrue(cartPriceRulePage.verifyAddNewShoppingCartPriceRuleSuccessfully());
     }
 
+    @When("update existing Catalog Price Rule")
+    public void updateExistingCatalogPriceRule() {
+        CatalogPriceRulePage catalogPriceRulePage = new CatalogPriceRulePage(driver);
+        catalogPriceRulePage.updateCatalogPriceRule();
+    }
+
+    @Then("verify existing Catalog Price Rule updated")
+    public void verifyExistingCatalogPriceRuleUpdated() {
+        CatalogPriceRulePage catalogPriceRulePage= new CatalogPriceRulePage(driver);
+        Assert.assertTrue(catalogPriceRulePage.verifyCatalogPriceRuleUpdateSuccess());
+
+    }
+
     @After("@MarketingModuleTest")
     public void tearDown(Scenario scenario) {
         if (scenario.isFailed()) {
