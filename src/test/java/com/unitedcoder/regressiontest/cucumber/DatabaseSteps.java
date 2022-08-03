@@ -19,12 +19,7 @@ public class DatabaseSteps extends ConnectionManager {
 
     @Given("a user has read access to the Magento database")
     public void aUserHasReadAccessToTheMagentoDatabase() {
-        String dbUrl= ApplicationConfig.readFromConfigProperties(configFile,"dburl");
-        String dbPort=ApplicationConfig.readFromConfigProperties(configFile,"dbport");
-        String database=ApplicationConfig.readFromConfigProperties(configFile,"dbname");
-        String userName=ApplicationConfig.readFromConfigProperties(configFile,"dbusername");
-        String password=ApplicationConfig.readFromConfigProperties(configFile,"dbpassword");
-        connection= connectToDatabaseServer(dbUrl,dbPort,database,userName,password);
+        connection= connectToDatabaseServer();
         dataAccess=new DataAccess();
     }
 

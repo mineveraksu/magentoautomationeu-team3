@@ -37,7 +37,7 @@ public class SalesSteps extends BasePage {
         excelUtility = new ExcelUtility();
         testDataHolder = excelUtility.readSalesInfoFromExcel("Test-Data/SalesModule.xlsx", "Refunds_Info");
     }
-
+    //create a new order
     @Given("Sales manager is on the dashboard page and clicks on Orders link")
     public void salesManagerIsOnTheDashboardPageAndClicksOnOrdersLink() {
         salesDashboardPage.clickOnOrdersLink();
@@ -240,6 +240,15 @@ public class SalesSteps extends BasePage {
 
     }
 
+    //delete order
+    @When("sales manager click on the pending order to click on the Cancel Button")
+    public void salesManagerClickOnThePendingOrderToClickOnTheCancelButton() {
+        ordersPage.deleteOrder();
+    }
+    @Then("Sales Manager deleted a order successfully")
+    public void salesManagerDeletedAOrderSuccessfully() {
+        Assert.assertTrue(ordersPage.verifyOrderDeletedSuccessfully());
+    }
 
     @After("@SalesModuleTest")
     public void tearDown(Scenario scenario) {
@@ -248,16 +257,6 @@ public class SalesSteps extends BasePage {
             screenShotUtility.takeScreenshot("image", "failedTest", driver);
         }
         closeBrowser();
-    }
-
-    @When("sales manager clicks on the pending order to  click on the Cancel Button")
-    public void salesManagerClicksOnThePendingOrderToClickOnTheCancelButton() {
-        ordersPage.deleteOrder();
-    }
-
-    @Then("Sales Manager deleted a order successfully")
-    public void salesManagerDeletedAOrderSuccessfully() {
-        Assert.assertTrue(ordersPage.verifyOrderDeletedSuccessfully());
     }
 
 

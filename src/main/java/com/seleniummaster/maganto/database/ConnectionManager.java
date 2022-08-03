@@ -1,13 +1,20 @@
 package com.seleniummaster.maganto.database;
 
+import com.seleniummaster.maganto.utility.ApplicationConfig;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionManager {
     //create a method to connect to database
-    public static Connection connectToDatabaseServer(String dburl, String dbPort,
-                                                     String defaultDatabase, String dbUserName, String dbPassword) {
+    public static Connection connectToDatabaseServer() {
+        String configFile="config.properties";
+        String dbUrl= ApplicationConfig.readFromConfigProperties(configFile,"dburl");
+        String dbPort=ApplicationConfig.readFromConfigProperties(configFile,"dbport");
+        String database=ApplicationConfig.readFromConfigProperties(configFile,"dbname");
+        String dbUserName=ApplicationConfig.readFromConfigProperties(configFile,"dbusername");
+        String dbPassword=ApplicationConfig.readFromConfigProperties(configFile,"dbpassword");
         //define a connection object
         Connection connection = null;
         String MYSQL_Driver = "com.mysql.cj.jdbc.Driver";//mysql
@@ -22,7 +29,7 @@ public class ConnectionManager {
                     e.printStackTrace();
                 }
 
-                String mySQLConnectionURL = "jdbc:mysql://" + dburl + ":" + dbPort + "/" + defaultDatabase + "?useSSL=false";
+                String mySQLConnectionURL = "jdbc:mysql://" + dbUrl + ":" + dbPort + "/" + database + "?useSSL=false";
                 //when work write true(https ...secure)
                 try {
                     connection = DriverManager.getConnection(mySQLConnectionURL, dbUserName, dbPassword);
