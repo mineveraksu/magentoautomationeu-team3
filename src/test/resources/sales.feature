@@ -44,7 +44,7 @@ Feature:Sales Module Functions
 
     Examples:
       | Name  | Priority | SortOrder |
-      | Team3 | 3        | 4         |
+      | Team3 | 3        | 4        |
 
   @UpdateTaxRules
   Scenario Outline: Sales Manager can update tax rules

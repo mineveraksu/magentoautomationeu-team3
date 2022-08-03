@@ -13,6 +13,7 @@ public class OrdersPage {
     TestUtility testUtility;
     TestDataHolder testDataHolder;
     String email;
+    String userName;
 
     @FindBy(xpath = "//td[@class=\"form-buttons\"]/button/span/span/span")
     WebElement createNewOrderButton;
@@ -54,6 +55,8 @@ public class OrdersPage {
     WebElement submitShipmentButton;
     @FindBy(xpath = "//span[contains(text(),\"The shipment has been created.\")]")
     WebElement updateSuccessMessage;
+    @FindBy(xpath = "(//span[text()='Cancel'])[2]")
+    WebElement cancelButton;
 
 
 
@@ -62,7 +65,7 @@ public class OrdersPage {
         PageFactory.initElements(driver, this);
         testUtility = new TestUtility(driver);
         email = ApplicationConfig.readFromConfigProperties("config.properties", "email");
-        testDataHolder=new TestDataHolder();
+        userName = ApplicationConfig.readFromConfigProperties("config.properties", "username");
     }
 
     public void clickOnCreateNewOrderButton() {
@@ -204,6 +207,34 @@ public class OrdersPage {
         }else
         {
             System.out.println("Update order with in store pickup test case field");
+            return false;
+        }
+    }
+    public void clickOnThePendingOrder() {
+        WebElement orderToDelete=driver.findElement(By.xpath(String.format("(//td[contains(text(),'%s')])[1]/following-sibling::td[4][contains(text(),'Pending')]",userName)));
+        testUtility.waitForElementPresent(orderToDelete);
+        orderToDelete.click();
+    }
+
+    public void clickOnCancelButton() {
+        testUtility.waitForElementPresent(cancelButton);
+        cancelButton.click();
+        testUtility.waitForAlertPresent();
+        Alert alert=driver.switchTo().alert();
+        alert.accept();
+    }
+    public void deleteOrder() {
+        clickOnThePendingOrder();
+        clickOnCancelButton();
+    }
+
+    public boolean verifyOrderDeletedSuccessfully(){
+        testUtility.waitForElementPresent(successMessage);
+        if(successMessage.isDisplayed()){
+            System.out.println("Sales Manager delete a order Test Passed");
+            return true;
+        }else{
+            System.out.println("Sales Manager delete a order Test Failed");
             return false;
         }
     }
