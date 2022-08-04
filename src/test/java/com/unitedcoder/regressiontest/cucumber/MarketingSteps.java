@@ -2,6 +2,7 @@ package com.unitedcoder.regressiontest.cucumber;
 
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
 import com.seleniummaster.maganto.backendpages.marketingpages.*;
+import com.seleniummaster.maganto.database.DataAccess;
 import com.seleniummaster.maganto.utility.*;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -10,6 +11,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.Assert;
+
+import java.sql.Connection;
 
 public class MarketingSteps extends BasePage {
     final static String configFile = "config.properties";
@@ -22,6 +25,8 @@ public class MarketingSteps extends BasePage {
     TestDataHolder testDataHolder;
     ExcelUtility excelUtility;
     String RuleName;
+    Connection connection;
+    DataAccess dataAccess;
 
     @Before("@MarketingModuleTest")
     public void setup() {
