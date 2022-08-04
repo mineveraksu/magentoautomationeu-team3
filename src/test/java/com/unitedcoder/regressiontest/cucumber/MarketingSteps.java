@@ -22,6 +22,7 @@ public class MarketingSteps extends BasePage {
     NewsletterTemplatePage newsletterTemplatePage;
     ReviewsPage reviewsPage;
     CatalogPriceRulePage catalogPriceRulePage;
+    CartPriceRulePage cartPriceRulePage;
     TestDataHolder testDataHolder;
     ExcelUtility excelUtility;
     String RuleName;
@@ -193,7 +194,7 @@ public class MarketingSteps extends BasePage {
 
     }
 
-//Marketing Manager can add new Cart Price Rule
+    //Marketing Manager can add new Cart Price Rule
     @Given("Marketing manager on the dashboard page and marketing manager click on Promotions link")
     public void marketingManagerOnTheDashboardPageAndMarketingManagerClickOnPromotionsLink() {
         CartPriceRulePage cartPriceRulePage=new CartPriceRulePage(driver);
@@ -217,7 +218,7 @@ public class MarketingSteps extends BasePage {
 
     @When("select the {string} and change the {string}")
     public void selectTheAndChangeThe(String arg0, String arg1) {
-        CartPriceRulePage cartPriceRulePage=new CartPriceRulePage(driver);
+        cartPriceRulePage=new CartPriceRulePage(driver);
         cartPriceRulePage.updateCartPriceRule(arg0,arg1);
 
     }
@@ -226,19 +227,6 @@ public class MarketingSteps extends BasePage {
     public void cartPriceRuleShouldBeUpdatedSuccessfully() {
         CartPriceRulePage cartPriceRulePage= new CartPriceRulePage(driver);
         Assert.assertTrue(cartPriceRulePage.verifyAddNewShoppingCartPriceRuleSuccessfully());
-    }
-
-    @When("update existing Catalog Price Rule")
-    public void updateExistingCatalogPriceRule() {
-        CatalogPriceRulePage catalogPriceRulePage = new CatalogPriceRulePage(driver);
-        catalogPriceRulePage.updateCatalogPriceRule();
-    }
-
-    @Then("verify existing Catalog Price Rule updated")
-    public void verifyExistingCatalogPriceRuleUpdated() {
-        CatalogPriceRulePage catalogPriceRulePage= new CatalogPriceRulePage(driver);
-        Assert.assertTrue(catalogPriceRulePage.verifyCatalogPriceRuleUpdateSuccess());
-
     }
 
     @After("@MarketingModuleTest")
@@ -250,9 +238,26 @@ public class MarketingSteps extends BasePage {
         closeBrowser();
     }
 
+    //filtercartpricerulebyidandname
+    @Given("Marketing manager on the dashboard page")
+    public void marketingManagerOnTheDashboardPage() {
 
+        marketingdashboardPage.clickOnPromotionsLink();
+    }
+    @When("Marketing manager click on shopping cart price rule link")
+    public void marketingManagerClickOnShoppingCartPriceRuleLink() {
+        marketingdashboardPage.clickOnShoppingCartPriceRuleLink();
+    }
+
+    @Then("filter by {string}and{string} and verify successful")
+    public void filterByAndAndVerifySuccessful(String arg0, String arg1) {
+        cartPriceRulePage= new CartPriceRulePage(driver);
+        cartPriceRulePage.filterCartPriceRuleById(arg1);
+        cartPriceRulePage.verifyFilterCartPriceRuleById(arg1);
+        cartPriceRulePage.clearRuleIdFiled();
+        cartPriceRulePage.filterCartPriceRuleByName(arg0);
+        cartPriceRulePage.verifyFilterCartPriceRuleByName(arg0);
+
+
+    }
 }
-
-
-
-
