@@ -1,3 +1,4 @@
+
 package com.seleniummaster.maganto.backendpages.marketingpages;
 
 import com.seleniummaster.maganto.utility.TestUtility;
@@ -5,9 +6,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
+
+import java.util.List;
 
 public class CartPriceRulePage {
     WebDriver driver;
@@ -39,17 +43,19 @@ public class CartPriceRulePage {
     WebElement successMessages;
     @FindBy(xpath = "//td[contains(text(),'50% Sales')]")
     WebElement existingRule;
+    @FindBy (xpath = "//td[contains(@class,'a-right ')]")
+    WebElement selectedCartRuleIdFirstColumn;
 
 
 
 
 
     @FindBy(xpath = "//input[@id='promo_quote_grid_filter_rule_id']")
-    WebElement filterCartRuleIdField;
+    WebElement cartRuleIdField;
     @FindBy(xpath = "//input[@id='promo_quote_grid_filter_name']")
-    WebElement filterCartRuleNameField;
+    WebElement CartRuleNameField;
     @FindBy(xpath = "//td[@class='a-right ']")
-    WebElement selectedCartRuleIdField;
+    WebElement filteredCartRuleIdField;
     @FindBy(xpath = "//td[@class='a-left ']")
     WebElement SelectedCartRuleNameField;
     @FindBy(xpath = "//*[contains(text(),'Search')]")
@@ -110,13 +116,13 @@ public class CartPriceRulePage {
     }
 
     public void updateCartPriceRule(String RuleName,String Description){
-        testUtility.waitForElementPresent(filterCartRuleNameField);
-        filterCartRuleNameField.click();
-        filterCartRuleNameField.clear();
+        testUtility.waitForElementPresent(CartRuleNameField);
+        CartRuleNameField.click();
+        CartRuleNameField.clear();
         testUtility.waitForElementPresent(cartRuleSearchButton);
         cartRuleSearchButton.click();
-        filterCartRuleNameField.click();
-        filterCartRuleNameField.sendKeys(RuleName);
+        CartRuleNameField.click();
+        CartRuleNameField.sendKeys(RuleName);
         testUtility.waitForElementPresent(cartRuleSearchButton);
         cartRuleSearchButton.click();
         WebElement selectedCartRuleNamesFirstColumn=driver.findElement(By.xpath(String.format("//*[contains(text(),'%s')]", RuleName)));
@@ -141,6 +147,53 @@ public class CartPriceRulePage {
         }
 
     }
+
+    //filtercartpricerulebyidandname
+
+    public void filterCartPriceRuleById(String RuleId){
+        testUtility.waitForElementPresent(cartRuleIdField);
+        testUtility.sleep(3);
+        cartRuleIdField.click();
+        cartRuleIdField.clear();
+        cartRuleIdField.sendKeys(RuleId);
+        testUtility.waitForElementPresent(cartRuleSearchButton);
+        cartRuleSearchButton.click();
+
+
+    }
+
+    public boolean verifyFilterCartPriceRuleById(String RuleId){
+        testUtility.waitForElementPresent(selectedCartRuleIdFirstColumn);
+        return selectedCartRuleIdFirstColumn.getText().equals(RuleId);
+
+    }
+
+    public void clearRuleIdFiled(){
+        testUtility.waitForElementPresent(cartRuleIdField);
+        cartRuleIdField.click();
+        cartRuleIdField.clear();
+        testUtility.waitForElementPresent(cartRuleSearchButton);
+        cartRuleSearchButton.click();
+    }
+
+
+    public void filterCartPriceRuleByName(String RuleName){
+        testUtility.waitForElementPresent(CartRuleNameField);
+        CartRuleNameField.click();
+        CartRuleNameField.sendKeys(RuleName);
+        testUtility.waitForElementPresent(cartRuleSearchButton);
+        cartRuleSearchButton.click();
+
+
+    }
+
+    public boolean verifyFilterCartPriceRuleByName(String RuleName){
+        WebElement selectedCartRuleNameFirstColumn=driver.findElement(By.xpath(String.format("//*[contains(text(),'%s')]", RuleName)));
+        testUtility.waitForElementPresent(selectedCartRuleNamesFirstColumn);
+        return selectedCartRuleNameFirstColumn.getText().equals(RuleName);
+
+    }
+
 
 
 }
