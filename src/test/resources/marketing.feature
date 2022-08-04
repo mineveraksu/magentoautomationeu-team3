@@ -36,7 +36,7 @@ Feature:Marketing Manager can manage market
     Then the pending reviews view successfully
 
   @UpdatePendingReviews
-    Scenario: Marketing Manager can update pending Reviews
+  Scenario: Marketing Manager can update pending Reviews
     Given marketing manager is on the dashboard page and marketing manager click on pending reviews link
     When  marketing manager update on mandatory field
     Then  the pending reviews update successful
@@ -68,12 +68,12 @@ Feature:Marketing Manager can manage market
 
   @SearchRuleByID
   Scenario Outline: : Marketing manager can search rule by id
-   Given marketing manager is on the dashboard page and clicks on catalog price rule link
+    Given marketing manager is on the dashboard page and clicks on catalog price rule link
     When Marketing manager enter rule name and rule id search the rule"<RuleName>""<rule id>"
     Then Verify searched rule successfully
     Examples:
-    |RuleName     |rule id|
-    |             |  63   |
+      |RuleName     |rule id|
+      |             |  63   |
 
   @ViewAllReviews
   Scenario: Marketing Manager can view All reviews
@@ -81,26 +81,33 @@ Feature:Marketing Manager can manage market
     When marketing manager view on all reviews page
     Then the all reviews view successfully
 
-    @MarketingManagerCanAddNewCartPriceRule
-    Scenario Outline: Marketing Manager can add new shopping cart price rule
-      Given Marketing manager on the dashboard page and marketing manager click on Promotions link
-      When  click on Shopping Cart Price Rules link to fill out "<RuleName>" "<description>" "<Priority>" and other information information
-      Then a new shopping cart price rule should be added successfully
-      Examples:
-        |RuleName        | description         | Priority |
-        |50% Sales(team3) |50% off any product  | Medium |
+  @MarketingManagerCanAddNewCartPriceRule
+  Scenario Outline: Marketing Manager can add new shopping cart price rule
+    Given Marketing manager on the dashboard page and marketing manager click on Promotions link
+    When  click on Shopping Cart Price Rules link to fill out "<RuleName>" "<description>" "<Priority>" and other information information
+    Then a new shopping cart price rule should be added successfully
+    Examples:
+      |RuleName        | description         | Priority |
+      |50% Sales(team3) |50% off any product  | Medium |
+
+
+  @MarketingManagerCanFilterCartPriceRuleByIdAndName
+  Scenario Outline: MarketingManagerCanFilterCartPriceRuleByIdAndName
+    Given Marketing manager on the dashboard page
+    When  Marketing manager click on shopping cart price rule link
+    Then  filter by "<RuleName>"and"<RuleId>" and verify successful
+    Examples:
+      |RuleId| RuleName           |
+      |  137 |50% Sales(team3)    |
+
+
+
 
   @MarketingManagerUpdateCartPriceRule
-   Scenario Outline: MarketingManagerUpdateCartPriceRule
-      Given Marketing manager on the dashboard page and marketing manager click on Promotions link
-      When select the "<RuleName>" and change the "<description>"
-      Then cart price rule should be updated successfully
-      Examples:
+  Scenario Outline: MarketingManagerUpdateCartPriceRule
+    Given Marketing manager on the dashboard page and marketing manager click on Promotions link
+    When select the "<RuleName>" and change the "<description>"
+    Then cart price rule should be updated successfully
+    Examples:
       |RuleName          |description                               |
       |50% Sales(team3)  | validate until the end of this year      |
-
-  @UpdateCatalogPriceRule
-  Scenario: Marketing Manager can update existing Catalog Price Rule
-    Given marketing manager is on the dashboard page and clicks on catalog price rule link
-    When update existing Catalog Price Rule
-    Then verify existing Catalog Price Rule updated
