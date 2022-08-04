@@ -2,6 +2,8 @@ package com.unitedcoder.regressiontest.cucumber;
 
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
 import com.seleniummaster.maganto.backendpages.storepages.*;
+import com.seleniummaster.maganto.database.ConnectionManager;
+import com.seleniummaster.maganto.database.DataAccess;
 import com.seleniummaster.maganto.utility.*;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -11,6 +13,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.Assert;
+
+import java.sql.Connection;
 
 public class StoreSteps extends BasePage {
     final static String configFile = "config.properties";
@@ -26,6 +30,8 @@ public class StoreSteps extends BasePage {
     String storeName;
     String storeCode;
     StoreViewPage storeViewPage;
+    Connection connection;
+    DataAccess dataAccess;
 
     @Before("@StoreModuleTest")
     public void setup() {
@@ -83,11 +89,14 @@ public class StoreSteps extends BasePage {
     public void storeManagerClicksOnCreateStoreButtonToFillOutStoreInformation() {
         storePage = new StorePage(driver);
         storePage.createStore(testDataHolder);
+        connection= ConnectionManager.connectToDatabaseServer();
+        dataAccess=new DataAccess();
     }
 
     @Then("the store should be created successfully")
     public void theStoreShouldBeCreatedSuccessfully() {
         Assert.assertTrue(storePage.verifyStoreCreatedSuccessfully());
+        ConnectionManager.closeDatabaseConnection(connection);
     }
 
     //update store

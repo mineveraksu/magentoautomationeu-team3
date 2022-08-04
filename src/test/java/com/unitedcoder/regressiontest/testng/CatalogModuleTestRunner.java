@@ -2,11 +2,15 @@ package com.unitedcoder.regressiontest.testng;
 
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
 import com.seleniummaster.maganto.backendpages.catalogpages.*;
+import com.seleniummaster.maganto.database.ConnectionManager;
+import com.seleniummaster.maganto.database.DataAccess;
 import com.seleniummaster.maganto.utility.*;
 import org.testng.Assert;
 import org.testng.ITest;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
+
+import java.sql.Connection;
 
 @Listeners(TestResultListener.class)
 public class CatalogModuleTestRunner extends BasePage {
@@ -18,6 +22,8 @@ public class CatalogModuleTestRunner extends BasePage {
     AttributesPage attributesPage;
     ProductPage productPage;
     ExcelUtility excelUtility;
+    Connection connection;
+    DataAccess dataAccess;
 
     @BeforeClass
     public void setup(ITestContext context) {
@@ -32,6 +38,8 @@ public class CatalogModuleTestRunner extends BasePage {
         attributesPage = new AttributesPage(driver);
         excelUtility = new ExcelUtility();
         productPage = new ProductPage(driver);
+        connection= ConnectionManager.connectToDatabaseServer();
+        dataAccess=new DataAccess();
     }
 
     @Test(dataProvider = "addRootCategoryInfo", description = "Catalog manager can add root categories.", priority = 1)
@@ -153,5 +161,6 @@ public class CatalogModuleTestRunner extends BasePage {
     @AfterClass()
     public void tearDown() {
         closeBrowser();
+        ConnectionManager.closeDatabaseConnection(connection);
     }
 }
