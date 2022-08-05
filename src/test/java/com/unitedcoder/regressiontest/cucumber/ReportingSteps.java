@@ -26,9 +26,7 @@ public class ReportingSteps extends BasePage {
     InvoicedVsPaidReportPage invoicedVsPaidReportPage;
     ShippedReportPage shippedReportPage;
     NewAccountsPage newAccountsPage;
-
     TagsPage tagsPage;
-
     CustomersByOrdersTotal customersByOrdersTotal;
     CustomersByNumberOfOrders customersByNumberOfOrders;
     Report_ReviewsPage report_ReviewsPage;
@@ -205,30 +203,27 @@ public class ReportingSteps extends BasePage {
         downloadsPage.verifyViewSalesInvoicedVsPaidReportSuccessfully();
     }
 
-
     //Reporting Manager should be able to see Tags - Customers Report
     @Given("Reporting manager is on the dashboard page and go to the customers tags page")
     public void reportingManagerIsOnTheDashboardPageAndGoToTheCustomersTagsPage() {
-        tagsPage = new TagsPage(driver);
-        tagsPage.openCustomersTags();
+      reportingDashboardPage.openCustomersTags();
     }
 
     @Then("Reporting Manager can see customers tags")
     public void reportingManagerCanSeeCustomersTags() {
+        tagsPage=new TagsPage(driver);
         Assert.assertTrue(tagsPage.verifyOpenCustomersReportTags());
-
     }
-
     //Reporting Manager should be able to see Tags - Products Report
     @Given("Reporting manager is on the dashboard page and go to the products tags page")
     public void reportingManagerIsOnTheDashboardPageAndGoToTheProductsTagsPage() {
-        tagsPage = new TagsPage(driver);
-        tagsPage.openProductsTags();
+        reportingDashboardPage.openProductsTags();
     }
 
     @Then("Reporting Manager can see Products products tags")
     public void reportingManagerCanSeeProductsProductsTags() {
-        //Assert.assertTrue(tagsPage.verifyOpenProductsTags());
+        tagsPage=new TagsPage(driver);
+        Assert.assertTrue(tagsPage.verifyOpenProductsTags());
     }
 
     @Given("Reporting manager on the dashboard page and click on tax link")
