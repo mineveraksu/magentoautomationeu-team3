@@ -59,3 +59,13 @@ Feature:Reporting Module Functions
     Examples:
       | fromDate   | toDate     |
       | 01/01/2022 | 07/30/2022 |
+
+    @SeeTags-CustomersReport
+    Scenario: Reporting Manager should be able to see Tags - Customers Report
+      Given Reporting manager is on the dashboard page and go to the customers tags page
+      Then Reporting Manager can see customers tags
+
+    @SeeTags-ProductsReport
+    Scenario: Reporting Manager should be able to see Tags - Products Report
+      Given Reporting manager is on the dashboard page and go to the products tags page
+      Then Reporting Manager can see Products products tags
