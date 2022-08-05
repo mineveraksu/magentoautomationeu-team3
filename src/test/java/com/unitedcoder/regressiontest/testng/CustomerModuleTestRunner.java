@@ -134,6 +134,13 @@ public class CustomerModuleTestRunner extends BasePage {
         filterCustomerPage.clickOnResetFilter();
     }
 
+    @Test(groups = "regression test",description = "Customer Manager can filter customers by Group")
+    public void filterCustomerByGroup(){
+        customerDashboardPage.clickOnManageCustomers();
+        filterCustomerPage.filterByGroup();
+        Assert.assertTrue(filterCustomerPage.verifyFilterByGroup());
+    }
+
     @Test(description = "Customer Manager can delete an existing customer",dependsOnMethods = "updateCustomer")
     public void deleteExistingCustomer() {
         customerDashboardPage.clickOnManageCustomers();
