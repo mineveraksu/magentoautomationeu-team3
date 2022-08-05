@@ -28,6 +28,23 @@ Feature:Reporting Module Functions
       |fromDate  |toDate    |
       |01/01/2013|07/30/2022|
 
+  @SeeSales-TotalRefundedReport
+  Scenario Outline:  Reporting Manager should be able to see sales- Total Refunded Report
+    Given Reporting manager is on the dashboard page and clicks on refunded Option
+    When  Reporting Manager Navigate to Total Refunded Report page and select period and date "<fromDate>" "<toDate>" and click show Report button
+    Then  Total refunded report view successfully
+    Examples:
+      |fromDate  |toDate    |
+      |01/01/2020|08/01/2022|
+
+  @SeeSales-CouponUsageReport
+  Scenario Outline:  Reporting Manager should be able to see sales- Coupon Usage Report
+    Given Reporting manager is on the dashboard page and clicks on Coupon Usage Option
+    When  Reporting Manager Navigate to Coupon Usage Report page and select period and date "<fromDate>" "<toDate>" and click show Report button
+    Then  Coupon Usage report view successfully
+    Examples:
+      |fromDate  |toDate    |
+      |01/01/2013|08/01/2022|
 
   @SeeTotalOrderedReport
   Scenario: Reporting Manager should be able to see Sales -Total Ordered Report
@@ -60,6 +77,7 @@ Feature:Reporting Module Functions
       | fromDate   | toDate     |
       | 01/01/2022 | 07/30/2022 |
 
+
     @SeeTags-CustomersReport
     Scenario: Reporting Manager should be able to see Tags - Customers Report
       Given Reporting manager is on the dashboard page and go to the customers tags page
@@ -69,3 +87,67 @@ Feature:Reporting Module Functions
     Scenario: Reporting Manager should be able to see Tags - Products Report
       Given Reporting manager is on the dashboard page and go to the products tags page
       Then Reporting Manager can see Products products tags
+
+  @SeeTaxesReport
+  Scenario Outline: Reporting Manager should be able to see Sales - Taxes Report Grouped by Tax Rate
+    Given Reporting manager on the dashboard page and click on tax link
+    When  Reporting manager select taxes report period "<startedTime>" "<endedTime>" and click on shor report button
+    Then  Taxes report display successful
+
+    Examples:
+      |startedTime|endedTime|
+      |01/01/2010 |30/07/2022|
+    @CustomerByOrdersTotal
+    Scenario Outline: Reporting manager can see customer by orders total
+      Given Reporting manager is on the dashboard page and clicks on customer by order total link
+      When  Reporting manager enter "<from data>""<to data>" and click refresh button
+      Then verifymanager can see customers by orders total
+      Examples:
+      |from data |to data|
+      |07/01/2022|07/20/2022|
+      @CustomerByNumberOfOrders
+  Scenario Outline: Reporting manager can see customer by number of orders
+    Given Reporting manager is on the dashboard page and clicks on customer by number of orders link
+    When  Reporting manager enter "<from data>""<to data>" and click on refresh button
+    Then verifymanager can see customers by number of orders
+    Examples:
+      |from data |to data|
+      |07/10/2022|07/30/2022|
+
+  @SeeTaxesReport
+  Scenario Outline: Reporting Manager should be able to see Sales - Taxes Report Grouped by Tax Rate
+    Given Reporting manager on the dashboard page and click on tax link
+    When  Reporting manager select taxes report period "<startedTime>" "<endedTime>" and click on shor report button
+    Then  Taxes report display successful
+
+    Examples:
+      |startedTime|endedTime|
+      |01/01/2010 |30/07/2022|
+    @CustomerByOrdersTotal
+    Scenario Outline: Reporting manager can see customer by orders total
+      Given Reporting manager is on the dashboard page and clicks on customer by order total link
+      When  Reporting manager enter "<from data>""<to data>" and click refresh button
+      Then verifymanager can see customers by orders total
+      Examples:
+      |from data |to data|
+      |07/01/2022|07/20/2022|
+      @CustomerByNumberOfOrders
+  Scenario Outline: Reporting manager can see customer by number of orders
+    Given Reporting manager is on the dashboard page and clicks on customer by number of orders link
+    When  Reporting manager enter "<from data>""<to data>" and click on refresh button
+    Then verifymanager can see customers by number of orders
+    Examples:
+      |from data |to data|
+
+
+  @SeePopularReport
+  Scenario: Reporting manager can see tags_Popular report
+    Given Reporting manager on the dashboard page and click on tags_popular Link
+    Then verify popular report displayed
+
+  @SeeProductReviewsReport
+  Scenario: Reporting manager can see product reviews report
+    Given Reporting manager is on the dashboard page and click on product review link
+    Then verify product review report display
+
+

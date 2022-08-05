@@ -43,6 +43,25 @@ public class ReportingDashboardPage {
     WebElement newAccountsLink;
     @FindBy(xpath = "//span[text()='Downloads']")
     WebElement downloadsLink;
+    @FindBy(xpath = "(//span[contains(text(),'Tax')])[1]")
+    WebElement taxLink;
+    @FindBy(xpath = "//span[text()='Customers by orders total']")
+    WebElement customerByOrdersTotalLink;
+    @FindBy(xpath = "//span[text()='Customers by number of orders']")
+    WebElement customerByNumberOfOrdersLink;
+    @FindBy(xpath = "//span[text()='Refunds']")
+    WebElement refundsLink;
+    @FindBy (xpath = "//span[text()='Coupons']")
+    WebElement couponsLink;
+    @FindBy(xpath = "//span[text()='Tags']")
+    WebElement tagsLink;
+    @FindBy(xpath = "//span[text()='Popular']")
+    WebElement popularLink;
+    @FindBy(xpath = "//span[text()='Reviews']")
+    WebElement reviewsLink;
+    @FindBy(xpath = "//span[text()='Products Reviews']")
+    WebElement product_ReviewsLink;
+
 
     public void clickOnMostViewedLink() {
         testUtility.waitForElementPresent(reportsLink);
@@ -69,6 +88,26 @@ public class ReportingDashboardPage {
         actions.moveToElement(salesOption).perform();
         testUtility.waitForElementPresent(shippingOption);
         shippingOption.click();
+    }
+
+    public void clickOnRefundedLink(){
+        testUtility.waitForElementPresent(reportsLink);
+        actions.moveToElement(reportsLink).click().perform();
+        testUtility.waitForElementPresent(salesLink);
+        actions.moveToElement(salesLink).perform();
+        testUtility.waitForElementPresent(refundsLink);
+        refundsLink.click();
+
+    }
+
+    public void clickOnCouponsLink(){
+        testUtility.waitForElementPresent(reportsLink);
+        actions.moveToElement(reportsLink).click().perform();
+        testUtility.waitForElementPresent(salesLink);
+        actions.moveToElement(salesLink).perform();
+        testUtility.waitForElementPresent(couponsLink);
+        refundsLink.click();
+
     }
 
     public void clickOnOrdersLink() {
@@ -100,5 +139,44 @@ public class ReportingDashboardPage {
         actions.moveToElement(reportsLink).moveToElement(productsLink).moveToElement(downloadsLink).click().perform();
 
     }
+
+    public void clickOnTaxLink(){
+        testUtility.waitForElementPresent(reportsLink);
+        actions.moveToElement(reportsLink).click().perform();
+        testUtility.waitForElementPresent(salesLink);
+        actions.moveToElement(salesLink).click().perform();
+        testUtility.waitForElementPresent(taxLink);
+        actions.moveToElement(taxLink).click().perform();
+    }
+    public void ClickOnCustomersByOrdersTotalLink(){
+        testUtility.waitForElementPresent(reportsLink);
+        actions.moveToElement(reportsLink).moveToElement(customersLink).moveToElement(customerByOrdersTotalLink).click().perform();
+
+    }
+    public void ClickOnCustomersByNumberOfOrdersLink(){
+        testUtility.waitForElementPresent(reportsLink);
+        actions.moveToElement(reportsLink).moveToElement(customersLink).moveToElement(customerByNumberOfOrdersLink).click().perform();
+
+    }
+
+    public void click_PopularLink() {
+        testUtility.waitForElementPresent(reportsLink);
+        actions.moveToElement(reportsLink).click().perform();
+        testUtility.waitForElementPresent(tagsLink);
+        actions.moveToElement(tagsLink).click().perform();
+        testUtility.waitForElementPresent(popularLink);
+        actions.moveToElement(popularLink).click().perform();
+    }
+
+    public void click_Products_Reviews() {
+        testUtility.waitForElementPresent(reportsLink);
+        actions.moveToElement(reportsLink).click().perform();
+        testUtility.waitForElementPresent(reviewsLink);
+        actions.moveToElement(reviewsLink).click().perform();
+        testUtility.waitForElementPresent(product_ReviewsLink);
+        actions.moveToElement(product_ReviewsLink).click().perform();
+    }
 }
+
+
 

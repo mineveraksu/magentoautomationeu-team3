@@ -41,6 +41,8 @@ public class MarketingDashboardPage {
     WebElement newsletterSubscribersLink;
     @FindBy(css = "#page\\:main-container > div.content-header > table > tbody > tr > td > h3")
     WebElement newsletterSubscribersTitle;
+    @FindBy(xpath = "//span[text()='Shopping Cart Price Rules']")
+    WebElement shoppingCartPriceRulesLink;
 
 
 
@@ -97,4 +99,14 @@ public class MarketingDashboardPage {
         }
     }
 
+    public void clickOnPromotionsLink(){
+        testUtility.waitForElementPresent(promotionsLink);
+        promotionsLink.click();
+    }
+
+    public void clickOnShoppingCartPriceRuleLink(){
+        testUtility.waitForElementPresent(shoppingCartPriceRulesLink);
+        shoppingCartPriceRulesLink.click();
+
+    }
 }

@@ -1,6 +1,7 @@
 package com.seleniummaster.maganto.backendpages.salespages;
 
 import com.seleniummaster.maganto.utility.ApplicationConfig;
+import com.seleniummaster.maganto.utility.TestDataHolder;
 import com.seleniummaster.maganto.utility.TestUtility;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -10,6 +11,7 @@ import org.openqa.selenium.support.ui.Select;
 public class OrdersPage {
     WebDriver driver;
     TestUtility testUtility;
+    TestDataHolder testDataHolder;
     String email;
     String userName;
 
@@ -33,8 +35,29 @@ public class OrdersPage {
     WebElement submitOrderButton;
     @FindBy(css = "li.success-msg>ul>li>span")
     WebElement successMessage;
+    @FindBy(id = "sales_order_grid_filter_status")
+    WebElement statusDropDown;
+    @FindBy(xpath = "//span[text()='Search']")
+    WebElement searchButton;
+    @FindBy(xpath = "//a[contains(text(),\"View\")]")
+    WebElement viewButton;
+    @FindBy(id = "sales_order_grid_filter_billing_name")
+    WebElement billToNameField;
+    @FindBy(xpath = "//button[@title='Ship']")
+    WebElement shipButton;
+    @FindBy(xpath = "//span[contains(text(),\"Add Tracking Number\")]")
+    WebElement addTrackingNumberButton;
+    @FindBy(id = "trackingC1")
+    WebElement carrierDropDown;
+    @FindBy(id = "trackingN1")
+    WebElement numberField;
+    @FindBy (xpath = "//span[contains(text(),\"Submit Shipment\")]")
+    WebElement submitShipmentButton;
+    @FindBy(xpath = "//span[contains(text(),\"The shipment has been created.\")]")
+    WebElement updateSuccessMessage;
     @FindBy(xpath = "(//span[text()='Cancel'])[2]")
     WebElement cancelButton;
+
 
 
     public OrdersPage(WebDriver driver) {
@@ -108,20 +131,6 @@ public class OrdersPage {
         submitOrderButton.click();
     }
 
-    public void clickOnThePendingOrder() {
-        WebElement orderToDelete=driver.findElement(By.xpath(String.format("(//td[contains(text(),'%s')])[1]/following-sibling::td[4][contains(text(),'Pending')]",userName)));
-        testUtility.waitForElementPresent(orderToDelete);
-        orderToDelete.click();
-    }
-
-    public void clickOnCancelButton() {
-        testUtility.waitForElementPresent(cancelButton);
-        cancelButton.click();
-        testUtility.waitForAlertPresent();
-        Alert alert=driver.switchTo().alert();
-        alert.accept();
-    }
-
 
     public void createANewOrder(String storeName, String productName) {
         clickOnCreateNewOrderButton();
@@ -136,6 +145,21 @@ public class OrdersPage {
         selectShippingMethod();
         clickOnSubmitOrderButton();
     }
+    public void selectStatusOfOrders(){
+                Select select=new Select(statusDropDown);
+                select.selectByValue("pending");
+                testUtility.sleep(2);
+                //testUtility.waitForElementPresent(searchButton);
+                searchButton.click();
+
+    }
+    public void clickOnPendingLink(TestDataHolder testDataHolder){
+        testUtility.sleep(3);
+        //WebElement pendingLink=driver.findElement(By.xpath(String.format("(//table[@id='sales_order_grid_table']/tbody/tr/td[contains(text(),'%s')])[1]//ancestor::tr/td[9]",testDataHolder.getBillToName())));
+        WebElement pendingLink=driver.findElement(By.xpath(String.format("(//*[contains(text(),'%s')])[1]//following-sibling::td[4]",testDataHolder.getBillToName())));
+        testUtility.waitForElementPresent(pendingLink);
+        pendingLink.click();
+    }
 
     public boolean verifyOrderCreatedSuccessfully(){
         testUtility.waitForElementPresent(successMessage);
@@ -147,7 +171,58 @@ public class OrdersPage {
             return false;
         }
     }
+    public void selectStatus(){
+        selectStatusOfOrders();
+    }
+    public void searchBillToName(){
+        testUtility.waitForElementPresent(billToNameField);
+        billToNameField.sendKeys("team3");
+        billToNameField.sendKeys(Keys.ENTER);
+        testUtility.sleep(5);
+    }
 
+    public void updateOrderWithInStorePickup(){
+        testUtility.waitForElementPresent(viewButton);
+        viewButton.click();
+        testUtility.waitForElementPresent(shipButton);
+        shipButton.click();
+        testUtility.waitForElementPresent(addTrackingNumberButton);
+        addTrackingNumberButton.click();
+        testUtility.waitForElementPresent(carrierDropDown);
+        Select select1=new Select(carrierDropDown);
+        select1.selectByValue("dhl");
+        testUtility.waitForElementPresent(numberField);
+        testUtility.sleep(5);
+        numberField.sendKeys("123"+System.currentTimeMillis());
+        testUtility.sleep(5);
+        testUtility.waitForElementPresent(submitShipmentButton);
+        submitShipmentButton.click();
+    }
+
+    public boolean verifyUpdateSuccess(){
+        testUtility.waitForElementPresent(updateSuccessMessage);
+        if (updateSuccessMessage.isDisplayed()){
+            System.out.println("Update order with in store test case pickup passed");
+            return true;
+        }else
+        {
+            System.out.println("Update order with in store pickup test case field");
+            return false;
+        }
+    }
+    public void clickOnThePendingOrder() {
+        WebElement orderToDelete=driver.findElement(By.xpath(String.format("(//td[contains(text(),'%s')])[1]/following-sibling::td[4][contains(text(),'Pending')]",userName)));
+        testUtility.waitForElementPresent(orderToDelete);
+        orderToDelete.click();
+    }
+
+    public void clickOnCancelButton() {
+        testUtility.waitForElementPresent(cancelButton);
+        cancelButton.click();
+        testUtility.waitForAlertPresent();
+        Alert alert=driver.switchTo().alert();
+        alert.accept();
+    }
     public void deleteOrder() {
         clickOnThePendingOrder();
         clickOnCancelButton();
@@ -163,4 +238,5 @@ public class OrdersPage {
             return false;
         }
     }
+
 }

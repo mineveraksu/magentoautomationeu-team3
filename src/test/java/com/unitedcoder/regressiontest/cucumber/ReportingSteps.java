@@ -26,7 +26,14 @@ public class ReportingSteps extends BasePage {
     InvoicedVsPaidReportPage invoicedVsPaidReportPage;
     ShippedReportPage shippedReportPage;
     NewAccountsPage newAccountsPage;
+
     TagsPage tagsPage;
+
+    CustomersByOrdersTotal customersByOrdersTotal;
+    CustomersByNumberOfOrders customersByNumberOfOrders;
+    Report_ReviewsPage report_ReviewsPage;
+    PopularPage popularPage;
+
 
 
     @Before("@ReportingModuleTest")
@@ -46,6 +53,8 @@ public class ReportingSteps extends BasePage {
         testDataHolder = excelUtility.readReportingInfoFromExcel("Test-Data/reportingModule.xlsx", "Sales_Info");
         testDataHolder2 = excelUtility.readSalesInfoFromExcel("Test-Data/SalesModule.xlsx", "Refunds_Info");
         salesPage = new SalesPage(driver);
+        report_ReviewsPage = new Report_ReviewsPage(driver);
+        popularPage = new PopularPage(driver);
     }
 
     @Given("Reporting manager is on the dashboard page and clicks on mostViewed link")
@@ -100,7 +109,39 @@ public class ReportingSteps extends BasePage {
         shippedReportPage.verifyViewSalesShippedReportSuccessfully();
     }
 
+    @Given("Reporting manager is on the dashboard page and clicks on refunded Option")
+    public void reportingManagerIsOnTheDashboardPageAndClicksOnRefundedOption() {
+        reportingDashboardPage.clickOnRefundedLink();
 
+    }
+
+    @When("Reporting Manager Navigate to Total Refunded Report page and select period and date {string} {string} and click show Report button")
+    public void reportingManagerNavigateToTotalRefundedReportPageAndSelectPeriodAndDateAndClickShowReportButton(String arg0, String arg1){
+        salesPage= new SalesPage(driver);
+        salesPage.seeTotalRefundsReport(arg0,arg1);
+    }
+    @Then("Total refunded report view successfully")
+    public void totalRefundedReportViewSuccessfully() {
+        salesPage=new SalesPage(driver);
+        Assert.assertTrue(salesPage.verifyRefundsReportSuccessfullyShown());
+    }
+
+    //COUPONUSAGEREPORT
+    @Given("Reporting manager is on the dashboard page and clicks on Coupon Usage Option")
+    public void reportingManagerIsOnTheDashboardPageAndClicksOnCouponUsageOption() {
+        reportingDashboardPage.clickOnCouponsLink();
+    }
+
+    @When("Reporting Manager Navigate to Coupon Usage Report page and select period and date {string} {string} and click show Report button")
+    public void reportingManagerNavigateToCouponUsageReportPageAndSelectPeriodAndDateAndClickShowReportButton(String arg0, String arg1) {
+        salesPage=new SalesPage(driver);
+        salesPage.seeCouponUsageReport(arg0,arg1);
+    }
+
+    @Then("Coupon Usage report view successfully")
+    public void couponUsageReportViewSuccessfully() {
+        Assert.assertTrue(salesPage.verifyCouponUsageSuccessfullyShown());
+    }
     //
     @Given("Reporting manager is on the dashboard page and clicks on Orders link")
     public void reportingManagerIsOnTheDashboardPageAndClicksOnOrdersLink() {
@@ -152,14 +193,6 @@ public class ReportingSteps extends BasePage {
         Assert.assertTrue(newAccountsPage.verifySeeCustomersNewAccountsReport());
     }
 
-    @After("@ReportingModuleTest")
-    public void tearDown(Scenario scenario) {
-        if (scenario.isFailed()) {
-            ScreenShotUtility screenShotUtility = new ScreenShotUtility();
-            screenShotUtility.takeScreenshot("image", "failedTest", driver);
-        }
-        closeBrowser();
-    }
 
     @Given("Reporting manager is on the dashboard page and clicks on downloads link")
     public void reportingManagerIsOnTheDashboardPageAndClicksOnDownloadsLink() {
@@ -171,6 +204,7 @@ public class ReportingSteps extends BasePage {
         DownloadsPage downloadsPage = new DownloadsPage(driver);
         downloadsPage.verifyViewSalesInvoicedVsPaidReportSuccessfully();
     }
+
 
     //Reporting Manager should be able to see Tags - Customers Report
     @Given("Reporting manager is on the dashboard page and go to the customers tags page")
@@ -196,5 +230,86 @@ public class ReportingSteps extends BasePage {
     public void reportingManagerCanSeeProductsProductsTags() {
         //Assert.assertTrue(tagsPage.verifyOpenProductsTags());
     }
+
+    @Given("Reporting manager on the dashboard page and click on tax link")
+    public void reportingManagerOnTheDashboardPageAndClickOnTaxLink() {
+        reportingDashboardPage.clickOnTaxLink();
+
+    }
+
+    @When("Reporting manager select taxes report period {string} {string} and click on shor report button")
+    public void reportingManagerSelectTaxesReportPeriodAndClickOnShorReportButton(String arg0, String arg1) {
+        salesPage.seeTaxesRateReport(arg0, arg1);
+    }
+
+    @Then("Taxes report display successful")
+    public void taxesReportDisplaySuccessful() {
+        Assert.assertTrue(salesPage.taxesReportSawVerify());
+    }
+    // see customers by orders total
+    @Given("Reporting manager is on the dashboard page and clicks on customer by order total link")
+    public void reportingManagerIsOnTheDashboardPageAndClicksOnCustomerByOrderTotalLink() {
+        reportingDashboardPage.ClickOnCustomersByOrdersTotalLink();
+    }
+
+    @When("Reporting manager enter {string}{string} and click refresh button")
+    public void reportingManagerEnterAndClickRefreshButton(String arg0, String arg1) {
+        customersByOrdersTotal=new CustomersByOrdersTotal(driver);
+        customersByOrdersTotal.customerByOrdersTotalMethod(arg0,arg1);
+
+    }
+
+    @Then("verifymanager can see customers by orders total")
+    public void verifymanagerCanSeeCustomersByOrdersTotal() {
+        customersByOrdersTotal=new CustomersByOrdersTotal(driver);
+        org.testng.Assert.assertTrue(customersByOrdersTotal.verifyManagerCanSeeCustomersByOrdersTotal());
+    }
+    @Given("Reporting manager is on the dashboard page and clicks on customer by number of orders link")
+    public void reportingManagerIsOnTheDashboardPageAndClicksOnCustomerByNumberOfOrdersLink() {
+        reportingDashboardPage.ClickOnCustomersByNumberOfOrdersLink();
+    }
+    @When("Reporting manager enter {string}{string} and click on refresh button")
+    public void reportingManagerEnterAndClickOnRefreshButton(String arg0, String arg1) {
+        customersByNumberOfOrders=new CustomersByNumberOfOrders(driver);
+        customersByNumberOfOrders.customerByNumberOfOrdersMethod(arg0,arg1);
+    }
+
+    @Then("verifymanager can see customers by number of orders")
+    public void verifymanagerCanSeeCustomersByNumberOfOrders() {
+        customersByNumberOfOrders=new CustomersByNumberOfOrders(driver);
+        org.testng.Assert.assertTrue(customersByNumberOfOrders.verifyManagerCanSeeCustomersByNumberOfOrders());
+    }
+
+    @Given("Reporting manager on the dashboard page and click on tags_popular Link")
+    public void reportingManagerOnTheDashboardPageAndClickOnTags_popularLink() {
+        reportingDashboardPage.click_PopularLink();
+    }
+
+    @Then("verify popular report displayed")
+    public void verifyPopularReportDisplayed() {
+        popularPage.verifyPopularReportDisplayed();
+    }
+
+    @Given("Reporting manager is on the dashboard page and click on product review link")
+    public void reportingManagerIsOnTheDashboardPageAndClickOnProductReviewLink() {
+        reportingDashboardPage.click_Products_Reviews();
+    }
+
+    @Then("verify product review report display")
+    public void verifyProductReviewReportDisplay() {
+        report_ReviewsPage.verifyProductReviewReportSuccessfullyDisplayed();
+    }
+
+
+    @After("@ReportingModuleTest")
+    public void tearDown(Scenario scenario) {
+        if (scenario.isFailed()) {
+            ScreenShotUtility screenShotUtility = new ScreenShotUtility();
+            screenShotUtility.takeScreenshot("image", "failedTest", driver);
+        }
+        closeBrowser();
+    }
+
+
 }
 

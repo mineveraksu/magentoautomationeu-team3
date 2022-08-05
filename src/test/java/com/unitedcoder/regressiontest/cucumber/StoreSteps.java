@@ -2,6 +2,8 @@ package com.unitedcoder.regressiontest.cucumber;
 
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
 import com.seleniummaster.maganto.backendpages.storepages.*;
+import com.seleniummaster.maganto.database.ConnectionManager;
+import com.seleniummaster.maganto.database.DataAccess;
 import com.seleniummaster.maganto.utility.*;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -11,6 +13,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.Assert;
+
+import java.sql.Connection;
 
 public class StoreSteps extends BasePage {
     final static String configFile = "config.properties";
@@ -26,12 +30,15 @@ public class StoreSteps extends BasePage {
     String storeName;
     String storeCode;
     StoreViewPage storeViewPage;
+    Connection connection;
+    DataAccess dataAccess;
 
     @Before("@StoreModuleTest")
     public void setup() {
         browserSetUp(url);
         login = new BackEndLogin(driver);
         login.storePageLogin();
+        storeDashboardPage = new StoreDashboardPage(driver);
         excelUtility = new ExcelUtility();
         testDataHolder = excelUtility.readStoreInfoFromExcel("Test-Data/storeModuleData.xlsx", "Store_Info");
     }
@@ -39,7 +46,6 @@ public class StoreSteps extends BasePage {
     //create website
     @Given("store manager is on the dashboard page store manager click on manage stores link")
     public void storeManagerIsOnTheDashboardPage() {
-        storeDashboardPage = new StoreDashboardPage(driver);
         storeDashboardPage.clickOnManageStoresLink();
     }
 
@@ -83,11 +89,14 @@ public class StoreSteps extends BasePage {
     public void storeManagerClicksOnCreateStoreButtonToFillOutStoreInformation() {
         storePage = new StorePage(driver);
         storePage.createStore(testDataHolder);
+        connection= ConnectionManager.connectToDatabaseServer();
+        dataAccess=new DataAccess();
     }
 
     @Then("the store should be created successfully")
     public void theStoreShouldBeCreatedSuccessfully() {
         Assert.assertTrue(storePage.verifyStoreCreatedSuccessfully());
+        ConnectionManager.closeDatabaseConnection(connection);
     }
 
     //update store
@@ -158,7 +167,6 @@ public class StoreSteps extends BasePage {
     //create product
     @Given("store manager is on the dashboard page store manager click on manage products link")
     public void storeManagerIsOnTheDashboardPageStoreManagerClickOnManageProductsLink() {
-        storeDashboardPage = new StoreDashboardPage(driver);
         storeDashboardPage.clickOnManageProductLink();
 
     }
@@ -174,39 +182,27 @@ public class StoreSteps extends BasePage {
         org.junit.Assert.assertTrue(storeProductPage.verifyAddProductSuccessfully());
     }
     //update product
+
+    @When("select the product {string} and update description {string}")
+    public void selectTheProductAndUpdateDescription(String arg0, String arg1) {
+        storeProductPage=new StoreProductPage(driver);
+        storeProductPage.selectProduct(arg0);
+        storeProductPage.updateProduct(arg1);
+    }
+
+    @Then("product information updated successfully")
+    public void productInformationUpdatedSuccessfully() {
+        Assert.assertTrue(storeProductPage.ProductUpdateSuccessfully());
+    }
     //delete product
 
     //create order
-    @Given("store manager is on the dashboard page and store manager click on orders link")
-    public void storeManagerIsOnTheDashboardPageAndStoreManagerClickOnOrdersLink() {
-        storeDashboardPage = new StoreDashboardPage(driver);
-        storeDashboardPage.clickOnOrdersLink();
+
+    @And("select shipping and payment methods and submit order")
+    public void selectShippingAndPaymentMethodsAndSubmitOrder() {
+        storeOrdersPage = new StoreOrdersPage(driver);
+        storeOrdersPage.selectShippingMethodAndSubmitOrder();
     }
-
-//    @When("store manager select customer and product")
-//    public void store_manager_select_customer_and_product() {
-//        storeDashboardPage = new StoreDashboardPage(driver);
-//        storeOrdersPage= new StoreOrdersPage(driver);
-//        storeDashboardPage.clickOnCreateNewOrderLink();
-//        storeOrdersPage.selectCostumerAndProduct(driver);
-//    }
-//
-//
-//    @And("fill billing and shipping address form")
-//    public void fill_billing_and_shipping_address_form() {
-//        storeOrdersPage= new StoreOrdersPage(driver);
-//        storeOrdersPage.fillBillingAndShippingAddressForm(driver);
-//
-//    }
-//
-//
-//    @And("select shipping and payment method and submit order")
-//    public void select_shipping_and_payment_method_and_submit_order() {
-//        storeOrdersPage= new StoreOrdersPage(driver);
-//        storeOrdersPage.selectShippingMethodAndSubmitOrder(driver);
-//
-//    }
-
 
     @Then("the order should be saved successfully")
     public void theOrderShouldBeSavedSuccessfully() {
@@ -214,23 +210,35 @@ public class StoreSteps extends BasePage {
     }
 
     //edit order
+    @Given("store manager is on the dashboard page and store manager click on orders link")
+    public void storeManagerIsOnTheDashboardPageAndStoreManagerClickOnOrdersLink() {
+        storeDashboardPage.clickOnOrdersLink();
+        storeDashboardPage.clickOnViewLink();
+    }
+
     @When("store manager search orders number and edit some information")
     public void storeManagerSearchOrdersNumberAndEditSomeInformation() {
+       storeOrdersPage=new StoreOrdersPage(driver);
+       storeOrdersPage.editOrderInformation();
     }
 
     @Then("edit orders successful")
     public void editOrdersSuccessful() {
+        Assert.assertTrue(storeOrdersPage.verifyOrderEdited());
     }
 
     //cancel order
-    @After("@StoreModuleTest")
-    public void tearDown(Scenario scenario) {
-        if (scenario.isFailed()) {
-            ScreenShotUtility screenShotUtility = new ScreenShotUtility();
-            screenShotUtility.takeScreenshot("image", "failedTest", driver);
-        }
-        closeBrowser();
+    @When("cancel order")
+    public void cancelOrder(){
+        storeOrdersPage=new StoreOrdersPage(driver);
+        storeOrdersPage.clickOnCancelOrder();
     }
+
+    @Then("cancel order successful")
+    public void cancelOrderSuccessful() {
+     Assert.assertTrue(storeOrdersPage.verifyOrderCancelSuccessful());
+    }
+
 
     //add product categories
     @When("store manager clicks categories link and check the existing product categories")
@@ -272,26 +280,33 @@ public class StoreSteps extends BasePage {
     }
 
 
-    @When("store manager select a customer and a product")
-    public void storeManagerSelectACustomerAndAProduct() {
-        storeDashboardPage = new StoreDashboardPage(driver);
-        storeOrdersPage = new StoreOrdersPage(driver);
+    @When("store manager select a customer and a store {string} and a product")
+    public void storeManagerSelectACustomerAndAStoreAndAProduct(String arg0) {
         storeDashboardPage.clickOnCreateNewOrderLink();
-        storeOrdersPage.selectCostumerAndProduct();
-
-    }
-
-    @And("fill billing address and shipping address form")
-    public void fillBillingAddressAndShippingAddressForm() {
         storeOrdersPage = new StoreOrdersPage(driver);
-        storeOrdersPage.fillBillingAndShippingAddressForm();
+        storeOrdersPage.selectCustomerAndProduct(arg0);
     }
 
-    @And("select shipping and payment methods and submit order")
-    public void selectShippingAndPaymentMethodsAndSubmitOrder() {
-        storeOrdersPage = new StoreOrdersPage(driver);
-        storeOrdersPage.selectShippingMethodAndSubmitOrder();
+    @When("Store manager can search {string} product and delete the product")
+    public void storeManagerCanSearchProductAndDeleteTheProduct(String arg0) {
+        storeProductPage=new StoreProductPage(driver);
+        storeProductPage.deleteProduct();
     }
+
+    @Then("the product delete successfully")
+    public void theProductDeleteSuccessfully() {
+        org.junit.Assert.assertTrue(storeProductPage.verifyDeleteProductSuccessfully());
+    }
+
+    @After("@StoreModuleTest")
+    public void tearDown(Scenario scenario) {
+        if (scenario.isFailed()) {
+            ScreenShotUtility screenShotUtility = new ScreenShotUtility();
+            screenShotUtility.takeScreenshot("image", "failedTest", driver);
+        }
+        closeBrowser();
+    }
+
 }
 
 

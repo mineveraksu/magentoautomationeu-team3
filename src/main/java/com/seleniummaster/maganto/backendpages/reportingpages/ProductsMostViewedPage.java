@@ -42,6 +42,7 @@ public class ProductsMostViewedPage {
     @FindBy(xpath = "//button[@title=\"Refresh\"]")
     WebElement refreshButton;
 
+
     public ProductsMostViewedPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver,this);

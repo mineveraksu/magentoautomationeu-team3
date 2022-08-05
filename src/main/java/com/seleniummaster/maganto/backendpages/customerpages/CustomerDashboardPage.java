@@ -54,20 +54,15 @@ public class CustomerDashboardPage {
 
     //Customer Manager can add a new address for a customer_Tursunay
     public void navigateToAddressesLink(){
-        testUtility.sleep(3);
-        emailTextBox.click();
+        testUtility.waitForElementPresent(emailTextBox);
         emailTextBox.sendKeys(ApplicationConfig.readFromConfigProperties(config,"email"));
-        testUtility.sleep(3);
         testUtility.waitForElementPresent(searchButton);
         searchButton.click();
-        testUtility.sleep(3);
         testUtility.waitForElementPresent(customerEmailAddress);
-        customerEmailAddress.click();
         testUtility.sleep(3);
+        customerEmailAddress.click();
         testUtility.waitForElementPresent(addressesLink);
         addressesLink.click();
-        testUtility.sleep(3);
-        System.out.println("addresses Link clicked !");
     }
 
 }

@@ -31,7 +31,7 @@ public class StoreDashboardPage {
     WebElement salesLink;
     @FindBy(xpath = "//span[text()=\"Orders\"]")
     WebElement ordersLink;
-    @FindBy(xpath = "(//a[text()='View'])[1]")
+    @FindBy(xpath = "(//a[contains(text(),'View')])[1]")
     WebElement viewLink;
     @FindBy(xpath = "(//span[text()='Create New Order'])[1]")
     WebElement createNewOrdersTab;
@@ -67,6 +67,7 @@ public class StoreDashboardPage {
     public void clickOnViewLink(){
         testUtility.waitForElementPresent(viewLink);
         actions.moveToElement(viewLink).click().perform();
+        System.out.println("View link clicked!");
     }
 
 

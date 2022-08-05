@@ -3,9 +3,7 @@ package com.seleniummaster.maganto.backendpages.storepages;
 import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.TestDataHolder;
 import com.seleniummaster.maganto.utility.TestUtility;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -63,6 +61,15 @@ public class StoreProductPage {
     @FindBy(css = ".success-msg>ul li span")
     WebElement addProductSuccessMessage;
 
+//    UPDATEPRODUCT
+    @FindBy(xpath ="//input[@id='productGrid_product_filter_name']")
+    WebElement productNameField;
+    @FindBy(xpath = "//*[contains(text(),'Jeans')]")
+    WebElement selectedProductNameField;
+    @FindBy(css = "#description")
+    WebElement descriptionTextArea;
+
+
     //add product categories
     @FindBy(id = "productGrid_product_filter_name")
     WebElement nameInputBox;
@@ -80,32 +87,30 @@ public class StoreProductPage {
     WebElement addedProductLink;
 
 
-//delete product categories
+    @FindBy(xpath = "//span[text()='The product has been saved.']")
+    WebElement updateSuccessMessage;
+
+
+
+    //delete product categories
     @FindBy(xpath = "//span[contains(text(),\"VIP\")]")
     WebElement deletedCategory;
-@FindBy(xpath = "//span[text()='Delete']")
-WebElement deleteProductCategoryButton;
-@FindBy(css = ".success-msg>ul li span")
-WebElement deleteProductCategorySuccessfulMessage;
-
-
-
-    @FindBy(css = "#description")
-    WebElement descriptionTextArea;
-    @FindBy(css = "#short_description")
-    WebElement shortDescriptionTextArea;
-    @FindBy(css = "#sku")
-    WebElement SKUTextArea;
-
-
-    @FindBy(xpath = "//select[contains(@id,'status') and contains(@name,'product[status]')]")
-    WebElement statusField;
-    @FindBy(xpath = "//select[contains(@id,'visibility') and contains(@name,'product[visibility]')]")
-    WebElement visibilityField;
+    @FindBy(xpath = "//span[text()='Delete']")
+    WebElement deleteProductCategoryButton;
+    @FindBy(css = ".success-msg>ul li span")
+    WebElement deleteProductCategorySuccessfulMessage;
 
 
     @FindBy(xpath = "//span[text()='The product has been saved.']")
     WebElement successMessage;
+
+    //delete product
+    @FindBy(xpath = "//a[contains(text(),\"Edit\")]")
+    WebElement editButton;
+    @FindBy(xpath = "//button[@title='Delete']")
+    WebElement deleteProductButton;
+    @FindBy(xpath = "//span[text()='The product has been deleted.']")
+    WebElement deleteProductSuccessMessage;
 
 
     public StoreProductPage(WebDriver driver) {
@@ -127,7 +132,7 @@ WebElement deleteProductCategorySuccessfulMessage;
         testUtility.waitForElementPresent(shortDescriptionFiled);
         shortDescriptionFiled.sendKeys(shortDescription);
         testUtility.waitForElementPresent(SKUField);
-        SKUField.sendKeys(SKU);
+        SKUField.sendKeys(SKU+ System.currentTimeMillis());
         testUtility.waitForElementPresent(weightFiled);
         weightFiled.sendKeys(weight);
         testUtility.waitForElementPresent(statusDropDown);
@@ -169,6 +174,42 @@ WebElement deleteProductCategorySuccessfulMessage;
             return false;
         }
     }
+
+    public void selectProduct (String productName){
+        testUtility.waitForElementPresent(productNameField);
+        productNameField.click();
+        productNameField.clear();
+        productNameField.sendKeys(productName);
+        productNameField.sendKeys(Keys.ENTER);
+        testUtility.sleep(3);
+        testUtility.waitForElementPresent(selectedProductNameField);
+        selectedProductNameField.click();
+
+    }
+
+        public void updateProduct (String description) {
+            testUtility.waitForElementPresent(descriptionTextArea);
+            testUtility.sleep(3);
+            descriptionTextArea.click();
+            descriptionTextArea.clear();
+            descriptionTextArea.sendKeys(description);
+            testUtility.waitForElementPresent(saveButton);
+            saveButton.click();
+
+    }
+
+    public boolean ProductUpdateSuccessfully() {
+        testUtility.waitForElementPresent(successMessage);
+        if (successMessage.isDisplayed()) {
+            System.out.println("Update Products Successfully!!");
+            return true;
+        } else {
+            System.out.println("Update Products failed!!!");
+            return false;
+
+        }
+    }
+
 
     public void addProductCategory(){
 
@@ -267,43 +308,35 @@ WebElement deleteProductCategorySuccessfulMessage;
         }
     }
 
-
-    public void UpdateProduct(WebDriver driver) {
-        testUtility.waitForElementPresent(descriptionTextArea);
-        descriptionTextArea.click();
-        descriptionTextArea.clear();
-        descriptionTextArea.sendKeys("new season fashion");
-        shortDescriptionTextArea.click();
-        shortDescriptionTextArea.clear();
-        shortDescriptionTextArea.sendKeys("slim-fit");
-        SKUTextArea.click();
-        SKUTextArea.clear();
-        SKUTextArea.sendKeys("abcdef1234");
-
-        statusField.clear();
-        statusField.click();
-        Select select = new Select(statusField);
-        select.selectByIndex(1);
-
-        visibilityField.click();
-        Select select1 = new Select(visibilityField);
-        select1.selectByIndex(1);
-        saveButton.click();
-
-
+    public void deleteProduct() {
+        testUtility.waitForElementPresent(nameInputBox);
+        nameInputBox.click();
+        testUtility.sleep(3);
+        nameInputBox.sendKeys("Jeans");
+        nameInputBox.sendKeys(Keys.ENTER);
+        testUtility.sleep(3);
+        testUtility.waitForElementPresent(editButton);
+        editButton.click();
+        testUtility.waitForElementPresent(deleteProductButton);
+        deleteProductButton.click();
+        Alert alert = driver.switchTo().alert();
+        alert.accept();
     }
 
-    public boolean ProductUpdateSuccessfully() {
-        testUtility.waitForElementPresent(successMessage);
-        if (successMessage.isDisplayed()) {
-            System.out.println("Update Products Successfully!!");
+    public boolean verifyDeleteProductSuccessfully() {
+        testUtility.waitForElementPresent(deleteProductSuccessMessage);
+        if (driver.getPageSource().contains(deleteProductSuccessMessage.getText())) {
+            System.out.println("Store Manager can delete Product Test is Passed!!!");
             return true;
         } else {
-            System.out.println("Update Products failed!!!");
+            System.out.println("Store Manager can Add Product Test is Failed!!!");
             return false;
-
         }
     }
+
+
+
+
 
 
 }

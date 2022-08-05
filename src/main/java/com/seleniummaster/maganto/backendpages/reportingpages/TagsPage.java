@@ -10,6 +10,11 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+import javax.swing.*;
+
 public class TagsPage {
     WebDriver driver;
     TestUtility testUtility;

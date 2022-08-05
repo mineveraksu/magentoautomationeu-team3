@@ -2,6 +2,7 @@ package com.unitedcoder.regressiontest.cucumber;
 
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
 import com.seleniummaster.maganto.backendpages.marketingpages.*;
+import com.seleniummaster.maganto.database.DataAccess;
 import com.seleniummaster.maganto.utility.*;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -11,6 +12,8 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.Assert;
 
+import java.sql.Connection;
+
 public class MarketingSteps extends BasePage {
     final static String configFile = "config.properties";
     final static String url = ApplicationConfig.readFromConfigProperties(configFile, "url");
@@ -19,9 +22,12 @@ public class MarketingSteps extends BasePage {
     NewsletterTemplatePage newsletterTemplatePage;
     ReviewsPage reviewsPage;
     CatalogPriceRulePage catalogPriceRulePage;
+    CartPriceRulePage cartPriceRulePage;
     TestDataHolder testDataHolder;
     ExcelUtility excelUtility;
     String RuleName;
+    Connection connection;
+    DataAccess dataAccess;
 
     @Before("@MarketingModuleTest")
     public void setup() {
@@ -188,7 +194,7 @@ public class MarketingSteps extends BasePage {
 
     }
 
-//Marketing Manager can add new Cart Price Rule
+    //Marketing Manager can add new Cart Price Rule
     @Given("Marketing manager on the dashboard page and marketing manager click on Promotions link")
     public void marketingManagerOnTheDashboardPageAndMarketingManagerClickOnPromotionsLink() {
         CartPriceRulePage cartPriceRulePage=new CartPriceRulePage(driver);
@@ -208,6 +214,21 @@ public class MarketingSteps extends BasePage {
         Assert.assertTrue(cartPriceRulePage.verifyAddNewShoppingCartPriceRuleSuccessfully());
     }
 
+    //updatecartpricerule
+
+    @When("select the {string} and change the {string}")
+    public void selectTheAndChangeThe(String arg0, String arg1) {
+        cartPriceRulePage=new CartPriceRulePage(driver);
+        cartPriceRulePage.updateCartPriceRule(arg0,arg1);
+
+    }
+
+    @Then("cart price rule should be updated successfully")
+    public void cartPriceRuleShouldBeUpdatedSuccessfully() {
+        CartPriceRulePage cartPriceRulePage= new CartPriceRulePage(driver);
+        Assert.assertTrue(cartPriceRulePage.verifyAddNewShoppingCartPriceRuleSuccessfully());
+    }
+
     @After("@MarketingModuleTest")
     public void tearDown(Scenario scenario) {
         if (scenario.isFailed()) {
@@ -216,8 +237,27 @@ public class MarketingSteps extends BasePage {
         }
         closeBrowser();
     }
+
+    //filtercartpricerulebyidandname
+    @Given("Marketing manager on the dashboard page")
+    public void marketingManagerOnTheDashboardPage() {
+
+        marketingdashboardPage.clickOnPromotionsLink();
+    }
+    @When("Marketing manager click on shopping cart price rule link")
+    public void marketingManagerClickOnShoppingCartPriceRuleLink() {
+        marketingdashboardPage.clickOnShoppingCartPriceRuleLink();
+    }
+
+    @Then("filter by {string}and{string} and verify successful")
+    public void filterByAndAndVerifySuccessful(String arg0, String arg1) {
+        cartPriceRulePage= new CartPriceRulePage(driver);
+        cartPriceRulePage.filterCartPriceRuleById(arg1);
+        cartPriceRulePage.verifyFilterCartPriceRuleById(arg1);
+        cartPriceRulePage.clearRuleIdFiled();
+        cartPriceRulePage.filterCartPriceRuleByName(arg0);
+        cartPriceRulePage.verifyFilterCartPriceRuleByName(arg0);
+
+
+    }
 }
-
-
-
-

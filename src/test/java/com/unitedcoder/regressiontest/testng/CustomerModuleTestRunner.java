@@ -2,12 +2,16 @@ package com.unitedcoder.regressiontest.testng;
 
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
 import com.seleniummaster.maganto.backendpages.customerpages.*;
+import com.seleniummaster.maganto.database.ConnectionManager;
+import com.seleniummaster.maganto.database.DataAccess;
 import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.BasePage;
 import com.seleniummaster.maganto.utility.TestDataHolder;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
+
+import java.sql.Connection;
 
 
 public class CustomerModuleTestRunner extends BasePage {
@@ -18,6 +22,8 @@ public class CustomerModuleTestRunner extends BasePage {
     FilterCustomerPage filterCustomerPage;
     CustomerPage customerPage;
     AddAddressesPage addAddressesPage;
+    Connection connection;
+    DataAccess dataAccess;
 
     @BeforeClass
     public void setup(ITestContext context) {
@@ -31,11 +37,13 @@ public class CustomerModuleTestRunner extends BasePage {
         filterCustomerPage = new FilterCustomerPage(driver);
         customerPage = new CustomerPage(driver);
         addAddressesPage = new AddAddressesPage(driver);
-
+        connection= ConnectionManager.connectToDatabaseServer();
+        dataAccess=new DataAccess();
     }
 
     @Test(groups = "regression test", description = "Customer Manager can add a new customer ")
     public void addNewCustomer() {
+        login.VerifyLoginSuccessfully();
         customerDashboardPage.clickOnManageCustomers();
         customerPage.addNewCustomer();
         Assert.assertTrue(customerPage.verifyNewCustomerAdded());
@@ -43,10 +51,10 @@ public class CustomerModuleTestRunner extends BasePage {
 
     @Test(dataProvider = "customerGroupInfo", groups = "regression test", description = "Customer Manager can add new customer groups.")
     public void addNewCustomerGroups(TestDataHolder testDataHolder) {
-        login.VerifyLoginSuccessfully();
         customerDashboardPage.clickOnCustomerGroups();
         customerGroupsPage.addNewCustomerGroups(testDataHolder);
         Assert.assertTrue(customerGroupsPage.verifyAddNewCustomerGroups());
+        Assert.assertTrue(dataAccess.getCustomerGroup(testDataHolder.getCustomerGroupName(), connection));
     }
 
     @Test(dataProvider = "customerGroupInfo", groups = "regression test", description = "Customer Manager can  update existing customer groups.", dependsOnMethods = "addNewCustomerGroups")
@@ -98,8 +106,7 @@ public class CustomerModuleTestRunner extends BasePage {
 
 
 
-    @Test(enabled = false,groups = "regression test", description = "Customer Manager can add a new address for a customer")
-//dataProvider = "customerGroupInfo",,dependsOnMethods = "addNewCustomer"
+    @Test(groups = "regression test", description = "Customer Manager can add a new address for a customer",dependsOnMethods = "filterCustomerByCountry")
     public void addNewAddress() {
         customerDashboardPage.navigateToAddressesLink();
         addAddressesPage.addNewAddress();
@@ -124,6 +131,7 @@ public class CustomerModuleTestRunner extends BasePage {
         filterCustomerPage.clickOnResetFilter();
         filterCustomerPage.filterByState();
         Assert.assertTrue(filterCustomerPage.verifyFilteredByState());
+        filterCustomerPage.clickOnResetFilter();
     }
 
     @Test(description = "Customer Manager can delete an existing customer",dependsOnMethods = "updateCustomer")
@@ -136,6 +144,7 @@ public class CustomerModuleTestRunner extends BasePage {
     @AfterClass
     public void tearDown() {
         closeBrowser();
+        ConnectionManager.closeDatabaseConnection(connection);
     }
 
 }

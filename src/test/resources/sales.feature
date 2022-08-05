@@ -10,6 +10,12 @@ Feature:Sales Module Functions
       | store name | product name              |
       | English    | Black Nolita Cami-Black-S |
 
+  @UpdateOrderWithInStorePickup
+  Scenario: Sales manager should able to update orders with in store pickup
+    Given Sales manager is on the dashboard page and clicks on Orders link
+    When Sale manager update order with in store pickup
+    Then Successfully update orders
+
   @ViewInvoicesAndAddComments
   Scenario Outline: Sales Manager should be able to view invoices and add comments to invoice history
     Given sales manager is on the dashboard page and click on invoices link
@@ -38,7 +44,7 @@ Feature:Sales Module Functions
 
     Examples:
       | Name  | Priority | SortOrder |
-      | Team3 | 3        | 4         |
+      | Team3 | 3        | 4        |
 
   @UpdateTaxRules
   Scenario Outline: Sales Manager can update tax rules
@@ -55,6 +61,24 @@ Feature:Sales Module Functions
     Given sales manager click on refunds link
     When  sales manager entering the refunds period and shows refunds
     Then  sales manager view refunds reports successful
+    @ViewCreditMemo
+    Scenario: Sales manager can view credit memo
+      Given sales manager is on the dashboard and click credit memo link
+      When  manager click the view button and view credit memo information
+      Then verify view credit memo
+      @AddCreditMemo
+      Scenario: Sales manager can add credit memo
+        Given Sales manager is on the dashboard page and clicks on Orders link
+        When  Sales manager click pending and invoice button to create credit memo
+        Then  Verify added credit memo
+
+
+
+@ManageOpenAndViewShoppingCart
+  Scenario: Sales Manager should be able to manage view shopping cart for customers
+  Given Sales manager is on the dashboard page and click on the manage customers link
+  When Sales manager open a customer and open his shopping cart
+  Then Sales manager can view shopping cart
 
 
   @ManageUpdateShoppingCart
@@ -78,5 +102,5 @@ Feature:Sales Module Functions
   @DeleteOrder
   Scenario: Sales Manager can delete a new order
     Given Sales manager is on the dashboard page and clicks on Orders link
-    When sales manager clicks on the pending order to  click on the Cancel Button
+    When sales manager click on the pending order to click on the Cancel Button
     Then Sales Manager deleted a order successfully
