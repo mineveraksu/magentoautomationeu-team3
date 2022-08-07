@@ -123,7 +123,7 @@ public class DataAccess {
         }
     }
     // getCreditMemo Method
-    public boolean getCreditMemo(String userEmail, Connection connection){
+    public boolean getAddedCreditMemo(String creditmemo_id, Connection connection){
         boolean isUserExist=false;
         Statement statement=null;
         ResultSet resultSet=null;
@@ -140,9 +140,9 @@ public class DataAccess {
             e.printStackTrace();
         }
 
-        String newlyRegisteredUserSqlScript=String.format("select entity_id,email from mg_customer_entity where email='%s'",userEmail);
+        String getAddedCreditMemoScript=String.format("select grand_total,increment_id from  mg_sales_flat_creditmemo where increment_id=%s",creditmemo_id);
         try {
-            resultSet=statement.executeQuery(newlyRegisteredUserSqlScript);
+            resultSet=statement.executeQuery(getAddedCreditMemoScript);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -166,9 +166,9 @@ public class DataAccess {
                     e.printStackTrace();
                 }
                 try {
-                    int entity_id = cachedRowSet.getInt("entity_id");
-                    String email = cachedRowSet.getString("email");
-                    System.out.println(String.format("entity_id=%d email=%s",entity_id,email));
+                    String increment_id = cachedRowSet.getString("increment_id");
+                    String grand_total=cachedRowSet.getString("grand_total");
+                    System.out.println(String.format("increment_id=%s grand_total=%s",increment_id,grand_total));
                     count = cachedRowSet.getRow();
                 }catch(SQLException e){
                     e.printStackTrace();
