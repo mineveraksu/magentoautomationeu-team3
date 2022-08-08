@@ -45,6 +45,10 @@ public class FilterCustomerPage {
     @FindBy(xpath = "//span[text()='Reset Filter']")
     WebElement resetFilter;
 
+    @FindBy(id = "customerGrid_filter_group")
+    WebElement groupFilter;
+
+
 
     public void clickEmailField() {
         testUtility.waitForElementPresent(emailField);
@@ -136,6 +140,28 @@ public class FilterCustomerPage {
             return true;
         } else {
             System.out.println("Customer Manager can filter customers by state Test is Failed!");
+            return false;
+        }
+
+    }
+
+    public void filterByGroup(){
+        testUtility.waitForElementPresent(groupFilter);
+        try {
+            groupFilter.click();
+        }catch (org.openqa.selenium.StaleElementReferenceException ex){
+        Select selectGrope=new Select(groupFilter);
+        selectGrope.selectByIndex(1);
+        testUtility.sleep(2);
+        searchButton.click();
+    }}
+
+    public boolean verifyFilterByGroup(){
+        if (driver.getPageSource().contains("Almas")) {
+            System.out.println("Customer Manager can filter customers by Group Test is Passed!");
+            return true;
+        } else {
+            System.out.println("Customer Manager can filter customers by Group Test is Failed!");
             return false;
         }
 
