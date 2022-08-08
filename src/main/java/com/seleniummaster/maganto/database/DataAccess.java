@@ -123,4 +123,63 @@ public class DataAccess {
         }
     }
 
+    //getSubCategories Method
+    public boolean getSubCategories(String subCategoriesName, Connection connection){
+        boolean isSubCategoriesExist=false;
+        Statement statement=null;
+        ResultSet resultSet=null;
+        CachedRowSet cachedRowSet=null;
+
+        try {
+            cachedRowSet= RowSetProvider.newFactory().createCachedRowSet();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            statement = connection.createStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        String subCategoriesSqlScript=String.format("select            ='%s';",subCategoriesName);
+        try {
+            resultSet=statement.executeQuery(subCategoriesSqlScript);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if(resultSet==null){
+            System.out.println("no records found");
+            return isSubCategoriesExist;
+        }else{
+            try {
+                cachedRowSet.populate(resultSet);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            int count=0;
+            while (true){
+                try {
+                    if(!cachedRowSet.next()){
+                        break;
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    int groupId = cachedRowSet.getInt("customer_group_id");
+                    String groupName = cachedRowSet.getString("customer_group_code");
+                    System.out.println(String.format("customer_group_id=%d customer_group_code=%s",groupId,groupName));
+                    count = cachedRowSet.getRow();
+                }catch(SQLException e){
+                    e.printStackTrace();
+                }
+            }
+            if(count>=1)
+                isSubCategoriesExist=true;
+            return isSubCategoriesExist;
+        }
+    }
+
+
 }
