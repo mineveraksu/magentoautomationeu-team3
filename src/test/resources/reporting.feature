@@ -77,6 +77,17 @@ Feature:Reporting Module Functions
       | fromDate   | toDate     |
       | 01/01/2022 | 07/30/2022 |
 
+
+    @SeeTags-CustomersReport
+    Scenario: Reporting Manager should be able to see Tags - Customers Report
+      Given Reporting manager is on the dashboard page and go to the customers tags page
+      Then Reporting Manager can see customers tags
+
+    @SeeTags-ProductsReport
+    Scenario: Reporting Manager should be able to see Tags - Products Report
+      Given Reporting manager is on the dashboard page and go to the products tags page
+      Then Reporting Manager can see Products products tags
+
   @SeeTaxesReport
   Scenario Outline: Reporting Manager should be able to see Sales - Taxes Report Grouped by Tax Rate
     Given Reporting manager on the dashboard page and click on tax link
@@ -138,4 +149,5 @@ Feature:Reporting Module Functions
   Scenario: Reporting manager can see product reviews report
     Given Reporting manager is on the dashboard page and click on product review link
     Then verify product review report display
+
 

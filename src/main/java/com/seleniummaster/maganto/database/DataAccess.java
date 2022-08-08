@@ -122,6 +122,63 @@ public class DataAccess {
             return isCustomerGroupExist;
         }
     }
+    // getCreditMemo Method
+    public boolean getAddedCreditMemo(String creditmemo_id, Connection connection){
+        boolean isUserExist=false;
+        Statement statement=null;
+        ResultSet resultSet=null;
+        CachedRowSet cachedRowSet=null;
+
+        try {
+            cachedRowSet= RowSetProvider.newFactory().createCachedRowSet();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            statement = connection.createStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        String getAddedCreditMemoScript=String.format("select grand_total,increment_id from  mg_sales_flat_creditmemo where increment_id=%s",creditmemo_id);
+        try {
+            resultSet=statement.executeQuery(getAddedCreditMemoScript);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if(resultSet==null){
+            System.out.println("no records found");
+            return isUserExist;
+        }else{
+            try {
+                cachedRowSet.populate(resultSet);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            int count=0;
+            while (true){
+                try {
+                    if(!cachedRowSet.next()){
+                        break;
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    String increment_id = cachedRowSet.getString("increment_id");
+                    String grand_total=cachedRowSet.getString("grand_total");
+                    System.out.println(String.format("increment_id=%s grand_total=%s",increment_id,grand_total));
+                    count = cachedRowSet.getRow();
+                }catch(SQLException e){
+                    e.printStackTrace();
+                }
+            }
+            if(count>=1)
+                isUserExist=true;
+            return isUserExist;
+        }
+    }
 
     //getSubCategories Method
     public boolean getSubCategories(String subCategoriesName, Connection connection){
