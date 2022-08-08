@@ -33,9 +33,21 @@ public class DatabaseSteps extends ConnectionManager {
     public void theUserShouldSeeTheNewlyRegisteredUserInfo() {
         Assert.assertTrue(isUserExist);
     }
+    //get added creditmemo
+    @When("user execute the  mg_sales_flat_creditmemo where increment_id {string} query")
+    public void userExecuteTheMg_sales_flat_creditmemoWhereIncrement_idQuery(String arg0) {
+        isUserExist= dataAccess.getAddedCreditMemo(arg0,connection);
+    }
+
+    @Then("user should see added creditmemo information in the database")
+    public void userShouldSeeAddedCreditmemoInformationInTheDatabase() {
+        Assert.assertTrue(isUserExist);
+    }
 
     @After("@DatabaseTest")
     public void tearDown(){
         closeDatabaseConnection(connection);
     }
+
+
 }
