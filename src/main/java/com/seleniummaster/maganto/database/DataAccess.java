@@ -224,9 +224,9 @@ public class DataAccess {
                     e.printStackTrace();
                 }
                 try {
-                    int groupId = cachedRowSet.getInt("customer_group_id");
-                    String groupName = cachedRowSet.getString("customer_group_code");
-                    System.out.println(String.format("customer_group_id=%d customer_group_code=%s",groupId,groupName));
+                    int groupId = cachedRowSet.getInt("");
+                    String groupName = cachedRowSet.getString("");
+                    System.out.println(String.format("",groupId,groupName));
                     count = cachedRowSet.getRow();
                 }catch(SQLException e){
                     e.printStackTrace();
