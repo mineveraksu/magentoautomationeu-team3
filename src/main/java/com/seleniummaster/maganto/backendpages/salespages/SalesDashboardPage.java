@@ -49,6 +49,9 @@ public class SalesDashboardPage {
     @FindBy(xpath = "//span[text()='Manage Customers']")
     WebElement manageCustomersLink;
 
+    @FindBy(xpath="//*[@id=\"page:main-container\"]/div[2]/table/tbody/tr/td[1]")
+    WebElement CreditMemosButton;
+
     public void clickOnInvoicesLink(){
         testUtility.waitForElementPresent(salesLink);
         actions.moveToElement(salesLink).click().perform();
@@ -103,8 +106,11 @@ public class SalesDashboardPage {
         testUtility.waitForElementPresent(manageCustomersLink);
         manageCustomersLink.click();
     }
-
-
-
+    public void clickOnCreditMemosLink() {
+        testUtility.waitForElementPresent(salesLink);
+        actions.moveToElement(salesLink).click().perform();
+        testUtility.waitForElementPresent(CreditMemosButton);
+        actions.moveToElement(CreditMemosButton).click().perform();
+    }
 
 }
