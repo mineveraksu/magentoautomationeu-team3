@@ -31,6 +31,8 @@ public class OrdersPage {
     WebElement changeShippingMethodLink;
     @FindBy(xpath = "//input[@value='freeshipping_freeshipping']")
     WebElement freeShippingRadioButton;
+    @FindBy(id = "order-billing_address_customer_address_id")
+    WebElement billingAddressDropDown;
     @FindBy(css = "#submit_order_top_button")
     WebElement submitOrderButton;
     @FindBy(css = "li.success-msg>ul>li>span")
@@ -114,6 +116,11 @@ public class OrdersPage {
         addSelectedProductsToOrderButton.click();
     }
 
+    public void selectBillingAddressDropDown() {
+        testUtility.waitForElementPresent(billingAddressDropDown);
+        Select select = new Select(billingAddressDropDown);
+        select.selectByIndex(1);
+    }
     public void selectPaymentMethod() {
         testUtility.waitForElementPresent(checkOrderRadioButton);
         checkOrderRadioButton.click();
@@ -141,6 +148,7 @@ public class OrdersPage {
         typeProductName(productName);
         selectCheckbox(productName);
         clickOnAddSelectedProductsToOrderButton();
+        selectBillingAddressDropDown();
         selectPaymentMethod();
         selectShippingMethod();
         clickOnSubmitOrderButton();
