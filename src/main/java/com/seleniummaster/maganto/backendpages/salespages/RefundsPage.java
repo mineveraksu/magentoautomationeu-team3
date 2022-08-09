@@ -38,6 +38,9 @@ public class RefundsPage {
         actions=new Actions(driver);
     }
 
+    //for data base test {Sales Manager should be able to add refunds in the Reports  }
+    //public void addRefunds
+
 
     public void refundsReport(TestDataHolder testDataHolder){
         testUtility.waitForElementPresent(showReportForField);

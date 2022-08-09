@@ -62,7 +62,7 @@ public class StoreProductPage {
     WebElement addProductSuccessMessage;
 
 //    UPDATEPRODUCT
-    @FindBy(xpath ="//input[@id='productGrid_product_filter_name']")
+    @FindBy(xpath = "//input[@id='productGrid_product_filter_name']")
     WebElement productNameField;
     @FindBy(xpath = "//*[contains(text(),'Jeans')]")
     WebElement selectedProductNameField;
@@ -91,7 +91,6 @@ public class StoreProductPage {
     WebElement updateSuccessMessage;
 
 
-
     //delete product categories
     @FindBy(xpath = "//span[contains(text(),\"VIP\")]")
     WebElement deletedCategory;
@@ -117,10 +116,10 @@ public class StoreProductPage {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         testUtility = new TestUtility(driver);
-        actions=new Actions(driver);
+        actions = new Actions(driver);
     }
 
-    public void addProduct(TestDataHolder testDataHolder,String name, String description, String shortDescription, String SKU, String weight , String price, String qty) {
+    public void addProduct(TestDataHolder testDataHolder, String name, String description, String shortDescription, String SKU, String weight, String price, String qty) {
         testUtility.waitForElementPresent(addProductButton);
         addProductButton.click();
         testUtility.waitForElementPresent(continueButton);
@@ -132,7 +131,7 @@ public class StoreProductPage {
         testUtility.waitForElementPresent(shortDescriptionFiled);
         shortDescriptionFiled.sendKeys(shortDescription);
         testUtility.waitForElementPresent(SKUField);
-        SKUField.sendKeys(SKU+ System.currentTimeMillis());
+        SKUField.sendKeys(SKU + System.currentTimeMillis());
         testUtility.waitForElementPresent(weightFiled);
         weightFiled.sendKeys(weight);
         testUtility.waitForElementPresent(statusDropDown);
@@ -175,7 +174,7 @@ public class StoreProductPage {
         }
     }
 
-    public void selectProduct (String productName){
+    public void selectProduct(String productName) {
         testUtility.waitForElementPresent(productNameField);
         productNameField.click();
         productNameField.clear();
@@ -187,14 +186,14 @@ public class StoreProductPage {
 
     }
 
-        public void updateProduct (String description) {
-            testUtility.waitForElementPresent(descriptionTextArea);
-            testUtility.sleep(3);
-            descriptionTextArea.click();
-            descriptionTextArea.clear();
-            descriptionTextArea.sendKeys(description);
-            testUtility.waitForElementPresent(saveButton);
-            saveButton.click();
+    public void updateProduct(String description) {
+        testUtility.waitForElementPresent(descriptionTextArea);
+        testUtility.sleep(3);
+        descriptionTextArea.click();
+        descriptionTextArea.clear();
+        descriptionTextArea.sendKeys(description);
+        testUtility.waitForElementPresent(saveButton);
+        saveButton.click();
 
     }
 
@@ -211,41 +210,43 @@ public class StoreProductPage {
     }
 
 
-    public void addProductCategory(){
+    public void addProductCategory() {
 
-         testUtility.waitForElementPresent(nameInputBox);
+        testUtility.waitForElementPresent(nameInputBox);
         nameInputBox.click();
         testUtility.sleep(3);
         nameInputBox.sendKeys("Jeans");
-       testUtility.waitForElementPresent(searchButton);
+        testUtility.waitForElementPresent(searchButton);
         searchButton.click();
         testUtility.sleep(3);
-       testUtility.waitForElementPresent(nameAfterSearched);
-      nameAfterSearched.click();
+        testUtility.waitForElementPresent(nameAfterSearched);
+        nameAfterSearched.click();
         testUtility.sleep(3);
-       // testUtility.waitForElementPresent(addedProductLink);
-       // addedProductLink.click();
+        // testUtility.waitForElementPresent(addedProductLink);
+        // addedProductLink.click();
         testUtility.sleep(3);
         testUtility.waitForElementPresent(categoriesLink);
         categoriesLink.click();
-       testUtility.waitForElementPresent(existingRootCategories);
-       existingRootCategories.click();
+        testUtility.waitForElementPresent(existingRootCategories);
+        existingRootCategories.click();
         testUtility.sleep(3);
-       testUtility.waitForElementPresent(saveButton);
-       saveButton.click();
+        testUtility.waitForElementPresent(saveButton);
+        saveButton.click();
 
     }
+
     public boolean verifyAddProductCategory() {
         testUtility.waitForElementPresent(addProductSuccessMessage);
-        if (driver.getPageSource().contains(addProductSuccessMessage.getText())){
+        if (driver.getPageSource().contains(addProductSuccessMessage.getText())) {
             System.out.println("Store Manager can Add Product Test is Passed!!!");
             return true;
-        }else {
+        } else {
             System.out.println("Store Manager can Add Product Test is Failed!!!");
             return false;
         }
     }
-    public void updateProductCategory(){
+
+    public void updateProductCategory() {
         testUtility.waitForElementPresent(nameInputBox);
         nameInputBox.click();
         testUtility.sleep(3);
@@ -260,24 +261,26 @@ public class StoreProductPage {
 //        addedProductLink.click();
         testUtility.waitForElementPresent(categoriesLink);
         categoriesLink.click();
-       testUtility.waitForElementPresent(existingSubCategories);
-       existingSubCategories.click();
+        testUtility.waitForElementPresent(existingSubCategories);
+        existingSubCategories.click();
         testUtility.sleep(3);
         testUtility.waitForElementPresent(saveButton);
         saveButton.click();
 
     }
+
     public boolean verifyUpdateProductCategory() {
         testUtility.waitForElementPresent(addProductSuccessMessage);
-        if (driver.getPageSource().contains(addProductSuccessMessage.getText())){
+        if (driver.getPageSource().contains(addProductSuccessMessage.getText())) {
             System.out.println("Store Manager can Add Product Test is Passed!!!");
             return true;
-        }else {
+        } else {
             System.out.println("Store Manager can Add Product Test is Failed!!!");
             return false;
         }
     }
-    public void deleteProductCategory(){
+
+    public void deleteProductCategory() {
         testUtility.waitForElementPresent(nameInputBox);
         nameInputBox.click();
         testUtility.sleep(3);
@@ -297,12 +300,13 @@ public class StoreProductPage {
         saveButton.click();
 
     }
+
     public boolean verifyDeleteProductCategory() {
         testUtility.waitForElementPresent(deleteProductCategorySuccessfulMessage);
-        if (driver.getPageSource().contains(deleteProductCategorySuccessfulMessage.getText())){
+        if (driver.getPageSource().contains(deleteProductCategorySuccessfulMessage.getText())) {
             System.out.println("Store Manager can delete Product category Test is Passed!!!");
             return true;
-        }else {
+        } else {
             System.out.println("Store Manager can delete Product category Test is Failed!!!");
             return false;
         }
@@ -335,9 +339,4 @@ public class StoreProductPage {
     }
 
 
-
-
-
-
 }
-
