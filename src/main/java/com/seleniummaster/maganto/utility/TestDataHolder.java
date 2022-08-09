@@ -21,6 +21,7 @@ public class TestDataHolder {
     private String price;
     private String startFrom;
     private String endTo;
+    private static String customerGroupID;
 
     public String getBillToName() {
         return billToName;
@@ -171,6 +172,14 @@ public class TestDataHolder {
 
     public void setSKU(String SKU) {
         this.SKU = SKU;
+    }
+
+    public static String getCustomerGroupID() {
+        return customerGroupID;
+    }
+
+    public static void setCustomerGroupID(String customerGroupID) {
+        TestDataHolder.customerGroupID = customerGroupID;
     }
 
     public String getWeight() {
