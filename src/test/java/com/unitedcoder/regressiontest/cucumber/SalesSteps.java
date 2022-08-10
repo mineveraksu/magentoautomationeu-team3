@@ -250,6 +250,20 @@ public class SalesSteps extends BasePage {
         Assert.assertTrue(ordersPage.verifyOrderDeletedSuccessfully());
     }
 
+    //create new refunds
+    @When("Sales manager created new refund")
+    public void salesManagerCreatedNewRefund() {
+        refundsPage=new RefundsPage(driver);
+        refundsPage.createNewRefunds();
+    }
+
+    @Then("add new refund successful")
+    public void addNewRefundSuccessful() {
+        refundsPage=new RefundsPage(driver);
+        Assert.assertTrue(refundsPage.verifyCreateNewRefunds());
+
+    }
+
     @After("@SalesModuleTest")
     public void tearDown(Scenario scenario) {
         if (scenario.isFailed()) {
