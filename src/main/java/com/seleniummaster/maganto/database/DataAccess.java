@@ -181,7 +181,7 @@ public class DataAccess {
     }
 
     //getSubCategories Method
-    public boolean getSubCategories(String subCategoriesName, Connection connection){
+    public boolean getSubCategories(int subCategoriesID, Connection connection){
         boolean isSubCategoriesExist=false;
         Statement statement=null;
         ResultSet resultSet=null;
@@ -198,7 +198,7 @@ public class DataAccess {
             e.printStackTrace();
         }
 
-        String subCategoriesSqlScript=String.format("select            ='%s';",subCategoriesName);
+        String subCategoriesSqlScript=String.format("select entity_id,parent_id from mg_catalog_category_entity where entity_id=%d;",subCategoriesID);
         try {
             resultSet=statement.executeQuery(subCategoriesSqlScript);
         } catch (SQLException e) {
@@ -224,9 +224,9 @@ public class DataAccess {
                     e.printStackTrace();
                 }
                 try {
-                    int groupId = cachedRowSet.getInt("");
-                    String groupName = cachedRowSet.getString("");
-                    System.out.println(String.format("",groupId,groupName));
+                    int entity_id = cachedRowSet.getInt("entity_id");
+                    int parent_id=cachedRowSet.getInt("parent_id");
+                    System.out.println(String.format("entity_id=%d,parent_id=%d",entity_id,parent_id));
                     count = cachedRowSet.getRow();
                 }catch(SQLException e){
                     e.printStackTrace();
