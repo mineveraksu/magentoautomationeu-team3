@@ -79,7 +79,6 @@ public class CatalogModuleTestRunner extends BasePage {
         subCategoriesPage.addSubCategories(testDataHolder);
         Assert.assertTrue(subCategoriesPage.verifyAddSubCategories(testDataHolder));
         Assert.assertTrue(dataAccess.getSubCategories(Integer.parseInt(subCategoriesPage.getSubCategoryID()),connection));
-
     }
 
     @Test(dataProvider = "subCategoriesInfo", dependsOnMethods = "addSubCategories",
