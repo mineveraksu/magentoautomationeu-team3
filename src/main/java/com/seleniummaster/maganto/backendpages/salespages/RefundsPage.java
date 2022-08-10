@@ -1,8 +1,10 @@
 package com.seleniummaster.maganto.backendpages.salespages;
 
+import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.TestDataHolder;
 import com.seleniummaster.maganto.utility.TestUtility;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -18,6 +20,7 @@ public class RefundsPage {
     Actions actions;
     int reportsSize;
 
+
     @FindBy(css = "#store_switcher")
     WebElement showReportForField;
     @FindBy(css = "#sales_report_report_type")
@@ -30,6 +33,26 @@ public class RefundsPage {
     WebElement endTo;
     @FindBy(xpath = "(//span[contains(text(),'Show Report')])[1]")
     WebElement showReportButton;
+
+    @FindBy(id = "sales_order_grid_filter_billing_name")
+    WebElement billNoNameField;
+    @FindBy(xpath = "(//td[contains(text(),'Pending')])[1]")
+    WebElement pendingButton;
+    @FindBy(xpath = "(//span[text()='Invoice'])[1]")
+    WebElement invoiceButton;
+    @FindBy(xpath = "//span[contains(text(),'Submit Invoice')]")
+    WebElement submitInvoiceButton;
+    @FindBy(xpath = "//span[contains(text(),'The invoice has been created.')]")
+    WebElement invoiceSuccessCreatedMassage;
+    @FindBy(xpath = "(//button[@class=\"scalable go\"])[1]")
+    WebElement creditMemoButton;
+    @FindBy(xpath = "//button[@class=\"scalable save submit-button\"]")
+    WebElement refundOfflineButton;
+    @FindBy(xpath = "//tr[@class='2']/td[2]/strong/span")
+    WebElement refundPrice;
+    @FindBy(xpath = "//span[text()=\"The credit memo has been created.\"]")
+    WebElement refundCreatedSuccessMassage;
+
 
     public RefundsPage(WebDriver driver) {
         this.driver = driver;
@@ -80,6 +103,38 @@ public class RefundsPage {
         }
     }
 
+    public  void createNewRefunds(){
+        testUtility.sleep(2);
+        testUtility.waitForElementPresent(billNoNameField);
+        billNoNameField.sendKeys(ApplicationConfig.readFromConfigProperties("config.properties","username")+ Keys.ENTER);
+        testUtility.sleep(2);
+        testUtility.waitForElementPresent(pendingButton);
+        actions.moveToElement(pendingButton).click().perform();
+        testUtility.waitForElementPresent(invoiceButton);
+        actions.moveToElement(invoiceButton).click().perform();
+        testUtility.waitForElementPresent(submitInvoiceButton);
+        actions.moveToElement(submitInvoiceButton).click().perform();
+        testUtility.waitForElementPresent(creditMemoButton);
+        actions.moveToElement(creditMemoButton).click().perform();
+        testUtility.waitForElementPresent(refundOfflineButton);
+        actions.moveToElement(refundOfflineButton).click().perform();
+    }
 
+    public String getRefundedAmount(){
+        testUtility.waitForElementPresent(refundPrice);
+        String price=refundPrice.getText().replace("$","");
+        return price;
+    }
+
+    public boolean verifyCreateNewRefunds(){
+        testUtility.waitForElementPresent(refundCreatedSuccessMassage);
+        if(refundCreatedSuccessMassage.isDisplayed()){
+            System.out.println(" Sales manager created new refunds is success !");
+            return true;
+        }else{
+            System.out.println("Sales manager can not crated new refund , please check it !");
+            return  false;
+        }
+    }
 
 }
