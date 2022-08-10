@@ -40,6 +40,8 @@ public class SubCategoriesPage {
     WebElement deleteCategoryButton;
     @FindBy(css = ".success-msg>ul li span")
     WebElement deleteSubCategorySuccessfulMessage;
+    @FindBy(xpath = "(//div[@class='content-header']//h3[contains(text(),'Timberland')])[1]")
+    WebElement subCategoryIDLocation;
 
 
     public void addSubCategories(TestDataHolder testDataHolder) {
@@ -59,6 +61,13 @@ public class SubCategoriesPage {
         descriptionField.sendKeys(testDataHolder.getSubCategoriesDescription());
         testUtility.waitForElementPresent(saveCategory);
         saveCategory.click();
+    }
+
+    public String getSubCategoryID(){
+        testUtility.sleep(3);
+        testUtility.waitForElementPresent(subCategoryIDLocation);
+        String subcategoryID=subCategoryIDLocation.getText().replace("Timberland (ID: ","").replace(")","");
+        return subcategoryID;
     }
 
     public boolean verifyAddSubCategories(TestDataHolder testDataHolder) {

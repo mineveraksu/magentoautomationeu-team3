@@ -180,4 +180,63 @@ public class DataAccess {
         }
     }
 
+    //getSubCategories Method
+    public boolean getSubCategories(int subCategoriesID, Connection connection){
+        boolean isSubCategoriesExist=false;
+        Statement statement=null;
+        ResultSet resultSet=null;
+        CachedRowSet cachedRowSet=null;
+
+        try {
+            cachedRowSet= RowSetProvider.newFactory().createCachedRowSet();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            statement = connection.createStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        String subCategoriesSqlScript=String.format("select entity_id,parent_id from mg_catalog_category_entity where entity_id=%d;",subCategoriesID);
+        try {
+            resultSet=statement.executeQuery(subCategoriesSqlScript);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if(resultSet==null){
+            System.out.println("no records found");
+            return isSubCategoriesExist;
+        }else{
+            try {
+                cachedRowSet.populate(resultSet);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            int count=0;
+            while (true){
+                try {
+                    if(!cachedRowSet.next()){
+                        break;
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    int entity_id = cachedRowSet.getInt("entity_id");
+                    int parent_id=cachedRowSet.getInt("parent_id");
+                    System.out.println(String.format("entity_id=%d,parent_id=%d",entity_id,parent_id));
+                    count = cachedRowSet.getRow();
+                }catch(SQLException e){
+                    e.printStackTrace();
+                }
+            }
+            if(count>=1)
+                isSubCategoriesExist=true;
+            return isSubCategoriesExist;
+        }
+    }
+
+
 }
