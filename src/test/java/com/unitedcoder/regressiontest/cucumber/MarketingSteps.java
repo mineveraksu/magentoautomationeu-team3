@@ -173,7 +173,6 @@ public class MarketingSteps extends BasePage {
     }
 
 
-
     //View all Reviews
     @Given("marketing manager is on the dashboard page and marketing manager click on aAll reviews link")
     public void marketingManagerIsOnTheDashboardPageAndMarketingManagerClickOnAallReviewsLink() {
@@ -257,7 +256,5 @@ public class MarketingSteps extends BasePage {
         cartPriceRulePage.clearRuleIdFiled();
         cartPriceRulePage.filterCartPriceRuleByName(arg0);
         cartPriceRulePage.verifyFilterCartPriceRuleByName(arg0);
-
-
     }
 }

@@ -10,6 +10,12 @@ Feature:Sales Module Functions
       | store name | product name              |
       | English    | Black Nolita Cami-Black-S |
 
+  @CreateNewRefund
+  Scenario: Sales manager should be able to create new refund for database
+    Given  Sales manager is on the dashboard page and clicks on Orders link
+    When  Sales manager created new refund
+    Then  add new refund successful
+
   @UpdateOrderWithInStorePickup
   Scenario: Sales manager should able to update orders with in store pickup
     Given Sales manager is on the dashboard page and clicks on Orders link
