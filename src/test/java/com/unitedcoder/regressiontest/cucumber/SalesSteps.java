@@ -261,18 +261,21 @@ public class SalesSteps extends BasePage {
     }
 
 
-    @Given("Sales manager is on the dashboard page and clicks on sales link")
-    public void salesManagerIsOnTheDashboardPageAndClicksOnSalesLink() {
-        salesDashboardPage.clickOnInvoicesLink();
+    @Given("Sales manager is on the dashboard page and clicks on credit memos link")
+    public void salesManagerIsOnTheDashboardPageAndClicksOnCreditMemosLink() {
+        salesDashboardPage=new SalesDashboardPage(driver);
+        salesDashboardPage.clickOnCreditMemoLink();
     }
-    @When("Sales manager click on the credit memos button")
-    public void salesManagerClickOnTheCreditMemosButton() {
-        creditMemoPage = new CreditMemoPage(driver);
-        creditMemoPage.clickOnViewButton(testDataHolder);
+
+    @When("Sale manager filter credit memos")
+    public void saleManagerFilterCreditMemos() {
+       // creditMemoPage.FilterCreditMemos;
+
+
     }
-    @Then("sales manager view credit memos successful")
-    public void salesManagerViewCreditMemosSuccessful() {
-        Assert.assertTrue(ordersPage.verifyOrderCreatedSuccessfully());
+
+    @Then("the result of the filter should be displayed")
+    public void theResultOfTheFilterShouldBeDisplayed() {
     }
 }
 

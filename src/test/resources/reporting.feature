@@ -139,3 +139,8 @@ Feature:Reporting Module Functions
     Given Reporting manager is on the dashboard page and click on product review link
     Then verify product review report display
 
+  @SeeProducts-ProductsBestsellersReport
+  Scenario: Reporting Manager should be able to see Products - Products Bestsellers Report
+    Given Reporting manager is on the dashboard page and clicks on bestsellers link
+    Then Reporting Manager can see Products - Products Bestsellers Report
+

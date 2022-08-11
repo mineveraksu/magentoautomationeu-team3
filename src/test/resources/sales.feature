@@ -105,8 +105,8 @@ Feature:Sales Module Functions
     When sales manager click on the pending order to click on the Cancel Button
     Then Sales Manager deleted a order successfully
 
-    @SalesManagerViewCreditMemos
+    @ViewCreditMemos
     Scenario: Sales Manager should be able to view credit memos by filters.
-      Given Sales manager is on the dashboard page and clicks on sales link
-      When Sales manager click on the credit memos button
-      Then  sales manager view credit memos successful
+    Given Sales manager is on the dashboard page and clicks on credit memos link
+    When Sale manager filter credit memos
+    Then the result of the filter should be displayed

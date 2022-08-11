@@ -1,7 +1,6 @@
 package com.unitedcoder.regressiontest.cucumber;
 
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
-import com.seleniummaster.maganto.backendpages.marketingpages.NewsletterTemplatePage;
 import com.seleniummaster.maganto.backendpages.reportingpages.*;
 import com.seleniummaster.maganto.utility.*;
 import io.cucumber.java.After;
@@ -32,17 +31,18 @@ public class ReportingSteps extends BasePage {
     PopularPage popularPage;
 
 
+
     @Before("@ReportingModuleTest")
     public void setup() {
         browserSetUp(url);
         login = new BackEndLogin(driver);
         login.reportingPageLogin();
 
-        reportingDashboardPage=new ReportingDashboardPage(driver);
-        excelUtility=new ExcelUtility();
-        testDataHolder=excelUtility.readReportingInfoFromExcel("Test-Data/reportingModule.xlsx","Sales_Info");
-        testDataHolder2=excelUtility.readSalesInfoFromExcel("Test-Data/SalesModule.xlsx","Refunds_Info");
-        salesPage= new SalesPage(driver);
+        reportingDashboardPage = new ReportingDashboardPage(driver);
+        excelUtility = new ExcelUtility();
+        testDataHolder = excelUtility.readReportingInfoFromExcel("Test-Data/reportingModule.xlsx", "Sales_Info");
+        testDataHolder2 = excelUtility.readSalesInfoFromExcel("Test-Data/SalesModule.xlsx", "Refunds_Info");
+        salesPage = new SalesPage(driver);
         reportingDashboardPage = new ReportingDashboardPage(driver);
         productsMostViewedPage = new ProductsMostViewedPage(driver);
         excelUtility = new ExcelUtility();
@@ -51,6 +51,8 @@ public class ReportingSteps extends BasePage {
         salesPage = new SalesPage(driver);
         report_ReviewsPage = new Report_ReviewsPage(driver);
         popularPage = new PopularPage(driver);
+
+
     }
 
     @Given("Reporting manager is on the dashboard page and clicks on mostViewed link")
@@ -60,7 +62,7 @@ public class ReportingSteps extends BasePage {
 
     @When("reporting manager select period field and click showReports button after filling infos")
     public void reportingManagerSelectPeriodFieldAndClickShowReportsButtonAfterFillingInfos() {
-        productsMostViewedPage=new ProductsMostViewedPage(driver);
+        productsMostViewedPage = new ProductsMostViewedPage(driver);
         productsMostViewedPage.viewProductsMostViewedReport(testDataHolder);
     }
 
@@ -112,13 +114,14 @@ public class ReportingSteps extends BasePage {
     }
 
     @When("Reporting Manager Navigate to Total Refunded Report page and select period and date {string} {string} and click show Report button")
-    public void reportingManagerNavigateToTotalRefundedReportPageAndSelectPeriodAndDateAndClickShowReportButton(String arg0, String arg1){
-        salesPage= new SalesPage(driver);
-        salesPage.seeTotalRefundsReport(arg0,arg1);
+    public void reportingManagerNavigateToTotalRefundedReportPageAndSelectPeriodAndDateAndClickShowReportButton(String arg0, String arg1) {
+        salesPage = new SalesPage(driver);
+        salesPage.seeTotalRefundsReport(arg0, arg1);
     }
+
     @Then("Total refunded report view successfully")
     public void totalRefundedReportViewSuccessfully() {
-        salesPage=new SalesPage(driver);
+        salesPage = new SalesPage(driver);
         Assert.assertTrue(salesPage.verifyRefundsReportSuccessfullyShown());
     }
 
@@ -130,14 +133,15 @@ public class ReportingSteps extends BasePage {
 
     @When("Reporting Manager Navigate to Coupon Usage Report page and select period and date {string} {string} and click show Report button")
     public void reportingManagerNavigateToCouponUsageReportPageAndSelectPeriodAndDateAndClickShowReportButton(String arg0, String arg1) {
-        salesPage=new SalesPage(driver);
-        salesPage.seeCouponUsageReport(arg0,arg1);
+        salesPage = new SalesPage(driver);
+        salesPage.seeCouponUsageReport(arg0, arg1);
     }
 
     @Then("Coupon Usage report view successfully")
     public void couponUsageReportViewSuccessfully() {
         Assert.assertTrue(salesPage.verifyCouponUsageSuccessfullyShown());
     }
+
     //
     @Given("Reporting manager is on the dashboard page and clicks on Orders link")
     public void reportingManagerIsOnTheDashboardPageAndClicksOnOrdersLink() {
@@ -180,8 +184,8 @@ public class ReportingSteps extends BasePage {
 
     @When("Reporting manager selects {string} and {string} and clicks on Refresh button")
     public void reportingManagerSelectsAndAndClicksOnRefreshButton(String arg0, String arg1) {
-        newAccountsPage=new NewAccountsPage(driver);
-        newAccountsPage.seeCustomersNewAccountsReport(arg0,arg1);
+        newAccountsPage = new NewAccountsPage(driver);
+        newAccountsPage.seeCustomersNewAccountsReport(arg0, arg1);
     }
 
     @Then("Reporting manager can see Customers - New Accounts Report table")
@@ -197,7 +201,7 @@ public class ReportingSteps extends BasePage {
 
     @Then("Reporting Manager can see Products - Products Downloads Report")
     public void reportingManagerCanSeeProductsProductsDownloadsReport() {
-        DownloadsPage downloadsPage=new DownloadsPage(driver);
+        DownloadsPage downloadsPage = new DownloadsPage(driver);
         downloadsPage.verifyViewSalesInvoicedVsPaidReportSuccessfully();
     }
 
@@ -216,6 +220,7 @@ public class ReportingSteps extends BasePage {
     public void taxesReportDisplaySuccessful() {
         Assert.assertTrue(salesPage.taxesReportSawVerify());
     }
+
     // see customers by orders total
     @Given("Reporting manager is on the dashboard page and clicks on customer by order total link")
     public void reportingManagerIsOnTheDashboardPageAndClicksOnCustomerByOrderTotalLink() {
@@ -224,29 +229,31 @@ public class ReportingSteps extends BasePage {
 
     @When("Reporting manager enter {string}{string} and click refresh button")
     public void reportingManagerEnterAndClickRefreshButton(String arg0, String arg1) {
-        customersByOrdersTotal=new CustomersByOrdersTotal(driver);
-        customersByOrdersTotal.customerByOrdersTotalMethod(arg0,arg1);
+        customersByOrdersTotal = new CustomersByOrdersTotal(driver);
+        customersByOrdersTotal.customerByOrdersTotalMethod(arg0, arg1);
 
     }
 
     @Then("verifymanager can see customers by orders total")
     public void verifymanagerCanSeeCustomersByOrdersTotal() {
-        customersByOrdersTotal=new CustomersByOrdersTotal(driver);
+        customersByOrdersTotal = new CustomersByOrdersTotal(driver);
         org.testng.Assert.assertTrue(customersByOrdersTotal.verifyManagerCanSeeCustomersByOrdersTotal());
     }
+
     @Given("Reporting manager is on the dashboard page and clicks on customer by number of orders link")
     public void reportingManagerIsOnTheDashboardPageAndClicksOnCustomerByNumberOfOrdersLink() {
         reportingDashboardPage.ClickOnCustomersByNumberOfOrdersLink();
     }
+
     @When("Reporting manager enter {string}{string} and click on refresh button")
     public void reportingManagerEnterAndClickOnRefreshButton(String arg0, String arg1) {
-        customersByNumberOfOrders=new CustomersByNumberOfOrders(driver);
-        customersByNumberOfOrders.customerByNumberOfOrdersMethod(arg0,arg1);
+        customersByNumberOfOrders = new CustomersByNumberOfOrders(driver);
+        customersByNumberOfOrders.customerByNumberOfOrdersMethod(arg0, arg1);
     }
 
     @Then("verifymanager can see customers by number of orders")
     public void verifymanagerCanSeeCustomersByNumberOfOrders() {
-        customersByNumberOfOrders=new CustomersByNumberOfOrders(driver);
+        customersByNumberOfOrders = new CustomersByNumberOfOrders(driver);
         org.testng.Assert.assertTrue(customersByNumberOfOrders.verifyManagerCanSeeCustomersByNumberOfOrders());
     }
 
@@ -281,7 +288,14 @@ public class ReportingSteps extends BasePage {
     }
 
 
+    @Given("Reporting manager is on the dashboard page and clicks on bestsellers link")
+    public void reportingManagerIsOnTheDashboardPageAndClicksOnBestsellersLink() {
+        reportingDashboardPage.ClickOnBestsellersLink();
+    }
 
-
-}
-
+    @Then("Reporting Manager can see Products - Products Bestsellers Report")
+    public void reportingManagerCanSeeProductsProductsBestsellersReport() {
+        BestsellersPage bestsellersPage = new BestsellersPage(driver);
+            Assert.assertTrue(bestsellersPage.verifyProductsBestsellersReport());
+        }
+    }
