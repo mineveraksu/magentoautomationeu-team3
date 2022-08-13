@@ -180,4 +180,126 @@ public class DataAccess {
         }
     }
 
+    //getSubCategories Method
+    public boolean getSubCategories(int subCategoriesID, Connection connection){
+        boolean isSubCategoriesExist=false;
+        Statement statement=null;
+        ResultSet resultSet=null;
+        CachedRowSet cachedRowSet=null;
+
+        try {
+            cachedRowSet= RowSetProvider.newFactory().createCachedRowSet();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            statement = connection.createStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        String subCategoriesSqlScript=String.format("select entity_id,parent_id from mg_catalog_category_entity where entity_id=%d;",subCategoriesID);
+        try {
+            resultSet=statement.executeQuery(subCategoriesSqlScript);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if(resultSet==null){
+            System.out.println("no records found");
+            return isSubCategoriesExist;
+        }else{
+            try {
+                cachedRowSet.populate(resultSet);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            int count=0;
+            while (true){
+                try {
+                    if(!cachedRowSet.next()){
+                        break;
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    int entity_id = cachedRowSet.getInt("entity_id");
+                    int parent_id=cachedRowSet.getInt("parent_id");
+                    System.out.println(String.format("entity_id=%d,parent_id=%d",entity_id,parent_id));
+                    count = cachedRowSet.getRow();
+                }catch(SQLException e){
+                    e.printStackTrace();
+                }
+            }
+            if(count>=1)
+                isSubCategoriesExist=true;
+            return isSubCategoriesExist;
+        }
+    }
+
+
+    //Verify that newly added refund should be in the database_Tursunay
+
+    public boolean getNewlyAddedRefunds(double refunded, Connection connection){
+        boolean isRefundExist=false;
+        Statement statement=null;
+        ResultSet resultSet=null;
+        CachedRowSet cachedRowSet=null;
+
+        try {
+            cachedRowSet= RowSetProvider.newFactory().createCachedRowSet();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            statement = connection.createStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        String newlyCreatedRefundSqlScript=String.format("select id,refunded from mg_sales_refunded_aggregated_order where refunded=%.3f",refunded);
+        //for quire
+        try {
+            resultSet=statement.executeQuery(newlyCreatedRefundSqlScript);//for execute icon
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if(resultSet==null){
+            System.out.println("No records found");
+            return isRefundExist;
+        }else{
+            try {
+                cachedRowSet.populate(resultSet);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            int count=0;
+            while (true){
+                try {
+                    if(!cachedRowSet.next()){
+                        break;
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                try {
+
+                    //int period = cachedRowSet.getInt("period");
+                    int id=cachedRowSet.getInt("id");
+                    double refunded1=cachedRowSet.getDouble("refunded");
+                    System.out.println(String.format("id=%d refunded=%f",id,refunded1));
+                    count = cachedRowSet.getRow();
+                }catch(SQLException e){
+                    e.printStackTrace();
+                }
+            }
+            if(count>=1)
+                isRefundExist=true;
+            return isRefundExist;
+        }
+    }
+
+
 }

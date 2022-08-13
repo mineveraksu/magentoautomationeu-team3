@@ -14,7 +14,7 @@ Feature:Sales Module Functions
   Scenario: Sales manager should be able to create new refund for database
     Given  Sales manager is on the dashboard page and clicks on Orders link
     When  Sales manager created new refund
-    Then  add new refund successful
+    Then  add new refund successful and newly added refunds in the data base
 
   @UpdateOrderWithInStorePickup
   Scenario: Sales manager should able to update orders with in store pickup

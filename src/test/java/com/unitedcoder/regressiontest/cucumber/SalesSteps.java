@@ -1,7 +1,8 @@
 package com.unitedcoder.regressiontest.cucumber;
-
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
 import com.seleniummaster.maganto.backendpages.salespages.*;
+import com.seleniummaster.maganto.database.ConnectionManager;
+import com.seleniummaster.maganto.database.DataAccess;
 import com.seleniummaster.maganto.utility.*;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -11,6 +12,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+
+import java.sql.Connection;
 
 public class SalesSteps extends BasePage {
     final static String configFile = "config.properties";
@@ -26,6 +29,8 @@ public class SalesSteps extends BasePage {
     CreditMemoPage creditMemoPage;
     AddCreditMemoPage addCreditMemoPage;
     ManageCustomersPage manageCustomersPage;
+    DataAccess dataAccess;
+    Connection connection;
 
 
     @Before("@SalesModuleTest")
@@ -36,6 +41,7 @@ public class SalesSteps extends BasePage {
         salesDashboardPage = new SalesDashboardPage(driver);
         excelUtility = new ExcelUtility();
         testDataHolder = excelUtility.readSalesInfoFromExcel("Test-Data/SalesModule.xlsx", "Refunds_Info");
+        connection= ConnectionManager.connectToDatabaseServer();
     }
     //create a new order
     @Given("Sales manager is on the dashboard page and clicks on Orders link")
@@ -257,12 +263,15 @@ public class SalesSteps extends BasePage {
         refundsPage.createNewRefunds();
     }
 
-    @Then("add new refund successful")
-    public void addNewRefundSuccessful() {
+    // verify UI and Database;
+    @Then("add new refund successful and newly added refunds in the data base")
+    public void addNewRefundSuccessfulAndNewlyAddedRefundsInTheDataBase() {
         refundsPage=new RefundsPage(driver);
+        dataAccess=new DataAccess();
         Assert.assertTrue(refundsPage.verifyCreateNewRefunds());
-
+        Assert.assertTrue(dataAccess.getNewlyAddedRefunds(refundsPage.refundedAmount(),connection));
     }
+
 
     @After("@SalesModuleTest")
     public void tearDown(Scenario scenario) {

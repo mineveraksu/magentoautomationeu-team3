@@ -1,5 +1,4 @@
 package com.seleniummaster.maganto.backendpages.salespages;
-
 import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.TestDataHolder;
 import com.seleniummaster.maganto.utility.TestUtility;
@@ -120,10 +119,9 @@ public class RefundsPage {
         actions.moveToElement(refundOfflineButton).click().perform();
     }
 
-    public String getRefundedAmount(){
+    public double refundedAmount(){
         testUtility.waitForElementPresent(refundPrice);
-        String price=refundPrice.getText().replace("$","");
-        return price;
+        return Double.parseDouble(refundPrice.getText().replace("$",""));
     }
 
     public boolean verifyCreateNewRefunds(){
