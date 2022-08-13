@@ -237,6 +237,63 @@ public class DataAccess {
             return isSubCategoriesExist;
         }
     }
+    //getTaxRule Method
+    public boolean getTaxRule(String taxRuleCode, Connection connection){
+        boolean isTaxRuleExist=false;
+        Statement statement=null;
+        ResultSet resultSet=null;
+        CachedRowSet cachedRowSet=null;
+
+        try {
+            cachedRowSet= RowSetProvider.newFactory().createCachedRowSet();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            statement = connection.createStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        String taxRuleSqlScript=String.format("select tax_calculation_rule_id,code from mg_tax_calculation_rule where code='%s';",taxRuleCode);
+        try {
+            resultSet=statement.executeQuery(taxRuleSqlScript);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if(resultSet==null){
+            System.out.println("no records found");
+            return isTaxRuleExist;
+        }else{
+            try {
+                cachedRowSet.populate(resultSet);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            int count=0;
+            while (true){
+                try {
+                    if(!cachedRowSet.next()){
+                        break;
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    int taxCalculationRuleId = cachedRowSet.getInt("tax_calculation_rule_id");
+                    String code = cachedRowSet.getString("code");
+                    System.out.println(String.format("taxCalculationRuleId=%d code=%s",taxCalculationRuleId,code));
+                    count = cachedRowSet.getRow();
+                }catch(SQLException e){
+                    e.printStackTrace();
+                }
+            }
+            if(count>=1)
+                isTaxRuleExist=true;
+            return isTaxRuleExist;
+        }
+    }
 
 
 }
