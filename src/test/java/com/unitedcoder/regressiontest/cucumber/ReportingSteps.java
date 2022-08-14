@@ -29,6 +29,7 @@ public class ReportingSteps extends BasePage {
     CustomersByNumberOfOrders customersByNumberOfOrders;
     Report_ReviewsPage report_ReviewsPage;
     PopularPage popularPage;
+    BestsellersPage bestsellersPage;
 
 
 
@@ -292,10 +293,16 @@ public class ReportingSteps extends BasePage {
     public void reportingManagerIsOnTheDashboardPageAndClicksOnBestsellersLink() {
         reportingDashboardPage.ClickOnBestsellersLink();
     }
+    @When("Reporting manager Bestsellers {string} and {string} and clicks on Show Report button")
+    public void reportingManagerbBestsellersAndAndClicksOnShowReportButton(String arg0, String arg1) {
+        bestsellersPage = new BestsellersPage(driver);
+        bestsellersPage.seeProductsBestsellersReport(arg0,arg1);
 
+    }
     @Then("Reporting Manager can see Products - Products Bestsellers Report")
     public void reportingManagerCanSeeProductsProductsBestsellersReport() {
         BestsellersPage bestsellersPage = new BestsellersPage(driver);
-            Assert.assertTrue(bestsellersPage.verifyProductsBestsellersReport());
-        }
+        Assert.assertTrue(bestsellersPage.verifyProductsBestsellersReport());
+    }
+
     }
