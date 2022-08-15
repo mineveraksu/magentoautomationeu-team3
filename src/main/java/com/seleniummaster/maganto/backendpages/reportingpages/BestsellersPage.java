@@ -62,7 +62,6 @@ public class BestsellersPage  {
         toField.sendKeys(toDate);
         testUtility.waitForElementPresent(clickShowReportsButton);
         testUtility.sleep(2);
-       // actions.moveToElement(clickShowReportsButton).perform();
         clickShowReportsButton.click();
         testUtility.sleep(3);
 
