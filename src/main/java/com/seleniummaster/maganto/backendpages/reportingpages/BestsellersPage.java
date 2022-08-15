@@ -33,13 +33,13 @@ public class BestsellersPage  {
     @FindBy(xpath = "//*[@id=\"nav\"]/li[3]/ul/li[3]/ul/li[1]/a/span")
     WebElement bestsellersLink;
     @FindBy(xpath = "//*[@id=\"sales_report_period_type\"]")
-    WebElement Period;
+    WebElement PeriodField;
     @FindBy(xpath = "//*[@id=\"sales_report_from\"]")
     WebElement fromField;
     @FindBy(xpath = "//*[@id=\"sales_report_to\"]")
     WebElement toField;
-    @FindBy(xpath = "//span[contains(text(),\"Show Report\")])[1]")
-    WebElement showReportsButton;
+    @FindBy(xpath ="(//button[@title=\"Show Report\"])[1]")
+    WebElement clickShowReportsButton;
     @FindAll(@FindBy(css = ".data>tbody>tr"))
     List<WebElement> bestsellersTable;
 
@@ -50,20 +50,21 @@ public class BestsellersPage  {
         productButton.click();
         testUtility.waitForElementPresent(bestsellersLink);
         bestsellersLink.click();
-        testUtility.waitForElementPresent(Period);
-        Select select = new Select(Period);
+        testUtility.waitForElementPresent(PeriodField);
+        Select select = new Select(PeriodField);
         testUtility.sleep(3);
-        select.selectByVisibleText("Month");
+        select.selectByVisibleText("Year");
         testUtility.waitForElementPresent(fromField);
         testUtility.sleep(3);
         fromField.sendKeys(fromDate);
         testUtility.waitForElementPresent(toField);
         testUtility.sleep(3);
         toField.sendKeys(toDate);
-        testUtility.waitForElementPresent(showReportsButton);
-        showReportsButton.click();
-//        testUtility.waitForElementPresent(clickShowReports);
-//        actions.moveToElement(clickShowReports).click().perform();
+        testUtility.waitForElementPresent(clickShowReportsButton);
+        testUtility.sleep(2);
+       // actions.moveToElement(clickShowReportsButton).perform();
+        clickShowReportsButton.click();
+        testUtility.sleep(3);
 
 
 

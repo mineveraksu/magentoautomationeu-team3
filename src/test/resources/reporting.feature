@@ -146,5 +146,5 @@ Feature:Reporting Module Functions
     Then Reporting Manager can see Products - Products Bestsellers Report
     Examples:
       | fromDate   | toDate     |
-      | 03/17/2013 | 03/17/2014 |
+      | 08/13/2021 | 08/13/2022 |
 
