@@ -25,11 +25,13 @@ public class ReportingSteps extends BasePage {
     InvoicedVsPaidReportPage invoicedVsPaidReportPage;
     ShippedReportPage shippedReportPage;
     NewAccountsPage newAccountsPage;
+    TagsPage tagsPage;
     CustomersByOrdersTotal customersByOrdersTotal;
     CustomersByNumberOfOrders customersByNumberOfOrders;
     Report_ReviewsPage report_ReviewsPage;
     PopularPage popularPage;
     BestsellersPage bestsellersPage;
+
 
 
 
@@ -206,6 +208,29 @@ public class ReportingSteps extends BasePage {
         downloadsPage.verifyViewSalesInvoicedVsPaidReportSuccessfully();
     }
 
+    //Reporting Manager should be able to see Tags - Customers Report
+    @Given("Reporting manager is on the dashboard page and go to the customers tags page")
+    public void reportingManagerIsOnTheDashboardPageAndGoToTheCustomersTagsPage() {
+      reportingDashboardPage.openCustomersTags();
+    }
+
+    @Then("Reporting Manager can see customers tags")
+    public void reportingManagerCanSeeCustomersTags() {
+        tagsPage=new TagsPage(driver);
+        Assert.assertTrue(tagsPage.verifyOpenCustomersReportTags());
+    }
+    //Reporting Manager should be able to see Tags - Products Report
+    @Given("Reporting manager is on the dashboard page and go to the products tags page")
+    public void reportingManagerIsOnTheDashboardPageAndGoToTheProductsTagsPage() {
+        reportingDashboardPage.openProductsTags();
+    }
+
+    @Then("Reporting Manager can see Products products tags")
+    public void reportingManagerCanSeeProductsProductsTags() {
+        tagsPage=new TagsPage(driver);
+        Assert.assertTrue(tagsPage.verifyOpenProductsTags());
+    }
+
     @Given("Reporting manager on the dashboard page and click on tax link")
     public void reportingManagerOnTheDashboardPageAndClickOnTaxLink() {
         reportingDashboardPage.clickOnTaxLink();
@@ -289,6 +314,7 @@ public class ReportingSteps extends BasePage {
     }
 
 
+
     @Given("Reporting manager is on the dashboard page and clicks on bestsellers link")
     public void reportingManagerIsOnTheDashboardPageAndClicksOnBestsellersLink() {
         reportingDashboardPage.ClickOnBestsellersLink();
@@ -306,3 +332,7 @@ public class ReportingSteps extends BasePage {
     }
 
     }
+
+
+
+

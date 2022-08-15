@@ -52,7 +52,7 @@ public class ReportingDashboardPage {
     WebElement customerByNumberOfOrdersLink;
     @FindBy(xpath = "//span[text()='Refunds']")
     WebElement refundsLink;
-    @FindBy (xpath = "//span[text()='Coupons']")
+    @FindBy(xpath = "//span[text()='Coupons']")
     WebElement couponsLink;
     @FindBy(xpath = "//span[text()='Tags']")
     WebElement tagsLink;
@@ -63,8 +63,19 @@ public class ReportingDashboardPage {
     @FindBy(xpath = "//span[text()='Products Reviews']")
     WebElement product_ReviewsLink;
 
+
     @FindBy(xpath = "//span[text()='Bestsellers']")
     WebElement bestsellersLink;
+
+
+    @FindBy(xpath = "(//span[text()='Customers'])[2]")
+    WebElement customersLink2;
+
+    @FindBy(xpath = "(//span[text()='Products'])[2]")
+    WebElement productsLink2;
+
+    @FindBy(linkText = "Show Tags")
+    WebElement showTagsLink;
 
 
 
@@ -95,7 +106,7 @@ public class ReportingDashboardPage {
         shippingOption.click();
     }
 
-    public void clickOnRefundedLink(){
+    public void clickOnRefundedLink() {
         testUtility.waitForElementPresent(reportsLink);
         actions.moveToElement(reportsLink).click().perform();
         testUtility.waitForElementPresent(salesLink);
@@ -105,7 +116,7 @@ public class ReportingDashboardPage {
 
     }
 
-    public void clickOnCouponsLink(){
+    public void clickOnCouponsLink() {
         testUtility.waitForElementPresent(reportsLink);
         actions.moveToElement(reportsLink).click().perform();
         testUtility.waitForElementPresent(salesLink);
@@ -124,6 +135,7 @@ public class ReportingDashboardPage {
         actions.moveToElement(ordersLink).click().perform();
 
     }
+
     public void ClickOnProductsOrderedOption() {
         testUtility.waitForElementPresent(reportsLink);
         actions.moveToElement(reportsLink).click().perform();
@@ -139,13 +151,14 @@ public class ReportingDashboardPage {
         testUtility.waitForElementPresent(reportsLink);
         actions.moveToElement(reportsLink).moveToElement(customersLink).moveToElement(newAccountsLink).click().perform();
     }
-    public void ClickOnDownloadsLink(){
+
+    public void ClickOnDownloadsLink() {
         testUtility.waitForElementPresent(reportsLink);
         actions.moveToElement(reportsLink).moveToElement(productsLink).moveToElement(downloadsLink).click().perform();
 
     }
 
-    public void clickOnTaxLink(){
+    public void clickOnTaxLink() {
         testUtility.waitForElementPresent(reportsLink);
         actions.moveToElement(reportsLink).click().perform();
         testUtility.waitForElementPresent(salesLink);
@@ -153,12 +166,14 @@ public class ReportingDashboardPage {
         testUtility.waitForElementPresent(taxLink);
         actions.moveToElement(taxLink).click().perform();
     }
-    public void ClickOnCustomersByOrdersTotalLink(){
+
+    public void ClickOnCustomersByOrdersTotalLink() {
         testUtility.waitForElementPresent(reportsLink);
         actions.moveToElement(reportsLink).moveToElement(customersLink).moveToElement(customerByOrdersTotalLink).click().perform();
 
     }
-    public void ClickOnCustomersByNumberOfOrdersLink(){
+
+    public void ClickOnCustomersByNumberOfOrdersLink() {
         testUtility.waitForElementPresent(reportsLink);
         actions.moveToElement(reportsLink).moveToElement(customersLink).moveToElement(customerByNumberOfOrdersLink).click().perform();
 
@@ -182,6 +197,7 @@ public class ReportingDashboardPage {
         actions.moveToElement(product_ReviewsLink).click().perform();
     }
 
+
     public void ClickOnBestsellersLink(){
         testUtility.waitForElementPresent(reportsLink);
         actions.moveToElement(reportsLink).click().perform();
@@ -191,7 +207,29 @@ public class ReportingDashboardPage {
         actions.moveToElement(bestsellersLink).click().perform();
 
     }
+
+    public void openCustomersTags() {
+
+        testUtility.waitForElementPresent(reportsLink);
+        actions.moveToElement(reportsLink).click().perform();
+        testUtility.waitForElementPresent(tagsLink);
+        actions.moveToElement(tagsLink).click().perform();
+        testUtility.waitForElementPresent(customersLink2);
+        actions.moveToElement(customersLink2).click().perform();
+
+    }
+
+    public void openProductsTags() {
+        testUtility.waitForElementPresent(reportsLink);
+        actions.moveToElement(reportsLink).perform();
+        testUtility.waitForElementPresent(tagsLink);
+        actions.moveToElement(tagsLink).perform();
+        testUtility.waitForElementPresent(productsLink2);
+        productsLink2.click();
+    }
+
 }
+
 
 
 
