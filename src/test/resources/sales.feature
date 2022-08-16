@@ -46,8 +46,7 @@ Feature:Sales Module Functions
   Scenario Outline: Sales Manager can add and update tax rules
     Given Sales manager is on the dashboard page and clicks on Manage Tax Rules
     When Sales Manager click Add New Tax Rule  icon and fill out "<Name>" "<Priority>" "<SortOrder>" information and click on Save Rule button
-    Then a new Tax Rule created successfully
-
+    Then a new Tax Rule "<Name>" created successfully
     Examples:
       | Name  | Priority | SortOrder |
       | Team3 | 3        | 4        |

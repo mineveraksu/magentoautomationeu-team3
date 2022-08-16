@@ -237,12 +237,9 @@ public class DataAccess {
             return isSubCategoriesExist;
         }
     }
-
-
-    //Verify that newly added refund should be in the database_Tursunay
-
-    public boolean getNewlyAddedRefunds(double refunded, Connection connection){
-        boolean isRefundExist=false;
+    //getTaxRule Method
+    public boolean getTaxRule(String taxRuleCode, Connection connection){
+        boolean isTaxRuleExist=false;
         Statement statement=null;
         ResultSet resultSet=null;
         CachedRowSet cachedRowSet=null;
@@ -258,17 +255,16 @@ public class DataAccess {
             e.printStackTrace();
         }
 
-        String newlyCreatedRefundSqlScript=String.format("select id,refunded from mg_sales_refunded_aggregated_order where refunded=%.3f",refunded);
-        //for quire
+        String taxRuleSqlScript=String.format("select tax_calculation_rule_id,code from mg_tax_calculation_rule where code='%s';",taxRuleCode);
         try {
-            resultSet=statement.executeQuery(newlyCreatedRefundSqlScript);//for execute icon
+            resultSet=statement.executeQuery(taxRuleSqlScript);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         if(resultSet==null){
-            System.out.println("No records found");
-            return isRefundExist;
+            System.out.println("no records found");
+            return isTaxRuleExist;
         }else{
             try {
                 cachedRowSet.populate(resultSet);
@@ -285,19 +281,17 @@ public class DataAccess {
                     e.printStackTrace();
                 }
                 try {
-
-                    //int period = cachedRowSet.getInt("period");
-                    int id=cachedRowSet.getInt("id");
-                    double refunded1=cachedRowSet.getDouble("refunded");
-                    System.out.println(String.format("id=%d refunded=%f",id,refunded1));
+                    int taxCalculationRuleId = cachedRowSet.getInt("tax_calculation_rule_id");
+                    String code = cachedRowSet.getString("code");
+                    System.out.println(String.format("taxCalculationRuleId=%d code=%s",taxCalculationRuleId,code));
                     count = cachedRowSet.getRow();
                 }catch(SQLException e){
                     e.printStackTrace();
                 }
             }
             if(count>=1)
-                isRefundExist=true;
-            return isRefundExist;
+                isTaxRuleExist=true;
+            return isTaxRuleExist;
         }
     }
 
