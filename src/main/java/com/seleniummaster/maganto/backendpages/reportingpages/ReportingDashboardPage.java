@@ -8,6 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class ReportingDashboardPage {
+
     WebDriver driver;
     TestUtility testUtility;
     Actions actions;
@@ -62,6 +63,11 @@ public class ReportingDashboardPage {
     @FindBy(xpath = "//span[text()='Products Reviews']")
     WebElement product_ReviewsLink;
 
+
+    @FindBy(xpath = "//span[text()='Bestsellers']")
+    WebElement bestsellersLink;
+
+
     @FindBy(xpath = "(//span[text()='Customers'])[2]")
     WebElement customersLink2;
 
@@ -70,6 +76,7 @@ public class ReportingDashboardPage {
 
     @FindBy(linkText = "Show Tags")
     WebElement showTagsLink;
+
 
 
     public void clickOnMostViewedLink() {
@@ -190,6 +197,17 @@ public class ReportingDashboardPage {
         actions.moveToElement(product_ReviewsLink).click().perform();
     }
 
+
+    public void ClickOnBestsellersLink(){
+        testUtility.waitForElementPresent(reportsLink);
+        actions.moveToElement(reportsLink).click().perform();
+        testUtility.waitForElementPresent(productsLink);
+        actions.moveToElement(productsLink).click().perform();
+        testUtility.waitForElementPresent(bestsellersLink);
+        actions.moveToElement(bestsellersLink).click().perform();
+
+    }
+
     public void openCustomersTags() {
 
         testUtility.waitForElementPresent(reportsLink);
@@ -209,6 +227,7 @@ public class ReportingDashboardPage {
         testUtility.waitForElementPresent(productsLink2);
         productsLink2.click();
     }
+
 }
 
 

@@ -209,7 +209,8 @@ public class SalesSteps extends BasePage {
     }
     @Then("Verify added credit memo")
     public void verifyAddedCreditMemo() {
-        addCreditMemoPage=new AddCreditMemoPage(driver);     org.testng.Assert.assertTrue(addCreditMemoPage.verifyAddedCreditMemo());
+        addCreditMemoPage=new AddCreditMemoPage(driver);
+        org.testng.Assert.assertTrue(addCreditMemoPage.verifyAddedCreditMemo());
    }
 
     // Sales Manager manage update a shopping cart for customers.
@@ -283,5 +284,21 @@ public class SalesSteps extends BasePage {
     }
 
 
+    @Given("Sales manager is on the dashboard page and clicks on credit memos link")
+    public void salesManagerIsOnTheDashboardPageAndClicksOnCreditMemosLink() {
+        salesDashboardPage=new SalesDashboardPage(driver);
+        salesDashboardPage.clickOnCreditMemoLink();
+    }
+
+    @When("Sale manager filter credit memos")
+    public void saleManagerFilterCreditMemos() {
+       // creditMemoPage.FilterCreditMemos;
+
+
+    }
+
+    @Then("the result of the filter should be displayed")
+    public void theResultOfTheFilterShouldBeDisplayed() {
+    }
 }
 

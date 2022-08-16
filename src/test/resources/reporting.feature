@@ -151,3 +151,13 @@ Feature:Reporting Module Functions
     Then verify product review report display
 
 
+  @SeeProducts-ProductsBestsellersReport
+  Scenario Outline: : Reporting Manager should be able to see Products - Products Bestsellers Report
+    Given Reporting manager is on the dashboard page and clicks on bestsellers link
+    When Reporting manager Bestsellers "<fromDate>" and "<toDate>" and clicks on Show Report button
+    Then Reporting Manager can see Products - Products Bestsellers Report
+    Examples:
+      | fromDate   | toDate     |
+      | 08/13/2021 | 08/13/2022 |
+
+
