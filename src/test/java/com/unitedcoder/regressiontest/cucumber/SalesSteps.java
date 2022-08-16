@@ -2,6 +2,8 @@ package com.unitedcoder.regressiontest.cucumber;
 
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
 import com.seleniummaster.maganto.backendpages.salespages.*;
+import com.seleniummaster.maganto.database.ConnectionManager;
+import com.seleniummaster.maganto.database.DataAccess;
 import com.seleniummaster.maganto.utility.*;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -11,6 +13,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+
+import java.sql.Connection;
 
 public class SalesSteps extends BasePage {
     final static String configFile = "config.properties";
@@ -26,7 +30,9 @@ public class SalesSteps extends BasePage {
     CreditMemoPage creditMemoPage;
     AddCreditMemoPage addCreditMemoPage;
     ManageCustomersPage manageCustomersPage;
-
+    Connection connection;
+    ConnectionManager connectionManager;
+    DataAccess dataAccess;
 
     @Before("@SalesModuleTest")
     public void setup() {
@@ -36,6 +42,7 @@ public class SalesSteps extends BasePage {
         salesDashboardPage = new SalesDashboardPage(driver);
         excelUtility = new ExcelUtility();
         testDataHolder = excelUtility.readSalesInfoFromExcel("Test-Data/SalesModule.xlsx", "Refunds_Info");
+        connection= ConnectionManager.connectToDatabaseServer();
     }
     //create a new order
     @Given("Sales manager is on the dashboard page and clicks on Orders link")
@@ -122,13 +129,15 @@ public class SalesSteps extends BasePage {
         invoicesPage.addNewTaxRule(arg0, arg1, arg2);
     }
 
-    @Then("a new Tax Rule created successfully")
-    public void aNewTaxRuleCreatedSuccessfully() {
+    @Then("a new Tax Rule {string} created successfully")
+    public void aNewTaxRuleCreatedSuccessfully(String arg0) {
         InvoicesPage invoicesPage = new InvoicesPage(driver);
+        dataAccess=new DataAccess();
         invoicesPage.verifyAddNewTaxRuleRuleSuccessfully();
         Assert.assertTrue(invoicesPage.verifyAddNewTaxRuleRuleSuccessfully());
-
+        Assert.assertTrue(dataAccess.getTaxRule(arg0, connection));
     }
+
 
     //update Tax Rules
     @When("Sales Manager click Add New Tax Rule icon and fill out {string}information and edit tax rules")
@@ -200,7 +209,8 @@ public class SalesSteps extends BasePage {
     }
     @Then("Verify added credit memo")
     public void verifyAddedCreditMemo() {
-        addCreditMemoPage=new AddCreditMemoPage(driver);     org.testng.Assert.assertTrue(addCreditMemoPage.verifyAddedCreditMemo());
+        addCreditMemoPage=new AddCreditMemoPage(driver);
+        org.testng.Assert.assertTrue(addCreditMemoPage.verifyAddedCreditMemo());
    }
 
     // Sales Manager manage update a shopping cart for customers.
@@ -274,5 +284,21 @@ public class SalesSteps extends BasePage {
     }
 
 
+    @Given("Sales manager is on the dashboard page and clicks on credit memos link")
+    public void salesManagerIsOnTheDashboardPageAndClicksOnCreditMemosLink() {
+        salesDashboardPage=new SalesDashboardPage(driver);
+        salesDashboardPage.clickOnCreditMemoLink();
+    }
+
+    @When("Sale manager filter credit memos")
+    public void saleManagerFilterCreditMemos() {
+       // creditMemoPage.FilterCreditMemos;
+
+
+    }
+
+    @Then("the result of the filter should be displayed")
+    public void theResultOfTheFilterShouldBeDisplayed() {
+    }
 }
 
