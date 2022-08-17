@@ -56,6 +56,8 @@ public class CustomerPage {
     WebElement deleteSuccessMessage;
     @FindBy(xpath = "//span[text()='Reset Filter']")
     WebElement resetFilterButton;
+    @FindBy(xpath = "//td[contains(text(),'team33 Monty Monty Purdy team33')]")
+    WebElement customerName;
 
 
     public void addNewCustomer() {
@@ -72,6 +74,11 @@ public class CustomerPage {
         testUtility.waitForElementPresent(saveCustomerButton);
         saveCustomerButton.click();
 
+    }
+
+    public String customerName(){
+        testUtility.waitForElementPresent(customerName);
+        return customerName.getText().replace(" ","");
     }
 
     public boolean verifyNewCustomerAdded() {

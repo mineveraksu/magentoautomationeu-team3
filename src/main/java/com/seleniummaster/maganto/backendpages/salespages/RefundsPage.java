@@ -1,5 +1,4 @@
 package com.seleniummaster.maganto.backendpages.salespages;
-
 import com.seleniummaster.maganto.utility.ApplicationConfig;
 import com.seleniummaster.maganto.utility.TestDataHolder;
 import com.seleniummaster.maganto.utility.TestUtility;
@@ -33,7 +32,6 @@ public class RefundsPage {
     WebElement endTo;
     @FindBy(xpath = "(//span[contains(text(),'Show Report')])[1]")
     WebElement showReportButton;
-
     @FindBy(id = "sales_order_grid_filter_billing_name")
     WebElement billNoNameField;
     @FindBy(xpath = "(//td[contains(text(),'Pending')])[1]")
@@ -52,6 +50,16 @@ public class RefundsPage {
     WebElement refundPrice;
     @FindBy(xpath = "//span[text()=\"The credit memo has been created.\"]")
     WebElement refundCreatedSuccessMassage;
+    @FindBy(xpath = "(//span[contains(text(),'Reports')])[2]")
+    WebElement reportsLink;
+    @FindBy(xpath = "(//span[contains(text(),'Sales')])[2]")
+    WebElement salesLinkUnderReport;
+    @FindBy(xpath = "//span[contains(text(),'Refunds')]")
+    WebElement refundsLink;
+    @FindBy(xpath = "//a[contains(text(),'here')]")
+    WebElement refreshHereButton;
+    @FindBy(xpath = "//span[contains(text(),'Recent statistics have been updated.')]")
+    WebElement refreshSuccessMassage;
 
 
     public RefundsPage(WebDriver driver) {
@@ -120,10 +128,9 @@ public class RefundsPage {
         actions.moveToElement(refundOfflineButton).click().perform();
     }
 
-    public String getRefundedAmount(){
+    public double refundedAmount(){
         testUtility.waitForElementPresent(refundPrice);
-        String price=refundPrice.getText().replace("$","");
-        return price;
+        return Double.parseDouble(refundPrice.getText().replace("$",""));
     }
 
     public boolean verifyCreateNewRefunds(){
@@ -136,5 +143,29 @@ public class RefundsPage {
             return  false;
         }
     }
+
+
+    public  void  refreshRefunds(){
+        testUtility.waitForElementPresent(reportsLink);
+        actions.moveToElement(reportsLink).click().perform();
+        testUtility.waitForElementPresent(salesLinkUnderReport);
+        actions.moveToElement(salesLinkUnderReport).click().perform();
+        testUtility.waitForElementPresent(refundsLink);
+        actions.moveToElement(refundsLink).click().perform();
+        testUtility.waitForElementPresent(refreshHereButton);
+        actions.moveToElement(refreshHereButton).click().perform();
+    }
+
+    public boolean verifyRefresh() {
+        testUtility.waitForElementPresent(refreshSuccessMassage);
+        if (refreshSuccessMassage.isDisplayed()) {
+            System.out.println(" Refunds refresh successful !");
+            return true;
+        } else {
+            System.out.println(" Refresh refunds failed ! ");
+            return false;
+        }
+    }
+
 
 }
