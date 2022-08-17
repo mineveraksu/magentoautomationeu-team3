@@ -12,8 +12,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-
 import java.sql.Connection;
+import static org.junit.Assert.assertTrue;
 
 public class SalesSteps extends BasePage {
     final static String configFile = "config.properties";
@@ -58,7 +58,7 @@ public class SalesSteps extends BasePage {
 
     @Then("Sales Manager created a new order successfully")
     public void salesManagerCreatedANewOrderSuccessfully() {
-        Assert.assertTrue(ordersPage.verifyOrderCreatedSuccessfully());
+        assertTrue(ordersPage.verifyOrderCreatedSuccessfully());
     }
 
     @When("Sale manager update order with in store pickup")
@@ -87,8 +87,8 @@ public class SalesSteps extends BasePage {
 
     @Then("view invoices successfully and added comments to invoice history successfully")
     public void viewInvoicesSuccessfullyAndAddedCommentsToInvoiceHistorySuccessfully() {
-        Assert.assertTrue(invoicesPage.verifyViewInvoices());
-        Assert.assertTrue(invoicesPage.verifyAddedCommentsToInvoiceHistorySuccessful());
+        assertTrue(invoicesPage.verifyViewInvoices());
+        assertTrue(invoicesPage.verifyAddedCommentsToInvoiceHistorySuccessful());
     }
 
     //UpdateShipments
@@ -132,7 +132,7 @@ public class SalesSteps extends BasePage {
     public void aNewTaxRuleCreatedSuccessfully() {
         InvoicesPage invoicesPage = new InvoicesPage(driver);
         invoicesPage.verifyAddNewTaxRuleRuleSuccessfully();
-        Assert.assertTrue(invoicesPage.verifyAddNewTaxRuleRuleSuccessfully());
+        assertTrue(invoicesPage.verifyAddNewTaxRuleRuleSuccessfully());
 
     }
 
@@ -148,7 +148,7 @@ public class SalesSteps extends BasePage {
 
         InvoicesPage invoicesPage = new InvoicesPage(driver);
         invoicesPage.verifyUpdateNewTaxRuleRuleSuccessfully();
-        Assert.assertTrue(invoicesPage.verifyUpdateNewTaxRuleRuleSuccessfully());
+        assertTrue(invoicesPage.verifyUpdateNewTaxRuleRuleSuccessfully());
 
     }
 
@@ -166,7 +166,7 @@ public class SalesSteps extends BasePage {
     @Then("sales manager view refunds reports successful")
     public void salesManagerViewRefundsReportsSuccessful() {
         refundsPage = new RefundsPage(driver);
-        Assert.assertTrue(refundsPage.verifyRefundsReportSuccessfulShow());
+        assertTrue(refundsPage.verifyRefundsReportSuccessfulShow());
     }
     // view credit memo
     @Given("sales manager is on the dashboard and click credit memo link")
@@ -184,7 +184,7 @@ public class SalesSteps extends BasePage {
 
     @And("Sales manager can view shopping cart")
     public void salesManagerCanViewShoppingCart(){
-        Assert.assertTrue(manageCustomersPage.verifyShoppingCartView());
+        assertTrue(manageCustomersPage.verifyShoppingCartView());
     }
 
     @Then("verify view credit memo")
@@ -231,7 +231,7 @@ public class SalesSteps extends BasePage {
 
     @Then("The shopping cart should be edited successfully")
     public void theShoppingCartShouldBeEditedSuccessfully() {
-        Assert.assertTrue(manageCustomersPage.verifyEditShoppingCart());
+        assertTrue(manageCustomersPage.verifyEditShoppingCart());
     }
 
     //delete shopping cart
@@ -242,7 +242,7 @@ public class SalesSteps extends BasePage {
 
     @Then("The shopping cart should be deleted successfully")
     public void theShoppingCartShouldBeDeletedSuccessfully() {
-        Assert.assertTrue(manageCustomersPage.verifyDeleteShoppingCart());
+        assertTrue(manageCustomersPage.verifyDeleteShoppingCart());
 
     }
 
@@ -253,23 +253,40 @@ public class SalesSteps extends BasePage {
     }
     @Then("Sales Manager deleted a order successfully")
     public void salesManagerDeletedAOrderSuccessfully() {
-        Assert.assertTrue(ordersPage.verifyOrderDeletedSuccessfully());
+        assertTrue(ordersPage.verifyOrderDeletedSuccessfully());
     }
 
+    double refundAmount = 0.0;
     //create new refunds
     @When("Sales manager created new refund")
     public void salesManagerCreatedNewRefund() {
-        refundsPage=new RefundsPage(driver);
+        refundsPage = new RefundsPage(driver);
         refundsPage.createNewRefunds();
+        refundAmount = refundsPage.refundedAmount();
     }
 
+    @Then("add new refund successful")
+    public  void addNewRefundSuccess(){
+        assertTrue(refundsPage.verifyCreateNewRefunds());
+
+    }
+
+    //refresh
+    @When("Sales manager should be refresh created refund")
+    public void salesManagerShouldBeRefreshCreatedRefund() {
+        refundsPage.refreshRefunds();
+    }
+
+
+
     // verify UI and Database;
-    @Then("add new refund successful and newly added refunds in the data base")
+    @Then("Refresh successfully and newly added refunds in the data base")
     public void addNewRefundSuccessfulAndNewlyAddedRefundsInTheDataBase() {
-        refundsPage=new RefundsPage(driver);
         dataAccess=new DataAccess();
-        Assert.assertTrue(refundsPage.verifyCreateNewRefunds());
-        Assert.assertTrue(dataAccess.getNewlyAddedRefunds(refundsPage.refundedAmount(),connection));
+        assertTrue(refundsPage.verifyRefresh());
+        boolean  result = dataAccess.getNewlyAddedRefunds(refundAmount,connection);
+        System.out.println(result);
+        assertTrue(result);
     }
 
 
