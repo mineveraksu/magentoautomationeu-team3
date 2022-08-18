@@ -359,4 +359,64 @@ public class DataAccess {
 
 
 
+    //get new  added stock
+
+    public boolean getStock(int productID, Connection connection){
+        boolean isStockExist=false;
+        Statement statement=null;
+        ResultSet resultSet=null;
+        CachedRowSet cachedRowSet=null;
+
+        try {
+            cachedRowSet= RowSetProvider.newFactory().createCachedRowSet();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            statement = connection.createStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        String stockSqlScript=String.format("select product_id,qty from mg_cataloginventory_stock_item where product_id=%d;",productID);
+        try {
+            resultSet=statement.executeQuery(stockSqlScript);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if(resultSet==null){
+            System.out.println("no records found");
+            return isStockExist;
+        }else{
+            try {
+                cachedRowSet.populate(resultSet);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            int count=0;
+            while (true){
+                try {
+                    if(!cachedRowSet.next()){
+                        break;
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    int product_id  = cachedRowSet.getInt("product_id");
+                    double qty =cachedRowSet.getDouble("qty");
+                    System.out.println(String.format("product_id=%d,qty=%.2f",product_id,qty));
+                    count = cachedRowSet.getRow();
+                }catch(SQLException e){
+                    e.printStackTrace();
+                }
+            }
+            if(count>=1)
+                isStockExist=true;
+            return isStockExist;
+        }
+    }
+
+
 }

@@ -235,6 +235,7 @@ public class SalesSteps extends BasePage {
         assertTrue(manageCustomersPage.verifyEditShoppingCart());
     }
 
+
     //delete shopping cart
     @And("Sales manager delete the shopping cart")
     public void salesManagerDeleteTheShoppingCart() {
