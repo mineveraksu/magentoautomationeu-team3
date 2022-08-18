@@ -26,7 +26,6 @@ Feature: Get Post Put request Api Test For Magento Public Module
 #    |category|
 #    |Jeans   |
 
-
       Scenario Outline: User should be able to update one category
         When user should be able to send put request for updating one "<category Name>"
         Then one category should be updated

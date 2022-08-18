@@ -70,7 +70,6 @@ public class ApiSteps {
 //        Assert.assertTrue(response.jsonPath().getString("categoryName").contains(arg0));
 //    }
 
-
     @When("user should be able to send put request for updating one {string}")
     public void userShouldBeAbleToSendPutRequestForUpdatingOne(String arg0) {
         response = given().headers("Content-Type", "application/json").and().body(PayloadUtility.getCategoryPayload(arg0))
