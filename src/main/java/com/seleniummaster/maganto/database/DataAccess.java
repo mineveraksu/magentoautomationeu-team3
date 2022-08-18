@@ -295,6 +295,69 @@ public class DataAccess {
         }
     }
 
+    public boolean getNewlyAddedRefunds(double refunded, Connection connection){
+        boolean isRefundExist=false;
+        Statement statement=null;
+        ResultSet resultSet=null;
+        CachedRowSet cachedRowSet=null;
+
+        try {
+            cachedRowSet= RowSetProvider.newFactory().createCachedRowSet();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            statement = connection.createStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        String newlyCreatedRefundSqlScript=String.format("select id,refunded from mg_sales_refunded_aggregated where refunded=%.2f",refunded);
+        //for quire
+        try {
+            resultSet=statement.executeQuery(newlyCreatedRefundSqlScript);//for execute icon
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if(resultSet==null){
+            System.out.println("No records found");
+        }else{
+            try {
+                cachedRowSet.populate(resultSet);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            int count=0;
+            while (true){
+                try {
+                    if(!cachedRowSet.next()){
+                        break;
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                try {
+
+                    //int period = cachedRowSet.getInt("period");
+                    int id=cachedRowSet.getInt("id");
+                    double refunded1=cachedRowSet.getDouble("refunded");
+                    System.out.println(String.format("id=%d refunded=%.2f",id,refunded1));
+                    count = cachedRowSet.getRow();
+                    System.out.println(count);
+
+                }catch(SQLException e){
+                    e.printStackTrace();
+                }
+            }
+
+            if(count>=1)
+                isRefundExist=true;
+        }
+        return isRefundExist;
+    }
+
+
 
 
 
