@@ -1,5 +1,7 @@
 {
   "product_review": "Beautiful dress.",
   "state_name": "New York",
-  "new_category_description": "wonderful shoes"
+  "new_category_description": "wonderful shoes",
+  "product_id": "1255",
+  "stock_quantity": "100"
 }

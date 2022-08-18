@@ -1,7 +1,7 @@
 package com.unitedcoder.regressiontest.cucumber;
 
 import com.seleniummaster.maganto.utility.ApplicationConfig;
-import com.seleniummaster.maganto.utility.PayloadUtility;
+import com.seleniummaster.maganto.api.PayloadUtility;
 import com.seleniummaster.maganto.utility.TestDataHolder;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
