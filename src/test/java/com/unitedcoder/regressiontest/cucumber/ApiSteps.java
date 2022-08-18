@@ -55,6 +55,7 @@ public class ApiSteps {
     }
 
     //Post,Get and Put one category
+
 //    @When("user should be able to send post request for creating one {string}")
 //    public void userShouldBeAbleToSendPostRequestForCreatingOne(String arg0) {
 //        response = given().headers("Content-Type", "application/json").and().body(PayloadUtility.getCategoryPayload(arg0))
