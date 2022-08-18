@@ -14,6 +14,7 @@ Feature: Get Post Put request Api Test For Magento Public Module
       | customer group  |
       | Asian Customers |
 
+
   Scenario: User should be able to update a customer group
     When user should be able to send put request for updating a "<customer group>"
     Then a customer group should be updated
