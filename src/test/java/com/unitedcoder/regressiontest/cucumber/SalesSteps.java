@@ -1,5 +1,4 @@
 package com.unitedcoder.regressiontest.cucumber;
-
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
 import com.seleniummaster.maganto.backendpages.salespages.*;
 import com.seleniummaster.maganto.database.ConnectionManager;
@@ -13,8 +12,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-
 import java.sql.Connection;
+import static org.junit.Assert.assertTrue;
 
 public class SalesSteps extends BasePage {
     final static String configFile = "config.properties";
@@ -30,9 +29,9 @@ public class SalesSteps extends BasePage {
     CreditMemoPage creditMemoPage;
     AddCreditMemoPage addCreditMemoPage;
     ManageCustomersPage manageCustomersPage;
-    Connection connection;
-    ConnectionManager connectionManager;
     DataAccess dataAccess;
+    Connection connection;
+
 
     @Before("@SalesModuleTest")
     public void setup() {
@@ -59,7 +58,7 @@ public class SalesSteps extends BasePage {
 
     @Then("Sales Manager created a new order successfully")
     public void salesManagerCreatedANewOrderSuccessfully() {
-        Assert.assertTrue(ordersPage.verifyOrderCreatedSuccessfully());
+        assertTrue(ordersPage.verifyOrderCreatedSuccessfully());
     }
 
     @When("Sale manager update order with in store pickup")
@@ -88,8 +87,8 @@ public class SalesSteps extends BasePage {
 
     @Then("view invoices successfully and added comments to invoice history successfully")
     public void viewInvoicesSuccessfullyAndAddedCommentsToInvoiceHistorySuccessfully() {
-        Assert.assertTrue(invoicesPage.verifyViewInvoices());
-        Assert.assertTrue(invoicesPage.verifyAddedCommentsToInvoiceHistorySuccessful());
+        assertTrue(invoicesPage.verifyViewInvoices());
+        assertTrue(invoicesPage.verifyAddedCommentsToInvoiceHistorySuccessful());
     }
 
     //UpdateShipments
@@ -129,15 +128,13 @@ public class SalesSteps extends BasePage {
         invoicesPage.addNewTaxRule(arg0, arg1, arg2);
     }
 
-    @Then("a new Tax Rule {string} created successfully")
-    public void aNewTaxRuleCreatedSuccessfully(String arg0) {
+    @Then("a new Tax Rule created successfully")
+    public void aNewTaxRuleCreatedSuccessfully() {
         InvoicesPage invoicesPage = new InvoicesPage(driver);
-        dataAccess=new DataAccess();
         invoicesPage.verifyAddNewTaxRuleRuleSuccessfully();
-        Assert.assertTrue(invoicesPage.verifyAddNewTaxRuleRuleSuccessfully());
-        Assert.assertTrue(dataAccess.getTaxRule(arg0, connection));
-    }
+        assertTrue(invoicesPage.verifyAddNewTaxRuleRuleSuccessfully());
 
+    }
 
     //update Tax Rules
     @When("Sales Manager click Add New Tax Rule icon and fill out {string}information and edit tax rules")
@@ -151,7 +148,7 @@ public class SalesSteps extends BasePage {
 
         InvoicesPage invoicesPage = new InvoicesPage(driver);
         invoicesPage.verifyUpdateNewTaxRuleRuleSuccessfully();
-        Assert.assertTrue(invoicesPage.verifyUpdateNewTaxRuleRuleSuccessfully());
+        assertTrue(invoicesPage.verifyUpdateNewTaxRuleRuleSuccessfully());
 
     }
 
@@ -169,7 +166,7 @@ public class SalesSteps extends BasePage {
     @Then("sales manager view refunds reports successful")
     public void salesManagerViewRefundsReportsSuccessful() {
         refundsPage = new RefundsPage(driver);
-        Assert.assertTrue(refundsPage.verifyRefundsReportSuccessfulShow());
+        assertTrue(refundsPage.verifyRefundsReportSuccessfulShow());
     }
     // view credit memo
     @Given("sales manager is on the dashboard and click credit memo link")
@@ -187,7 +184,7 @@ public class SalesSteps extends BasePage {
 
     @And("Sales manager can view shopping cart")
     public void salesManagerCanViewShoppingCart(){
-        Assert.assertTrue(manageCustomersPage.verifyShoppingCartView());
+        assertTrue(manageCustomersPage.verifyShoppingCartView());
     }
 
     @Then("verify view credit memo")
@@ -209,7 +206,8 @@ public class SalesSteps extends BasePage {
     }
     @Then("Verify added credit memo")
     public void verifyAddedCreditMemo() {
-        addCreditMemoPage=new AddCreditMemoPage(driver);     org.testng.Assert.assertTrue(addCreditMemoPage.verifyAddedCreditMemo());
+        addCreditMemoPage=new AddCreditMemoPage(driver);
+        org.testng.Assert.assertTrue(addCreditMemoPage.verifyAddedCreditMemo());
    }
 
     // Sales Manager manage update a shopping cart for customers.
@@ -234,7 +232,7 @@ public class SalesSteps extends BasePage {
 
     @Then("The shopping cart should be edited successfully")
     public void theShoppingCartShouldBeEditedSuccessfully() {
-        Assert.assertTrue(manageCustomersPage.verifyEditShoppingCart());
+        assertTrue(manageCustomersPage.verifyEditShoppingCart());
     }
 
 
@@ -246,7 +244,7 @@ public class SalesSteps extends BasePage {
 
     @Then("The shopping cart should be deleted successfully")
     public void theShoppingCartShouldBeDeletedSuccessfully() {
-        Assert.assertTrue(manageCustomersPage.verifyDeleteShoppingCart());
+        assertTrue(manageCustomersPage.verifyDeleteShoppingCart());
 
     }
 
@@ -257,22 +255,42 @@ public class SalesSteps extends BasePage {
     }
     @Then("Sales Manager deleted a order successfully")
     public void salesManagerDeletedAOrderSuccessfully() {
-        Assert.assertTrue(ordersPage.verifyOrderDeletedSuccessfully());
+        assertTrue(ordersPage.verifyOrderDeletedSuccessfully());
     }
 
+    double refundAmount = 0.0;
     //create new refunds
     @When("Sales manager created new refund")
     public void salesManagerCreatedNewRefund() {
-        refundsPage=new RefundsPage(driver);
+        refundsPage = new RefundsPage(driver);
         refundsPage.createNewRefunds();
+        refundAmount = refundsPage.refundedAmount();
     }
 
     @Then("add new refund successful")
-    public void addNewRefundSuccessful() {
-        refundsPage=new RefundsPage(driver);
-        Assert.assertTrue(refundsPage.verifyCreateNewRefunds());
+    public  void addNewRefundSuccess(){
+        assertTrue(refundsPage.verifyCreateNewRefunds());
 
     }
+
+    //refresh
+    @When("Sales manager should be refresh created refund")
+    public void salesManagerShouldBeRefreshCreatedRefund() {
+        refundsPage.refreshRefunds();
+    }
+
+
+
+    // verify UI and Database;
+    @Then("Refresh successfully and newly added refunds in the data base")
+    public void addNewRefundSuccessfulAndNewlyAddedRefundsInTheDataBase() {
+        dataAccess=new DataAccess();
+        assertTrue(refundsPage.verifyRefresh());
+        boolean  result = dataAccess.getNewlyAddedRefunds(refundAmount,connection);
+        System.out.println(result);
+        assertTrue(result);
+    }
+
 
     @After("@SalesModuleTest")
     public void tearDown(Scenario scenario) {
@@ -284,6 +302,21 @@ public class SalesSteps extends BasePage {
     }
 
 
+    @Given("Sales manager is on the dashboard page and clicks on credit memos link")
+    public void salesManagerIsOnTheDashboardPageAndClicksOnCreditMemosLink() {
+        salesDashboardPage=new SalesDashboardPage(driver);
+        salesDashboardPage.clickOnCreditMemoLink();
+    }
 
+    @When("Sale manager filter credit memos")
+    public void saleManagerFilterCreditMemos() {
+       // creditMemoPage.FilterCreditMemos;
+
+
+    }
+
+    @Then("the result of the filter should be displayed")
+    public void theResultOfTheFilterShouldBeDisplayed() {
+    }
 }
 

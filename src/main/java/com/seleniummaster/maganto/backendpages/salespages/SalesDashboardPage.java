@@ -7,6 +7,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.List;
+
 public class SalesDashboardPage {
     WebDriver driver;
     TestUtility testUtility;
@@ -52,6 +54,10 @@ public class SalesDashboardPage {
     WebElement catalogLink;
     @FindBy(xpath = "//span[text()='Manage Products']")
     WebElement manageProductsLink;
+
+
+
+
 
 
 
@@ -116,8 +122,6 @@ public class SalesDashboardPage {
         testUtility.waitForElementPresent(manageProductsLink);
         manageProductsLink.click();
     }
-
-
 
 
 }

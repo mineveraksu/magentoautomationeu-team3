@@ -301,7 +301,6 @@ public class StoreSteps extends BasePage {
         storeProductPage = new StoreProductPage(driver);
         storeProductPage.deleteProductCategory();
 
-
     }
 
     @Then("verify delete the product category")

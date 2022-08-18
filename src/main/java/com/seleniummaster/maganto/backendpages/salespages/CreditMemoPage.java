@@ -10,6 +10,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class CreditMemoPage {
+
     WebDriver driver;
     TestUtility testUtility;
     //String billToName;
@@ -18,6 +19,7 @@ public class CreditMemoPage {
 
     @FindBy(xpath = "(//*[@class=\"box-right\"])[1]")
     WebElement accountInformationTable;
+
 
 
 

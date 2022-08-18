@@ -14,7 +14,9 @@ Feature:Sales Module Functions
   Scenario: Sales manager should be able to create new refund for database
     Given  Sales manager is on the dashboard page and clicks on Orders link
     When  Sales manager created new refund
-    Then  add new refund successful
+    Then add new refund successful
+    When  Sales manager should be refresh created refund
+    Then Refresh successfully and newly added refunds in the data base
 
   @UpdateOrderWithInStorePickup
   Scenario: Sales manager should able to update orders with in store pickup
@@ -111,3 +113,9 @@ Feature:Sales Module Functions
     Given Sales manager is on the dashboard page and clicks on Orders link
     When sales manager click on the pending order to click on the Cancel Button
     Then Sales Manager deleted a order successfully
+
+    @ViewCreditMemos
+    Scenario: Sales Manager should be able to view credit memos by filters.
+    Given Sales manager is on the dashboard page and clicks on credit memos link
+    When Sale manager filter credit memos
+    Then the result of the filter should be displayed
