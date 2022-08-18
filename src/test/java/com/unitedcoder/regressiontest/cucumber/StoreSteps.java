@@ -33,7 +33,6 @@ public class StoreSteps extends BasePage {
     StoreViewPage storeViewPage;
     Connection connection;
     DataAccess dataAccess;
-    ConnectionManager connectionManager;
 
     @Before("@StoreModuleTest")
     public void setup() {
@@ -43,6 +42,7 @@ public class StoreSteps extends BasePage {
         storeDashboardPage = new StoreDashboardPage(driver);
         excelUtility = new ExcelUtility();
         testDataHolder = excelUtility.readStoreInfoFromExcel("Test-Data/storeModuleData.xlsx", "Store_Info");
+        connection=ConnectionManager.connectToDatabaseServer();
     }
 
     //create website
@@ -216,11 +216,10 @@ public class StoreSteps extends BasePage {
 
     @Then("Sales Manager can add stock quantity successfully")
     public void salesManagerCanAddStockQuantitySuccessfully() {
-        connectionManager= new ConnectionManager();
         storeProductPage.verifyStockQuantitySaved();
         String productID=storeProductPage.getProductID();
         dataAccess=new DataAccess();
-        Assert.assertTrue(dataAccess.getStock(productID,connection));
+        Assert.assertTrue(dataAccess.getStock(Integer.parseInt(productID),connection));
     }
 
 

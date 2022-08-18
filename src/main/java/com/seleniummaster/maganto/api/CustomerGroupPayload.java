@@ -1,4 +1,4 @@
-package com.seleniummaster.maganto.utility;
+package com.seleniummaster.maganto.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

@@ -361,7 +361,7 @@ public class DataAccess {
 
     //get new  added stock
 
-    public boolean getStock(String productID, Connection connection){
+    public boolean getStock(int productID, Connection connection){
         boolean isStockExist=false;
         Statement statement=null;
         ResultSet resultSet=null;
@@ -404,9 +404,9 @@ public class DataAccess {
                     e.printStackTrace();
                 }
                 try {
-                    int product_id  = cachedRowSet.getInt("entity_id");
-                    int qty =cachedRowSet.getInt("qty");
-                    System.out.println(String.format("product_id=%d,qty=%d",product_id,qty));
+                    int product_id  = cachedRowSet.getInt("product_id");
+                    double qty =cachedRowSet.getDouble("qty");
+                    System.out.println(String.format("product_id=%d,qty=%.2f",product_id,qty));
                     count = cachedRowSet.getRow();
                 }catch(SQLException e){
                     e.printStackTrace();
