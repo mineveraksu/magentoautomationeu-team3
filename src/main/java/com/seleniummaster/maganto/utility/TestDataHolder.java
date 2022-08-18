@@ -22,8 +22,15 @@ public class TestDataHolder {
     private String startFrom;
     private String endTo;
     private static String customerGroupID;
+    private static String categoryID;
 
+    public static String getCategoryID() {
+        return categoryID;
+    }
 
+    public static void setCategoryID(String categoryID) {
+        TestDataHolder.categoryID = categoryID;
+    }
 
     public String getBillToName() {
         return billToName;
