@@ -47,7 +47,7 @@ public class CustomerModuleTestRunner extends BasePage {
         customerDashboardPage.clickOnManageCustomers();
         customerPage.addNewCustomer();
         Assert.assertTrue(customerPage.verifyNewCustomerAdded());
-        // Assert.assertTrue(customerPage.email());
+        Assert.assertTrue(dataAccess.getNewlyAddedCustomer(customerPage.email(), connection));
     }
     @Test(dataProvider = "customerGroupInfo", groups = "regression test", description = "Customer Manager can add new customer groups.")
     public void addNewCustomerGroups(TestDataHolder testDataHolder) {

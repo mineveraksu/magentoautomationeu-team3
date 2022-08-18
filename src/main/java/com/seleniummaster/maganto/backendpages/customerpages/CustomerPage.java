@@ -77,9 +77,9 @@ public class CustomerPage {
 
     }
 
-//    public String email(){
-//        return email;
-//    }
+    public String email(){
+        return email;
+    }
 
     public boolean verifyNewCustomerAdded() {
         testUtility.waitForElementPresent(successMessage);
