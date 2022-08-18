@@ -48,6 +48,12 @@ public class SalesDashboardPage {
     WebElement customersLink;
     @FindBy(xpath = "//span[text()='Manage Customers']")
     WebElement manageCustomersLink;
+    @FindBy(xpath = "//span[text()='Catalog']")
+    WebElement catalogLink;
+    @FindBy(xpath = "//span[text()='Manage Products']")
+    WebElement manageProductsLink;
+
+
 
     public void clickOnInvoicesLink(){
         testUtility.waitForElementPresent(salesLink);
@@ -102,6 +108,13 @@ public class SalesDashboardPage {
         actions.moveToElement(customersLink).click().perform();
         testUtility.waitForElementPresent(manageCustomersLink);
         manageCustomersLink.click();
+    }
+
+    public void clickOnManageProductsLink(){
+        testUtility.waitForElementPresent(catalogLink);
+        catalogLink.click();
+        testUtility.waitForElementPresent(manageProductsLink);
+        manageProductsLink.click();
     }
 
 

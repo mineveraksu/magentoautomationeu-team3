@@ -96,6 +96,8 @@ Feature:Sales Module Functions
       | quantity |
       | 5        |
 
+
+
   @DeleteShoppingCart
   Scenario: Sales Manager should be able to delete shopping cart
     Given Sales manager is on the dashboard page and click on the manage customers link

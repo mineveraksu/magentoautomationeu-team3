@@ -111,6 +111,40 @@ public class StoreProductPage {
     @FindBy(xpath = "//span[text()='The product has been deleted.']")
     WebElement deleteProductSuccessMessage;
 
+    //manage product`s stock
+    @FindBy(xpath = "//span[text()='Reset Filter']")
+    WebElement resetFilterButton;
+
+
+    @FindBy(id = "productGrid_product_filter_entity_id_from")
+    WebElement fromField;
+    @FindBy(xpath = "(//a[text()=\"Edit\"])[1]")
+    WebElement editIcon;
+    @FindBy(xpath = "//span[text()='ID']")
+    WebElement idField;
+   // @FindBy(id = "product_info_tabs_inventory")
+   // WebElement inventoryLink;
+   @FindBy(id = "inventory_qty")
+   WebElement qtyField2;
+   
+    @FindBy(xpath = "//span[text()='The product has been saved.']")
+    WebElement successMassage;
+
+    @FindBy(xpath = "//span[text()='Catalog']")
+    WebElement catalogLink;
+
+    @FindBy(xpath = "//span[text()='Manage Products']")
+    WebElement manageProductsLink;
+
+    //@FindBy(xpath = "//tr[@class='even pointer on-mouse' ]//td[2]")
+    //WebElement productIdLocation ;
+
+    @FindBy(xpath = "//*[@id=\"productGrid_table\"]/tbody/tr/td[2]")
+    WebElement productIdLocation ;
+
+
+
+
 
     public StoreProductPage(WebDriver driver) {
         this.driver = driver;
@@ -197,6 +231,29 @@ public class StoreProductPage {
 
     }
 
+    public void addStock(String qty) {
+        testUtility.sleep(2);
+        testUtility.waitForElementPresent(inventoryLink);
+        inventoryLink.click();
+        testUtility.waitForElementPresent(qtyField2);
+        testUtility.sleep(3);
+        qtyField2.click();
+        qtyField2.clear();
+        qtyField2.sendKeys(qty);
+        testUtility.waitForElementPresent(saveButton);
+        saveButton.click();
+
+    }
+    public String getProductID(){
+        //selectProduct("Jeans");
+        testUtility.waitForElementPresent(productIdLocation);
+        String productId=productIdLocation.getText();
+        System.out.println("Id got successfully");
+        return productId;
+
+
+    }
+
     public boolean ProductUpdateSuccessfully() {
         testUtility.waitForElementPresent(successMessage);
         if (successMessage.isDisplayed()) {
@@ -276,6 +333,45 @@ public class StoreProductPage {
             return true;
         } else {
             System.out.println("Store Manager can Add Product Test is Failed!!!");
+            return false;
+        }
+    }
+    public void openManageProductsPage(){
+        testUtility.waitForElementPresent(catalogLink);
+        catalogLink.click();
+        testUtility.waitForElementPresent(manageProductsLink);
+        manageProductsLink.click();
+
+    }
+
+    public void mangeProductsStock(String productId,String qty){
+        testUtility.waitForElementPresent(fromField);
+        fromField.click();
+        fromField.clear();
+        //String productsId= TestUtility.getFieldFromJson("Test-Data/testDatasSmall.json","product_id");
+        fromField.sendKeys(productId);
+        idField.click();
+        testUtility.sleep(4);
+        testUtility.waitForElementPresent(editIcon);
+        editIcon.click();
+        testUtility.waitForElementPresent(inventoryLink);
+        inventoryLink.click();
+        testUtility.waitForElementPresent(qtyField2);
+        qtyField2.clear();
+        //String stockQuantity=TestUtility.getFieldFromJson("Test-Data/testDatasSmall.json","stock_quantity");
+        qtyField2.sendKeys(qty);
+        saveButton.click();
+
+    }
+
+    public boolean verifyStockQuantitySaved(){
+        testUtility.sleep(2);
+        testUtility.waitForElementPresent(successMassage);
+        if (successMassage.isDisplayed()){
+            System.out.println("New stock quantity saved successfully.");
+            return true;
+        }else {
+            System.out.println("New stock quantity is not saved successfully.");
             return false;
         }
     }

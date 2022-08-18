@@ -1,6 +1,7 @@
 package com.unitedcoder.regressiontest.cucumber;
 
 import com.seleniummaster.maganto.backendpages.BackEndLogin;
+import com.seleniummaster.maganto.backendpages.salespages.SalesDashboardPage;
 import com.seleniummaster.maganto.backendpages.storepages.*;
 import com.seleniummaster.maganto.database.ConnectionManager;
 import com.seleniummaster.maganto.database.DataAccess;
@@ -32,6 +33,7 @@ public class StoreSteps extends BasePage {
     StoreViewPage storeViewPage;
     Connection connection;
     DataAccess dataAccess;
+    ConnectionManager connectionManager;
 
     @Before("@StoreModuleTest")
     public void setup() {
@@ -152,6 +154,8 @@ public class StoreSteps extends BasePage {
     }
 
 
+
+
     //delete store
     @When("store manager clicks on the store name to click on the delete store button")
     public void storeManagerClicksOnTheStoreNameToClickOnTheDeleteStoreButton() {
@@ -194,6 +198,32 @@ public class StoreSteps extends BasePage {
     public void productInformationUpdatedSuccessfully() {
         Assert.assertTrue(storeProductPage.ProductUpdateSuccessfully());
     }
+    //create stock
+
+    //add  stock
+
+    @Given("Sales manager is on the dashboard page and open the manage products page")
+    public void salesManagerIsOnTheDashboardPageAndOpenTheManageProductsPage() {
+        storeProductPage=new StoreProductPage(driver);
+        storeProductPage.openManageProductsPage();
+    }
+
+    @When("sales manager selects a {string} in order to add a {string} to the product")
+    public void salesManagerSelectsAInOrderToAddAToTheProduct(String arg0, String arg1) {
+        storeProductPage.selectProduct(arg0);
+        storeProductPage.addStock(arg1);
+    }
+
+    @Then("Sales Manager can add stock quantity successfully")
+    public void salesManagerCanAddStockQuantitySuccessfully() {
+        connectionManager= new ConnectionManager();
+        storeProductPage.verifyStockQuantitySaved();
+        String productID=storeProductPage.getProductID();
+        dataAccess=new DataAccess();
+        Assert.assertTrue(dataAccess.getStock(productID,connection));
+    }
+
+
     //delete product
 
     //create order
@@ -306,6 +336,7 @@ public class StoreSteps extends BasePage {
         }
         closeBrowser();
     }
+
 
 }
 

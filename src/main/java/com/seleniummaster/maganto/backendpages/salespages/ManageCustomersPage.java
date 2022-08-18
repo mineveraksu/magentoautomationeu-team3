@@ -47,7 +47,6 @@ public class ManageCustomersPage {
     @FindBy(xpath = "//span[text()='OK']")
     WebElement okButton;
 
-
     @FindBy(linkText = "Delete")
     WebElement deleteButton;
 
@@ -73,14 +72,13 @@ public class ManageCustomersPage {
 
     }
 
-    public boolean verifyShoppingCartView(){
+    public boolean verifyShoppingCartView() {
         testUtility.waitForElementPresent(customerShoppingCartView);
         testUtility.sleep(3);
-        if (customerShoppingCartView.isDisplayed()){
+        if (customerShoppingCartView.isDisplayed()) {
             System.out.println("Manager can view Customer Shopping Cart");
             return true;
-        }
-        else {
+        } else {
             System.out.println("Manager can't view Customer Shopping Cart");
             return false;
         }
