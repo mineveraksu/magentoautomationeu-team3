@@ -69,6 +69,7 @@ public class CustomerPage {
         lastNameField.sendKeys(testUtility.generateLastName());
         testUtility.waitForElementPresent(emailField);
         emailField.sendKeys(email);
+        System.out.println(email);
         testUtility.waitForElementPresent(passwordField);
         passwordField.sendKeys(ApplicationConfig.readFromConfigProperties(config, "password"));
         testUtility.waitForElementPresent(saveCustomerButton);
@@ -76,10 +77,9 @@ public class CustomerPage {
 
     }
 
-    public String customerName(){
-        testUtility.waitForElementPresent(customerName);
-        return customerName.getText().replace(" ","");
-    }
+//    public String email(){
+//        return email;
+//    }
 
     public boolean verifyNewCustomerAdded() {
         testUtility.waitForElementPresent(successMessage);
