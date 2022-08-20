@@ -6,10 +6,12 @@ import com.seleniummaster.maganto.utility.TestDataHolder;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.Assert;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.port;
 
 
 public class ApiSteps {
@@ -96,4 +98,21 @@ public class ApiSteps {
         Assert.assertEquals(response.getStatusCode(), 200);
     }
 
+
+//ser should be able to Get a customer group
+    @When("user should be able to send get request for one customer group information")
+    public void userShouldBeAbleToSendGetRequestForOneCustomerGroupInformation() {
+        //sending request to get respone
+        response = given().auth().basic(username, password)
+                .when().get(baseURL + "/customergroup/"+TestDataHolder.getCustomerGroupID());
+        response.getBody().prettyPrint();
+
+    }
+
+    @Then("user should be get information about the customer group")
+    public void userShouldBeGetInformationAboutTheCustomerGroup() {
+        //check the static code
+        Assert.assertEquals(response.getStatusCode(), 200);
+
+    }
 }
