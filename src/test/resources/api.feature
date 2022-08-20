@@ -22,6 +22,13 @@ Feature: Get Post Put request Api Test For Magento Public Module
       | customer group  |
       | Turkish Customers |
 
+    #user should be able to Get a customer group
+  Scenario: user should be able to get one customer information
+    When user should be able to send get request for one customer group information
+    Then user should be get information about the customer group
+
+
+
     #Post,Get and Put one category
 #  Scenario Outline: User should be able to create one category
 #    When user should be able to send post request for creating one "<category>"

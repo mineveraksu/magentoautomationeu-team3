@@ -144,7 +144,7 @@ public class InvoicesPage {
         saveRuleButton.click();
     }
 
-    public boolean verifyAddNewTaxRuleRuleSuccessfully() {
+    public boolean verifyAddNewTaxRuleSuccessfully() {
         testUtility.waitForElementPresent(addedTaxRuleSuccessMessages);
         if (driver.getPageSource().contains(addedTaxRuleSuccessMessages.getText())) {
             System.out.println("Marketing Manager can Add New Shopping Cart Test is Passed!!!");

@@ -128,12 +128,13 @@ public class SalesSteps extends BasePage {
         invoicesPage.addNewTaxRule(arg0, arg1, arg2);
     }
 
-    @Then("a new Tax Rule created successfully")
-    public void aNewTaxRuleCreatedSuccessfully() {
-        InvoicesPage invoicesPage = new InvoicesPage(driver);
-        invoicesPage.verifyAddNewTaxRuleRuleSuccessfully();
-        assertTrue(invoicesPage.verifyAddNewTaxRuleRuleSuccessfully());
-
+        @Then("a new Tax Rule {string} created successfully")
+        public void aNewTaxRuleCreatedSuccessfully(String arg0) {
+            InvoicesPage invoicesPage = new InvoicesPage(driver);
+            dataAccess=new DataAccess();
+            invoicesPage.verifyAddNewTaxRuleSuccessfully();
+            Assert.assertTrue(invoicesPage.verifyAddNewTaxRuleSuccessfully());
+            Assert.assertTrue(dataAccess.getTaxRule(arg0, connection));
     }
 
     //update Tax Rules
@@ -318,5 +319,7 @@ public class SalesSteps extends BasePage {
     @Then("the result of the filter should be displayed")
     public void theResultOfTheFilterShouldBeDisplayed() {
     }
+
+
 }
 
