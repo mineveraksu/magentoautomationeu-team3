@@ -14,6 +14,39 @@ Feature: Get Post Put request Api Test For Magento Public Module
       | customer group  |
       | Asian Customers |
 
-  Scenario: User should be able to update a customer group
+
+  Scenario Outline: User should be able to update a customer group
     When user should be able to send put request for updating a "<customer group>"
     Then a customer group should be updated
+    Examples:
+      | customer group  |
+      | Turkish Customers |
+
+    #user should be able to Get a customer group
+  Scenario: user should be able to get one customer information
+    When user should be able to send get request for one customer group information
+    Then user should be get information about the customer group
+
+
+
+    #Post,Get and Put one category
+#  Scenario Outline: User should be able to create one category
+#    When user should be able to send post request for creating one "<category>"
+#    Then user should be created a new "<category>"
+#    Examples:
+#    |category|
+#    |Jeans   |
+
+      Scenario Outline: User should be able to update one category
+        When user should be able to send put request for updating one "<category Name>"
+        Then one category should be updated
+        Examples:
+          |category Name|
+          |Iphone       |
+
+  Scenario: User should be able to get one category information
+    When user should be able to send request for get specific information
+    Then user should be get information about the category
+
+
+

@@ -417,8 +417,7 @@ public class DataAccess {
             return isStockExist;
         }
     }
-
-//    CartPriceRule method
+    //get cart price rule
     public boolean getCartPriceRule(String ruleId,Connection connection) {
         boolean isCartPriceRuleExist = false;
         Statement statement = null;
@@ -437,7 +436,7 @@ public class DataAccess {
             e.printStackTrace();
         }
 
-        String cartPriceRuleSqlScript = String.format("select *from mg_salesrule where rule_id=%s", ruleId);
+        String cartPriceRuleSqlScript = String.format("select rule_id,name from mg_salesrule where rule_id=%s", ruleId);
         try {
             resultSet = statement.executeQuery(cartPriceRuleSqlScript);
         } catch (SQLException e) {
@@ -473,7 +472,7 @@ public class DataAccess {
             }
             if (count >= 1)
                 isCartPriceRuleExist = true;
-                return isCartPriceRuleExist;
+            return isCartPriceRuleExist;
 
         }
 
