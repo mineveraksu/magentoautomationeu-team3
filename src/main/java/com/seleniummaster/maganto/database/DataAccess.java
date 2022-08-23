@@ -418,5 +418,66 @@ public class DataAccess {
         }
     }
 
+//    CartPriceRule method
+    public boolean getCartPriceRule(String ruleId,Connection connection) {
+        boolean isCartPriceRuleExist = false;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        CachedRowSet cachedRowSet = null;
+
+        try {
+            cachedRowSet = RowSetProvider.newFactory().createCachedRowSet();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            statement = connection.createStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        String cartPriceRuleSqlScript = String.format("select *from mg_salesrule where rule_id=%s", ruleId);
+        try {
+            resultSet = statement.executeQuery(cartPriceRuleSqlScript);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        //verify  cart price rule
+        if (resultSet == null) {
+            System.out.println("No records Found");
+            return isCartPriceRuleExist;
+        } else {
+            try {
+                cachedRowSet.populate(resultSet);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            int count = 0;
+            while (true) {
+                try {
+                    if (!cachedRowSet.next()) {
+                        break;
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    int rule_id = cachedRowSet.getInt("rule_id");
+                    String rule_name = cachedRowSet.getString("name");
+                    System.out.println(String.format("rule_id=%d name=%s", rule_id, rule_name));
+                    count = cachedRowSet.getRow();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (count >= 1)
+                isCartPriceRuleExist = true;
+                return isCartPriceRuleExist;
+
+        }
+
+    }
+
 
 }
