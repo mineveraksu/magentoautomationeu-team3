@@ -116,32 +116,17 @@ public class ApiSteps {
 
     }
 
-    //Create a new product
-
-
-
-
-
-
-
-    @When("user should be able to send post request for creating a new product using {string},{string},{string},{string}")
-    public void userShouldBeAbleToSendPostRequestForCreatingANewProductUsing(String arg0, String arg1, String arg2, String arg3) {
-        //String intDeger = "15";
-//        int arg0 = Integer.parseInt(arg0);
-//        int arg1 = Integer.parseInt(arg1);
-
-  //      response = given().headers("Content-Type", "application/json").and().body(PayloadUtility.getProductPayload(arg0,arg1,arg2,arg3))
-      //          .auth().basic(username, password)
-        //        .when().post(baseURL + "/product");
+    @When("user should be able to send put request for update customer{string}")
+    public void userShouldBeAbleToSendPutRequestForUpdateCustomer(String arg0) {
+        response=given().headers("Content-Type", "application/json").
+                and().body(PayloadUtility.getCustomer(7,93,1,1309,arg0)).
+                auth().basic(username,password).when().put(baseURL+"/customer");
         response.getBody().prettyPrint();
-
-
     }
 
-    @Then("a product with {string},{string},{string},{string} should be created")
-    public void aProductWithShouldBeCreated(String arg0, String arg1, String arg2, String arg3) {
-            Assert.assertEquals(response.getStatusCode(),200);
-            Assert.assertTrue(response.jsonPath().getString("sku").contains(arg3));
-        }
-        }
+    @Then("customer should be updated")
+    public void customerShouldBeUpdated() {
 
+       Assert.assertEquals(response.getStatusCode(),200);
+    }
+}

@@ -48,6 +48,14 @@ Feature: Get Post Put request Api Test For Magento Public Module
     When user should be able to send request for get specific information
     Then user should be get information about the category
 
+    #user update customer
+    Scenario Outline: User should be update customer
+      When user should be able to send put request for update customer"<value>"
+      Then customer should be updated
+      Examples:
+      |value  |
+      |team33 |
+
 
   Scenario Outline: User should be able to create a product
     When user should be able to send post request for creating a new product using "<entityTypeId>","<attributeSetId>","<typeId>","<sku>"
