@@ -115,4 +115,18 @@ public class ApiSteps {
         Assert.assertEquals(response.getStatusCode(), 200);
 
     }
+
+    @When("user should be able to send put request for update customer{string}")
+    public void userShouldBeAbleToSendPutRequestForUpdateCustomer(String arg0) {
+        response=given().headers("Content-Type", "application/json").
+                and().body(PayloadUtility.getCustomer(7,93,1,1309,arg0)).
+                auth().basic(username,password).when().put(baseURL+"/customer");
+        response.getBody().prettyPrint();
+    }
+
+    @Then("customer should be updated")
+    public void customerShouldBeUpdated() {
+
+       Assert.assertEquals(response.getStatusCode(),200);
+    }
 }
