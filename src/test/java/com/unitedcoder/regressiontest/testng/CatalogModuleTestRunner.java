@@ -143,13 +143,13 @@ public class CatalogModuleTestRunner extends BasePage {
         return data;
     }
 
-//    @DataProvider
-//    public Object[] newCategoryDescription() {
-//        Object[] data = new Object[]{
-//                TestUtility.getFieldFromJson("Test-Data/testDatasSmall.json", "new_category_description")
-//        };
-//        return data;
-//    }
+    @DataProvider
+    public Object[] newCategoryDescription() {
+        Object[] data = new Object[]{
+                TestUtility.getFieldFromJson("Test-Data/testDatasSmall.json", "new_category_description")
+        };
+        return data;
+    }
 
     @DataProvider
     public Object[] AttributeInfo() {

@@ -7,6 +7,7 @@ public class CustomerGroupPayload {
     private String customerGroupName;
 
     public CustomerGroupPayload(String customerGroupName) {
+
         this.customerGroupName = customerGroupName;
     }
 }
