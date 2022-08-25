@@ -15,3 +15,10 @@ Feature: Database Verification
         |creditmemo id|
         |100000025    |
 
+  @AddedCartPriceRule
+  Scenario Outline: verify added cart price rule should be in database
+    When user execute the  mg_sales_rule where rule_id "<rule id>" query
+    Then the user should see added cart price rule in the database
+    Examples:
+    |rule id|
+    |6      |

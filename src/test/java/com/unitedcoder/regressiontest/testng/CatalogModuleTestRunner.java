@@ -6,7 +6,6 @@ import com.seleniummaster.maganto.database.ConnectionManager;
 import com.seleniummaster.maganto.database.DataAccess;
 import com.seleniummaster.maganto.utility.*;
 import org.testng.Assert;
-import org.testng.ITest;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
 
@@ -61,6 +60,7 @@ public class CatalogModuleTestRunner extends BasePage {
 
     @Test(dataProvider = "addRootCategoryInfo", description = "Catalog manager can delete root categories.", priority = 6)
     public void deleteExistingRootCategory(TestDataHolder testDataHolder) {
+        catalogDashboardPage.clickOnManageCategories();
         catalogPage.deleteExistingRootCategory(testDataHolder);
         Assert.assertTrue(catalogPage.verifyDeleteExistingRootCategories());
     }
