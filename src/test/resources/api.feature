@@ -29,7 +29,7 @@ Feature: Get Post Put request Api Test For Magento Public Module
 
 
 
-    #Post,Get and Put one category
+    #Post,Get and Put one category lk
 #  Scenario Outline: User should be able to create one category
 #    When user should be able to send post request for creating one "<category>"
 #    Then user should be created a new "<category>"
