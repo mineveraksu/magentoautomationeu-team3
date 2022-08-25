@@ -61,6 +61,7 @@ public class CatalogModuleTestRunner extends BasePage {
 
     @Test(dataProvider = "addRootCategoryInfo", description = "Catalog manager can delete root categories.", priority = 6)
     public void deleteExistingRootCategory(TestDataHolder testDataHolder) {
+        catalogDashboardPage.clickOnManageCategories();
         catalogPage.deleteExistingRootCategory(testDataHolder);
         Assert.assertTrue(catalogPage.verifyDeleteExistingRootCategories());
     }
