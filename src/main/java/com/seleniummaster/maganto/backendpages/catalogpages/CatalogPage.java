@@ -63,6 +63,7 @@ public class CatalogPage {
         descriptionField.clear();
         descriptionField.sendKeys(TestUtility.getFieldFromJson("Test-Data/testDatasSmall.json", "new_category_description"));
         saveCategoryButton.click();
+        testUtility.sleep(2);
     }
 
     public void deleteExistingRootCategory(TestDataHolder testDataHolder) {

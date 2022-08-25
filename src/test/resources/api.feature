@@ -57,4 +57,11 @@ Feature: Get Post Put request Api Test For Magento Public Module
       |team33 |
 
 
+  Scenario Outline: User should be able to create a product
+    When user should be able to send post request for creating a new product using "<entityTypeId>","<attributeSetId>","<typeId>","<sku>"
+    Then a product with "<entityTypeId>","<attributeSetId>","<typeId>","<sku>" should be created
+    Examples:
+      | entityTypeId   ||attributeSetId| |typeId  | |sku           |
+      |4               ||        12    | |  simple| |deel_optiplex |
+
 

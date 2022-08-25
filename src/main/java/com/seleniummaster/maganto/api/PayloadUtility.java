@@ -3,6 +3,7 @@ package com.seleniummaster.maganto.api;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+
 public class PayloadUtility {
 
     public static String getCustomerGroupPayload(String customerGroupName){
@@ -46,4 +47,19 @@ public class PayloadUtility {
         return payload;
     }
 
+    //Post one product
+    public static String getProductPayload(int entityTypeId, int attributeSetId,String typeId,String sku){
+        String payload= null;
+        long timeStamp = System.currentTimeMillis();
+        ProductPayload productPayload=new ProductPayload(entityTypeId,attributeSetId,typeId,sku+timeStamp);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            payload = objectMapper.writeValueAsString(productPayload);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return payload;
+
+}
 }

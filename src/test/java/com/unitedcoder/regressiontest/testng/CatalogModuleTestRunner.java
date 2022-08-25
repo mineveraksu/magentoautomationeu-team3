@@ -49,7 +49,7 @@ public class CatalogModuleTestRunner extends BasePage {
         Assert.assertTrue(catalogPage.verifyAddRootCategories());
     }
 
-    @Test(dataProvider = "addRootCategoryInfo", description = "Catalog Manager can edit root categories ", priority = 5)
+    @Test(dataProvider = "addRootCategoryInfo", description = "Catalog Manager can edit root categories ", priority = 2)
     public void editRootCategory(TestDataHolder testDataHolder) {
         login.VerifyLoginSuccessfully();
         catalogDashboardPage.clickOnManageCategories();
@@ -74,7 +74,7 @@ public class CatalogModuleTestRunner extends BasePage {
     }
 
     @Test(dataProvider = "subCategoriesInfo", dependsOnMethods = "addRootCategory",
-            groups = "regression test", description = "Catalog Manager Can Add Sub Categories.", priority = 2)
+            groups = "regression test", description = "Catalog Manager Can Add Sub Categories.", priority = 3)
     public void addSubCategories(TestDataHolder testDataHolder) {
         subCategoriesPage.addSubCategories(testDataHolder);
         Assert.assertTrue(subCategoriesPage.verifyAddSubCategories(testDataHolder));
@@ -82,13 +82,13 @@ public class CatalogModuleTestRunner extends BasePage {
     }
 
     @Test(dataProvider = "subCategoriesInfo", dependsOnMethods = "addSubCategories",
-            description = "Catalog Manager Can Update Sub Categories.", groups = "regression test", priority = 3)
+            description = "Catalog Manager Can Update Sub Categories.", groups = "regression test", priority = 4)
     public void updateExistingSubCategories(TestDataHolder testDataHolder) {
         subCategoriesPage.updateExistingSubCategories(testDataHolder);
         Assert.assertTrue(subCategoriesPage.verifyUpdateExistingSubCategories(testDataHolder));
     }
 
-    @Test(dataProvider = "subCategoriesInfo", description = "Catalog Manager can delete sub categories", priority = 4)
+    @Test(dataProvider = "subCategoriesInfo", description = "Catalog Manager can delete sub categories", priority = 5)
     public void deleteSubCategories(TestDataHolder testDataHolder) {
         catalogDashboardPage.clickOnManageCategories();
         subCategoriesPage.deleteExistingSubCategory(testDataHolder);
