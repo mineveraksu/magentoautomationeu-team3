@@ -194,7 +194,7 @@
                     <configuration>
                         <suiteXmlFiles>
                             <!--suppress UnresolvedMavenProperty -->
-                            <suiteXmlFile>${suiteXMLFile}</suiteXmlFile>
+                            <suiteXmlFile>/Users/hnur/IdeaProjects/magentoautomationeu-team3/testngcatalog.xml</suiteXmlFile>
                         </suiteXmlFiles>
                     </configuration>
                 </plugin>

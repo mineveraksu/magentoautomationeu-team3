@@ -51,7 +51,7 @@ public class CatalogModuleTestRunner extends BasePage {
 
     @Test(dataProvider = "addRootCategoryInfo", description = "Catalog Manager can edit root categories ", priority = 2)
     public void editRootCategory(TestDataHolder testDataHolder) {
-        login.VerifyLoginSuccessfully();
+        //login.VerifyLoginSuccessfully();
         catalogDashboardPage.clickOnManageCategories();
         catalogPage.editRootCategory(testDataHolder);
         Assert.assertTrue(catalogPage.verifyEditRootCategory());
@@ -73,7 +73,7 @@ public class CatalogModuleTestRunner extends BasePage {
         Assert.assertTrue(catalogDashboardPage.verifyManagerCanViewAllCategoriesUnderDefault());
     }
 
-    @Test(dataProvider = "subCategoriesInfo", dependsOnMethods = "addRootCategory",
+    @Test(dataProvider = "subCategoriesInfo",
             groups = "regression test", description = "Catalog Manager Can Add Sub Categories.", priority = 3)
     public void addSubCategories(TestDataHolder testDataHolder) {
         subCategoriesPage.addSubCategories(testDataHolder);
