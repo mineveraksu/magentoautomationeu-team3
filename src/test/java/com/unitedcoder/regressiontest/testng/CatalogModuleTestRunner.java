@@ -6,7 +6,6 @@ import com.seleniummaster.maganto.database.ConnectionManager;
 import com.seleniummaster.maganto.database.DataAccess;
 import com.seleniummaster.maganto.utility.*;
 import org.testng.Assert;
-import org.testng.ITest;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
 
@@ -144,13 +143,13 @@ public class CatalogModuleTestRunner extends BasePage {
         return data;
     }
 
-//    @DataProvider
-//    public Object[] newCategoryDescription() {
-//        Object[] data = new Object[]{
-//                TestUtility.getFieldFromJson("Test-Data/testDatasSmall.json", "new_category_description")
-//        };
-//        return data;
-//    }
+    @DataProvider
+    public Object[] newCategoryDescription() {
+        Object[] data = new Object[]{
+                TestUtility.getFieldFromJson("Test-Data/testDatasSmall.json", "new_category_description")
+        };
+        return data;
+    }
 
     @DataProvider
     public Object[] AttributeInfo() {
