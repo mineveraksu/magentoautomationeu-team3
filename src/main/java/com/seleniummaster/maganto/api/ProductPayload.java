@@ -9,18 +9,18 @@ public class ProductPayload {
 
 
     @JsonProperty("sku")
-    private int entityTypeId;
-    private int attributeSetId;
-    private String typeId;
-    private String sku;
 
-    public ProductPayload(int entityTypeId, int attributeSetId, String typeId, String sku) {
+    private int attributeSetId;
+    private int entityTypeId;
+    private String sku;
+    private String typeId;
+
+
+    public ProductPayload( int attributeSetId ,int entityTypeId, String sku, String typeId ) {
         this.entityTypeId = entityTypeId;
         this.attributeSetId = attributeSetId;
         this.typeId = typeId;
         this.sku = sku;
     }
-    //    public ProductPayload(String entityTypeId,String attributeSetId,String typeId,String sku){
-//
-//    }
+
 }

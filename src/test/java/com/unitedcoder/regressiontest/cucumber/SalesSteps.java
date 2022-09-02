@@ -214,10 +214,7 @@ public class SalesSteps extends BasePage {
     // Sales Manager manage update a shopping cart for customers.
     @Given("Sales manager is on the dashboard page and click on the manage customers link")
     public void salesManagerIsOnTheDashboardPageAndClickOnTheManageCustomersLink() {
-        salesDashboardPage = new SalesDashboardPage(driver);
         salesDashboardPage.clickOnManageCustomersLink();
-        manageCustomersPage = new ManageCustomersPage(driver);
-        manageCustomersPage.openShoppingCart();
     }
 
     @When("Sales manager open a customer and open his shopping cart")
@@ -293,6 +290,25 @@ public class SalesSteps extends BasePage {
     }
 
 
+    @Given("Sales manager is on the dashboard page and clicks on credit memos link")
+    public void salesManagerIsOnTheDashboardPageAndClicksOnCreditMemosLink() {
+        salesDashboardPage=new SalesDashboardPage(driver);
+        salesDashboardPage.clickOnCreditMemoLink();
+    }
+
+    @When("Sale manager filter credit memos")
+    public void saleManagerFilterCreditMemos() {
+        // creditMemoPage.FilterCreditMemos;
+
+
+    }
+
+    @Then("the result of the filter should be displayed")
+    public void theResultOfTheFilterShouldBeDisplayed() {
+    }
+
+
+
     @After("@SalesModuleTest")
     public void tearDown(Scenario scenario) {
         if (scenario.isFailed()) {
@@ -302,23 +318,6 @@ public class SalesSteps extends BasePage {
         closeBrowser();
     }
 
-
-    @Given("Sales manager is on the dashboard page and clicks on credit memos link")
-    public void salesManagerIsOnTheDashboardPageAndClicksOnCreditMemosLink() {
-        salesDashboardPage=new SalesDashboardPage(driver);
-        salesDashboardPage.clickOnCreditMemoLink();
-    }
-
-    @When("Sale manager filter credit memos")
-    public void saleManagerFilterCreditMemos() {
-       // creditMemoPage.FilterCreditMemos;
-
-
-    }
-
-    @Then("the result of the filter should be displayed")
-    public void theResultOfTheFilterShouldBeDisplayed() {
-    }
 
 
 }

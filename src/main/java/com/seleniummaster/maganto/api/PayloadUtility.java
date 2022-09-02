@@ -48,9 +48,9 @@ public class PayloadUtility {
     }
 
     //Post one product
-    public static String getProductPayload(int entityTypeId, int attributeSetId,String typeId,String sku){
+    public static String getProductPayload(int attributeSetId,int entityTypeId, String sku ,String typeId){
 //        int entityTypeId1=Integer.parseInt(entityTypeId);
-//        int attributeSetId1=Integer.parseInt(attributeSetId);
+////        int attributeSetId1=Integer.parseInt(attributeSetId);
 
        // int i=Integer.parseInt("200");
        // public static int parseInt(String s)
