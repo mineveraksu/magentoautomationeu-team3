@@ -129,4 +129,23 @@ public class ApiSteps {
 
        Assert.assertEquals(response.getStatusCode(),200);
     }
+
+    @When("user should be able to send post request for creating a new product using {string},{string},{string},{string}")
+    public void userShouldBeAbleToSendPostRequestForCreatingANewProductUsing(String arg0, String arg1, String arg2, String arg3) {
+    }
+
+    @Then("a product with {string},{string},{string},{string} should be created")
+    public void aProductWithShouldBeCreated(String arg0, String arg1, String arg2, String arg3) {
+    }
+//get all customer information_Tursunay(flora)
+    @When("user should be able to send get request for all customers")
+    public void userShouldBeAbleToSendGetRequestForAllCustomers() {
+        response=RestAssured.given().auth().basic(username,password).when().get(baseURL+"/customers");
+        response.getBody().prettyPrint();
+    }
+
+    @Then("a user should be get all customers information")
+    public void aUserShouldBeGetAllCustomersInformation() {
+        Assert.assertEquals(response.getStatusCode(),200);
+    }
 }
