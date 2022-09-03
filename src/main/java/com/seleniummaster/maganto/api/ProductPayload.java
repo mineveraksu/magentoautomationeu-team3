@@ -8,11 +8,13 @@ public class ProductPayload {
 
 
 
-    @JsonProperty("sku")
-
+    @JsonProperty("attributeSetId")
     private int attributeSetId;
+    @JsonProperty("entityTypeId")
     private int entityTypeId;
+    @JsonProperty("sku")
     private String sku;
+    @JsonProperty("typeId")
     private String typeId;
 
 
