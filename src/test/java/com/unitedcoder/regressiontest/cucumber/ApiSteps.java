@@ -132,20 +132,18 @@ public class ApiSteps {
 
     @When("user should be able to send post request for creating a new product using {string},{string},{string},{string}")
     public void userShouldBeAbleToSendPostRequestForCreatingANewProductUsing(String arg0, String arg1, String arg2, String arg3) {
+
+        response = given().headers("Content-Type", "application/json").and().body(PayloadUtility.getProductPayload(arg0,arg1,arg2,arg3))
+                .auth().basic(username, password)
+                .when().post(baseURL + "/product");
+        response.getBody().prettyPrint();
+        TestDataHolder.setCustomerGroupID(response.jsonPath().getString("id"));
+
     }
 
     @Then("a product with {string},{string},{string},{string} should be created")
-    public void aProductWithShouldBeCreated(String arg0, String arg1, String arg2, String arg3) {
-    }
-//get all customer information_Tursunay(flora)
-    @When("user should be able to send get request for all customers")
-    public void userShouldBeAbleToSendGetRequestForAllCustomers() {
-        response=RestAssured.given().auth().basic(username,password).when().get(baseURL+"/customers");
-        response.getBody().prettyPrint();
-    }
-
-    @Then("a user should be get all customers information")
-    public void aUserShouldBeGetAllCustomersInformation() {
-        Assert.assertEquals(response.getStatusCode(),200);
+    public void aProductWithShouldBeCreated( String arg3) {
+        Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertTrue(response.jsonPath().getString("sku").contains(arg3));
     }
 }
