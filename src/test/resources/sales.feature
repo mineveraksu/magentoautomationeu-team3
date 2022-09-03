@@ -54,7 +54,7 @@ Feature:Sales Module Functions
       | Team3 | 3        | 4        |
 
   @UpdateTaxRules
-  Scenario Outline: Sales Manager can update tax rules
+  Scenario Outline:Sales Manager can update tax rules
     Given Sales manager is on the dashboard page and clicks on Manage Tax Rules
     When Sales Manager click Add New Tax Rule icon and fill out "<Number>"information and edit tax rules
     Then the new Tax Rule update successfully
@@ -68,11 +68,13 @@ Feature:Sales Module Functions
     Given sales manager click on refunds link
     When  sales manager entering the refunds period and shows refunds
     Then  sales manager view refunds reports successful
+
     @ViewCreditMemo
     Scenario: Sales manager can view credit memo
       Given sales manager is on the dashboard and click credit memo link
       When  manager click the view button and view credit memo information
       Then verify view credit memo
+
       @AddCreditMemo
       Scenario: Sales manager can add credit memo
         Given Sales manager is on the dashboard page and clicks on Orders link
@@ -89,15 +91,11 @@ Feature:Sales Module Functions
 
 
   @ManageUpdateShoppingCart
-  Scenario Outline: Sales Manager should be able to manage update an existing shopping cart for customers.
+  Scenario: Sales Manager should be able to manage update an existing shopping cart for customers.
     Given Sales manager is on the dashboard page and click on the manage customers link
     When Sales manager open a customer and open his shopping cart
     And Sales manager edit the shopping cart
     Then The shopping cart should be edited successfully
-    Examples:
-      | quantity |
-      | 5        |
-
 
 
   @DeleteShoppingCart

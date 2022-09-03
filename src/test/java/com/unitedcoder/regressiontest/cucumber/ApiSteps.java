@@ -129,4 +129,33 @@ public class ApiSteps {
 
        Assert.assertEquals(response.getStatusCode(),200);
     }
-}
+
+
+
+    @When("user should be able to send post request for creating a new product using {string},{string},{string},{string}")
+    public void userShouldBeAbleToSendPostRequestForCreatingANewProductUsing(String arg0, String arg1, String arg2, String arg3) {
+        int arg00=Integer.parseInt(arg0);
+        int arg11=Integer.parseInt(arg1);
+        response = given().headers("Content-Type", "application/json").and().body(PayloadUtility.getProductPayload(arg00,arg11,arg2,arg3))
+               .auth().basic(username, password)
+                .when().post(baseURL + "/product");
+       response.getBody().prettyPrint();
+
+    }
+
+    @Then("a product with should be created")
+    public void aProductWithShouldBeCreated() {
+        Assert.assertEquals(response.getStatusCode(),200);
+    }
+
+
+    }
+
+
+
+
+
+
+
+
+
