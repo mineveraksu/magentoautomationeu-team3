@@ -5,7 +5,7 @@ Feature:Sales Module Functions
   Scenario Outline: Sales Manager can create a new order
     Given Sales manager is on the dashboard page and clicks on Orders link
     When sales manager selects a "<store name>" in order to add a "<product name>" to order
-    Then Sales Manager created a new order successfully
+    Then Sales Manager created a new order successfully and sales manager should be able to view order in database
     Examples:
       | store name | product name              |
       | English    | Black Nolita Cami-Black-S |
