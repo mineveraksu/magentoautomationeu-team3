@@ -90,7 +90,7 @@ Feature:Store Manager can manage store
   @CancelOrders
   Scenario: Store Manager can cancel orders
     Given store manager is on the dashboard page and store manager click on orders link
-    When  cancel order
+    When store manager click on view link and cancel order link
     Then  cancel order successful
 
   @addProductCategory
@@ -104,15 +104,7 @@ Feature:Store Manager can manage store
     Given store manager is on the dashboard page store manager click on manage products link
     When store manager clicks an existing product and check other existing product category
     Then verify update the product category
-  #add stock
-  @AddStockQuantity
-  Scenario Outline: Sales Manager can add stock quantity
-    Given Sales manager is on the dashboard page and open the manage products page
-    When sales manager selects a "<name>" in order to add a "<qty>" to the product
-    Then Sales Manager can add stock quantity successfully
-    Examples:
-      |name | qty |
-      |  Jeans  | 100 |
+
 
   @DeleteCategory
   Scenario: Store Manager can delete a product category
@@ -143,3 +135,13 @@ Feature:Store Manager can manage store
     Examples:
       | name  |
       | Jeans |
+
+     #add stock
+  @AddStockQuantity
+  Scenario Outline: Sales Manager can add stock quantity
+    Given Sales manager is on the dashboard page and open the manage products page
+    When sales manager selects a "<name>" in order to add a "<qty>" to the product
+    Then Sales Manager can add stock quantity successfully
+    Examples:
+      |name | qty |
+      |  Jeans  | 100 |

@@ -42,6 +42,15 @@ public class TestDataHolder {
 
     private String billToName;
 
+    public static String getAddress() {
+        return address;
+    }
+
+    public static void setAddress(String address) {
+        TestDataHolder.address = address;
+    }
+
+    private static String address;
 
     @Override
     public String toString() {

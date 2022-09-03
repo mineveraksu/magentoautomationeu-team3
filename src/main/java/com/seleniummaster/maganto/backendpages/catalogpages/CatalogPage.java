@@ -13,6 +13,7 @@ import org.openqa.selenium.support.ui.Select;
 public class CatalogPage {
     WebDriver driver;
     TestUtility testUtility;
+    CatalogDashboardPage catalogDashboardPage;
 
     @FindBy(css = "input[name='general[name]']")
     WebElement categoryNameField;
@@ -32,7 +33,6 @@ public class CatalogPage {
     WebElement deleteRootCategorySuccessfulMessage;
     @FindBy(linkText = "Expand All")
     WebElement expandAllLink;
-
 
     public CatalogPage(WebDriver driver) {
         this.driver = driver;
@@ -54,8 +54,10 @@ public class CatalogPage {
     }
 
     public void editRootCategory(TestDataHolder testDataHolder) {
+        catalogDashboardPage=new CatalogDashboardPage(driver);
+        catalogDashboardPage.clickOnManageCategories();
         expandAllLink.click();
-        WebElement existingRootCategories = driver.findElement(By.xpath(String.format("//span[contains(text(),'%s (0)')]", testDataHolder.getRootCategoryName())));
+        WebElement existingRootCategories = driver.findElement(By.xpath(String.format("//span[contains(text(),'%s')]", testDataHolder.getRootCategoryName())));
         testUtility.waitForElementPresent(existingRootCategories);
         testUtility.sleep(3);
         existingRootCategories.click();
@@ -63,10 +65,12 @@ public class CatalogPage {
         descriptionField.clear();
         descriptionField.sendKeys(TestUtility.getFieldFromJson("Test-Data/testDatasSmall.json", "new_category_description"));
         saveCategoryButton.click();
+        testUtility.sleep(2);
     }
 
     public void deleteExistingRootCategory(TestDataHolder testDataHolder) {
-        WebElement existingRootCategories = driver.findElement(By.xpath(String.format("//span[contains(text(),'%s (0)')]", testDataHolder.getRootCategoryName())));
+        expandAllLink.click();
+        WebElement existingRootCategories = driver.findElement(By.xpath(String.format("//span[contains(text(),'%s')]", testDataHolder.getRootCategoryName())));
         testUtility.waitForElementPresent(existingRootCategories);
         testUtility.sleep(3);
         existingRootCategories.click();
@@ -92,6 +96,8 @@ public class CatalogPage {
 
 
     public boolean verifyEditRootCategory() {
+        testUtility.waitForElementPresent(descriptionField);
+        testUtility.sleep(1);
         if (descriptionField.getText().contains(TestUtility.getFieldFromJson("Test-Data/testDatasSmall.json", "new_category_description"))){
             System.out.println("Catalog Manager can edit root categories test Passed!");
             return true;

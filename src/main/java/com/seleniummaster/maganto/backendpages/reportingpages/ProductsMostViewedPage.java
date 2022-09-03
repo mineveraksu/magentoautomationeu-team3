@@ -7,6 +7,7 @@ import org.apache.poi.ss.formula.functions.T;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
@@ -41,6 +42,8 @@ public class ProductsMostViewedPage {
     WebElement selectShowBy;
     @FindBy(xpath = "//button[@title=\"Refresh\"]")
     WebElement refreshButton;
+    @FindAll(@FindBy (css = "table.data>tbody>tr"))
+    List<WebElement> mostViewedReportTable;
 
 
     public ProductsMostViewedPage(WebDriver driver) {
@@ -61,9 +64,8 @@ public class ProductsMostViewedPage {
     showReportsButton.click();
 }
     public boolean verifyMostViewedProductsDisplayed(){
-        List<WebElement> rows=driver.findElements(By.cssSelector("table.data>tbody>tr"));
-        reportRowSize=rows.size();
-        return reportRowSize>0;
+        if (mostViewedReportTable.size() > 0);
+        return true;
     }
 
     //see Products - Products Ordered Report

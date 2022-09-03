@@ -44,6 +44,16 @@ public class DatabaseSteps extends ConnectionManager {
         Assert.assertTrue(isUserExist);
     }
 
+    //get cart price rule
+    @When("user execute the  mg_sales_rule where rule_id {string} query")
+    public void userExecuteTheMg_sales_ruleWhereRule_idQuery(String arg0) {
+        isUserExist=dataAccess.getCartPriceRule(arg0,connection);
+        }
+    @Then("the user should see added cart price rule in the database")
+    public void theUserShouldSeeAddedCartPriceRuleInTheDatabase(){
+        Assert.assertTrue(isUserExist);
+    }
+
     @After("@DatabaseTest")
     public void tearDown(){
         closeDatabaseConnection(connection);
