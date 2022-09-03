@@ -40,7 +40,7 @@ public class CustomerGroupsPage {
 
     public void clickOnGroupNameField(TestDataHolder testDataHolder) {
         testUtility.waitForElementPresent(groupNameField);
-        groupNameField.sendKeys(testDataHolder.getCustomerGroupName());
+        groupNameField.sendKeys(testDataHolder.getCustomerGroupName()+System.currentTimeMillis());
     }
 
     public void clickOnTaxClassDropDownList() {
