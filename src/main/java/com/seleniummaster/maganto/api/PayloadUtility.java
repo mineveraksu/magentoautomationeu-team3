@@ -57,10 +57,6 @@ public class PayloadUtility {
         String payload= null;
         long timeStamp = System.currentTimeMillis();
         ProductPayload productPayload=new ProductPayload(entityTypeId,attributeSetId,typeId,sku);
-        System.out.println(sku);
-        System.out.println(typeId);
-        System.out.println(entityTypeId);
-        System.out.println(attributeSetId);
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             payload = objectMapper.writeValueAsString(productPayload);
