@@ -56,8 +56,7 @@ public class PayloadUtility {
        // public static int parseInt(String s)
         String payload= null;
         long timeStamp = System.currentTimeMillis();
-        ProductPayload productPayload=new ProductPayload(entityTypeId,attributeSetId,typeId,sku+timeStamp);
-
+        ProductPayload productPayload=new ProductPayload(entityTypeId,attributeSetId,typeId,sku);
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             payload = objectMapper.writeValueAsString(productPayload);
