@@ -137,11 +137,11 @@ Feature:Store Manager can manage store
       | Jeans |
 
      #add stock
-  @AddStockQuantity
-  Scenario Outline: Sales Manager can add stock quantity
-    Given Sales manager is on the dashboard page and open the manage products page
-    When sales manager selects a "<name>" in order to add a "<qty>" to the product
-    Then Sales Manager can add stock quantity successfully
-    Examples:
-      |name | qty |
-      |  Jeans  | 100 |
+#  @AddStockQuantity
+#  Scenario Outline: Sales Manager can add stock quantity
+#    Given Sales manager is on the dashboard page and open the manage products page
+#    When sales manager selects a "<name>" in order to add a "<qty>" to the product
+#    Then Sales Manager can add stock quantity successfully
+#    Examples:
+#      |name | qty |
+#      |  Jeans  | 100 |

@@ -255,8 +255,6 @@ public class SalesSteps extends BasePage {
     @When("Sale manager filter credit memos")
     public void saleManagerFilterCreditMemos() {
         // creditMemoPage.FilterCreditMemos;
-
-
     }
 
     @Then("the result of the filter should be displayed")
@@ -267,19 +265,6 @@ public class SalesSteps extends BasePage {
     public void salesManagerOpenTheExistingShoppingCart() {
     }
 
-    // delete the shopping cart
-
-    //delete shopping cart
-//    @And("Sales manager delete the shopping cart")
-//    public void salesManagerDeleteTheShoppingCart() {
-//        manageCustomersPage.deleteShoppingCart();
-//    }
-//
-//    @Then("The shopping cart should be deleted successfully")
-//    public void theShoppingCartShouldBeDeletedSuccessfully() {
-//        assertTrue(manageCustomersPage.verifyDeleteShoppingCart());
-
-    // }
 
     //delete shopping cart
     @When("Sales manager delete the shopping cart")

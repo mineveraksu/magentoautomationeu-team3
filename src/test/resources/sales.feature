@@ -14,12 +14,6 @@ Feature:Sales Module Functions
       | commentHistory       | number   |
       | Shipped successfully | 12345678 |
 
-  @ManageUpdateShoppingCart
-  Scenario: Sales Manager should be able to manage update an existing shopping cart for customers.
-    Given Sales manager is on the dashboard page and click on the manage customers link
-    When Sales manager open a customer and open his shopping cart
-    And Sales manager edit the shopping cart
-    Then The shopping cart should be edited successfully
 
   @CreateNewOrder
   Scenario Outline: Sales Manager can create a new order
@@ -85,15 +79,18 @@ Feature:Sales Module Functions
       When  manager click the view button and view credit memo information
       Then verify view credit memo
 
-
-
 @ManageOpenAndViewShoppingCart
   Scenario: Sales Manager should be able to manage view shopping cart for customers
   Given Sales manager is on the dashboard page and click on the manage customers link
   When Sales manager open a customer and open his shopping cart
   Then Sales manager can view shopping cart
 
-
+  @ManageUpdateShoppingCart
+  Scenario: Sales Manager should be able to manage update an existing shopping cart for customers.
+    Given Sales manager is on the dashboard page and click on the manage customers link
+    When Sales manager open a customer and open his shopping cart
+    And Sales manager edit the shopping cart
+    Then The shopping cart should be edited successfully
 
 
 

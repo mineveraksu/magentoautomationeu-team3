@@ -136,8 +136,6 @@ public class StoreProductPage {
     @FindBy(xpath = "//span[text()='Manage Products']")
     WebElement manageProductsLink;
 
-    //@FindBy(xpath = "//tr[@class='even pointer on-mouse' ]//td[2]")
-    //WebElement productIdLocation ;
 
     @FindBy(xpath = "//*[@id=\"productGrid_table\"]/tbody/tr/td[2]")
     WebElement productIdLocation ;
