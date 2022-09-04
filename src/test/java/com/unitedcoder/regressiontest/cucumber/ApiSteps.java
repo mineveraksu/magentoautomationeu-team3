@@ -167,6 +167,18 @@ public class ApiSteps {
     public void userGetStatusCodeAndAllProductsInformationAsResponse() {
         Assert.assertEquals(response.getStatusCode(),200);
     }
+
+    //get all customer information_Tursunay(flora)
+    @When("user should be able to send get request for all customers")
+    public void userShouldBeAbleToSendGetRequestForAllCustomers() {
+        response=RestAssured.given().auth().basic(username,password).when().get(baseURL+"/customers");
+        response.getBody().prettyPrint();
+    }
+
+    @Then("a user should be get all customers information")
+    public void aUserShouldBeGetAllCustomersInformation() {
+        Assert.assertEquals(response.getStatusCode(),200);
+    }
 }
 
 

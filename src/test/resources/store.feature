@@ -99,14 +99,14 @@ Feature:Store Manager can manage store
     When store manager clicks categories link and check the existing product categories
     Then verify added a new product category
 
-  @UpdateCategory
+  @UpdateProductCategory
   Scenario: Store Manager can update a new product category
     Given store manager is on the dashboard page store manager click on manage products link
     When store manager clicks an existing product and check other existing product category
     Then verify update the product category
 
 
-  @DeleteCategory
+  @DeleteProductCategory
   Scenario: Store Manager can delete a product category
     Given store manager is on the dashboard page store manager click on manage products link
     When store manager clicks an existing product and delete the product category
