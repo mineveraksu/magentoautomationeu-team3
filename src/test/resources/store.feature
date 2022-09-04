@@ -1,4 +1,4 @@
-@StoreModuleTest
+@StoreModuleTest @RegressionTest
 Feature:Store Manager can manage store
 
   @CreateWebsite

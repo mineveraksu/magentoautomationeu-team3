@@ -1,14 +1,32 @@
-@SalesModuleTest
+@SalesModuleTest @RegressionTest
 Feature:Sales Module Functions
+
+
+  @UpdateShipments
+  Scenario Outline: Sales Manager can update shipments
+    Given Sales manager is on the dashboard page and clicks on shipmentsOption
+    When Sales Manager click view icon and fill out "<commentHistory>" information and click on submit comment button
+    And Sales Manager edit shipping and tracking information and fill out "<number>" and click on add button
+    Then the shipments update successfully
+
+    Examples:
+      | commentHistory       | number   |
+      | Shipped successfully | 12345678 |
 
   @CreateNewOrder
   Scenario Outline: Sales Manager can create a new order
     Given Sales manager is on the dashboard page and clicks on Orders link
     When sales manager selects a "<store name>" in order to add a "<product name>" to order
-    Then Sales Manager created a new order successfully and sales manager should be able to view order in database
+    Then Sales Manager created a new order successfully
     Examples:
       | store name | product name              |
       | English    | Black Nolita Cami-Black-S |
+
+  @AddCreditMemo
+  Scenario: Sales manager can add credit memo
+    Given Sales manager is on the dashboard page and clicks on Orders link
+    When  Sales manager click pending and invoice button to create credit memo
+    Then  Verify added credit memo
 
   @CreateNewRefund
   Scenario: Sales manager should be able to create new refund for database
@@ -33,19 +51,9 @@ Feature:Sales Module Functions
       | commentText                 |
       | Rest of the payment cleared |
 
-  @UpdateShipments
-  Scenario Outline: Sales Manager can update shipments
-    Given Sales manager is on the dashboard page and clicks on shipmentsOption
-    When Sales Manager click view icon and fill out "<commentHistory>" information and click on submit comment button
-    And Sales Manager edit shipping and tracking information and fill out "<number>" and click on add button
-    Then the shipments update successfully
-
-    Examples:
-      | commentHistory       | number   |
-      | Shipped successfully | 12345678 |
 
   @AddTaxRules
-  Scenario Outline: Sales Manager can add and update tax rules
+  Scenario Outline: Sales Manager can add tax rules
     Given Sales manager is on the dashboard page and clicks on Manage Tax Rules
     When Sales Manager click Add New Tax Rule  icon and fill out "<Name>" "<Priority>" "<SortOrder>" information and click on Save Rule button
     Then a new Tax Rule "<Name>" created successfully
@@ -74,12 +82,6 @@ Feature:Sales Module Functions
       Given sales manager is on the dashboard and click credit memo link
       When  manager click the view button and view credit memo information
       Then verify view credit memo
-
-      @AddCreditMemo
-      Scenario: Sales manager can add credit memo
-        Given Sales manager is on the dashboard page and clicks on Orders link
-        When  Sales manager click pending and invoice button to create credit memo
-        Then  Verify added credit memo
 
 
 

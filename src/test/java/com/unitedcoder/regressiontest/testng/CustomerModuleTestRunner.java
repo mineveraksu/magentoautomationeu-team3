@@ -48,16 +48,12 @@ public class CustomerModuleTestRunner extends BasePage {
         customerPage.addNewCustomer();
         Assert.assertTrue(customerPage.verifyNewCustomerAdded());
        // Assert.assertTrue(dataAccess.getNewlyAddedCustomer(customerPage.email(), connection));
-
-
-
-
     }
     @Test(dataProvider = "customerGroupInfo", groups = "regression test", description = "Customer Manager can add new customer groups.")
     public void addNewCustomerGroups(TestDataHolder testDataHolder) {
         customerDashboardPage.clickOnCustomerGroups();
         customerGroupsPage.addNewCustomerGroups(testDataHolder);
-        //Assert.assertTrue(customerGroupsPage.verifyAddNewCustomerGroups());
+        Assert.assertTrue(customerGroupsPage.verifyAddNewCustomerGroups());
         Assert.assertTrue(dataAccess.getCustomerGroup(testDataHolder.getCustomerGroupName(), connection));
     }
 
@@ -68,7 +64,7 @@ public class CustomerModuleTestRunner extends BasePage {
         Assert.assertTrue(customerGroupsPage.verifyUpdateExistingCustomerGroups());
     }
 
-    @Test(description = "assign a customer to group",
+    @Test(groups = "regression test",description = "assign a customer to group",
             dataProvider = "customerGroupInfo",dependsOnMethods = {"addNewCustomer","updateExistingCustomerGroups"})
     public void assignACustomerToGroup(TestDataHolder testDataHolder) {
         customerDashboardPage.clickOnManageCustomers();
@@ -79,7 +75,7 @@ public class CustomerModuleTestRunner extends BasePage {
         customerPage.verificationACustomerAssignToGroup();
     }
 
-    @Test(description = "exportCustomer")
+    @Test(groups = "regression test",description = "exportCustomer")
     public void exportCustomer() {
         String fileType = "Excel XML";
         customerDashboardPage.clickOnManageCustomers();
@@ -118,7 +114,7 @@ public class CustomerModuleTestRunner extends BasePage {
         addAddressesPage.deleteAddedAddress();
     }
 
-    @Test(description = "Customer Manager can update an existing customer ",dependsOnMethods = "assignACustomerToGroup")
+    @Test(groups = "regression test",description = "Customer Manager can update an existing customer ",dependsOnMethods = "assignACustomerToGroup")
     public void updateCustomer() {
         customerPage.updateCustomer();
         Assert.assertTrue(customerPage.verifyUpdateCustomer());
@@ -145,7 +141,7 @@ public class CustomerModuleTestRunner extends BasePage {
         Assert.assertTrue(filterCustomerPage.verifyFilterByGroup());
     }
 
-    @Test(description = "Customer Manager can delete an existing customer",dependsOnMethods = "updateCustomer")
+    @Test(groups = "regression test",description = "Customer Manager can delete an existing customer",dependsOnMethods = "updateCustomer")
     public void deleteExistingCustomer() {
         customerDashboardPage.clickOnManageCustomers();
         customerPage.deleteCustomer();

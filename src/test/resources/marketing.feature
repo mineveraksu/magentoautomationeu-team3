@@ -1,5 +1,22 @@
-@MarketingModuleTest
+@MarketingModuleTest @RegressionTest
 Feature:Marketing Manager can manage market
+
+
+
+  @ViewPendingReviews
+  Scenario: Marketing Manager can view pending reviews
+    Given marketing manager is on the dashboard page and marketing manager click on pending reviews link
+    When marketing manager view on pending reviews page
+    Then the pending reviews view successfully
+
+  @UpdateExistingReview
+  Scenario Outline: Marketing Manager can update existing reviews
+    Given marketing manager is on the dashboard page and marketing manager click on all reviews link
+    When marketing manager click existing review edit button and clear the review field and edit new review in "<Review>" field
+    Then existing reviews updated successfully
+    Examples:
+      |Review                                 |
+      |the dress is beautiful and good quality|
 
   @AddNewNewsletterTemplate
   Scenario Outline: Marketing Manager can add new Newsletter template
@@ -29,28 +46,11 @@ Feature:Marketing Manager can manage market
       | Team3 Template |
 
 
-  @ViewPendingReviews
-  Scenario: Marketing Manager can view pending reviews
-    Given marketing manager is on the dashboard page and marketing manager click on pending reviews link
-    When marketing manager view on pending reviews page
-    Then the pending reviews view successfully
-
   @UpdatePendingReviews
   Scenario: Marketing Manager can update pending Reviews
     Given marketing manager is on the dashboard page and marketing manager click on pending reviews link
     When  marketing manager update on mandatory field
     Then  the pending reviews update successful
-
-
-
-  @UpdateExistingReview
-  Scenario Outline: Marketing Manager can update existing reviews
-    Given marketing manager is on the dashboard page and marketing manager click on all reviews link
-    When marketing manager click existing review edit button and clear the review field and edit new review in "<Review>" field
-    Then existing reviews updated successfully
-    Examples:
-      |Review                                 |
-      |the dress is beautiful and good quality|
 
   @VieNewsletterSubscribers
   Scenario: Marketing Manager can view newsletter subscribers .

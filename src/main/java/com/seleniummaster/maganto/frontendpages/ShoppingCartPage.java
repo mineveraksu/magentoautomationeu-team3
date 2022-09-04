@@ -94,6 +94,10 @@ public class ShoppingCartPage {
         clickOnAddToCartButton();
     }
 
+    public void addToCart(){
+        clickOnAddToCartButton();
+    }
+
     public boolean verifyProductsAddedToCart(){
         testUtility.waitForElementPresent(successMessage);
         if(successMessage.getText().contains("was added to your shopping cart.")){
