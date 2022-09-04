@@ -113,7 +113,10 @@ Feature:Sales Module Functions
     Then Sales Manager deleted a order successfully
 
     @ViewCreditMemos
-    Scenario: Sales Manager should be able to view credit memos by filters.
+   Scenario Outline: Sales Manager should be able to view credit memos by filters.
     Given Sales manager is on the dashboard page and clicks on credit memos link
     When Sale manager filter credit memos
     Then the result of the filter should be displayed
+      Examples:
+        |creditmemo id|
+        |100000025    |
