@@ -148,7 +148,7 @@ public class MarketingSteps extends BasePage {
     public String marketingManagerClickTheAddNewRuleButtonAndFillOut(String arg0) {
         RuleName = arg0;
         catalogPriceRulePage = new CatalogPriceRulePage(driver);
-        catalogPriceRulePage.AddNewRule(RuleName, testDataHolder, "65");
+        catalogPriceRulePage.AddNewRule(RuleName, "65");
         return RuleName;
     }
 
