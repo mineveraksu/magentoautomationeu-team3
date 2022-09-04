@@ -237,17 +237,8 @@ public class SalesSteps extends BasePage {
         assertTrue(manageCustomersPage.verifyEditShoppingCart());
     }
 
-    //delete shopping cart
-    @And("Sales manager delete the shopping cart")
-    public void salesManagerDeleteTheShoppingCart() {
-        manageCustomersPage.deleteShoppingCart();
-    }
 
-    @Then("The shopping cart should be deleted successfully")
-    public void theShoppingCartShouldBeDeletedSuccessfully() {
-        assertTrue(manageCustomersPage.verifyDeleteShoppingCart());
 
-    }
 
     //delete order
     @When("sales manager click on the pending order to click on the Cancel Button")
@@ -283,6 +274,38 @@ public class SalesSteps extends BasePage {
 
     @Then("the result of the filter should be displayed")
     public void theResultOfTheFilterShouldBeDisplayed() {
+    }
+
+    @Given("sales manager open the existing shopping cart")
+    public void salesManagerOpenTheExistingShoppingCart() {
+    }
+
+    // delete the shopping cart
+
+    //delete shopping cart
+//    @And("Sales manager delete the shopping cart")
+//    public void salesManagerDeleteTheShoppingCart() {
+//        manageCustomersPage.deleteShoppingCart();
+//    }
+//
+//    @Then("The shopping cart should be deleted successfully")
+//    public void theShoppingCartShouldBeDeletedSuccessfully() {
+//        assertTrue(manageCustomersPage.verifyDeleteShoppingCart());
+
+    // }
+
+    //delete shopping cart
+    @When("Sales manager delete the shopping cart")
+    public void salesManagerDeleteTheShoppingCart() {
+        salesDashboardPage.clickOnManageCustomersLink();
+        manageCustomersPage = new ManageCustomersPage(driver);
+        manageCustomersPage.openShoppingCart();
+        manageCustomersPage.deleteShoppingCart();
+    }
+
+    @Then("The shopping cart should be deleted successfully")
+    public void theShoppingCartShouldBeDeletedSuccessfully() {
+        assertTrue(manageCustomersPage.verifyDeleteShoppingCart());
     }
 
 

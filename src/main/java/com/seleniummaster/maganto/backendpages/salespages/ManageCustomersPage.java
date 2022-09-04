@@ -41,7 +41,7 @@ public class ManageCustomersPage {
     @FindBy(linkText = "Configure")
     WebElement configureLink;
 
-    @FindBy(xpath ="//*[@id=\"weight\"]")
+    @FindBy(id = "weight")
     WebElement weightField;
 
 
