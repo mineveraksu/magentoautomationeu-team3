@@ -1,4 +1,4 @@
-@ReportingModuleTest
+@ReportingModuleTest @RegressionTest
 Feature:Reporting Module Functions
 
     @SeeProducts-MostViewedProductsReport

@@ -242,11 +242,13 @@ public class StoreSteps extends BasePage {
     @Given("store manager is on the dashboard page and store manager click on orders link")
     public void storeManagerIsOnTheDashboardPageAndStoreManagerClickOnOrdersLink() {
         storeDashboardPage.clickOnOrdersLink();
-        storeDashboardPage.clickOnViewLink();
+
     }
 
     @When("store manager search orders number and edit some information")
     public void storeManagerSearchOrdersNumberAndEditSomeInformation() {
+        storeDashboardPage=new StoreDashboardPage(driver);
+        storeDashboardPage.clickOnViewLink();
        storeOrdersPage=new StoreOrdersPage(driver);
        storeOrdersPage.editOrderInformation();
     }
@@ -257,9 +259,11 @@ public class StoreSteps extends BasePage {
     }
 
     //cancel order
-    @When("cancel order")
+    @When("store manager click on view link and cancel order link")
     public void cancelOrder(){
+        storeDashboardPage=new StoreDashboardPage(driver);
         storeOrdersPage=new StoreOrdersPage(driver);
+        storeDashboardPage.clickOnViewLink();
         storeOrdersPage.clickOnCancelOrder();
     }
 

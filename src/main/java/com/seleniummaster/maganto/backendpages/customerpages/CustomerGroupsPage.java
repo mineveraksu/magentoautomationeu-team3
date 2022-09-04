@@ -40,7 +40,7 @@ public class CustomerGroupsPage {
 
     public void clickOnGroupNameField(TestDataHolder testDataHolder) {
         testUtility.waitForElementPresent(groupNameField);
-        groupNameField.sendKeys(testDataHolder.getCustomerGroupName());
+        groupNameField.sendKeys(testDataHolder.getCustomerGroupName()+System.currentTimeMillis());
     }
 
     public void clickOnTaxClassDropDownList() {
@@ -81,7 +81,7 @@ public class CustomerGroupsPage {
     }
 
     public boolean verifyAddNewCustomerGroups() {
-        //testUtility.waitForElementPresent(SuccessMessage);
+        testUtility.waitForElementPresent(SuccessMessage);
         if (SuccessMessage.getText().contains("saved")) {
             System.out.println("Customer Manager add new customer groups Test Passed!! ");
             return true;

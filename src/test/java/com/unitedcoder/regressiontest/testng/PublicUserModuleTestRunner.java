@@ -45,7 +45,7 @@ public class PublicUserModuleTestRunner extends BasePage {
         Assert.assertTrue(accountInformationPage.verifyEditAccountInformation());
     }
 
-    @Test(description = "A user should be able to view Account Information")
+    @Test(groups = "regression test",description = "A user should be able to view Account Information")
     public void viewAccountInformation(){
         dashboardPage.clickOnAccountInformationLink();
         accountInformationPage.verifyAccountInformationViewed();
@@ -81,7 +81,7 @@ public class PublicUserModuleTestRunner extends BasePage {
 
     }
 
-    @Test(description = "A user should be able to check out the order")
+    @Test(groups = "regression test",description = "A user should be able to check out the order")
     public void checkoutProduct() {
         CheckOutOrderPage checkOutOrderPage = new CheckOutOrderPage(driver);
         //checkOutOrderPage.clickPlaceOrderButton();
@@ -94,7 +94,7 @@ public class PublicUserModuleTestRunner extends BasePage {
         Assert.assertTrue(downloadableProductsPage.isDownloadableProductsExist());
     }
 
-    @Test(description = "A user should be able to view my wish list")
+    @Test(groups = "regression test",description = "A user should be able to view my wish list")
     public void verifyMyWishList() {
         dashboardPage.clickOnMyWishListLink();
         myWishListPage.viewMyWshList();
