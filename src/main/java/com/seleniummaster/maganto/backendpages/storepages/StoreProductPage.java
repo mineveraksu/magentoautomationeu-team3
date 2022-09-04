@@ -79,9 +79,9 @@ public class StoreProductPage {
     WebElement nameAfterSearched;
     @FindBy(xpath = "//a[@name=\"categories\"]")
     WebElement categoriesLink;
-    @FindBy(xpath = "//span[contains(text(),\"Team111 (3)\")]")
+    @FindBy(xpath = "//div[@class='x-tree-root-node']/li[1]/div/input")
     WebElement existingRootCategories;
-    @FindBy(xpath = "//span[contains(text(),\"zibuzinnet (49)\")]")
+    @FindBy(xpath = "//div[@class='x-tree-root-node']/li[1]/ul/li/div/input")
     WebElement existingSubCategories;
     @FindBy(xpath = "//*[contains(text(),\"shoes (0)\")]")
     WebElement addedProductLink;
@@ -273,22 +273,20 @@ public class StoreProductPage {
 
         testUtility.waitForElementPresent(nameInputBox);
         nameInputBox.click();
-        testUtility.sleep(3);
+        testUtility.sleep(1);
         nameInputBox.sendKeys("Jeans");
         testUtility.waitForElementPresent(searchButton);
         searchButton.click();
-        testUtility.sleep(3);
+        testUtility.sleep(1);
         testUtility.waitForElementPresent(nameAfterSearched);
         nameAfterSearched.click();
-        testUtility.sleep(3);
-        // testUtility.waitForElementPresent(addedProductLink);
-        // addedProductLink.click();
-        testUtility.sleep(3);
+        testUtility.sleep(1);
+        testUtility.sleep(1);
         testUtility.waitForElementPresent(categoriesLink);
         categoriesLink.click();
         testUtility.waitForElementPresent(existingRootCategories);
-        existingRootCategories.click();
-        testUtility.sleep(3);
+        testUtility.javaScriptClick(existingRootCategories);
+        testUtility.sleep(1);
         testUtility.waitForElementPresent(saveButton);
         saveButton.click();
 
@@ -308,21 +306,19 @@ public class StoreProductPage {
     public void updateProductCategory() {
         testUtility.waitForElementPresent(nameInputBox);
         nameInputBox.click();
-        testUtility.sleep(3);
+        testUtility.sleep(1);
         nameInputBox.sendKeys("Jeans");
         testUtility.waitForElementPresent(searchButton);
         searchButton.click();
-        testUtility.sleep(3);
+        testUtility.sleep(1);
         testUtility.waitForElementPresent(nameAfterSearched);
         nameAfterSearched.click();
-        testUtility.sleep(3);
-//        testUtility.waitForElementPresent(addedProductLink);
-//        addedProductLink.click();
+        testUtility.sleep(1);
         testUtility.waitForElementPresent(categoriesLink);
         categoriesLink.click();
         testUtility.waitForElementPresent(existingSubCategories);
-        existingSubCategories.click();
-        testUtility.sleep(3);
+        testUtility.javaScriptClick(existingSubCategories);
+        testUtility.sleep(1);
         testUtility.waitForElementPresent(saveButton);
         saveButton.click();
 
@@ -381,19 +377,17 @@ public class StoreProductPage {
     public void deleteProductCategory() {
         testUtility.waitForElementPresent(nameInputBox);
         nameInputBox.click();
-        testUtility.sleep(3);
+        testUtility.sleep(2);
         nameInputBox.sendKeys("Jeans");
         testUtility.waitForElementPresent(searchButton);
         searchButton.click();
-        testUtility.sleep(3);
+        testUtility.sleep(2);
         testUtility.waitForElementPresent(nameAfterSearched);
         nameAfterSearched.click();
-        testUtility.sleep(3);
         testUtility.waitForElementPresent(categoriesLink);
         categoriesLink.click();
         testUtility.waitForElementPresent(existingSubCategories);
-        existingSubCategories.click();
-        testUtility.sleep(3);
+        testUtility.javaScriptClick(existingSubCategories);
         testUtility.waitForElementPresent(deleteProductCategoryButton);
         deleteProductCategoryButton.click();
         testUtility.waitForAlertPresent();
