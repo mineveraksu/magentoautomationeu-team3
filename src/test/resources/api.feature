@@ -71,4 +71,10 @@ Feature: Get Post Put request Api Test For Magento Public Module
 
 
 
+    Scenario: A user should be able to get all customers
+      When user should be able to send get request for all customers
+      Then a user should be get all customers information
+
+
+
 
