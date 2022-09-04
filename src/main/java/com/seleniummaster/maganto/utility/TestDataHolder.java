@@ -24,6 +24,11 @@ public class TestDataHolder {
     private static String customerGroupID;
     private static String categoryID;
 
+    private static String products;
+
+
+
+
     public static String getCategoryID() {
         return categoryID;
     }
@@ -51,6 +56,14 @@ public class TestDataHolder {
     }
 
     private static String address;
+
+    public static String Products() {
+        return products;
+    }
+
+    public static void Products(String Products) {
+        TestDataHolder.products = Products;
+    }
 
     @Override
     public String toString() {

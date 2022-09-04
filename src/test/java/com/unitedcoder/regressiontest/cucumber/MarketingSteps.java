@@ -98,13 +98,11 @@ public class MarketingSteps extends BasePage {
     public void marketingManagerIsOnTheDashboardPageAndMarketingManagerClickOnPendingReviewsLink() {
         marketingdashboardPage = new MarketingDashboardPage(driver);
         marketingdashboardPage.clickOnPendingReviewsLink();
-
     }
 
     @When("marketing manager view on pending reviews page")
     public void marketingManagerViewOnPendingReviewsPage() {
         reviewsPage = new ReviewsPage(driver);
-
     }
 
     @Then("the pending reviews view successfully")
@@ -112,6 +110,7 @@ public class MarketingSteps extends BasePage {
         Assert.assertTrue(reviewsPage.verifyViewPendingReviewsSuccessfully());
     }
 
+    //
     @When("marketing manager update on mandatory field")
     public void marketingManagerUpdateOnMandatoryField() {
         reviewsPage = new ReviewsPage(driver);

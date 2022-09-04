@@ -62,7 +62,8 @@ public class CartPriceRulePage {
     WebElement cartRuleSearchButton;
     @FindBy(xpath = "//*[contains(text(),'No records found')]")
     WebElement noRecordsFoundMessage;
-
+    @FindBy(xpath = "//tbody/tr[6]/td[2]/div[1]/select[1]/option[1]")
+    WebElement website;
     @FindBy(xpath = "//*[contains(text(),'50% Sales(team3)')]")
     WebElement selectedCartRuleNamesFirstColumn;
 
@@ -132,6 +133,10 @@ public class CartPriceRulePage {
         descriptionField.click();
         descriptionField.clear();
         descriptionField.sendKeys(Description);
+        testUtility.waitForElementPresent(websites);
+        websites.click();
+        Select select5= new Select(websites);
+        select5.selectByIndex(3);
         testUtility.waitForElementPresent(saveButton);
         saveButton.click();
     }
