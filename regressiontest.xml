@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="All Test Suite">
-    <parameter name="username" value="testautomation1"></parameter>
-    <parameter name="password" value="automation123!"></parameter>
-    <test verbose="1" name="CubeCart Test">
-                <groups>
-                    <run>
-                        <include name="regression test"/>
-                    </run>
-                </groups>
-                <packages>
-                    <package name="com.unitedcoder.regressiontest.testng"></package>
-                </packages>
+    <test verbose="1" name="Regression Test">
+        <classes>
+            <class name="com.unitedcoder.regressiontest.testng.CatalogModuleTestRunner"></class>
+            <class name="com.unitedcoder.regressiontest.testng.CustomerModuleTestRunner"></class>
+            <class name="com.unitedcoder.regressiontest.testng.PublicUserModuleTestRunner"></class>
+        </classes>
     </test>
 </suite>

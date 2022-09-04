@@ -20,6 +20,7 @@ public class PublicUserModuleTestRunner extends BasePage {
     AddressBookPage addressBookPage;
     MyWishListPage myWishListPage;
     NewsLetterSubscriptionsPage newsLetterSubscriptionsPage;
+    ProductsPage productsPage;
 
     @BeforeClass
     public void setup(ITestContext context) {
@@ -60,8 +61,11 @@ public class PublicUserModuleTestRunner extends BasePage {
 
     @Test(groups = "regression test", description = "A User Should be Able to add products to shopping cart")
     public void addProductsToCart() {
-        dashboardPage.clickOnSaleLink();
-        shoppingCartPage.addProductsToCart();
+        //dashboardPage.clickOnSaleLink();
+        dashboardPage.clickOnMadisonLogo();
+        productsPage=new ProductsPage(driver);
+        productsPage.clickProductImage();
+        shoppingCartPage.addToCart();
         Assert.assertTrue(shoppingCartPage.verifyProductsAddedToCart());
     }
 

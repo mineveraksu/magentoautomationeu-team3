@@ -125,7 +125,7 @@ public class InvoicesPage {
         testUtility.waitForElementPresent(addNewTaxRuleButton);
         addNewTaxRuleButton.click();
         testUtility.waitForElementPresent(nameField);
-        nameField.sendKeys(Name);
+        nameField.sendKeys(Name+System.currentTimeMillis());
         Select dropDownCustomerTaxClass = new Select(selectCustomerTaxClass);
         dropDownCustomerTaxClass.selectByIndex(1);
         Select dropDownProductTaxClass = new Select(selectProductClass);
