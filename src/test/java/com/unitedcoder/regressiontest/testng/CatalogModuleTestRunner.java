@@ -76,6 +76,7 @@ public class CatalogModuleTestRunner extends BasePage {
     @Test(dataProvider = "subCategoriesInfo",
             groups = "regression test", description = "Catalog Manager Can Add Sub Categories.", priority = 3)
     public void addSubCategories(TestDataHolder testDataHolder) {
+        catalogDashboardPage.clickOnManageCategories();
         subCategoriesPage.addSubCategories(testDataHolder);
         Assert.assertTrue(subCategoriesPage.verifyAddSubCategories(testDataHolder));
         Assert.assertTrue(dataAccess.getSubCategories(Integer.parseInt(subCategoriesPage.getSubCategoryID()),connection));
