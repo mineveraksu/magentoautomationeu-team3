@@ -64,6 +64,10 @@ Feature: Get Post Put request Api Test For Magento Public Module
      |entityTypeId| |attributeSetId| |typeId  | |sku    |
       |3         | |         13| |  fghrth|  |  rtghdfghdfgh |
 
+  @getAllProducts
+  Scenario:User should be able to get All Products
+    When User send get All Products Request to the Api server
+    Then User get status code and All Products information as response
 
 
 

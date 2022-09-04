@@ -21,6 +21,9 @@ public class ApiSteps {
     private static String password;
     private static String configFile = "config.properties";
 
+    private static String Products;
+
+
     @Given("authorization and base url")
     public void authorizationAndBaseUrl() {
         baseURL = ApplicationConfig.readFromConfigProperties(configFile, "api.baseurl");
@@ -114,6 +117,8 @@ public class ApiSteps {
         //check the static code
         Assert.assertEquals(response.getStatusCode(), 200);
 
+
+
     }
 
     @When("user should be able to send put request for update customer{string}")
@@ -145,11 +150,24 @@ public class ApiSteps {
 
     @Then("a product with should be created")
     public void aProductWithShouldBeCreated() {
+
         Assert.assertEquals(response.getStatusCode(),200);
     }
 
 
+    @When("User send get All Products Request to the Api server")
+    public void userSendGetAllProductsRequestToTheApiServer() {
+        response = given().auth().basic(username, password)
+                .when().get(baseURL + "/products");
+        response.getBody().prettyPrint();
+        //2009
     }
+
+    @Then("User get status code and All Products information as response")
+    public void userGetStatusCodeAndAllProductsInformationAsResponse() {
+        Assert.assertEquals(response.getStatusCode(),200);
+    }
+}
 
 
 
