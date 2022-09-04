@@ -94,8 +94,6 @@ public class AddressBookPage {
     }
     public void updateAddressBookMethod(){
         clickONEditNewAddressButton();
-        enterFirstName();
-        enterLastName();
         enterPhoneNumber();
         enterStreetAddress();
         enterCity();
