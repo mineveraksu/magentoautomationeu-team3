@@ -2,6 +2,7 @@
 Feature:Sales Module Functions
 
 
+
   @UpdateShipments
   Scenario Outline: Sales Manager can update shipments
     Given Sales manager is on the dashboard page and clicks on shipmentsOption
@@ -12,6 +13,13 @@ Feature:Sales Module Functions
     Examples:
       | commentHistory       | number   |
       | Shipped successfully | 12345678 |
+
+  @ManageUpdateShoppingCart
+  Scenario: Sales Manager should be able to manage update an existing shopping cart for customers.
+    Given Sales manager is on the dashboard page and click on the manage customers link
+    When Sales manager open a customer and open his shopping cart
+    And Sales manager edit the shopping cart
+    Then The shopping cart should be edited successfully
 
   @CreateNewOrder
   Scenario Outline: Sales Manager can create a new order
@@ -92,19 +100,13 @@ Feature:Sales Module Functions
   Then Sales manager can view shopping cart
 
 
-  @ManageUpdateShoppingCart
-  Scenario: Sales Manager should be able to manage update an existing shopping cart for customers.
-    Given Sales manager is on the dashboard page and click on the manage customers link
-    When Sales manager open a customer and open his shopping cart
-    And Sales manager edit the shopping cart
-    Then The shopping cart should be edited successfully
+
 
 
   @DeleteShoppingCart
   Scenario: Sales Manager should be able to delete shopping cart
-    Given Sales manager is on the dashboard page and click on the manage customers link
-    When Sales manager open a customer and open his shopping cart
-    And Sales manager delete the shopping cart
+    Given sales manager open the existing shopping cart
+    When Sales manager delete the shopping cart
     Then The shopping cart should be deleted successfully
 
 
