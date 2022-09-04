@@ -85,15 +85,21 @@ public class SubCategoriesPage {
         testUtility.sleep(3);
         WebElement existingSubCategories = driver.findElement(By.xpath(String.format("//span[contains(text(),'%s')]", testDataHolder.getSubCategoriesName())));
         testUtility.waitForElementPresent(existingSubCategories);
-        existingSubCategories.click();
+       existingSubCategories.click();
+
+
     }
 
     public void updateExistingSubCategories(TestDataHolder testDataHolder) {
         clickOnExistingSubCategories(testDataHolder);
+        testUtility.sleep(3);
         testUtility.waitForElementPresent(isActiveDropDown);
+        actions.moveToElement(isActiveDropDown).click();
+        testUtility.sleep(3);
         Select select = new Select(isActiveDropDown);
-        select.selectByValue("0");
+        select.selectByVisibleText("No");
         testUtility.waitForElementPresent(saveCategory);
+        saveCategory.click();
 
     }
 
