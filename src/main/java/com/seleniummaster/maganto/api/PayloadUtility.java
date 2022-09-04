@@ -48,11 +48,15 @@ public class PayloadUtility {
     }
 
     //Post one product
-    public static String getProductPayload(int entityTypeId, int attributeSetId,String typeId,String sku){
+    public static String getProductPayload(int attributeSetId,int entityTypeId, String sku ,String typeId){
+//        int entityTypeId1=Integer.parseInt(entityTypeId);
+////        int attributeSetId1=Integer.parseInt(attributeSetId);
+
+       // int i=Integer.parseInt("200");
+       // public static int parseInt(String s)
         String payload= null;
         long timeStamp = System.currentTimeMillis();
-        ProductPayload productPayload=new ProductPayload(entityTypeId,attributeSetId,typeId,sku+timeStamp);
-
+        ProductPayload productPayload=new ProductPayload(entityTypeId,attributeSetId,typeId,sku);
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             payload = objectMapper.writeValueAsString(productPayload);

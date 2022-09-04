@@ -90,7 +90,7 @@ Feature:Store Manager can manage store
   @CancelOrders
   Scenario: Store Manager can cancel orders
     Given store manager is on the dashboard page and store manager click on orders link
-    When  cancel order
+    When store manager click on view link and cancel order link
     Then  cancel order successful
 
   @addProductCategory

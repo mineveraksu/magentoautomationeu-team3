@@ -18,6 +18,7 @@ public class StoreOrdersPage {
     Select select;
     String Config= "config.properties";
     String email = "email" ;
+    JavascriptExecutor javascriptExecutor;
 
     public StoreOrdersPage(WebDriver driver) {
         this.driver = driver;
@@ -60,31 +61,20 @@ public class StoreOrdersPage {
     WebElement addSelectedProductsToOrdersLink;
 
 
-    @FindBy (css="#order-billing_address_firstname")
-    WebElement billingAddressFirstNameField;
-    @FindBy (xpath = "//input[@type='text' and @id='order-billing_address_lastname']")
-    WebElement billingAddressLastNameField;
-    @FindBy (xpath = "//input[@type='text' and @id='order-billing_address_street0']")
-    WebElement billingAddressStreetNameField;
-    @FindBy (xpath = "//input[@type='text' and @id='order-billing_address_city']")
-    WebElement billingAddressCityNameField;
-    @FindBy (xpath = "//select[@id=\"order-billing_address_country_id\"]")
-    WebElement billingAddressCountryNameField;
-    @FindBy (xpath = "//select[@id=\"order-billing_address_region_id\"]")
-    WebElement billingAddressStateNameField;
-    @FindBy (xpath = "//input[@type='text' and @id='order-billing_address_postcode']")
-    WebElement billingAddressZipCodeField;
-    @FindBy (xpath = "//input[@type='text' and @id='order-billing_address_telephone']")
-    WebElement billingAddressTelephoneField;
+
     @FindBy (xpath = "//input[@id='p_method_cashondelivery']")
     WebElement cashOnDeliveryRadioButton;
 
-    @FindBy (xpath = "//a[@onclick='order.loadShippingRates();return false']")
+    @FindBy (xpath = "//a[contains(text(),'shipping method')]")
     WebElement getShippingMethodsAndRatesLink;
-    @FindBy (xpath = "//input[@onclick='order.setShippingMethod(this.value)']")
+    @FindBy (xpath = "//input[@id='s_method_freeshipping_freeshipping']")
     WebElement freeShippingRadioButton;
     @FindBy (xpath = "//span[text()='The order has been created.']")
     WebElement successMessage;
+    @FindBy(xpath = "//select[@id='order-billing_address_customer_address_id']")
+    WebElement billingAddressDropDown;
+    @FindBy (xpath = "//input[@id='order-shipping_as_billing']")
+    WebElement sameAsBillingAddressRadioButton;
 
 
     //Store Manager can create a new order
@@ -106,15 +96,23 @@ public class StoreOrdersPage {
         testUtility.waitForElementPresent(addSelectedProductsToOrdersLink);
         testUtility.javaScriptClick(addSelectedProductsToOrdersLink);
     }
+    public void fillBillingAndShippingAddress(){
+        testUtility.waitForElementPresent(billingAddressDropDown);
+        Select select1=new Select(billingAddressDropDown);
+        select1.selectByIndex(2);
+        testUtility.sleep(10);
+
+
+    }
 
     public void selectShippingMethodAndSubmitOrder() {
-        testUtility.sleep(5);
+        testUtility.sleep(3);
         testUtility.waitForElementPresent(getShippingMethodsAndRatesLink);
         getShippingMethodsAndRatesLink.click();
-        testUtility.sleep(5);
+        testUtility.sleep(3);
         testUtility.waitForElementPresent(freeShippingRadioButton);
         freeShippingRadioButton.click();
-        testUtility.sleep(5);
+        testUtility.sleep(3);
         testUtility.waitForElementPresent(cashOnDeliveryRadioButton);
         cashOnDeliveryRadioButton.click();
         testUtility.waitForElementPresent(submitOrderButton);
@@ -136,6 +134,10 @@ public class StoreOrdersPage {
     }
 
     //Store Manager can edit orders
+//    public void clickOnOrdersLink(){
+//        testUtility.waitForElementPresent();
+//    }
+
     public void editOrderInformation() {
         testUtility.waitForElementPresent(editButton);
         actions.moveToElement(editButton).click().perform();
@@ -192,6 +194,7 @@ public class StoreOrdersPage {
             return false;
         }
     }
+
 
 
 

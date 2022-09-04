@@ -73,12 +73,11 @@ public class PublicUserModuleTestRunner extends BasePage {
 
     @Test(groups = "regression test", description = "user should be able to update and view address book")
     public void updateAndViewAddressBook() {
+
         dashboardPage.clickOnAddressBookLink();
         addressBookPage.updateAddressBookMethod();
         addressBookPage.clickONSaveAddressButton();
         Assert.assertTrue(dashboardPage.verifyUpdatedAddressBookSuccessful());
-        dashboardPage.clickOnAddressBookLink();
-        Assert.assertTrue(dashboardPage.verifyViewUpdatedAddressBook());
 
     }
 

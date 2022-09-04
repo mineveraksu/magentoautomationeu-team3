@@ -191,6 +191,8 @@ public class StoreProductPage {
         testUtility.waitForElementPresent(qtyFiled);
         qtyFiled.sendKeys(qty);
         testUtility.waitForElementPresent(stockAvailabilityDropDown);
+        Select select6= new Select(stockAvailabilityDropDown);
+        select6.selectByVisibleText("In Stock");
         stockAvailabilityDropDown.click();
         testUtility.waitForElementPresent(saveButton);
         saveButton.click();
