@@ -96,7 +96,7 @@ public class CartPriceRulePage {
         Select dropDownWebsites=new Select(websites);
         dropDownWebsites.selectByIndex(1);
         Select dropDownGroups=new Select(customerGroups);
-        dropDownGroups.selectByValue("0");
+        dropDownGroups.selectByValue("1");
         Select dropDownCoupon=new Select(coupon);
         dropDownCoupon.selectByValue("1");
         testUtility.waitForElementPresent(priorityField);
