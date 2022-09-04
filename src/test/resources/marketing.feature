@@ -97,7 +97,7 @@ Feature:Marketing Manager can manage market
     Then  filter by "<RuleName>"and"<RuleId>" and verify successful
     Examples:
       |RuleId| RuleName           |
-      |  137 |50% Sales(team3)    |
+      |  181 |50% Sales(team3)    |
 
 
 
