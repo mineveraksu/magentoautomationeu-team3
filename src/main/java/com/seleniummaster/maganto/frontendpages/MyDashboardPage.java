@@ -74,9 +74,10 @@ public class MyDashboardPage {
     }
 
     public boolean verifyUpdatedAddressBookSuccessful(){
-        testUtility.waitForElementPresent(updatedAddressBookSuccessfulMessage);
+        testUtility.sleep(4);
+        //testUtility.waitForElementPresent(updatedAddressBookSuccessfulMessage);
         System.out.println("The address has been saved." + "successful message displayed");
-        return updatedAddressBookSuccessfulMessage.getText().contains("The address has been saved.");
+        return updatedAddressBookSuccessfulMessage.isDisplayed();
 
     }
     public boolean verifyViewUpdatedAddressBook(){
