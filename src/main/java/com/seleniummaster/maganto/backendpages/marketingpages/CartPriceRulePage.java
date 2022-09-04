@@ -137,6 +137,10 @@ public class CartPriceRulePage {
         websites.click();
         Select select5= new Select(websites);
         select5.selectByIndex(3);
+        testUtility.waitForElementPresent(customerGroups);
+        customerGroups.click();
+        Select select6= new Select(customerGroups);
+        select6.selectByIndex(3);
         testUtility.waitForElementPresent(saveButton);
         saveButton.click();
     }
