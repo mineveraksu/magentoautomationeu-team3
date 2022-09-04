@@ -237,19 +237,6 @@ public class SalesSteps extends BasePage {
         assertTrue(manageCustomersPage.verifyEditShoppingCart());
     }
 
-
-
-
-    //delete order
-    @When("sales manager click on the pending order to click on the Cancel Button")
-    public void salesManagerClickOnThePendingOrderToClickOnTheCancelButton() {
-        ordersPage.deleteOrder();
-    }
-    @Then("Sales Manager deleted a order successfully")
-    public void salesManagerDeletedAOrderSuccessfully() {
-        assertTrue(ordersPage.verifyOrderDeletedSuccessfully());
-    }
-
     // verify UI and Database;
     @Then("Refresh successfully and newly added refunds in the data base")
     public void addNewRefundSuccessfulAndNewlyAddedRefundsInTheDataBase() {

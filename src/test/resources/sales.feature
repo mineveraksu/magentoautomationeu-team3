@@ -102,19 +102,12 @@ Feature:Sales Module Functions
     Given sales manager open the existing shopping cart
     When Sales manager delete the shopping cart
     Then The shopping cart should be deleted successfully
-
-
-  @DeleteOrder
-  Scenario: Sales Manager can delete a new order
-    Given Sales manager is on the dashboard page and clicks on Orders link
-    When sales manager click on the pending order to click on the Cancel Button
-    Then Sales Manager deleted a order successfully
-
-    @ViewCreditMemos
-   Scenario Outline: Sales Manager should be able to view credit memos by filters.
-    Given Sales manager is on the dashboard page and clicks on credit memos link
-    When Sale manager filter credit memos
-    Then the result of the filter should be displayed
-      Examples:
-        |creditmemo id|
-        |100000025    |
+#
+#    @ViewCreditMemos
+#   Scenario Outline: Sales Manager should be able to view credit memos by filters.
+#    Given Sales manager is on the dashboard page and clicks on credit memos link
+#    When Sale manager filter credit memos"<creditmemo id>"
+#    Then the result of the filter should be displayed
+#      Examples:
+#        |creditmemo id|
+#        |100000025    |

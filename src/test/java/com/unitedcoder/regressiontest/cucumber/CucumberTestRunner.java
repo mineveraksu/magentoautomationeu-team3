@@ -10,10 +10,7 @@ import org.junit.runner.RunWith;
                 "json:target/cucumber.json",
                 "junit:target/cucumber-results.xml"},//for test report
         features = {"src/test/resources"},//feature file location
-
-
-
-        tags ="@MarketingManagerCanFilterCartPriceRuleByIdAndName")
+        tags ="@RegressionTest or @ApiTest or @DatabaseTest")
 
 
 public class CucumberTestRunner {
