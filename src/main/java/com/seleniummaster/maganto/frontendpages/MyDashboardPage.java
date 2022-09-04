@@ -28,6 +28,8 @@ public class MyDashboardPage {
 
     @FindBy(css = "p.welcome-msg")
     WebElement loginVerifyMessage;
+    @FindBy(xpath = "(//img[@alt='Madison Island'])[1]")
+    WebElement madisonLogo;
 
     @FindBy(xpath = "//a[text() = 'My Downloadable Products']")
     WebElement myDownloadableProductsLink;
@@ -114,6 +116,10 @@ public class MyDashboardPage {
         myAccountLink.click();
     }
 
+    public void clickOnMadisonLogo() {
+        testUtility.waitForElementPresent(madisonLogo);
+        madisonLogo.click();
+    }
 
 }
 

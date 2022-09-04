@@ -22,16 +22,18 @@ public class ShoppingCartPage {
     WebElement addToCartButton;
     @FindBy(css = ".success-msg>ul li span")
     WebElement successMessage;
-    @FindBy(xpath ="//span[text()='Cart' ]" )
+    @FindBy(xpath = "//span[text()='Cart' ]")
     WebElement cartLink;
-    @FindBy(xpath ="//a[@class=\"cart-link\"]")
+    @FindBy(xpath = "//a[@class=\"cart-link\"]")
     WebElement ViewShoppingCartLink;
-    @FindBy(css =".product-cart-actions>ul li a[title]")
+    @FindBy(css = ".product-cart-actions>ul li a[title]")
     WebElement EditIcon;
     @FindBy(xpath = "//span[text()=\"Update Cart\"]")
     WebElement UpdateCARTLink;
     @FindBy(css = ".a-center.product-cart-remove.last>.btn-remove.btn-remove2")
     WebElement deleteCartButton;
+    @FindBy(id = "qty")
+    WebElement quantityField;
 
     public ShoppingCartPage(WebDriver driver) {
         this.driver = driver;
@@ -39,31 +41,33 @@ public class ShoppingCartPage {
         testUtility = new TestUtility(driver);
     }
 
-    public void clickCartLink(){
+    public void clickCartLink() {
         testUtility.waitForElementPresent(cartLink);
         cartLink.click();
     }
-    public void clickViewShoppingCartLink(){
+
+    public void clickViewShoppingCartLink() {
         testUtility.waitForElementPresent(ViewShoppingCartLink);
         ViewShoppingCartLink.click();
     }
-    public void clickEditIcon(){
-       testUtility.waitForElementPresent(EditIcon);
+
+    public void clickEditIcon() {
+        testUtility.waitForElementPresent(EditIcon);
         EditIcon.click();
     }
 
 
-    public void clickUpdateCartLink(){
+    public void clickUpdateCartLink() {
         testUtility.waitForElementPresent(UpdateCARTLink);
         UpdateCARTLink.click();
     }
 
-    public void clickOnDeleteCartButton(){
-        testUtility.waitForElementPresent(deleteCartButton);
-        deleteCartButton.click();
+    public void fillOutQuantityField() {
+        testUtility.waitForElementPresent(quantityField);
+        quantityField.sendKeys("2");
     }
 
-    public void clickOnViewDetailsButton(){
+    public void clickOnViewDetailsButton() {
         testUtility.waitForElementPresent(viewDetailsButton);
         viewDetailsButton.click();
     }
@@ -76,30 +80,34 @@ public class ShoppingCartPage {
     }
 
 
-    public void selectSize(int index){
+    public void selectSize(int index) {
         testUtility.waitForElementPresent(sizeDropDownList);
         Select select = new Select(sizeDropDownList);
         select.selectByIndex(index);
     }
 
-    public void clickOnAddToCartButton(){
+    public void clickOnAddToCartButton() {
         testUtility.waitForElementPresent(addToCartButton);
         addToCartButton.click();
     }
 
-    public void addProductsToCart(){
+    public void addProductsToCart() {
         clickOnViewDetailsButton();
         selectColor();
         selectSize(2);
         clickOnAddToCartButton();
     }
 
-    public boolean verifyProductsAddedToCart(){
+    public void addToCart() {
+        clickOnAddToCartButton();
+    }
+
+    public boolean verifyProductsAddedToCart() {
         testUtility.waitForElementPresent(successMessage);
-        if(successMessage.getText().contains("was added to your shopping cart.")){
+        if (successMessage.getText().contains("was added to your shopping cart.")) {
             System.out.println("Add products to shopping cart Test Passed !!");
             return true;
-        }else{
+        } else {
             System.out.println("Add products to shopping cart Test Failed !!");
             return false;
         }
@@ -109,7 +117,7 @@ public class ShoppingCartPage {
         clickCartLink();
         clickViewShoppingCartLink();
         clickEditIcon();
-        selectSize(3);
+        fillOutQuantityField();
         clickUpdateCartLink();
     }
 
