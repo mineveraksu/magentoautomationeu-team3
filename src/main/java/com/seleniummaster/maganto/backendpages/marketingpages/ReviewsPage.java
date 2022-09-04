@@ -21,7 +21,7 @@ public class ReviewsPage {
 
     @FindBy(xpath = "//td[contains(text(),'team33')]//following-sibling::td[6]/a")
     WebElement editButton;
-    @FindBy(xpath = "(//a[text()=\"Edit\"])[1]")
+    @FindBy(xpath = "//a[contains(text(),'Edit')]")
     WebElement editIcon;
     @FindBy(id = "detail")
     WebElement reviewField;
@@ -61,6 +61,7 @@ public class ReviewsPage {
     public void clickOnEditIcon() {
         testUtility.waitForElementPresent(editIcon);
         editIcon.click();
+        testUtility.sleep(3);
     }
 
 
@@ -113,19 +114,19 @@ public class ReviewsPage {
     }
 
     public void updatePendingReview() {
-        testUtility.sleep(2);
-        testUtility.waitForElementPresent(qualityRadioButton);
-        actions.moveToElement(qualityRadioButton).click().perform();
-        testUtility.waitForElementPresent(priceRadioButton);
-        actions.moveToElement(priceRadioButton).click().perform();
-        testUtility.waitForElementPresent(valueRadioButton);
-        actions.moveToElement(valueRadioButton).click().perform();
-        testUtility.waitForElementPresent(statusSelectField);
-        select = new Select(statusSelectField);
-        select.selectByIndex(2);
-        testUtility.waitForElementPresent(visibleInField);
-        select = new Select(visibleInField);
-        select.selectByIndex(2);
+//        testUtility.sleep(2);
+//        testUtility.waitForElementPresent(qualityRadioButton);
+//        actions.moveToElement(qualityRadioButton).click().perform();
+//        testUtility.waitForElementPresent(priceRadioButton);
+//        actions.moveToElement(priceRadioButton).click().perform();
+//        testUtility.waitForElementPresent(valueRadioButton);
+//        actions.moveToElement(valueRadioButton).click().perform();
+//        testUtility.waitForElementPresent(statusSelectField);
+//        select = new Select(statusSelectField);
+//        select.selectByIndex(2);
+//        testUtility.waitForElementPresent(visibleInField);
+//        select = new Select(visibleInField);
+//        select.selectByIndex(2);
         testUtility.waitForElementPresent(nickNameField);
         nickNameField.clear();
         nickNameField.sendKeys(testUtility.generateFirstName());
