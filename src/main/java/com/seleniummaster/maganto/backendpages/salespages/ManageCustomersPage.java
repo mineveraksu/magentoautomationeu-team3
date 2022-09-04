@@ -41,17 +41,23 @@ public class ManageCustomersPage {
     @FindBy(linkText = "Configure")
     WebElement configureLink;
 
-    @FindBy(id = "product_composite_configure_input_qty")
-    WebElement quantityField;
+    @FindBy(xpath ="//*[@id=\"weight\"]")
+    WebElement weightField;
 
-    @FindBy(xpath = "//span[text()='OK']")
-    WebElement okButton;
+
+    @FindBy(xpath = "//span[text()='Save']")
+    WebElement saveButton;
 
     @FindBy(linkText = "Delete")
     WebElement deleteButton;
 
     @FindBy(xpath = "//*[@id=\"customer_cart_grid1_table\"]/thead/tr[1]/th[1]/span/a")
     WebElement customerShoppingCartView;
+
+    @FindBy(xpath = "//*[@id=\"customer_cart_grid1_table\"]/tbody/tr")
+    WebElement edit;
+
+
 
     public void openShoppingCart() {
         String email = ApplicationConfig.readFromConfigProperties(configFile, "email");
@@ -87,18 +93,21 @@ public class ManageCustomersPage {
 
     public void editShoppingCart() {
         testUtility.sleep(2);
-        testUtility.waitForElementPresent(configureLink);
-        configureLink.click();
+        testUtility.waitForElementPresent(edit);
+        edit.click();
         testUtility.sleep(2);
-        quantityField.clear();
-        quantityField.sendKeys("5");
-        okButton.click();
-        testUtility.sleep(2);
+        weightField.clear();
+        weightField.sendKeys("5");
+        testUtility.sleep(1);
+        testUtility.waitForElementPresent(saveButton);
+        saveButton.click();
+        testUtility.sleep(1);
+
     }
 
     public boolean verifyEditShoppingCart() {
 
-        if (driver.getPageSource().contains("5")) {
+        if (driver.getPageSource().contains("The product has been saved.")) {
             System.out.println("Shopping cart edited successfully");
             return true;
         } else {
