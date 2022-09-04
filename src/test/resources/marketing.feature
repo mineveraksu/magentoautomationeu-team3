@@ -2,7 +2,6 @@
 Feature:Marketing Manager can manage market
 
 
-
   @ViewPendingReviews
   Scenario: Marketing Manager can view pending reviews
     Given marketing manager is on the dashboard page and marketing manager click on pending reviews link
