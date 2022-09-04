@@ -65,7 +65,7 @@ public class StoreOrdersPage {
     @FindBy (xpath = "//input[@id='p_method_cashondelivery']")
     WebElement cashOnDeliveryRadioButton;
 
-    @FindBy (xpath = "//a[contains(text(),'shipping method')]")
+    @FindBy (xpath = "//a[contains(text(),'Get shipping methods and rates')]")
     WebElement getShippingMethodsAndRatesLink;
     @FindBy (xpath = "//input[@id='s_method_freeshipping_freeshipping']")
     WebElement freeShippingRadioButton;
@@ -99,8 +99,8 @@ public class StoreOrdersPage {
     public void fillBillingAndShippingAddress(){
         testUtility.waitForElementPresent(billingAddressDropDown);
         Select select1=new Select(billingAddressDropDown);
-        select1.selectByIndex(2);
-        testUtility.sleep(10);
+        select1.selectByIndex(1);
+        testUtility.sleep(1);
 
 
     }

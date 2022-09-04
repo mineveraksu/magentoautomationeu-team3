@@ -230,6 +230,7 @@ public class StoreSteps extends BasePage {
     @And("select shipping and payment methods and submit order")
     public void selectShippingAndPaymentMethodsAndSubmitOrder() {
         storeOrdersPage = new StoreOrdersPage(driver);
+        storeOrdersPage.fillBillingAndShippingAddress();
         storeOrdersPage.selectShippingMethodAndSubmitOrder();
     }
 

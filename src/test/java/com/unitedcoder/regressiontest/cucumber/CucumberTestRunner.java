@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
 
 
 
-        tags ="@RegressionTest or @ApiTest or @DatabaseTest")
+        tags ="@MarketingManagerCanFilterCartPriceRuleByIdAndName")
 
 
 public class CucumberTestRunner {
