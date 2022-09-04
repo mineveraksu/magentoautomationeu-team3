@@ -64,7 +64,7 @@ public class ShoppingCartPage {
 
     public void fillOutQuantityField() {
         testUtility.waitForElementPresent(quantityField);
-        quantityField.sendKeys("2");
+        quantityField.sendKeys("3");
     }
 
     public void clickOnViewDetailsButton() {
