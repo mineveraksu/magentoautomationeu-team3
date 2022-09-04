@@ -81,13 +81,13 @@ public class CatalogPriceRulePage {
 
 
     }
-    public void selectWebsite(TestDataHolder testDataHolder){
+    public void selectWebsite(){
         Select select=new Select(ruleWebSiteDropDown);
-        select.selectByVisibleText(testDataHolder.getWebsiteName());
+        select.selectByVisibleText("www.beatty.io");
     }
     public void selectCustomerGroupName(){
         Select select2=new Select(ruleGroupNameDropDown);
-        select2.selectByVisibleText("Europe Customer");//"Europe Customer"
+        select2.selectByValue("352");//"Europe Customer"
     }
     public void typeDiscountAmount(String discount){
         testUtility.waitForElementPresent(ruleDiscountField);
@@ -104,10 +104,10 @@ public class CatalogPriceRulePage {
 
         return successMsg.getText().contains("The rule has been saved.");
     }
-    public void AddNewRule(String name,TestDataHolder testDataHolder,String discount){
+    public void AddNewRule(String name,String discount){
         clickOnAddNewRuleButton();
         typeRuleName(name);
-        selectWebsite(testDataHolder);
+        selectWebsite();
         selectCustomerGroupName();
         clickOnSaveButton();
         typeDiscountAmount(discount);
