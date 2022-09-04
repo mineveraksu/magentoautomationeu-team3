@@ -186,9 +186,9 @@ public class OrdersPage {
     }
     public void searchBillToName(){
         testUtility.waitForElementPresent(billToNameField);
-        billToNameField.sendKeys("team3");
+        billToNameField.sendKeys("team33");
         billToNameField.sendKeys(Keys.ENTER);
-        testUtility.sleep(5);
+        testUtility.sleep(3);
     }
 
     public void updateOrderWithInStorePickup(){
