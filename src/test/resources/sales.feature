@@ -16,23 +16,17 @@ Feature:Sales Module Functions
   @CreateNewOrder
   Scenario Outline: Sales Manager can create a new order
     Given Sales manager is on the dashboard page and clicks on Orders link
-    When sales manager selects a "<store name>" in order to add a "<product name>" to order
+    When sales manager selects a "<store name>" in order to add a product to order
     Then Sales Manager created a new order successfully
     Examples:
-      | store name | product name              |
-      | English    | Black Nolita Cami-Black-S |
+      | store name |
+      | English    |
 
   @AddCreditMemo
   Scenario: Sales manager can add credit memo
     Given Sales manager is on the dashboard page and clicks on Orders link
     When  Sales manager click pending and invoice button to create credit memo
     Then  Verify added credit memo
-
-  @CreateNewRefund
-  Scenario: Sales manager should be able to create new refund for database
-    Given  Sales manager is on the dashboard page and clicks on Orders link
-    When  Sales manager created new refund
-    Then add new refund successful
     When  Sales manager should be refresh created refund
     Then Refresh successfully and newly added refunds in the data base
 
