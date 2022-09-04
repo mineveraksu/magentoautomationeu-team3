@@ -2,6 +2,7 @@
 Feature:Sales Module Functions
 
 
+
   @UpdateShipments
   Scenario Outline: Sales Manager can update shipments
     Given Sales manager is on the dashboard page and clicks on shipmentsOption
@@ -13,26 +14,27 @@ Feature:Sales Module Functions
       | commentHistory       | number   |
       | Shipped successfully | 12345678 |
 
+  @ManageUpdateShoppingCart
+  Scenario: Sales Manager should be able to manage update an existing shopping cart for customers.
+    Given Sales manager is on the dashboard page and click on the manage customers link
+    When Sales manager open a customer and open his shopping cart
+    And Sales manager edit the shopping cart
+    Then The shopping cart should be edited successfully
+
   @CreateNewOrder
   Scenario Outline: Sales Manager can create a new order
     Given Sales manager is on the dashboard page and clicks on Orders link
-    When sales manager selects a "<store name>" in order to add a "<product name>" to order
+    When sales manager selects a "<store name>" in order to add a product to order
     Then Sales Manager created a new order successfully
     Examples:
-      | store name | product name              |
-      | English    | Black Nolita Cami-Black-S |
+      | store name |
+      | English    |
 
   @AddCreditMemo
   Scenario: Sales manager can add credit memo
     Given Sales manager is on the dashboard page and clicks on Orders link
     When  Sales manager click pending and invoice button to create credit memo
     Then  Verify added credit memo
-
-  @CreateNewRefund
-  Scenario: Sales manager should be able to create new refund for database
-    Given  Sales manager is on the dashboard page and clicks on Orders link
-    When  Sales manager created new refund
-    Then add new refund successful
     When  Sales manager should be refresh created refund
     Then Refresh successfully and newly added refunds in the data base
 
@@ -92,19 +94,13 @@ Feature:Sales Module Functions
   Then Sales manager can view shopping cart
 
 
-  @ManageUpdateShoppingCart
-  Scenario: Sales Manager should be able to manage update an existing shopping cart for customers.
-    Given Sales manager is on the dashboard page and click on the manage customers link
-    When Sales manager open a customer and open his shopping cart
-    And Sales manager edit the shopping cart
-    Then The shopping cart should be edited successfully
+
 
 
   @DeleteShoppingCart
   Scenario: Sales Manager should be able to delete shopping cart
-    Given Sales manager is on the dashboard page and click on the manage customers link
-    When Sales manager open a customer and open his shopping cart
-    And Sales manager delete the shopping cart
+    Given sales manager open the existing shopping cart
+    When Sales manager delete the shopping cart
     Then The shopping cart should be deleted successfully
 
 

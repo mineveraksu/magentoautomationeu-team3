@@ -59,6 +59,8 @@ public class OrdersPage {
     WebElement updateSuccessMessage;
     @FindBy(xpath = "(//span[text()='Cancel'])[2]")
     WebElement cancelButton;
+    @FindBy(xpath = "(//div[@class='hor-scroll']/table/tbody//input[@type='checkbox'])[1]")
+    WebElement productCheckBox;
 
 
 
@@ -104,16 +106,16 @@ public class OrdersPage {
         productNameField.sendKeys(productName + Keys.ENTER);
     }
 
-    public void selectCheckbox(String productName) {
+    public void selectCheckbox() {
         testUtility.sleep(2);
-        WebElement checkBox=driver.findElement(By.xpath(String.format("(//*[contains(text(),'%s')])[2]//following-sibling::td[3]/input", productName)));
-        testUtility.waitForElementPresent(checkBox);
-        checkBox.click();
+        //WebElement checkBox=driver.findElement(By.xpath(String.format("(//*[contains(text(),'%s')])[4]//following-sibling::td[3]/input", productName)));
+        testUtility.waitForElementPresent(productCheckBox);
+        testUtility.javaScriptClick(productCheckBox);
     }
 
     public void clickOnAddSelectedProductsToOrderButton() {
         testUtility.waitForElementPresent(addSelectedProductsToOrderButton);
-        addSelectedProductsToOrderButton.click();
+        testUtility.javaScriptClick(addSelectedProductsToOrderButton);
     }
 
     public void selectBillingAddressDropDown() {
@@ -135,18 +137,18 @@ public class OrdersPage {
 
     public void clickOnSubmitOrderButton() {
         testUtility.waitForElementPresent(submitOrderButton);
-        submitOrderButton.click();
+        testUtility.javaScriptClick(submitOrderButton);
     }
 
 
-    public void createANewOrder(String storeName, String productName) {
+    public void createANewOrder(String storeName) {
         clickOnCreateNewOrderButton();
         selectViewDropDown();
         clickOnCustomerEmail();
         selectAStore(storeName);
         clickOnAddProductButton();
-        typeProductName(productName);
-        selectCheckbox(productName);
+        //typeProductName(productName);
+        selectCheckbox();
         clickOnAddSelectedProductsToOrderButton();
         selectBillingAddressDropDown();
         selectPaymentMethod();
@@ -164,7 +166,7 @@ public class OrdersPage {
     public void clickOnPendingLink(TestDataHolder testDataHolder){
         testUtility.sleep(3);
         //WebElement pendingLink=driver.findElement(By.xpath(String.format("(//table[@id='sales_order_grid_table']/tbody/tr/td[contains(text(),'%s')])[1]//ancestor::tr/td[9]",testDataHolder.getBillToName())));
-        WebElement pendingLink=driver.findElement(By.xpath(String.format("(//*[contains(text(),'%s')])[1]//following-sibling::td[4]","Kathryn  Carroll")));
+        WebElement pendingLink=driver.findElement(By.xpath(String.format("(//*[contains(text(),'%s')])[1]//following-sibling::td[4]","team33  team33")));
         testUtility.waitForElementPresent(pendingLink);
         pendingLink.click();
     }
