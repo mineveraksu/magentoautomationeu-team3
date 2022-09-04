@@ -11,7 +11,7 @@ public class ProductsPage {
     WebDriver driver;
     TestUtility testUtility;
 
-    @FindBy(xpath = "//a[@title='Black Nolita Cami-Black-S']/img")
+    @FindBy(xpath = "//ul[@class='products-grid']/li[1]")
     WebElement productImage;
 
 
