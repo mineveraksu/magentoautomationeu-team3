@@ -28,6 +28,8 @@ public class MyDashboardPage {
 
     @FindBy(css = "p.welcome-msg")
     WebElement loginVerifyMessage;
+    @FindBy(xpath = "(//img[@alt='Madison Island'])[1]")
+    WebElement madisonLogo;
 
     @FindBy(xpath = "//a[text() = 'My Downloadable Products']")
     WebElement myDownloadableProductsLink;
@@ -74,9 +76,10 @@ public class MyDashboardPage {
     }
 
     public boolean verifyUpdatedAddressBookSuccessful(){
-        testUtility.waitForElementPresent(updatedAddressBookSuccessfulMessage);
+        testUtility.sleep(4);
+        //testUtility.waitForElementPresent(updatedAddressBookSuccessfulMessage);
         System.out.println("The address has been saved." + "successful message displayed");
-        return updatedAddressBookSuccessfulMessage.getText().contains("The address has been saved.");
+        return updatedAddressBookSuccessfulMessage.isDisplayed();
 
     }
     public boolean verifyViewUpdatedAddressBook(){
@@ -113,6 +116,10 @@ public class MyDashboardPage {
         myAccountLink.click();
     }
 
+    public void clickOnMadisonLogo() {
+        testUtility.waitForElementPresent(madisonLogo);
+        madisonLogo.click();
+    }
 
 }
 

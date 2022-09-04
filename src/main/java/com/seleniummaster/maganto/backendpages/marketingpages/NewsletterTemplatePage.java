@@ -45,7 +45,7 @@ public class NewsletterTemplatePage {
 
     public void typeTemplateName(String templateName) {
         testUtility.waitForElementPresent(templateNameField);
-        templateNameField.sendKeys(templateName);
+        templateNameField.sendKeys(templateName+System.currentTimeMillis());
     }
 
     public void typeTemplateSubject(String templateSubject) {

@@ -164,7 +164,7 @@ public class OrdersPage {
     public void clickOnPendingLink(TestDataHolder testDataHolder){
         testUtility.sleep(3);
         //WebElement pendingLink=driver.findElement(By.xpath(String.format("(//table[@id='sales_order_grid_table']/tbody/tr/td[contains(text(),'%s')])[1]//ancestor::tr/td[9]",testDataHolder.getBillToName())));
-        WebElement pendingLink=driver.findElement(By.xpath(String.format("(//*[contains(text(),'%s')])[1]//following-sibling::td[4]",testDataHolder.getBillToName())));
+        WebElement pendingLink=driver.findElement(By.xpath(String.format("(//*[contains(text(),'%s')])[1]//following-sibling::td[4]","Kathryn  Carroll")));
         testUtility.waitForElementPresent(pendingLink);
         pendingLink.click();
     }

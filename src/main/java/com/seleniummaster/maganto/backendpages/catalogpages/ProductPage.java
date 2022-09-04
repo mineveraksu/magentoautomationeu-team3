@@ -101,7 +101,7 @@ public class ProductPage {
         testUtility.waitForElementPresent(shortDescriptionField);
         shortDescriptionField.sendKeys(testDataHolder.getShortDescription());
         testUtility.waitForElementPresent(skuField);
-        skuField.sendKeys(testDataHolder.getSKU());
+        skuField.sendKeys(testDataHolder.getSKU()+System.currentTimeMillis());
         testUtility.waitForElementPresent(weightField);
         weightField.sendKeys(testDataHolder.getWeight());
         testUtility.waitForElementPresent(statusSelectionField);

@@ -21,6 +21,9 @@ public class ApiSteps {
     private static String password;
     private static String configFile = "config.properties";
 
+    private static String Products;
+
+
     @Given("authorization and base url")
     public void authorizationAndBaseUrl() {
         baseURL = ApplicationConfig.readFromConfigProperties(configFile, "api.baseurl");
@@ -114,6 +117,8 @@ public class ApiSteps {
         //check the static code
         Assert.assertEquals(response.getStatusCode(), 200);
 
+
+
     }
 
     @When("user should be able to send put request for update customer{string}")
@@ -130,20 +135,57 @@ public class ApiSteps {
        Assert.assertEquals(response.getStatusCode(),200);
     }
 
+
+
     @When("user should be able to send post request for creating a new product using {string},{string},{string},{string}")
     public void userShouldBeAbleToSendPostRequestForCreatingANewProductUsing(String arg0, String arg1, String arg2, String arg3) {
-
-        response = given().headers("Content-Type", "application/json").and().body(PayloadUtility.getProductPayload(arg0,arg1,arg2,arg3))
-                .auth().basic(username, password)
+        int arg00=Integer.parseInt(arg0);
+        int arg11=Integer.parseInt(arg1);
+        response = given().headers("Content-Type", "application/json").and().body(PayloadUtility.getProductPayload(arg00,arg11,arg2,arg3))
+               .auth().basic(username, password)
                 .when().post(baseURL + "/product");
-        response.getBody().prettyPrint();
-        TestDataHolder.setCustomerGroupID(response.jsonPath().getString("id"));
+       response.getBody().prettyPrint();
 
     }
 
-    @Then("a product with {string},{string},{string},{string} should be created")
-    public void aProductWithShouldBeCreated( String arg3) {
-        Assert.assertEquals(response.getStatusCode(), 200);
-        Assert.assertTrue(response.jsonPath().getString("sku").contains(arg3));
+    @Then("a product with should be created")
+    public void aProductWithShouldBeCreated() {
+
+        Assert.assertEquals(response.getStatusCode(),200);
+    }
+
+
+    @When("User send get All Products Request to the Api server")
+    public void userSendGetAllProductsRequestToTheApiServer() {
+        response = given().auth().basic(username, password)
+                .when().get(baseURL + "/products");
+        response.getBody().prettyPrint();
+        //2009
+    }
+
+    @Then("User get status code and All Products information as response")
+    public void userGetStatusCodeAndAllProductsInformationAsResponse() {
+        Assert.assertEquals(response.getStatusCode(),200);
+    }
+
+    //get all customer information_Tursunay(flora)
+    @When("user should be able to send get request for all customers")
+    public void userShouldBeAbleToSendGetRequestForAllCustomers() {
+        response=RestAssured.given().auth().basic(username,password).when().get(baseURL+"/customers");
+        response.getBody().prettyPrint();
+    }
+
+    @Then("a user should be get all customers information")
+    public void aUserShouldBeGetAllCustomersInformation() {
+        Assert.assertEquals(response.getStatusCode(),200);
     }
 }
+
+
+
+
+
+
+
+
+

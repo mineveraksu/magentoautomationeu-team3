@@ -20,6 +20,7 @@ public class PublicUserModuleTestRunner extends BasePage {
     AddressBookPage addressBookPage;
     MyWishListPage myWishListPage;
     NewsLetterSubscriptionsPage newsLetterSubscriptionsPage;
+    ProductsPage productsPage;
 
     @BeforeClass
     public void setup(ITestContext context) {
@@ -45,7 +46,7 @@ public class PublicUserModuleTestRunner extends BasePage {
         Assert.assertTrue(accountInformationPage.verifyEditAccountInformation());
     }
 
-    @Test(description = "A user should be able to view Account Information")
+    @Test(groups = "regression test",description = "A user should be able to view Account Information")
     public void viewAccountInformation(){
         dashboardPage.clickOnAccountInformationLink();
         accountInformationPage.verifyAccountInformationViewed();
@@ -60,8 +61,11 @@ public class PublicUserModuleTestRunner extends BasePage {
 
     @Test(groups = "regression test", description = "A User Should be Able to add products to shopping cart")
     public void addProductsToCart() {
-        dashboardPage.clickOnSaleLink();
-        shoppingCartPage.addProductsToCart();
+        //dashboardPage.clickOnSaleLink();
+        dashboardPage.clickOnMadisonLogo();
+        productsPage=new ProductsPage(driver);
+        productsPage.clickProductImage();
+        shoppingCartPage.addToCart();
         Assert.assertTrue(shoppingCartPage.verifyProductsAddedToCart());
     }
 
@@ -73,16 +77,15 @@ public class PublicUserModuleTestRunner extends BasePage {
 
     @Test(groups = "regression test", description = "user should be able to update and view address book")
     public void updateAndViewAddressBook() {
+
         dashboardPage.clickOnAddressBookLink();
         addressBookPage.updateAddressBookMethod();
         addressBookPage.clickONSaveAddressButton();
         Assert.assertTrue(dashboardPage.verifyUpdatedAddressBookSuccessful());
-        dashboardPage.clickOnAddressBookLink();
-        Assert.assertTrue(dashboardPage.verifyViewUpdatedAddressBook());
 
     }
 
-    @Test(description = "A user should be able to check out the order")
+    @Test(groups = "regression test",description = "A user should be able to check out the order")
     public void checkoutProduct() {
         CheckOutOrderPage checkOutOrderPage = new CheckOutOrderPage(driver);
         //checkOutOrderPage.clickPlaceOrderButton();
@@ -95,7 +98,7 @@ public class PublicUserModuleTestRunner extends BasePage {
         Assert.assertTrue(downloadableProductsPage.isDownloadableProductsExist());
     }
 
-    @Test(description = "A user should be able to view my wish list")
+    @Test(groups = "regression test",description = "A user should be able to view my wish list")
     public void verifyMyWishList() {
         dashboardPage.clickOnMyWishListLink();
         myWishListPage.viewMyWshList();

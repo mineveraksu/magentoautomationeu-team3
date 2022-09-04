@@ -1,5 +1,17 @@
-@SalesModuleTest
+@SalesModuleTest @RegressionTest
 Feature:Sales Module Functions
+
+
+  @UpdateShipments
+  Scenario Outline: Sales Manager can update shipments
+    Given Sales manager is on the dashboard page and clicks on shipmentsOption
+    When Sales Manager click view icon and fill out "<commentHistory>" information and click on submit comment button
+    And Sales Manager edit shipping and tracking information and fill out "<number>" and click on add button
+    Then the shipments update successfully
+
+    Examples:
+      | commentHistory       | number   |
+      | Shipped successfully | 12345678 |
 
   @CreateNewOrder
   Scenario Outline: Sales Manager can create a new order
@@ -9,6 +21,12 @@ Feature:Sales Module Functions
     Examples:
       | store name | product name              |
       | English    | Black Nolita Cami-Black-S |
+
+  @AddCreditMemo
+  Scenario: Sales manager can add credit memo
+    Given Sales manager is on the dashboard page and clicks on Orders link
+    When  Sales manager click pending and invoice button to create credit memo
+    Then  Verify added credit memo
 
   @CreateNewRefund
   Scenario: Sales manager should be able to create new refund for database
@@ -33,19 +51,9 @@ Feature:Sales Module Functions
       | commentText                 |
       | Rest of the payment cleared |
 
-  @UpdateShipments
-  Scenario Outline: Sales Manager can update shipments
-    Given Sales manager is on the dashboard page and clicks on shipmentsOption
-    When Sales Manager click view icon and fill out "<commentHistory>" information and click on submit comment button
-    And Sales Manager edit shipping and tracking information and fill out "<number>" and click on add button
-    Then the shipments update successfully
-
-    Examples:
-      | commentHistory       | number   |
-      | Shipped successfully | 12345678 |
 
   @AddTaxRules
-  Scenario Outline: Sales Manager can add and update tax rules
+  Scenario Outline: Sales Manager can add tax rules
     Given Sales manager is on the dashboard page and clicks on Manage Tax Rules
     When Sales Manager click Add New Tax Rule  icon and fill out "<Name>" "<Priority>" "<SortOrder>" information and click on Save Rule button
     Then a new Tax Rule "<Name>" created successfully
@@ -54,7 +62,7 @@ Feature:Sales Module Functions
       | Team3 | 3        | 4        |
 
   @UpdateTaxRules
-  Scenario Outline: Sales Manager can update tax rules
+  Scenario Outline:Sales Manager can update tax rules
     Given Sales manager is on the dashboard page and clicks on Manage Tax Rules
     When Sales Manager click Add New Tax Rule icon and fill out "<Number>"information and edit tax rules
     Then the new Tax Rule update successfully
@@ -68,16 +76,12 @@ Feature:Sales Module Functions
     Given sales manager click on refunds link
     When  sales manager entering the refunds period and shows refunds
     Then  sales manager view refunds reports successful
+
     @ViewCreditMemo
     Scenario: Sales manager can view credit memo
       Given sales manager is on the dashboard and click credit memo link
       When  manager click the view button and view credit memo information
       Then verify view credit memo
-      @AddCreditMemo
-      Scenario: Sales manager can add credit memo
-        Given Sales manager is on the dashboard page and clicks on Orders link
-        When  Sales manager click pending and invoice button to create credit memo
-        Then  Verify added credit memo
 
 
 
@@ -89,15 +93,11 @@ Feature:Sales Module Functions
 
 
   @ManageUpdateShoppingCart
-  Scenario Outline: Sales Manager should be able to manage update an existing shopping cart for customers.
+  Scenario: Sales Manager should be able to manage update an existing shopping cart for customers.
     Given Sales manager is on the dashboard page and click on the manage customers link
     When Sales manager open a customer and open his shopping cart
     And Sales manager edit the shopping cart
     Then The shopping cart should be edited successfully
-    Examples:
-      | quantity |
-      | 5        |
-
 
 
   @DeleteShoppingCart
@@ -115,7 +115,10 @@ Feature:Sales Module Functions
     Then Sales Manager deleted a order successfully
 
     @ViewCreditMemos
-    Scenario: Sales Manager should be able to view credit memos by filters.
+   Scenario Outline: Sales Manager should be able to view credit memos by filters.
     Given Sales manager is on the dashboard page and clicks on credit memos link
     When Sale manager filter credit memos
     Then the result of the filter should be displayed
+      Examples:
+        |creditmemo id|
+        |100000025    |

@@ -4,26 +4,25 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ProductPayload {
 
-    public ProductPayload(String entityTypeId, String attributeSetId, String typeId, String sku) {
+
+
+
+
+    @JsonProperty("attributeSetId")
+    private int attributeSetId;
+    @JsonProperty("entityTypeId")
+    private int entityTypeId;
+    @JsonProperty("sku")
+    private String sku;
+    @JsonProperty("typeId")
+    private String typeId;
+
+
+    public ProductPayload( int attributeSetId ,int entityTypeId, String sku, String typeId ) {
         this.entityTypeId = entityTypeId;
         this.attributeSetId = attributeSetId;
         this.typeId = typeId;
         this.sku = sku;
     }
 
-
-
-    @JsonProperty("sku")
-    private String entityTypeId;
-    private String attributeSetId;
-    private String typeId;
-    private String sku;
-
-
-
-
-
-//    public ProductPayload(String entityTypeId,String attributeSetId,String typeId,String sku){
-//
-//    }
 }

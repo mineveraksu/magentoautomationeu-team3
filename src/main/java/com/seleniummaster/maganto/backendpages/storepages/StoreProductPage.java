@@ -79,11 +79,11 @@ public class StoreProductPage {
     WebElement nameAfterSearched;
     @FindBy(xpath = "//a[@name=\"categories\"]")
     WebElement categoriesLink;
-    @FindBy(xpath = "//span[contains(text(),\"Default Category\")]")
+    @FindBy(xpath = "//span[contains(text(),\"Team111 (3)\")]")
     WebElement existingRootCategories;
-    @FindBy(xpath = "//span[contains(text(),\"VIP\")]")
+    @FindBy(xpath = "//span[contains(text(),\"zibuzinnet (49)\")]")
     WebElement existingSubCategories;
-    @FindBy(xpath = "//*[contains(text(),\"Jeans\")]")
+    @FindBy(xpath = "//*[contains(text(),\"shoes (0)\")]")
     WebElement addedProductLink;
 
 
@@ -92,7 +92,7 @@ public class StoreProductPage {
 
 
     //delete product categories
-    @FindBy(xpath = "//span[contains(text(),\"VIP\")]")
+    @FindBy(xpath = "//span[contains(text(),\"Jack (0)\")]")
     WebElement deletedCategory;
     @FindBy(xpath = "//span[text()='Delete']")
     WebElement deleteProductCategoryButton;
@@ -191,6 +191,8 @@ public class StoreProductPage {
         testUtility.waitForElementPresent(qtyFiled);
         qtyFiled.sendKeys(qty);
         testUtility.waitForElementPresent(stockAvailabilityDropDown);
+        Select select6= new Select(stockAvailabilityDropDown);
+        select6.selectByVisibleText("In Stock");
         stockAvailabilityDropDown.click();
         testUtility.waitForElementPresent(saveButton);
         saveButton.click();
@@ -390,10 +392,13 @@ public class StoreProductPage {
         testUtility.waitForElementPresent(categoriesLink);
         categoriesLink.click();
         testUtility.waitForElementPresent(existingSubCategories);
-        existingRootCategories.click();
+        existingSubCategories.click();
         testUtility.sleep(3);
-        testUtility.waitForElementPresent(saveButton);
-        saveButton.click();
+        testUtility.waitForElementPresent(deleteProductCategoryButton);
+        deleteProductCategoryButton.click();
+        testUtility.waitForAlertPresent();
+        Alert alert = driver.switchTo().alert();
+        alert.accept();
 
     }
 
